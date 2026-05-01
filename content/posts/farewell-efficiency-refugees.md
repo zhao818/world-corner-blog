@@ -3,6 +3,7 @@ title: "别再做效率难民：为什么一行粗糙的代码，胜过一万篇
 date: "2026-05-01T12:30:00+08:00"
 categories: ["认知能量"]
 tags: ["效率", "自动化", "Hugo"]
+tone: "playful"
 draft: false
 ---
 
