@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on 世界一隅 | 认知能量工程</title>
+    <link>http://localhost:1313/world-corner-blog/tags/</link>
+    <description>Recent content in Tags on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 01 May 2026 15:27:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/world-corner-blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内在文明</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E5%86%85%E5%9C%A8%E6%96%87%E6%98%8E/</link>
+      <pubDate>Fri, 01 May 2026 15:27:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E5%86%85%E5%9C%A8%E6%96%87%E6%98%8E/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>孤独</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E5%AD%A4%E7%8B%AC/</link>
+      <pubDate>Fri, 01 May 2026 15:27:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E5%AD%A4%E7%8B%AC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>社交</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E7%A4%BE%E4%BA%A4/</link>
+      <pubDate>Fri, 01 May 2026 15:27:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E7%A4%BE%E4%BA%A4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>认知科学</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/</link>
+      <pubDate>Fri, 01 May 2026 15:27:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E8%AE%A4%E7%9F%A5%E7%A7%91%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/world-corner-blog/tags/python/</link>
+      <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Workflow</title>
+      <link>http://localhost:1313/world-corner-blog/tags/workflow/</link>
+      <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/workflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>http://localhost:1313/world-corner-blog/tags/hugo/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>效率</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E6%95%88%E7%8E%87/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E6%95%88%E7%8E%87/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>自动化</title>
+      <link>http://localhost:1313/world-corner-blog/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/world-corner-blog/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
