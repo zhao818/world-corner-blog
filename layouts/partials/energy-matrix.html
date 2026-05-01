@@ -1,0 +1,43 @@
+<div style="background-color: #1a1a2e; color: #ffffff; padding: 30px; border-radius: 12px; font-family: sans-serif; text-align: center; max-width: 650px; margin: 40px auto; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+    <h3 style="color: #4e54c8; margin-bottom: 10px; letter-spacing: 2px;">世界一隅 · 能量矩阵</h3>
+    <p style="font-size: 14px; color: #a0a0b8; margin-bottom: 30px;">在这里，我们通过认知对冲孤独</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: flex-end;">
+        <div style="width: 130px; text-align: center;">
+            <p style="font-size: 11px; margin-bottom: 10px; color: #888;">🕯️ 深度连接/圆满</p>
+            <div style="height: 130px; display: flex; align-items: center; justify-content: center; background: #ffffff; border-radius: 8px; overflow: hidden; border: 2px solid #4e54c8; box-shadow: 0 0 15px rgba(78, 84, 200, 0.3);">
+                <img src="{{ .Site.BaseURL }}qr/qr1.jpg" alt="深度交流" onclick="openQrModal(this.src)" style="max-width: 100%; max-height: 100%; cursor: zoom-in; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+            <p style="font-size: 10px; color: #555; margin-top: 8px;">点击放大扫码</p>
+        </div>
+        <div style="width: 130px; text-align: center;">
+            <p style="font-size: 11px; margin-bottom: 10px; color: #888;">☕ 能量对冲支持</p>
+            <div style="height: 130px; display: flex; justify-content: space-between; align-items: center; gap: 6px;">
+                <div style="height: 100%; width: 48%; background: #ffffff; border-radius: 6px; border: 1px solid #333; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                    <img src="{{ .Site.BaseURL }}qr/qr2.jpg" onclick="openQrModal(this.src)" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+                <div style="height: 100%; width: 48%; background: #ffffff; border-radius: 6px; border: 1px solid #333; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                    <img src="{{ .Site.BaseURL }}qr/qr4.jpg" onclick="openQrModal(this.src)" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+            </div>
+            <p style="font-size: 10px; color: #555; margin-top: 8px;">点击放大扫码</p>
+        </div>
+    </div>
+    <div style="margin-top: 30px; padding-top: 15px; border-top: 1px dashed #333;">
+        <p style="font-size: 12px; color: #666; font-style: italic;">“凡所有相，皆是虚妄。若见诸相非相，即见如来。”</p>
+    </div>
+    <div id="qrModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 99999; justify-content: center; align-items: center; flex-direction: column; cursor: zoom-out;" onclick="closeQrModal()">
+        <div style="background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
+            <img id="qrModalImg" src="" style="max-width: 80vw; max-height: 70vh; object-fit: contain; border-radius: 4px;">
+        </div>
+        <p style="color: #a0a0b8; margin-top: 20px; font-size: 14px; letter-spacing: 1px;">点击任意区域关闭</p>
+    </div>
+    <script>
+        function openQrModal(imageSrc) {
+            document.getElementById('qrModalImg').src = imageSrc;
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+        function closeQrModal() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+    </script>
+</div>
