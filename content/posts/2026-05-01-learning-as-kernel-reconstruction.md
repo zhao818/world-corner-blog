@@ -3,6 +3,7 @@ title: "学习的本质，是为内心「重新索引」——当学习心境成
 date: 2026-05-01
 draft: false
 description: "在AI算力爆炸时代，学习不再是知识获取，而是内心的重新索引。"
+comments: true
 tags: ["学习", "AI时代", "心境", "心流", "内在文明", "认知架构"]
 cover:
   image: ""
