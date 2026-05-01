@@ -3,6 +3,7 @@ title: "自动化生存指南：如何用 Python 构建你的专属「内容缓�
 date: "2026-05-01T12:40:00+08:00"
 categories: ["自动化"]
 tags: ["Python", "Workflow"]
+comments: true
 draft: false
 ---
 

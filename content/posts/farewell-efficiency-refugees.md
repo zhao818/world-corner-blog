@@ -4,6 +4,7 @@ date: "2026-05-01T12:30:00+08:00"
 categories: ["认知能量"]
 tags: ["效率", "自动化", "Hugo"]
 tone: "playful"
+comments: true
 draft: false
 ---
 
