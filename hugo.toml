@@ -1,0 +1,11 @@
+baseURL = 'https://zhao818.github.io/world-corner-blog/'
+languageCode = 'zh-cn'
+title = '世界一隅 | 认知能量工程'
+theme = 'PaperMod'
+
+[params]
+  env = 'production'
+  title = '世界一隅'
+  description = '在算法洪流中，守护清醒的微光。'
+  author = 'Tianbing Zhao'
+  defaultTheme = 'auto'
