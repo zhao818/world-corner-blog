@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>觉醒 on 世界一隅 | 认知能量工程</title>
-    <link>https://zhao818.github.io/world-corner-blog/tags/%E8%A7%89%E9%86%92/</link>
-    <description>Recent content in 觉醒 on 世界一隅 | 认知能量工程</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sat, 02 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/%E8%A7%89%E9%86%92/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>永恒争斗：一套系统架构的底层逻辑</title>
-      <link>https://zhao818.github.io/world-corner-blog/posts/eternal-combat-as-system-architecture/</link>
-      <pubDate>Sat, 02 May 2026 22:30:00 +0800</pubDate>
-      
-      <guid>https://zhao818.github.io/world-corner-blog/posts/eternal-combat-as-system-architecture/</guid>
-      <description>一、开机：你已身处战场 深夜，你躺在床上，拇指无意识地上滑——一个短视频，下一个，再下一个。你的瞳孔在蓝光中扩张，多巴胺像被捏住脖子的水管一样持续喷涌。你感到愉悦，是的——但你不知道的是，你的系统正在被 DDoS 攻击。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>觉醒 on 世界一隅 | 认知能量工程</title><link>https://zhao818.github.io/world-corner-blog/tags/%E8%A7%89%E9%86%92/</link><description>Recent content in 觉醒 on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 02 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/%E8%A7%89%E9%86%92/index.xml" rel="self" type="application/rss+xml"/><item><title>永恒争斗：一套系统架构的底层逻辑</title><link>https://zhao818.github.io/world-corner-blog/posts/eternal-combat-as-system-architecture/</link><pubDate>Sat, 02 May 2026 22:30:00 +0800</pubDate><guid>https://zhao818.github.io/world-corner-blog/posts/eternal-combat-as-system-architecture/</guid><description>一、开机：你已身处战场 深夜，你躺在床上，拇指无意识地上滑——一个短视频，下一个，再下一个。你的瞳孔在蓝光中扩张，多巴胺像被捏住脖子的水管一样持续喷涌。你感到愉悦，是的——但你不知道的是，你的系统正在被 DDoS 攻击。
 我不是在比喻。
 你的注意力——这个时代最稀缺的计算资源——正在被每秒数千次的请求轰炸。每一条推送都是一个精心构造的 SYN 包，占满你的认知连接队列。你不觉得自己在战斗，因为和平年代的特征就是：攻击不来自远方的大炮，而来自你口袋里的振动器。
 人们常说战争时代的旦夕祸福，却对和平年代的安稳趋之若鹜。但真相是——和平，只不过是一场负载均衡做得更好的战争。肉体消灭被替换为灵魂规训，剧烈爆炸坍缩为隐性内耗。
@@ -45,8 +30,4 @@ Ring 3 是用户态。你的浏览器、游戏、视频播放器都跑在这里�
 清醒者——那些启动了内核态的人——并不是跑得更快的进程。他们是换了保护环运行的进程。他们看到了完整的地址空间，理解自己为什么在那里，知道什么资源是真正稀缺的。
 沉睡者——始终停留在用户态的进程——最大的问题不是选择错误。问题是：他们不知道自己在用户态里。
 四、守微光：在 Slowloris 攻击中维持内核稳定 如果一切快乐都可能是栈溢出，如果永恒争斗是系统架构的底层约束，那我们还能做什么？
-答案很朴素，朴素到容易被淹没在喧嚣之中：维持内核稳定。</description>
-    </item>
-    
-  </channel>
-</rss>
+答案很朴素，朴素到容易被淹没在喧嚣之中：维持内核稳定。</description></item></channel></rss>
