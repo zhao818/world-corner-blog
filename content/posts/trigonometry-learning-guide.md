@@ -314,3 +314,94 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
   slider.addEventListener('input',draw);
 })();
 </script>
+
+---
+
+## 九、对称之美：Cos 的"完整半径修剪机"
+
+不仅是正弦（sin），余弦（cos）的底层计算也是一样的逻辑，只不过它的"初始状态"不同。
+
+当角度为 0 时，指针完全平躺在 X 轴上，此时的水平投影就是完整的半径（1）。随着角度 $x$ 的增大，这个水平投影会越来越短。所以，几百年前的极客们为 $\cos(x)$ 设计了另一套修剪协议：
+
+真实水平投影 $\cos(x) \approx$ 初始完整半径 $1$ - 水平折损 $\frac{x^2}{2}$
+
+看看下面这个为 cos 专属打造的"修剪机"，你会感受到数学底层的对称之美：
+
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; display: flex; flex-direction: column; align-items: center; padding: 25px; color: #f0f0f0; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); margin: 2em auto; max-width: 850px; border: 1px solid #333;">
+    <h3 style="margin-top: 0; margin-bottom: 20px; color: #fff; letter-spacing: 1px;">⚡ CPU 底层运算：将"完整半径(1)"修剪为"水平影子"</h3>
+    <div style="width: 100%; max-width: 800px; background: #0a0a0a; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+        <canvas id="taylorCosCanvas" width="800" height="400" style="width: 100%; height: auto; display: block;"></canvas>
+    </div>
+    <div style="margin-top: 25px; width: 100%; background: #222; padding: 20px; border-radius: 10px; border: 1px solid #333; box-sizing: border-box;">
+        <div style="text-align: center; margin-bottom: 15px;">
+            <label style="font-weight: bold; font-size: 15px; color: #aaa;">
+                拖动输入角度 (Degree): <span id="degreeValueCos" style="color: #2ed573; font-weight: bold; font-size: 20px; text-shadow: 0 0 8px rgba(46,213,115,0.6);">45°</span>
+            </label>
+            <br>
+            <input type="range" id="angleSliderCos" min="5" max="85" step="1" value="45" style="width: 90%; margin-top: 15px; cursor: pointer; accent-color: #2ed573;">
+        </div>
+        <div id="formulaTextCos" style="font-family: 'Consolas', monospace; font-size: 14px; color: #ddd; line-height: 1.8; background: #111; padding: 15px 20px; border-radius: 8px; border: 1px solid #2a2a2a;"></div>
+    </div>
+</div>
+
+<script>
+(function(){
+  var canvas=document.getElementById('taylorCosCanvas');
+  var ctx=canvas.getContext('2d');
+  var slider=document.getElementById('angleSliderCos');
+  var degreeValue=document.getElementById('degreeValueCos');
+  var formulaText=document.getElementById('formulaTextCos');
+  function drawGrid(){
+    ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1; ctx.beginPath();
+    for(var i=0;i<800;i+=40){ctx.moveTo(i,0);ctx.lineTo(i,400);}
+    for(var j=0;j<400;j+=40){ctx.moveTo(0,j);ctx.lineTo(800,j);}
+    ctx.stroke();
+  }
+  function draw(){
+    var deg=parseFloat(slider.value);
+    var x=deg*Math.PI/180;
+    ctx.clearRect(0,0,800,400);
+    drawGrid();
+    var v1=1.0, v2=1.0-Math.pow(x,2)/2, v3=Math.cos(x);
+    var cx=180, cy=320, R=220;
+    ctx.strokeStyle='#444'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(20,cy); ctx.lineTo(cx+R+40,cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,40); ctx.lineTo(cx,cy+30); ctx.stroke();
+    ctx.strokeStyle='#333'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,-Math.PI/2,true); ctx.stroke();
+    ctx.strokeStyle='#555'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,-x,true); ctx.stroke();
+    var px=cx+Math.cos(x)*R, py=cy-Math.sin(x)*R;
+    ctx.strokeStyle='#2ed573'; ctx.shadowColor='#2ed573'; ctx.shadowBlur=12; ctx.lineWidth=5;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,cy); ctx.stroke();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='#777'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px,cy); ctx.stroke();
+    ctx.setLineDash([]);
+    var bx=450, bWidth=60, bGap=40;
+    function renderBar(idx,val,color,label){
+      var bHeight=val*R, sx=bx+idx*(bWidth+bGap);
+      ctx.shadowColor=color; ctx.shadowBlur=15;
+      ctx.fillStyle=color; ctx.fillRect(sx,cy-bHeight,bWidth,bHeight);
+      ctx.shadowBlur=0;
+      ctx.fillStyle='#fff'; ctx.font='15px Consolas,monospace'; ctx.textAlign='center';
+      ctx.fillText(val.toFixed(4),sx+bWidth/2,cy-bHeight-12);
+      ctx.fillStyle='#aaa'; ctx.font='13px "Segoe UI",sans-serif';
+      ctx.fillText(label,sx+bWidth/2,cy+25);
+    }
+    renderBar(0,v1,'#00a8ff','1.完整半径');
+    renderBar(1,v2,'#ffa502','2.修剪一刀');
+    renderBar(2,v3,'#2ed573','3.真实投影');
+    degreeValue.innerText=deg+'\u00b0';
+    formulaText.innerHTML='<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed #333;">'+
+      '<span style="color:#00a8ff;font-size:16px;">\u25a0 提取弧度 (x)</span> = '+deg+'\u00b0 \u00d7 (\u03c0 / 180) = <b>'+x.toFixed(4)+'</b></div>'+
+      '<span style="color:#00a8ff;font-size:16px;">\u25a0 1. 初始满载状态 (完整半径)</span> = <b>1.0000</b><br>'+
+      '<span style="color:#888;font-size:16px;">\u25a0 2. 减去水平折损 (x\u00b2 / 2!)</span> = - '+((Math.pow(x,2))/2).toFixed(4)+'<br>'+
+      '<span style="color:#ffa502;font-size:16px;">\u25a0 泰勒级数估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
+      '<span style="color:#2ed573;font-size:16px;">\u25a0 CPU底层真实 cos(x)</span> = <b>'+v3.toFixed(4)+'</b>';
+  }
+  draw();
+  slider.addEventListener('input',draw);
+})();
+</script>
