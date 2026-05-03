@@ -230,71 +230,82 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
 
 不要死记硬背公式，请直接把玩下面这个**"几何修剪机"**。你会震惊地发现：仅仅只"修剪一刀"，代数估算值就已经和真实的几何高度几乎完美重合。
 
-<div id="taylor-sandbox-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1e1e1e; display: flex; flex-direction: column; align-items: center; padding: 30px; color: #f0f0f0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: 2em auto; max-width: 800px;">
-    <h3 style="margin-top: 0; color: #fff;">⚡ 将"弧长"修剪为"垂直高度"</h3>
-    <div style="display: flex; gap: 20px; background: #2d2d2d; padding: 20px; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); flex-wrap: wrap; justify-content: center;">
-        <canvas id="circleCanvas" width="350" height="350" style="background: #121212; border: 1px solid #444; border-radius: 8px;"></canvas>
-        <canvas id="barCanvas" width="350" height="350" style="background: #121212; border: 1px solid #444; border-radius: 8px;"></canvas>
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; display: flex; flex-direction: column; align-items: center; padding: 25px; color: #f0f0f0; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); margin: 2em auto; max-width: 850px; border: 1px solid #333;">
+    <h3 style="margin-top: 0; margin-bottom: 20px; color: #fff; letter-spacing: 1px;">⚡ CPU 底层运算：泰勒级数的几何修剪</h3>
+    <div style="width: 100%; max-width: 800px; background: #0a0a0a; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);">
+        <canvas id="taylorV2Canvas" width="800" height="400" style="width: 100%; height: auto; display: block;"></canvas>
     </div>
-    <div style="margin-top: 20px; width: 100%; max-width: 740px; background: #2d2d2d; padding: 20px; border-radius: 12px; text-align: center;">
-        <label style="font-weight: bold; font-size: 16px; color: #ccc;">
-            拉动调整圆心角 (弧度 x): <span id="angleValue2" style="color: #4e54c8; font-weight: bold; font-size: 18px;">1.00</span>
-        </label>
-        <br>
-        <input type="range" id="angleSlider2" min="0.1" max="1.57" step="0.01" value="1.0" style="width: 80%; margin: 15px 0; accent-color: #4e54c8;">
-        <br>
-        <div id="formulaText2" style="font-family: monospace; font-size: 14px; color: #aaa; margin-top: 10px; text-align: left; display: inline-block; line-height: 1.6; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #444;"></div>
+    <div style="margin-top: 25px; width: 100%; background: #222; padding: 20px; border-radius: 10px; border: 1px solid #333; box-sizing: border-box;">
+        <div style="text-align: center; margin-bottom: 15px;">
+            <label style="font-weight: bold; font-size: 15px; color: #aaa;">
+                拖动输入弧度 (时间戳 x): <span id="angleValueV2" style="color: #4e54c8; font-weight: bold; font-size: 20px; text-shadow: 0 0 8px rgba(78,84,200,0.6);">0.89</span>
+            </label>
+            <br>
+            <input type="range" id="angleSliderV2" min="0.1" max="1.57" step="0.01" value="0.89" style="width: 90%; margin-top: 15px; cursor: pointer; accent-color: #4e54c8;">
+        </div>
+        <div id="formulaTextV2" style="font-family: 'Consolas', monospace; font-size: 14px; color: #ddd; line-height: 1.8; background: #111; padding: 15px 20px; border-radius: 8px; border: 1px solid #2a2a2a;"></div>
     </div>
 </div>
 
 <script>
-// 第二个沙盒 — 闭包隔离，不污染第一个沙盒
 (function(){
-  const circleCtx = document.getElementById('circleCanvas').getContext('2d');
-  const barCtx = document.getElementById('barCanvas').getContext('2d');
-  const slider = document.getElementById('angleSlider2');
-  const angleValue = document.getElementById('angleValue2');
-  const formulaText = document.getElementById('formulaText2');
-  const RADIUS = 250;
-  const ORIGIN_X = 50;
-  const ORIGIN_Y = 300;
-  const BAR_BASE_Y = 300;
-  function draw(x){
-    circleCtx.clearRect(0,0,350,350);
-    barCtx.clearRect(0,0,350,350);
-    circleCtx.lineWidth=2; circleCtx.strokeStyle="#555";
-    circleCtx.beginPath(); circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(ORIGIN_X+RADIUS+20,ORIGIN_Y);
-    circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(ORIGIN_X,ORIGIN_Y-RADIUS-20); circleCtx.stroke();
-    circleCtx.strokeStyle="#444";
-    circleCtx.beginPath(); circleCtx.arc(ORIGIN_X,ORIGIN_Y,RADIUS,0,-Math.PI/2,true); circleCtx.stroke();
-    circleCtx.strokeStyle="#ffa502"; circleCtx.lineWidth=4;
-    circleCtx.beginPath(); circleCtx.arc(ORIGIN_X,ORIGIN_Y,RADIUS,0,-x,true); circleCtx.stroke();
-    var endX = ORIGIN_X+RADIUS*Math.cos(x), endY = ORIGIN_Y-RADIUS*Math.sin(x);
-    circleCtx.strokeStyle="#ff4757"; circleCtx.lineWidth=3;
-    circleCtx.beginPath(); circleCtx.moveTo(endX,ORIGIN_Y); circleCtx.lineTo(endX,endY); circleCtx.stroke();
-    circleCtx.strokeStyle="#2ed573"; circleCtx.setLineDash([5,5]); circleCtx.lineWidth=1;
-    circleCtx.beginPath(); circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(endX,endY); circleCtx.stroke();
-    circleCtx.setLineDash([]);
-    var v1 = x, v2 = x - Math.pow(x,3)/6, v3 = Math.sin(x);
-    var scale = RADIUS;
-    function drawBar(ctx,sx,w,h,col,label){
-      ctx.fillStyle=col; ctx.fillRect(sx,BAR_BASE_Y-h,w,h);
-      ctx.fillStyle="#ccc"; ctx.font="12px sans-serif";
-      ctx.fillText(h.toFixed(4),sx+5,BAR_BASE_Y-h-10);
-      ctx.fillText(label,sx-5,BAR_BASE_Y+20);
-    }
-    drawBar(barCtx,40,50,v1*scale,"#ffa502","1.原始弧长");
-    drawBar(barCtx,140,50,v2*scale,"#2ed573","2.修剪一刀");
-    drawBar(barCtx,240,50,v3*scale,"#ff4757","3.真实高度");
-    formulaText.innerHTML = '<span style="color:#ffa502">■ 原始拉直弧长 (x)</span> = <b>'+v1.toFixed(4)+'</b><br>'+
-      '<span style="color:#888">■ 减去弯曲折损 (x³ / 6)</span> = - '+(Math.pow(x,3)/6).toFixed(4)+'<br>'+
-      '<span style="color:#2ed573">■ 修剪后的估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
-      '<span style="color:#ff4757">■ CPU 算出的真实 sin(x)</span> = <b>'+v3.toFixed(4)+'</b><br>'+
-      '<i style="color:#777;font-size:12px;display:block;margin-top:8px;">（拖动滑块你会发现：只要角度不过大，仅靠四则运算"修剪一刀"，估算值就已极其精确）</i>';
+  var canvas = document.getElementById('taylorV2Canvas');
+  var ctx = canvas.getContext('2d');
+  var slider = document.getElementById('angleSliderV2');
+  var angleValue = document.getElementById('angleValueV2');
+  var formulaText = document.getElementById('formulaTextV2');
+  function drawGrid(){
+    ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1; ctx.beginPath();
+    for(var i=0;i<800;i+=40){ctx.moveTo(i,0);ctx.lineTo(i,400);}
+    for(var j=0;j<400;j+=40){ctx.moveTo(0,j);ctx.lineTo(800,j);}
+    ctx.stroke();
   }
-  draw(1.0);
-  slider.addEventListener('input',function(){
-    var x=parseFloat(slider.value); angleValue.innerText=x.toFixed(2); draw(x);
-  });
+  function draw(){
+    var x = parseFloat(slider.value);
+    ctx.clearRect(0,0,800,400);
+    drawGrid();
+    var v1=x, v2=x-Math.pow(x,3)/6, v3=Math.sin(x);
+    var cx=180, cy=320, R=220;
+    ctx.strokeStyle='#444'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(20,cy); ctx.lineTo(cx+R+40,cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,40); ctx.lineTo(cx,cy+30); ctx.stroke();
+    ctx.strokeStyle='#333'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,-Math.PI/2,true); ctx.stroke();
+    ctx.strokeStyle='#ffa502'; ctx.shadowColor='#ffa502'; ctx.shadowBlur=12; ctx.lineWidth=5;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,-x,true); ctx.stroke();
+    ctx.shadowBlur=0;
+    var px=cx+Math.cos(x)*R, py=cy-Math.sin(x)*R;
+    ctx.strokeStyle='#ff4757'; ctx.shadowColor='#ff4757'; ctx.shadowBlur=12; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(px,cy); ctx.lineTo(px,py); ctx.stroke();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle='#777'; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+    ctx.setLineDash([]);
+    var bx=450, bWidth=60, bGap=40;
+    function renderBar(idx,val,color,label){
+      var bHeight=val*R, sx=bx+idx*(bWidth+bGap);
+      ctx.shadowColor=color; ctx.shadowBlur=15;
+      ctx.fillStyle=color; ctx.fillRect(sx,cy-bHeight,bWidth,bHeight);
+      ctx.shadowBlur=0;
+      ctx.fillStyle='#fff'; ctx.font='15px Consolas,monospace'; ctx.textAlign='center';
+      ctx.fillText(val.toFixed(4),sx+bWidth/2,cy-bHeight-12);
+      ctx.fillStyle='#aaa'; ctx.font='13px "Segoe UI",sans-serif';
+      ctx.fillText(label,sx+bWidth/2,cy+25);
+    }
+    renderBar(0,v1,'#ffa502','1.原始弧长');
+    renderBar(1,v2,'#2ed573','2.修剪一刀');
+    renderBar(2,v3,'#ff4757','3.真实高度');
+    ctx.strokeStyle='rgba(255,71,87,0.5)'; ctx.setLineDash([5,5]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(px,py);
+    ctx.lineTo(bx+2*(bWidth+bGap)+bWidth+20,py);
+    ctx.stroke(); ctx.setLineDash([]);
+    angleValue.innerText=x.toFixed(2);
+    formulaText.innerHTML='<span style="color:#ffa502;font-size:16px;">■ 原始拉直弧长 (x)</span> = <b>'+v1.toFixed(4)+'</b><br>'+
+      '<span style="color:#888;font-size:16px;">■ 减去弯曲折损 (x³ / 6)</span> = - '+((Math.pow(x,3))/6).toFixed(4)+'<br>'+
+      '<span style="color:#2ed573;font-size:16px;">■ 泰勒级数估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
+      '<span style="color:#ff4757;font-size:16px;">■ CPU底层真实 sin(x)</span> = <b>'+v3.toFixed(4)+'</b>';
+  }
+  draw();
+  slider.addEventListener('input',draw);
 })();
 </script>
