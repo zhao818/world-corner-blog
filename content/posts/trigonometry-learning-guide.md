@@ -238,10 +238,10 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
     <div style="margin-top: 25px; width: 100%; background: #222; padding: 20px; border-radius: 10px; border: 1px solid #333; box-sizing: border-box;">
         <div style="text-align: center; margin-bottom: 15px;">
             <label style="font-weight: bold; font-size: 15px; color: #aaa;">
-                拖动输入弧度 (时间戳 x): <span id="angleValueV2" style="color: #4e54c8; font-weight: bold; font-size: 20px; text-shadow: 0 0 8px rgba(78,84,200,0.6);">0.89</span>
+                拖动输入角度 (Degree): <span id="degreeValue" style="color: #4e54c8; font-weight: bold; font-size: 20px; text-shadow: 0 0 8px rgba(78,84,200,0.6);">51°</span>
             </label>
             <br>
-            <input type="range" id="angleSliderV2" min="0.1" max="1.57" step="0.01" value="0.89" style="width: 90%; margin-top: 15px; cursor: pointer; accent-color: #4e54c8;">
+            <input type="range" id="angleSliderV2" min="5" max="90" step="1" value="51" style="width: 90%; margin-top: 15px; cursor: pointer; accent-color: #4e54c8;">
         </div>
         <div id="formulaTextV2" style="font-family: 'Consolas', monospace; font-size: 14px; color: #ddd; line-height: 1.8; background: #111; padding: 15px 20px; border-radius: 8px; border: 1px solid #2a2a2a;"></div>
     </div>
@@ -252,7 +252,7 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
   var canvas = document.getElementById('taylorV2Canvas');
   var ctx = canvas.getContext('2d');
   var slider = document.getElementById('angleSliderV2');
-  var angleValue = document.getElementById('angleValueV2');
+  var degreeValue = document.getElementById('degreeValue');
   var formulaText = document.getElementById('formulaTextV2');
   function drawGrid(){
     ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1; ctx.beginPath();
@@ -261,10 +261,13 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
     ctx.stroke();
   }
   function draw(){
-    var x = parseFloat(slider.value);
+    var deg = parseFloat(slider.value);
+    var x = deg * Math.PI / 180;
     ctx.clearRect(0,0,800,400);
     drawGrid();
-    var v1=x, v2=x-Math.pow(x,3)/6, v3=Math.sin(x);
+    var v1 = x;
+    var v2 = x - Math.pow(x,3)/6;
+    var v3 = Math.sin(x);
     var cx=180, cy=320, R=220;
     ctx.strokeStyle='#444'; ctx.lineWidth=2;
     ctx.beginPath(); ctx.moveTo(20,cy); ctx.lineTo(cx+R+40,cy); ctx.stroke();
@@ -299,11 +302,13 @@ CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，�
     ctx.beginPath(); ctx.moveTo(px,py);
     ctx.lineTo(bx+2*(bWidth+bGap)+bWidth+20,py);
     ctx.stroke(); ctx.setLineDash([]);
-    angleValue.innerText=x.toFixed(2);
-    formulaText.innerHTML='<span style="color:#ffa502;font-size:16px;">■ 原始拉直弧长 (x)</span> = <b>'+v1.toFixed(4)+'</b><br>'+
-      '<span style="color:#888;font-size:16px;">■ 减去弯曲折损 (x³ / 6)</span> = - '+((Math.pow(x,3))/6).toFixed(4)+'<br>'+
-      '<span style="color:#2ed573;font-size:16px;">■ 泰勒级数估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
-      '<span style="color:#ff4757;font-size:16px;">■ CPU底层真实 sin(x)</span> = <b>'+v3.toFixed(4)+'</b>';
+    degreeValue.innerText = deg + '\u00b0';
+    formulaText.innerHTML = '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed #333;">'+
+      '<span style="color:#00a8ff;font-size:16px;">\u25a0 CPU 协议转换 (提取弧度 x)</span> = '+deg+'\u00b0 \u00d7 (\u03c0 / 180) = <b>'+x.toFixed(4)+'</b></div>'+
+      '<span style="color:#ffa502;font-size:16px;">\u25a0 1. 原始拉直弧长 (x)</span> = <b>'+v1.toFixed(4)+'</b><br>'+
+      '<span style="color:#888;font-size:16px;">\u25a0 2. 减去弯曲折损 (x\u00b3 / 3!)</span> = - '+((Math.pow(x,3))/6).toFixed(4)+'<br>'+
+      '<span style="color:#2ed573;font-size:16px;">\u25a0 泰勒级数估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
+      '<span style="color:#ff4757;font-size:16px;">\u25a0 CPU底层真实 sin(x)</span> = <b>'+v3.toFixed(4)+'</b>';
   }
   draw();
   slider.addEventListener('input',draw);
