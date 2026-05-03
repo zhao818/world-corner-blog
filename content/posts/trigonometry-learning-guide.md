@@ -1,12 +1,92 @@
 ---
-title: "「三角函数学习的技巧：让零基础的人从现在开始彻底理解 sin/cos/tan 的本质，并真正能用到实际中（测量、计算、编程）。核心方法论：不教公式记忆、不教死记硬背、不用教材顺序——而是用直观的几何直觉取代抽象定义，用圆上的运动替代公式推导。最终让读者不仅看懂，而且立刻能用三角函数的思维解决真实问题。」"
+title: "圆上的指针：为什么你不需要记住三角函数，却能用它解决一切"
 date: "2026-05-03T08:05:10+08:00"
 draft: false
 comments: true
-tags: ["社会观察", "系统思维geek"]
+tags: ["数学教育", "系统思维geek"]
 tone: "geek"
-description: "---"
+description: "把角度当作时间，把圆当作状态空间，把 sin 和 cos 当作投影函数——三角函数不是需要背诵的公式库，而是一个几何直觉的 API。"
 ---
+
+<!-- 沙盒：交互式三角函数演示，拖动滑块观察指针在单位圆上的运动 -->
+<div id="trig-sandbox" style="max-width:800px;margin:2em auto;padding:20px;background:#1e1e1e;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.5)">
+  <h3 style="color:#f0f0f0;text-align:center;margin-top:0;font-family:'Segoe UI',sans-serif">⚡ 圆上的指针：运行时状态机</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:flex-start">
+    <canvas id="trigCanvas" width="500" height="500" style="background:#121212;border-radius:12px;box-shadow:inset 0 0 20px rgba(0,0,0,0.8)"></canvas>
+    <div style="display:flex;flex-direction:column;gap:15px;width:220px;font-family:'Segoe UI',sans-serif">
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <label for="angle" style="color:#ccc;font-size:13px">旋转时间戳 (角度 θ): <span id="angleDisplay" style="color:#fff;font-weight:bold">45</span>°</label>
+        <input type="range" id="angle" min="0" max="360" value="45" style="width:100%;cursor:pointer;accent-color:#4e54c8">
+      </div>
+      <div style="background:#1a1a1a;padding:12px;border-radius:8px;font-family:monospace;font-size:15px;border:1px solid #444">
+        <div style="color:#2ed573">X 投影 (cos) = <span id="cosVal">0.707</span></div>
+        <div style="color:#ff4757">Y 投影 (sin) = <span id="sinVal">0.707</span></div>
+        <div style="color:#ffa502">斜率信号 (tan) = <span id="tanVal">1.000</span></div>
+      </div>
+      <div style="color:#999;font-size:12px;line-height:1.8">
+        <p style="margin:4px 0"><span style="color:#2ed573;font-weight:bold">■ 绿色线</span>: cos(θ)，指针在 X 轴的影子</p>
+        <p style="margin:4px 0"><span style="color:#ff4757;font-weight:bold">■ 红色线</span>: sin(θ)，指针在 Y 轴的影子</p>
+        <p style="margin:4px 0"><span style="color:#ffa502;font-weight:bold">■ 橙色线</span>: tan(θ)，从右侧切线延伸的坡度信号</p>
+        <p style="margin:6px 0 0 0;color:#888">※ 拖动滑块，观察系统状态变化。接近 90° 时注意 tan 的奇异点 → ∞</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    function initTrigSandbox(){
+      var canvas = document.getElementById('trigCanvas');
+      if(!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var slider = document.getElementById('angle');
+      var angleDisplay = document.getElementById('angleDisplay');
+      var sinVal = document.getElementById('sinVal');
+      var cosVal = document.getElementById('cosVal');
+      var tanVal = document.getElementById('tanVal');
+      var w = canvas.width, h = canvas.height;
+      var cx = w/2, cy = h/2, R = 150;
+      function draw(){
+        var deg = parseFloat(slider.value);
+        var rad = -deg * Math.PI / 180;
+        var cv = Math.cos(rad), sv = Math.sin(rad);
+        var tv = Math.tan(rad);
+        angleDisplay.textContent = deg;
+        cosVal.textContent = Math.cos(-rad).toFixed(3);
+        sinVal.textContent = Math.sin(-rad).toFixed(3);
+        tanVal.textContent = (deg===90||deg===270) ? "∞ (奇异点)" : Math.tan(-rad).toFixed(3);
+        ctx.clearRect(0,0,w,h);
+        ctx.strokeStyle='#555'; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(w,cy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,h); ctx.stroke();
+        ctx.strokeStyle='#888';
+        ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+        var px = cx + cv*R, py = cy + sv*R;
+        ctx.strokeStyle='#2ed573'; ctx.lineWidth=4;
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,cy); ctx.stroke();
+        ctx.strokeStyle='#ff4757';
+        ctx.beginPath(); ctx.moveTo(px,cy); ctx.lineTo(px,py); ctx.stroke();
+        if(deg!==90 && deg!==270){
+          var tpy = cy + tv*R;
+          ctx.strokeStyle='#ffa502'; ctx.lineWidth=3; ctx.setLineDash([5,5]);
+          ctx.beginPath(); ctx.moveTo(cx+R,cy); ctx.lineTo(cx+R,tpy); ctx.stroke();
+          ctx.strokeStyle='rgba(255,165,2,0.3)'; ctx.setLineDash([]);
+          ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+R,tpy); ctx.stroke();
+        }
+        ctx.strokeStyle='#fff'; ctx.lineWidth=2;
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(px,py); ctx.stroke();
+        ctx.fillStyle='#fff';
+        ctx.beginPath(); ctx.arc(px,py,5,0,Math.PI*2); ctx.fill();
+      }
+      slider.addEventListener('input', draw);
+      draw();
+    }
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initTrigSandbox);
+    } else {
+      initTrigSandbox();
+    }
+  })();
+</script>
 
 # 圆上的指针：为什么你不需要记住三角函数，却能用它解决一切
 
@@ -14,7 +94,7 @@ description: "---"
 
 ---
 
-## 一、协议栈的第一层：从“死记硬背”到“旋转运动”
+## 一、协议栈的第一层：从"死记硬背"到"旋转运动"
 
 大多数人对三角函数的恐惧，源于一个错误的系统架构：他们把 sin、cos、tan 当作独立的 API 函数，每个都需要单独记忆参数和返回值。但实际上，这三者共享同一个底层协议——**单位圆上的旋转**。
 
