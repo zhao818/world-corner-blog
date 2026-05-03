@@ -15,8 +15,11 @@ description: "把角度当作时间，把圆当作状态空间，把 sin 和 cos
     <canvas id="trigCanvas" width="500" height="500" style="background:#121212;border-radius:12px;box-shadow:inset 0 0 20px rgba(0,0,0,0.8)"></canvas>
     <div style="display:flex;flex-direction:column;gap:15px;width:220px;font-family:'Segoe UI',sans-serif">
       <div style="display:flex;flex-direction:column;gap:5px">
-        <label for="angle" style="color:#ccc;font-size:13px">旋转时间戳 (角度 θ): <span id="angleDisplay" style="color:#fff;font-weight:bold">45</span>°</label>
-        <input type="range" id="angle" min="0" max="360" value="45" style="width:100%;cursor:pointer;accent-color:#4e54c8">
+        <label for="angle" style="color:#ccc;font-size:13px">旋转时间戳 (角度 θ)</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="range" id="angle" min="0" max="360" value="45" style="flex:1;cursor:pointer;accent-color:#4e54c8">
+          <input type="number" id="angleInput" min="0" max="360" value="45" style="width:72px;padding:4px 8px;background:#1a1a1a;color:#fff;border:1px solid #4e54c8;border-radius:6px;font-family:monospace;font-size:14px;text-align:center">
+        </div>
       </div>
       <div style="background:#1a1a1a;padding:12px;border-radius:8px;font-family:monospace;font-size:15px;border:1px solid #444">
         <div style="color:#2ed573">X 投影 (cos) = <span id="cosVal">0.707</span></div>
@@ -39,7 +42,7 @@ description: "把角度当作时间，把圆当作状态空间，把 sin 和 cos
       if(!canvas) return;
       var ctx = canvas.getContext('2d');
       var slider = document.getElementById('angle');
-      var angleDisplay = document.getElementById('angleDisplay');
+      var angleInput = document.getElementById('angleInput');
       var sinVal = document.getElementById('sinVal');
       var cosVal = document.getElementById('cosVal');
       var tanVal = document.getElementById('tanVal');
@@ -50,7 +53,7 @@ description: "把角度当作时间，把圆当作状态空间，把 sin 和 cos
         var rad = -deg * Math.PI / 180;
         var cv = Math.cos(rad), sv = Math.sin(rad);
         var tv = Math.tan(rad);
-        angleDisplay.textContent = deg;
+        angleInput.value = deg;
         cosVal.textContent = Math.cos(-rad).toFixed(3);
         sinVal.textContent = Math.sin(-rad).toFixed(3);
         tanVal.textContent = (deg===90||deg===270) ? "∞ (奇异点)" : Math.tan(-rad).toFixed(3);
@@ -78,6 +81,13 @@ description: "把角度当作时间，把圆当作状态空间，把 sin 和 cos
         ctx.beginPath(); ctx.arc(px,py,5,0,Math.PI*2); ctx.fill();
       }
       slider.addEventListener('input', draw);
+      angleInput.addEventListener('input', function(){
+        var v = parseFloat(this.value);
+        if(isNaN(v)) return;
+        v = Math.min(360, Math.max(0, v));
+        slider.value = v;
+        draw();
+      });
       draw();
     }
     if(document.readyState === 'loading'){
