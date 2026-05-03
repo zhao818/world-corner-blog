@@ -209,3 +209,92 @@ y = L1 * sin(θ1) + L2 * sin(θ1 + θ2)
 当你面对一个实际问题时，不要问“这个问题的三角函数公式是什么”，而要问“这个问题的圆上运动是什么”。一旦你找到了圆上的指针，sin 和 cos 就只是这个指针在 x 轴和 y 轴上的影子——你不需要记住它们，只需要看着影子移动。
 
 这就是三角函数学习的终极技巧：**把角度当作时间，把圆当作状态空间，把 sin 和 cos 当作投影函数**。剩下的，都是这个核心模型的派生应用。
+
+---
+
+## 八、底层降维：CPU 是如何计算 sin 的？（泰勒展开的几何修剪）
+
+到这里，你已经掌握了三角函数的几何直觉。但如果你是一个极客，脑子里一定会冒出一个终极疑问：**既然三角函数是圆上的影子，那计算机底层是怎么算出这个影子的？**
+
+CPU 是一个极其纯粹的逻辑门集合，它没有尺子，画不出圆，更不懂什么是"投影"。它只认得加、减、乘、除。我们要如何用纯粹的四则运算，向 CPU 描述一个圆上的曲线运动？
+
+答案是：**把弧长拉直，然后用代数"修剪"它。**
+
+在数学底层，角度其实是用"弧度（Radian）"来表示的。在单位圆中，弧度 $x$ 就是指针走过的**弧长**。如果我们把这段弯曲的弧长 $x$ 直接拉直，当成垂直高度，它肯定比真实的 $\sin(x)$ 要长一点点。
+
+既然长了，修剪掉多余的部分不就行了吗？
+
+几百年前的数学家泰勒（Taylor）发现了一个惊人的底层协议：真实高度 $\sin(x) \approx$ 原始弧长 $x$ - 弯曲折损 $\frac{x^3}{6}$
+
+这就是著名的**泰勒展开式（Taylor Series）**的前两项。计算机底层根本不知道什么是三角函数，当你调用 `Math.sin(x)` 时，CPU 实际上就是把传入的数字 $x$ 自己乘三次，除以 6，然后从原数值里减去。
+
+不要死记硬背公式，请直接把玩下面这个**"几何修剪机"**。你会震惊地发现：仅仅只"修剪一刀"，代数估算值就已经和真实的几何高度几乎完美重合。
+
+<div id="taylor-sandbox-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1e1e1e; display: flex; flex-direction: column; align-items: center; padding: 30px; color: #f0f0f0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: 2em auto; max-width: 800px;">
+    <h3 style="margin-top: 0; color: #fff;">⚡ 将"弧长"修剪为"垂直高度"</h3>
+    <div style="display: flex; gap: 20px; background: #2d2d2d; padding: 20px; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); flex-wrap: wrap; justify-content: center;">
+        <canvas id="circleCanvas" width="350" height="350" style="background: #121212; border: 1px solid #444; border-radius: 8px;"></canvas>
+        <canvas id="barCanvas" width="350" height="350" style="background: #121212; border: 1px solid #444; border-radius: 8px;"></canvas>
+    </div>
+    <div style="margin-top: 20px; width: 100%; max-width: 740px; background: #2d2d2d; padding: 20px; border-radius: 12px; text-align: center;">
+        <label style="font-weight: bold; font-size: 16px; color: #ccc;">
+            拉动调整圆心角 (弧度 x): <span id="angleValue2" style="color: #4e54c8; font-weight: bold; font-size: 18px;">1.00</span>
+        </label>
+        <br>
+        <input type="range" id="angleSlider2" min="0.1" max="1.57" step="0.01" value="1.0" style="width: 80%; margin: 15px 0; accent-color: #4e54c8;">
+        <br>
+        <div id="formulaText2" style="font-family: monospace; font-size: 14px; color: #aaa; margin-top: 10px; text-align: left; display: inline-block; line-height: 1.6; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px solid #444;"></div>
+    </div>
+</div>
+
+<script>
+// 第二个沙盒 — 闭包隔离，不污染第一个沙盒
+(function(){
+  const circleCtx = document.getElementById('circleCanvas').getContext('2d');
+  const barCtx = document.getElementById('barCanvas').getContext('2d');
+  const slider = document.getElementById('angleSlider2');
+  const angleValue = document.getElementById('angleValue2');
+  const formulaText = document.getElementById('formulaText2');
+  const RADIUS = 250;
+  const ORIGIN_X = 50;
+  const ORIGIN_Y = 300;
+  const BAR_BASE_Y = 300;
+  function draw(x){
+    circleCtx.clearRect(0,0,350,350);
+    barCtx.clearRect(0,0,350,350);
+    circleCtx.lineWidth=2; circleCtx.strokeStyle="#555";
+    circleCtx.beginPath(); circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(ORIGIN_X+RADIUS+20,ORIGIN_Y);
+    circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(ORIGIN_X,ORIGIN_Y-RADIUS-20); circleCtx.stroke();
+    circleCtx.strokeStyle="#444";
+    circleCtx.beginPath(); circleCtx.arc(ORIGIN_X,ORIGIN_Y,RADIUS,0,-Math.PI/2,true); circleCtx.stroke();
+    circleCtx.strokeStyle="#ffa502"; circleCtx.lineWidth=4;
+    circleCtx.beginPath(); circleCtx.arc(ORIGIN_X,ORIGIN_Y,RADIUS,0,-x,true); circleCtx.stroke();
+    var endX = ORIGIN_X+RADIUS*Math.cos(x), endY = ORIGIN_Y-RADIUS*Math.sin(x);
+    circleCtx.strokeStyle="#ff4757"; circleCtx.lineWidth=3;
+    circleCtx.beginPath(); circleCtx.moveTo(endX,ORIGIN_Y); circleCtx.lineTo(endX,endY); circleCtx.stroke();
+    circleCtx.strokeStyle="#2ed573"; circleCtx.setLineDash([5,5]); circleCtx.lineWidth=1;
+    circleCtx.beginPath(); circleCtx.moveTo(ORIGIN_X,ORIGIN_Y); circleCtx.lineTo(endX,endY); circleCtx.stroke();
+    circleCtx.setLineDash([]);
+    var v1 = x, v2 = x - Math.pow(x,3)/6, v3 = Math.sin(x);
+    var scale = RADIUS;
+    function drawBar(ctx,sx,w,h,col,label){
+      ctx.fillStyle=col; ctx.fillRect(sx,BAR_BASE_Y-h,w,h);
+      ctx.fillStyle="#ccc"; ctx.font="12px sans-serif";
+      ctx.fillText(h.toFixed(4),sx+5,BAR_BASE_Y-h-10);
+      ctx.fillText(label,sx-5,BAR_BASE_Y+20);
+    }
+    drawBar(barCtx,40,50,v1*scale,"#ffa502","1.原始弧长");
+    drawBar(barCtx,140,50,v2*scale,"#2ed573","2.修剪一刀");
+    drawBar(barCtx,240,50,v3*scale,"#ff4757","3.真实高度");
+    formulaText.innerHTML = '<span style="color:#ffa502">■ 原始拉直弧长 (x)</span> = <b>'+v1.toFixed(4)+'</b><br>'+
+      '<span style="color:#888">■ 减去弯曲折损 (x³ / 6)</span> = - '+(Math.pow(x,3)/6).toFixed(4)+'<br>'+
+      '<span style="color:#2ed573">■ 修剪后的估算值</span> = <b>'+v2.toFixed(4)+'</b><br>'+
+      '<span style="color:#ff4757">■ CPU 算出的真实 sin(x)</span> = <b>'+v3.toFixed(4)+'</b><br>'+
+      '<i style="color:#777;font-size:12px;display:block;margin-top:8px;">（拖动滑块你会发现：只要角度不过大，仅靠四则运算"修剪一刀"，估算值就已极其精确）</i>';
+  }
+  draw(1.0);
+  slider.addEventListener('input',function(){
+    var x=parseFloat(slider.value); angleValue.innerText=x.toFixed(2); draw(x);
+  });
+})();
+</script>
