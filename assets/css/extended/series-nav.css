@@ -236,9 +236,9 @@
 /* ===== Mobile bottom nav bar ===== */
 .section-nav-row {
     display: flex;
-    gap: 8px;
-    padding: 10px 16px;
-    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 12px;
+    flex-wrap: nowrap;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -246,17 +246,18 @@
     z-index: 100;
     background: var(--theme);
     border-top: 1px solid var(--border);
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .section-nav-row .nav-btn {
-    font-size: 0.9em;
-    padding: 8px 20px;
-    border-radius: 18px;
+    font-size: 0.82em;
+    padding: 7px 12px;
+    border-radius: 16px;
     text-decoration: none;
     text-align: center;
-    flex: 1;
-    max-width: 140px;
+    flex: 0 1 auto;
+    min-width: 0;
+    white-space: nowrap;
 }
 
 /* Desktop: hide bottom nav (already in header) */
@@ -269,7 +270,8 @@
 /* Leave room for fixed bottom nav */
 @media (max-width: 767px) {
     body {
-        padding-bottom: 70px;
+        padding-bottom: 62px;
+        overflow-x: hidden;
     }
 }
 
