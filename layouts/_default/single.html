@@ -1,5 +1,7 @@
 {{- define "main" }}
 
+<div class="post-with-sidebar">
+
 <article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
@@ -65,5 +67,9 @@
   {{- partial "comments.html" . }}
   {{- end }}
 </article>
+
+{{ partial "series-sidebar.html" . }}
+
+</div>
 
 {{- end }}{{/* end main */}}

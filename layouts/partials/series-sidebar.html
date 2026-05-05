@@ -1,0 +1,26 @@
+{{- /* Only show sidebar on article pages that belong to a section with other articles */}}
+{{- if and .IsPage (ne .CurrentSection .Page) }}
+  {{- $section := .CurrentSection }}
+  {{- $pages := $section.Pages }}
+  {{- if gt (len $pages) 1 }}
+    {{- $sectionClass := path.Base $section.File.Dir }}
+    {{- $currentPermalink := .Permalink }}
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="{{ $section.Permalink }}" class="series-sidebar-title">{{ $section.Title | default $section.Section }}</a>
+        <span class="series-sidebar-count">{{ len $pages }} 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        {{- range $pages }}
+        <li>
+          <a href="{{ .Permalink }}"
+             class="series-capsule series-{{ $sectionClass }}{{ if eq .Permalink $currentPermalink }} active{{ end }}"
+             title="{{ .Title }}">
+            {{ .Title }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </aside>
+  {{- end }}
+{{- end }}
