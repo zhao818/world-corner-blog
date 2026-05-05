@@ -10,16 +10,19 @@ theme = 'PaperMod'
   name = "系统思维"
   url = "/posts/systems-thinking/"
   weight = 10
+  identifier = "systems-thinking"
 
 [[menu.main]]
   name = "学习方法"
   url = "/posts/learning/"
   weight = 20
+  identifier = "learning"
 
 [[menu.main]]
   name = "效率工具"
   url = "/posts/tooling/"
   weight = 30
+  identifier = "tooling"
 
 [params]
   env = 'production'

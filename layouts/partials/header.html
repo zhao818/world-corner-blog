@@ -125,8 +125,7 @@
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
             {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
-            {{- $urlPath := replace (replace .URL "/posts/" "") "/" "" }}
-            {{- $btnClass := printf "nav-btn nav-%s" $urlPath }}
+            {{- $btnClass := printf "nav-btn nav-%s" .Identifier }}
             <li>
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
                 {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}
