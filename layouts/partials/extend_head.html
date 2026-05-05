@@ -1,0 +1,4 @@
+{{- if in site.BaseURL "github.io" }}
+<meta http-equiv="refresh" content="0; url={{ .Permalink | replaceRE `zhao818\\.github\\.io/world-corner-blog` `blog.worldcorner.xyz` }}">
+<link rel="canonical" href="{{ .Permalink | replaceRE `zhao818\\.github\\.io/world-corner-blog` `blog.worldcorner.xyz` }}">
+{{- end }}
