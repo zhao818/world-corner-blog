@@ -1,0 +1,109 @@
+/* ===== Desktop list page improvements ===== */
+@media (min-width: 768px) {
+
+    /* --- Tighter content constraint for readability --- */
+    .list .main {
+        max-width: 720px;
+    }
+
+    /* --- Article card: extra breathing room --- */
+    .post-entry {
+        padding: 28px 34px;
+        margin-bottom: 20px;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        cursor: pointer;
+    }
+
+    /* --- Hover: lift + shadow + subtle border glow --- */
+    .post-entry:hover {
+        transform: translateY(-3px);
+        box-shadow:
+            0 8px 30px rgba(0, 0, 0, 0.06),
+            0 2px 8px rgba(0, 0, 0, 0.04);
+        border-color: rgba(78, 84, 200, 0.18);
+        background: var(--entry);
+    }
+
+    .dark .post-entry:hover {
+        box-shadow:
+            0 8px 30px rgba(0, 0, 0, 0.25),
+            0 2px 8px rgba(0, 0, 0, 0.15);
+        border-color: rgba(110, 116, 230, 0.28);
+    }
+
+    /* Press-down feedback */
+    .post-entry:active {
+        transform: scale(0.985);
+        transition: transform 0.1s ease;
+    }
+
+    /* --- Title: larger, better breathing --- */
+    .entry-header h2 {
+        font-size: 26px;
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+    }
+
+    /* --- Summary text --- */
+    .entry-content {
+        margin: 14px 0 16px;
+        font-size: 15px;
+        line-height: 1.72;
+        color: var(--secondary);
+    }
+
+    /* --- Meta footer --- */
+    .entry-footer {
+        font-size: 13px;
+        padding-top: 6px;
+        border-top: 1px solid var(--border);
+    }
+
+    /* --- Section page header --- */
+    .page-header h1 {
+        font-size: 38px;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+    }
+
+    .post-description {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--secondary);
+    }
+
+    /* --- Homepage first entry: bigger impact --- */
+    .first-entry {
+        min-height: 280px;
+        padding: 40px 38px;
+        margin-bottom: 24px;
+    }
+
+    .first-entry .entry-header h1 {
+        font-size: 32px;
+    }
+
+    .first-entry .entry-content {
+        font-size: 17px;
+        line-height: 1.75;
+        margin: 18px 0 20px;
+    }
+
+    .first-entry .entry-footer {
+        font-size: 14px;
+    }
+
+    /* --- Pagination buttons --- */
+    .pagination a {
+        font-size: 14px;
+        padding: 6px 22px;
+        border-radius: 20px;
+        transition: all 0.2s ease;
+    }
+
+    .pagination a:hover {
+        background: var(--primary);
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+}

@@ -269,8 +269,11 @@
     }
 }
 
-/* Leave room for fixed bottom nav */
+/* Mobile: hide header menu (use bottom nav instead) */
 @media (max-width: 767px) {
+    #menu {
+        display: none;
+    }
     body {
         padding-bottom: 64px;
         overflow-x: hidden;

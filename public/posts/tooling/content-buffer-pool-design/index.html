@@ -1,68 +1,503 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？ | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content="Python,Workflow"><meta name=description content="你每天打开多少次信息应用？
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？ | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="Python, Workflow">
+<meta name="description" content="你每天打开多少次信息应用？
 Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。
 
 我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。
 
 这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。
 所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。
-于是有了 内容缓冲池（Content Buffer Pool）。"><meta name=author content="Tianbing Zhao"><link rel=canonical href=https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/><link crossorigin=anonymous href=/world-corner-blog/assets/css/stylesheet.26b10d0affb401e8016bfc5e2dcd1714e3728305a71008c9ae7d12ddac9dbd1a.css integrity="sha256-JrENCv+0AegBa/xeLc0XFONygwWnEAjJrn0S3aydvRo=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/world-corner-blog/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=https://zhao818.github.io/world-corner-blog/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://zhao818.github.io/world-corner-blog/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://zhao818.github.io/world-corner-blog/favicon-32x32.png><link rel=apple-touch-icon href=https://zhao818.github.io/world-corner-blog/apple-touch-icon.png><link rel=mask-icon href=https://zhao818.github.io/world-corner-blog/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？"><meta property="og:description" content="你每天打开多少次信息应用？
+于是有了 内容缓冲池（Content Buffer Pool）。">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/posts/tooling/content-buffer-pool-design/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5afeaa65527f044d07101875167097a4dcf3f2286cca8cb3b78e348644704b75.css" integrity="sha256-Wv6qZVJ/BE0HEBh1FnCXpNzz8ihsyoyzt440hkRwS3U=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/posts/tooling/content-buffer-pool-design/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？" />
+<meta property="og:description" content="你每天打开多少次信息应用？
 Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。
 
 我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。
 
 这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。
 所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。
-于是有了 内容缓冲池（Content Buffer Pool）。"><meta property="og:type" content="article"><meta property="og:url" content="https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-05-01T12:40:00+08:00"><meta property="article:modified_time" content="2026-05-01T12:40:00+08:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？"><meta name=twitter:description content="你每天打开多少次信息应用？
+于是有了 内容缓冲池（Content Buffer Pool）。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tooling/content-buffer-pool-design/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-05-01T12:40:00+08:00" />
+<meta property="article:modified_time" content="2026-05-01T12:40:00+08:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？"/>
+<meta name="twitter:description" content="你每天打开多少次信息应用？
 Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。
 
 我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。
 
 这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。
 所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。
-于是有了 内容缓冲池（Content Buffer Pool）。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://zhao818.github.io/world-corner-blog/posts/"},{"@type":"ListItem","position":2,"name":"效率工具","item":"https://zhao818.github.io/world-corner-blog/posts/tooling/"},{"@type":"ListItem","position":3,"name":"自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？","item":"https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？","name":"自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？","description":"你每天打开多少次信息应用？\nGmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。\n我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。\n这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。\n所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。\n于是有了 内容缓冲池（Content Buffer Pool）。\n","keywords":["Python","Workflow"],"articleBody":"你每天打开多少次信息应用？\nGmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。\n我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。\n这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。\n所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。\n于是有了 内容缓冲池（Content Buffer Pool）。\n一、架构：Push 代替 Pull 大多数人的信息摄取模式是 Pull 模式——主动去各个源拉取。Gmail 刷一遍，Telegram 刷一遍，Twitter 刷一遍。每次 Pull 都是一次注意力转移，每次转移都在消耗认知能量。\n|内容缓冲池的核心思想是把 Pull 变成 Push：\nGmail (@buffer) ───┐ │ Telegram (收藏) ───┼──► [脚本聚合] ──► ~/buffer/raw/ ──► [定时处理] ──► ~/buffer/processed/ │ RSS (过滤后) ───┘ 脚本不需要手动执行。它作为守护进程，持续监听各个入站通道。当信息进入 raw/ 目录时，它不做处理——只是搬运。真正消耗认知的工作，留到每天固定的「缓冲处理时间」。\n这个架构最有价值的地方不是技术实现，而是心理学设计：\n把「刷新」这个行为从自动反应变成主动选择 把「碎片处理」合并成「批量深潜」 把「现在必须看」降级为「稍后统一看」 二、通道一：Gmail 邮件过滤器 我的 Gmail 有两个标签决定了邮件去哪：\n@buffer 标签：表示这是一封值得读但不必立即读的邮件。NL 订阅、周报、行业简报，全进这个标签。\n脚本逻辑：\nimport imaplib, email from pathlib import Path BUF = Path(\"~/buffer/raw/\").expanduser() # 连接到 Gmail，筛选 @buffer 标签未读邮件 with imaplib.IMAP4_SSL(\"imap.gmail.com\") as conn: conn.login(USER, APP_PASSWORD) conn.select('\"buffer\"') _, ids = conn.search(None, \"UNSEEN\") for id in ids[0].split()[:10]: # 每次只处理前10封 _, data = conn.fetch(id, \"(RFC822)\") msg = email.message_from_bytes(data[0][1]) slug = msg[\"Subject\"][:40].replace(\" \", \"-\") (BUF / f\"{slug}.txt\").write_text( f\"source: email\\nfrom: {msg['From']}\\nsubject: {msg['Subject']}\\ndate: {msg['Date']}\\n\\n{extract_body(msg)}\" ) 关键设计：extract_body() 用 beautifulsoup 清除 HTML 格式，保留纯文本。不追求完美解析，追求「可读即可」。\n三、通道二：Telegram 消息转发器 Telegram 是更复杂的信息源。群聊的讨论、频道的文章、私聊的分享，同一个 App 承载了完全不同类型的信息流。\n我的策略：只处理已读不标记的「收藏」消息。\n为什么不是所有消息？因为群聊噪音占 90%。只有你主动「收藏」的消息，才是你觉得有价值的内容。\n脚本通过 Telegram Bot API 实现：\nimport requests BOT_TOKEN = \"your_bot_token\" CHAT_ID = \"@your_channel\" # 监听转发的消息（需要 Webhook 或长轮询） def fetch_saved_messages(): url = f\"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates\" resp = requests.get(url, params={\"timeout\": 30, \"allowed_updates\": [\"message\"]}, proxies=PROXY) for update in resp.json().get(\"result\", []): msg = update.get(\"message\", {}) if msg.get(\"forward_from_chat\"): # 转发的频道文章 slug = f\"tg-{msg['date']}.md\" (BUF / slug).write_text( f\"source: telegram\\nfrom: {msg['forward_from_chat']['title']}\\ndate: {msg['date']}\\n\\n{msg.get('text', '')}\" ) 代理参数 PROXY 是因为 GFW 限制，不多解释。\n四、缓冲处理模式：从「收件箱」到「定时深潜」 这是整个架构最关键的部分，与技术无关，与认知习惯有关：\n每天固定 15 分钟，处理缓冲池。\n打开 ~/buffer/raw/：\n快速浏览：每篇看 30 秒，决定处理方式\n🗑️ 删除（当时觉得有价值，现在看并没有） 📌 保留（归档到 ~/buffer/processed/date/） ⚡ 行动（转化为待办或笔记） 组块处理：同主题的归并。3 篇关于 LangChain 的文章 → 一篇笔记\n关闭缓冲池：处理完立刻关上。不回头，不追加\n五、工具维度的「共生」反思 这个缓冲池不是反信息——它是对信息摄入的架构升级。不是降低信息量，而是提升信息质量：\n能量维：把「随时刷新」的随机行为，降级为「固定时间深潜」的系统行为 环境维：87 个信息源 → 一个 ~/buffer/raw/ 目录。物理空间的归并，就是认知负担的归并 观察维：缓冲池让你看见真正的信息模式——哪些源持续产出垃圾，哪些源值得保留 工具维：不要用复杂的工具。imapclient + requests + pathlib，三行核心代码 金句\n「信息不是货币，注意力才是。而缓冲池是你注意力的储蓄罐。」\n「不要优化你的信息摄入速度，优化你的信息摄入结构。」\n","wordCount":"242","inLanguage":"en","datePublished":"2026-05-01T12:40:00+08:00","dateModified":"2026-05-01T12:40:00+08:00","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"https://zhao818.github.io/world-corner-blog/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://zhao818.github.io/world-corner-blog/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=https://zhao818.github.io/world-corner-blog/posts/systems-thinking/ title=系统思维 class="nav-btn nav-systems-thinking"><span>系统思维</span></a></li><li><a href=https://zhao818.github.io/world-corner-blog/posts/learning/ title=学习方法 class="nav-btn nav-learning"><span>学习方法</span></a></li><li><a href=https://zhao818.github.io/world-corner-blog/posts/tooling/ title=效率工具 class="nav-btn nav-tooling"><span>效率工具</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</h1><div class=post-meta>&lt;span title='2026-05-01 12:40:00 +0800 CST'>May 1, 2026&lt;/span>&amp;nbsp;·&amp;nbsp;Tianbing Zhao</div></header><div class="post-content md-content"><p>你每天打开多少次信息应用？</p><p>Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。</p><blockquote><p>我统计过自己的数字行为：平均每天在不同信息源之间切换 <strong>87 次</strong>。87 次上下文重建。87 次「我刚刚在想什么」。</p></blockquote><p>这不是信息过载。这是<strong>信息碎尸</strong>——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。</p><p>所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。</p><p>于是有了 <strong>内容缓冲池（Content Buffer Pool）</strong>。</p><h2 id=一架构push-代替-pull>一、架构：Push 代替 Pull<a hidden class=anchor aria-hidden=true href=#一架构push-代替-pull>#</a></h2><p>大多数人的信息摄取模式是 <strong>Pull 模式</strong>——主动去各个源拉取。Gmail 刷一遍，Telegram 刷一遍，Twitter 刷一遍。每次 Pull 都是一次注意力转移，每次转移都在消耗认知能量。</p><p>|<strong>内容缓冲池</strong>的核心思想是把 Pull 变成 Push：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Gmail (@buffer)     ───┐
-</span></span><span style=display:flex><span>                       │
-</span></span><span style=display:flex><span>Telegram (收藏)     ───┼──► [脚本聚合] ──► ~/buffer/raw/ ──► [定时处理] ──► ~/buffer/processed/
-</span></span><span style=display:flex><span>                       │
-</span></span><span style=display:flex><span>RSS (过滤后)        ───┘
-</span></span></code></pre></div><p>脚本不需要手动执行。它作为守护进程，持续监听各个入站通道。当信息进入 <code>raw/</code> 目录时，它不做处理——只是搬运。真正消耗认知的工作，留到每天固定的「缓冲处理时间」。</p><p>这个架构最有价值的地方不是技术实现，而是<strong>心理学设计</strong>：</p><ul><li>把「刷新」这个行为从自动反应变成主动选择</li><li>把「碎片处理」合并成「批量深潜」</li><li>把「现在必须看」降级为「稍后统一看」</li></ul><h2 id=二通道一gmail-邮件过滤器>二、通道一：Gmail 邮件过滤器<a hidden class=anchor aria-hidden=true href=#二通道一gmail-邮件过滤器>#</a></h2><p>我的 Gmail 有两个标签决定了邮件去哪：</p><p><strong>@buffer 标签</strong>：表示这是一封值得读但不必立即读的邮件。NL 订阅、周报、行业简报，全进这个标签。</p><p>脚本逻辑：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> imaplib<span style=color:#f92672>,</span> email
-</span></span><span style=display:flex><span><span style=color:#f92672>from</span> pathlib <span style=color:#f92672>import</span> Path
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>BUF <span style=color:#f92672>=</span> Path(<span style=color:#e6db74>&#34;~/buffer/raw/&#34;</span>)<span style=color:#f92672>.</span>expanduser()
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 连接到 Gmail，筛选 @buffer 标签未读邮件</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>with</span> imaplib<span style=color:#f92672>.</span>IMAP4_SSL(<span style=color:#e6db74>&#34;imap.gmail.com&#34;</span>) <span style=color:#66d9ef>as</span> conn:
-</span></span><span style=display:flex><span>    conn<span style=color:#f92672>.</span>login(USER, APP_PASSWORD)
-</span></span><span style=display:flex><span>    conn<span style=color:#f92672>.</span>select(<span style=color:#e6db74>&#39;&#34;buffer&#34;&#39;</span>)
-</span></span><span style=display:flex><span>    _, ids <span style=color:#f92672>=</span> conn<span style=color:#f92672>.</span>search(<span style=color:#66d9ef>None</span>, <span style=color:#e6db74>&#34;UNSEEN&#34;</span>)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> id <span style=color:#f92672>in</span> ids[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>split()[:<span style=color:#ae81ff>10</span>]:  <span style=color:#75715e># 每次只处理前10封</span>
-</span></span><span style=display:flex><span>        _, data <span style=color:#f92672>=</span> conn<span style=color:#f92672>.</span>fetch(id, <span style=color:#e6db74>&#34;(RFC822)&#34;</span>)
-</span></span><span style=display:flex><span>        msg <span style=color:#f92672>=</span> email<span style=color:#f92672>.</span>message_from_bytes(data[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>1</span>])
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        slug <span style=color:#f92672>=</span> msg[<span style=color:#e6db74>&#34;Subject&#34;</span>][:<span style=color:#ae81ff>40</span>]<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34; &#34;</span>, <span style=color:#e6db74>&#34;-&#34;</span>)
-</span></span><span style=display:flex><span>        (BUF <span style=color:#f92672>/</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{</span>slug<span style=color:#e6db74>}</span><span style=color:#e6db74>.txt&#34;</span>)<span style=color:#f92672>.</span>write_text(
-</span></span><span style=display:flex><span>            <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;source: email</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>from: </span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;From&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>subject: </span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;Subject&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>date: </span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;Date&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>{</span>extract_body(msg)<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
-</span></span><span style=display:flex><span>        )
-</span></span></code></pre></div><p>关键设计：<code>extract_body()</code> 用 <code>beautifulsoup</code> 清除 HTML 格式，保留纯文本。不追求完美解析，追求「可读即可」。</p><h2 id=三通道二telegram-消息转发器>三、通道二：Telegram 消息转发器<a hidden class=anchor aria-hidden=true href=#三通道二telegram-消息转发器>#</a></h2><p>Telegram 是更复杂的信息源。群聊的讨论、频道的文章、私聊的分享，同一个 App 承载了完全不同类型的信息流。</p><p>我的策略：<strong>只处理已读不标记的「收藏」消息。</strong></p><p>为什么不是所有消息？因为群聊噪音占 90%。只有你主动「收藏」的消息，才是你觉得有价值的内容。</p><p>脚本通过 Telegram Bot API 实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> requests
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>BOT_TOKEN <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;your_bot_token&#34;</span>
-</span></span><span style=display:flex><span>CHAT_ID <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;@your_channel&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># 监听转发的消息（需要 Webhook 或长轮询）</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>fetch_saved_messages</span>():
-</span></span><span style=display:flex><span>    url <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;https://api.telegram.org/bot</span><span style=color:#e6db74>{</span>BOT_TOKEN<span style=color:#e6db74>}</span><span style=color:#e6db74>/getUpdates&#34;</span>
-</span></span><span style=display:flex><span>    resp <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(url, params<span style=color:#f92672>=</span>{<span style=color:#e6db74>&#34;timeout&#34;</span>: <span style=color:#ae81ff>30</span>, <span style=color:#e6db74>&#34;allowed_updates&#34;</span>: [<span style=color:#e6db74>&#34;message&#34;</span>]}, proxies<span style=color:#f92672>=</span>PROXY)
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> update <span style=color:#f92672>in</span> resp<span style=color:#f92672>.</span>json()<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;result&#34;</span>, []):
-</span></span><span style=display:flex><span>        msg <span style=color:#f92672>=</span> update<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;message&#34;</span>, {})
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> msg<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;forward_from_chat&#34;</span>):  <span style=color:#75715e># 转发的频道文章</span>
-</span></span><span style=display:flex><span>            slug <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;tg-</span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;date&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#e6db74>.md&#34;</span>
-</span></span><span style=display:flex><span>            (BUF <span style=color:#f92672>/</span> slug)<span style=color:#f92672>.</span>write_text(
-</span></span><span style=display:flex><span>                <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;source: telegram</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>from: </span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;forward_from_chat&#39;</span>][<span style=color:#e6db74>&#39;title&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>date: </span><span style=color:#e6db74>{</span>msg[<span style=color:#e6db74>&#39;date&#39;</span>]<span style=color:#e6db74>}</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>{</span>msg<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;text&#39;</span>, <span style=color:#e6db74>&#39;&#39;</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
-</span></span><span style=display:flex><span>            )
-</span></span></code></pre></div><p>代理参数 <code>PROXY</code> 是因为 GFW 限制，不多解释。</p><h2 id=四缓冲处理模式从收件箱到定时深潜>四、缓冲处理模式：从「收件箱」到「定时深潜」<a hidden class=anchor aria-hidden=true href=#四缓冲处理模式从收件箱到定时深潜>#</a></h2><p>这是整个架构最关键的部分，与技术无关，与认知习惯有关：</p><p><strong>每天固定 15 分钟，处理缓冲池。</strong></p><p>打开 <code>~/buffer/raw/</code>：</p><ol><li><p><strong>快速浏览</strong>：每篇看 30 秒，决定处理方式</p><ul><li>🗑️ 删除（当时觉得有价值，现在看并没有）</li><li>📌 保留（归档到 <code>~/buffer/processed/date/</code>）</li><li>⚡ 行动（转化为待办或笔记）</li></ul></li><li><p><strong>组块处理</strong>：同主题的归并。3 篇关于 LangChain 的文章 → 一篇笔记</p></li><li><p><strong>关闭缓冲池</strong>：处理完立刻关上。不回头，不追加</p></li></ol><h2 id=五工具维度的共生反思>五、工具维度的「共生」反思<a hidden class=anchor aria-hidden=true href=#五工具维度的共生反思>#</a></h2><p>这个缓冲池不是反信息——它是对信息摄入的架构升级。不是降低信息量，而是提升信息质量：</p><ul><li><strong>能量维</strong>：把「随时刷新」的随机行为，降级为「固定时间深潜」的系统行为</li><li><strong>环境维</strong>：87 个信息源 → 一个 <code>~/buffer/raw/</code> 目录。物理空间的归并，就是认知负担的归并</li><li><strong>观察维</strong>：缓冲池让你看见真正的信息模式——哪些源持续产出垃圾，哪些源值得保留</li><li><strong>工具维</strong>：不要用复杂的工具。<code>imapclient</code> + <code>requests</code> + <code>pathlib</code>，三行核心代码</li></ul><hr><p><strong>金句</strong></p><blockquote><p>「信息不是货币，注意力才是。而缓冲池是你注意力的储蓄罐。」</p></blockquote><blockquote><p>「不要优化你的信息摄入速度，优化你的信息摄入结构。」</p></blockquote></div><footer class=post-footer><ul class=post-tags><li><a href=https://zhao818.github.io/world-corner-blog/tags/python/>Python</a></li><li><a href=https://zhao818.github.io/world-corner-blog/tags/workflow/>Workflow</a></li></ul></footer><hr><div style="margin:2em 0;padding:1em 1.5em;background:#f8f8fa;border-left:4px solid #4e54c8;border-radius:4px;font-size:.9em;color:#555;line-height:1.8"><p style="margin:0 0 .5em"><strong>🌱 世界一隅 · 认知分发矩阵</strong></p><p style=margin:0>如果这篇文字在你的世界里激起了一点涟漪，欢迎在评论区回复 <code>订阅：你的邮箱</code>。这是一个小小的暗号，我会将你加入「世界一隅」的认知分发矩阵，让能量在收件箱准时合龙。</p></div><blockquote style="margin:1.5em 0;padding:.6em 1em;border-left:4px solid #07c160;background:#f6f9f6;border-radius:4px;color:#333;font-size:.92em">📭 <a href="https://wxpusher.zjiecode.com/wxuser/?type=2&id=44329#/follow" target=_blank rel=noopener style=color:#07c160;text-decoration:none>点击此处，订阅《世界一隅》微信系统提醒</a></blockquote><div style="background:#1a1a2e;padding:40px 20px;border-radius:16px;border:1px solid #2d2d44;text-align:center;margin-top:40px;box-shadow:0 10px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center"><h3 style=color:#8f94fb;margin-bottom:10px;letter-spacing:2px;font-size:1.5rem>世界一隅 · 能量矩阵</h3><p style=color:#6c6c8a;font-size:14px;margin-bottom:30px>在这里，我们通过认知对冲孤独</p><div style=width:100%;max-width:260px;margin-bottom:25px><a href=https://pay.worldcorner.xyz/pay target=_blank style=display:block><img src="https://pay.worldcorner.xyz/static/qr-pay.png?v=$(date +%s)" alt=赞赏码 style="width:100%;border-radius:12px;border:1px solid #4e54c8;box-shadow:0 0 20px rgba(78,84,200,.2);transition:all .3s" onmouseover='this.style.transform="scale(1.02)",this.style.boxShadow="0 0 30px rgba(78,84,200,0.4)"' onmouseout='this.style.transform="scale(1)",this.style.boxShadow="0 0 20px rgba(78,84,200,0.2)"'></a><p style=color:#4e54c8;font-size:13px;margin-top:15px;cursor:default>点击或长按识别二维码</p></div><a href=https://pay.worldcorner.xyz/pay target=_blank style="display:inline-block;padding:14px 36px;background:linear-gradient(135deg,#4e54c8,#8f94fb);color:#fff;border-radius:30px;text-decoration:none;font-size:15px;font-weight:600;box-shadow:0 4px 15px rgba(78,84,200,.3);transition:all .2s" onmouseover='this.style.transform="translateY(-2px)",this.style.boxShadow="0 6px 20px rgba(78,84,200,0.5)"' onmouseout='this.style.transform="translateY(0)",this.style.boxShadow="0 4px 15px rgba(78,84,200,0.3)"'>✦ 进入数字化收银台</a><div style="margin-top:40px;padding-top:20px;border-top:1px solid #2d2d44;width:80%"><p style=font-size:12px;color:#444;font-style:italic;letter-spacing:1px>“凡所有相，皆是虚妄。若见诸相非相，即见如来。”</p></div></div><script src=https://giscus.app/client.js data-repo=zhao818/world-corner-blog data-repo-id=R_kgDOSRYMPg data-category=Announcements data-category-id=DIC_kwDOSRYMPs4C8HQL data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-theme=preferred_color_scheme data-lang=zh-CN crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2026 <a href=https://zhao818.github.io/world-corner-blog/>世界一隅 | 认知能量工程</a></span>
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+于是有了 内容缓冲池（Content Buffer Pool）。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？",
+      "item": "/posts/tooling/content-buffer-pool-design/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？",
+  "name": "自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？",
+  "description": "你每天打开多少次信息应用？\nGmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。\n我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。\n这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。\n所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。\n于是有了 内容缓冲池（Content Buffer Pool）。\n",
+  "keywords": [
+    "Python", "Workflow"
+  ],
+  "articleBody": "你每天打开多少次信息应用？\nGmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。\n我统计过自己的数字行为：平均每天在不同信息源之间切换 87 次。87 次上下文重建。87 次「我刚刚在想什么」。\n这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。\n所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。\n于是有了 内容缓冲池（Content Buffer Pool）。\n一、架构：Push 代替 Pull 大多数人的信息摄取模式是 Pull 模式——主动去各个源拉取。Gmail 刷一遍，Telegram 刷一遍，Twitter 刷一遍。每次 Pull 都是一次注意力转移，每次转移都在消耗认知能量。\n|内容缓冲池的核心思想是把 Pull 变成 Push：\nGmail (@buffer) ───┐ │ Telegram (收藏) ───┼──► [脚本聚合] ──► ~/buffer/raw/ ──► [定时处理] ──► ~/buffer/processed/ │ RSS (过滤后) ───┘ 脚本不需要手动执行。它作为守护进程，持续监听各个入站通道。当信息进入 raw/ 目录时，它不做处理——只是搬运。真正消耗认知的工作，留到每天固定的「缓冲处理时间」。\n这个架构最有价值的地方不是技术实现，而是心理学设计：\n把「刷新」这个行为从自动反应变成主动选择 把「碎片处理」合并成「批量深潜」 把「现在必须看」降级为「稍后统一看」 二、通道一：Gmail 邮件过滤器 我的 Gmail 有两个标签决定了邮件去哪：\n@buffer 标签：表示这是一封值得读但不必立即读的邮件。NL 订阅、周报、行业简报，全进这个标签。\n脚本逻辑：\nimport imaplib, email from pathlib import Path BUF = Path(\"~/buffer/raw/\").expanduser() # 连接到 Gmail，筛选 @buffer 标签未读邮件 with imaplib.IMAP4_SSL(\"imap.gmail.com\") as conn: conn.login(USER, APP_PASSWORD) conn.select('\"buffer\"') _, ids = conn.search(None, \"UNSEEN\") for id in ids[0].split()[:10]: # 每次只处理前10封 _, data = conn.fetch(id, \"(RFC822)\") msg = email.message_from_bytes(data[0][1]) slug = msg[\"Subject\"][:40].replace(\" \", \"-\") (BUF / f\"{slug}.txt\").write_text( f\"source: email\\nfrom: {msg['From']}\\nsubject: {msg['Subject']}\\ndate: {msg['Date']}\\n\\n{extract_body(msg)}\" ) 关键设计：extract_body() 用 beautifulsoup 清除 HTML 格式，保留纯文本。不追求完美解析，追求「可读即可」。\n三、通道二：Telegram 消息转发器 Telegram 是更复杂的信息源。群聊的讨论、频道的文章、私聊的分享，同一个 App 承载了完全不同类型的信息流。\n我的策略：只处理已读不标记的「收藏」消息。\n为什么不是所有消息？因为群聊噪音占 90%。只有你主动「收藏」的消息，才是你觉得有价值的内容。\n脚本通过 Telegram Bot API 实现：\nimport requests BOT_TOKEN = \"your_bot_token\" CHAT_ID = \"@your_channel\" # 监听转发的消息（需要 Webhook 或长轮询） def fetch_saved_messages(): url = f\"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates\" resp = requests.get(url, params={\"timeout\": 30, \"allowed_updates\": [\"message\"]}, proxies=PROXY) for update in resp.json().get(\"result\", []): msg = update.get(\"message\", {}) if msg.get(\"forward_from_chat\"): # 转发的频道文章 slug = f\"tg-{msg['date']}.md\" (BUF / slug).write_text( f\"source: telegram\\nfrom: {msg['forward_from_chat']['title']}\\ndate: {msg['date']}\\n\\n{msg.get('text', '')}\" ) 代理参数 PROXY 是因为 GFW 限制，不多解释。\n四、缓冲处理模式：从「收件箱」到「定时深潜」 这是整个架构最关键的部分，与技术无关，与认知习惯有关：\n每天固定 15 分钟，处理缓冲池。\n打开 ~/buffer/raw/：\n快速浏览：每篇看 30 秒，决定处理方式\n🗑️ 删除（当时觉得有价值，现在看并没有） 📌 保留（归档到 ~/buffer/processed/date/） ⚡ 行动（转化为待办或笔记） 组块处理：同主题的归并。3 篇关于 LangChain 的文章 → 一篇笔记\n关闭缓冲池：处理完立刻关上。不回头，不追加\n五、工具维度的「共生」反思 这个缓冲池不是反信息——它是对信息摄入的架构升级。不是降低信息量，而是提升信息质量：\n能量维：把「随时刷新」的随机行为，降级为「固定时间深潜」的系统行为 环境维：87 个信息源 → 一个 ~/buffer/raw/ 目录。物理空间的归并，就是认知负担的归并 观察维：缓冲池让你看见真正的信息模式——哪些源持续产出垃圾，哪些源值得保留 工具维：不要用复杂的工具。imapclient + requests + pathlib，三行核心代码 金句\n「信息不是货币，注意力才是。而缓冲池是你注意力的储蓄罐。」\n「不要优化你的信息摄入速度，优化你的信息摄入结构。」\n",
+  "wordCount" : "242",
+  "inLanguage": "en",
+  "datePublished": "2026-05-01T12:40:00+08:00",
+  "dateModified": "2026-05-01T12:40:00+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/posts/tooling/content-buffer-pool-design/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？
+    </h1>
+    <div class="post-meta">2026年5月1日 · Tianbing Zhao
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p>你每天打开多少次信息应用？</p>
+<p>Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。</p>
+<blockquote>
+<p>我统计过自己的数字行为：平均每天在不同信息源之间切换 <strong>87 次</strong>。87 次上下文重建。87 次「我刚刚在想什么」。</p>
+</blockquote>
+<p>这不是信息过载。这是<strong>信息碎尸</strong>——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。</p>
+<p>所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。</p>
+<p>于是有了 <strong>内容缓冲池（Content Buffer Pool）</strong>。</p>
+<h2 id="一架构push-代替-pull">一、架构：Push 代替 Pull<a hidden class="anchor" aria-hidden="true" href="#一架构push-代替-pull">#</a></h2>
+<p>大多数人的信息摄取模式是 <strong>Pull 模式</strong>——主动去各个源拉取。Gmail 刷一遍，Telegram 刷一遍，Twitter 刷一遍。每次 Pull 都是一次注意力转移，每次转移都在消耗认知能量。</p>
+<p>|<strong>内容缓冲池</strong>的核心思想是把 Pull 变成 Push：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Gmail (@buffer)     ───┐
+</span></span><span style="display:flex;"><span>                       │
+</span></span><span style="display:flex;"><span>Telegram (收藏)     ───┼──► [脚本聚合] ──► ~/buffer/raw/ ──► [定时处理] ──► ~/buffer/processed/
+</span></span><span style="display:flex;"><span>                       │
+</span></span><span style="display:flex;"><span>RSS (过滤后)        ───┘
+</span></span></code></pre></div><p>脚本不需要手动执行。它作为守护进程，持续监听各个入站通道。当信息进入 <code>raw/</code> 目录时，它不做处理——只是搬运。真正消耗认知的工作，留到每天固定的「缓冲处理时间」。</p>
+<p>这个架构最有价值的地方不是技术实现，而是<strong>心理学设计</strong>：</p>
+<ul>
+<li>把「刷新」这个行为从自动反应变成主动选择</li>
+<li>把「碎片处理」合并成「批量深潜」</li>
+<li>把「现在必须看」降级为「稍后统一看」</li>
+</ul>
+<h2 id="二通道一gmail-邮件过滤器">二、通道一：Gmail 邮件过滤器<a hidden class="anchor" aria-hidden="true" href="#二通道一gmail-邮件过滤器">#</a></h2>
+<p>我的 Gmail 有两个标签决定了邮件去哪：</p>
+<p><strong>@buffer 标签</strong>：表示这是一封值得读但不必立即读的邮件。NL 订阅、周报、行业简报，全进这个标签。</p>
+<p>脚本逻辑：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> imaplib<span style="color:#f92672">,</span> email
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> pathlib <span style="color:#f92672">import</span> Path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BUF <span style="color:#f92672">=</span> Path(<span style="color:#e6db74">&#34;~/buffer/raw/&#34;</span>)<span style="color:#f92672">.</span>expanduser()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 连接到 Gmail，筛选 @buffer 标签未读邮件</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> imaplib<span style="color:#f92672">.</span>IMAP4_SSL(<span style="color:#e6db74">&#34;imap.gmail.com&#34;</span>) <span style="color:#66d9ef">as</span> conn:
+</span></span><span style="display:flex;"><span>    conn<span style="color:#f92672">.</span>login(USER, APP_PASSWORD)
+</span></span><span style="display:flex;"><span>    conn<span style="color:#f92672">.</span>select(<span style="color:#e6db74">&#39;&#34;buffer&#34;&#39;</span>)
+</span></span><span style="display:flex;"><span>    _, ids <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>search(<span style="color:#66d9ef">None</span>, <span style="color:#e6db74">&#34;UNSEEN&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> id <span style="color:#f92672">in</span> ids[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>split()[:<span style="color:#ae81ff">10</span>]:  <span style="color:#75715e"># 每次只处理前10封</span>
+</span></span><span style="display:flex;"><span>        _, data <span style="color:#f92672">=</span> conn<span style="color:#f92672">.</span>fetch(id, <span style="color:#e6db74">&#34;(RFC822)&#34;</span>)
+</span></span><span style="display:flex;"><span>        msg <span style="color:#f92672">=</span> email<span style="color:#f92672">.</span>message_from_bytes(data[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        slug <span style="color:#f92672">=</span> msg[<span style="color:#e6db74">&#34;Subject&#34;</span>][:<span style="color:#ae81ff">40</span>]<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#e6db74">&#34;-&#34;</span>)
+</span></span><span style="display:flex;"><span>        (BUF <span style="color:#f92672">/</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>slug<span style="color:#e6db74">}</span><span style="color:#e6db74">.txt&#34;</span>)<span style="color:#f92672">.</span>write_text(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;source: email</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">from: </span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;From&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">subject: </span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;Subject&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">date: </span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;Date&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">{</span>extract_body(msg)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span></code></pre></div><p>关键设计：<code>extract_body()</code> 用 <code>beautifulsoup</code> 清除 HTML 格式，保留纯文本。不追求完美解析，追求「可读即可」。</p>
+<h2 id="三通道二telegram-消息转发器">三、通道二：Telegram 消息转发器<a hidden class="anchor" aria-hidden="true" href="#三通道二telegram-消息转发器">#</a></h2>
+<p>Telegram 是更复杂的信息源。群聊的讨论、频道的文章、私聊的分享，同一个 App 承载了完全不同类型的信息流。</p>
+<p>我的策略：<strong>只处理已读不标记的「收藏」消息。</strong></p>
+<p>为什么不是所有消息？因为群聊噪音占 90%。只有你主动「收藏」的消息，才是你觉得有价值的内容。</p>
+<p>脚本通过 Telegram Bot API 实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BOT_TOKEN <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;your_bot_token&#34;</span>
+</span></span><span style="display:flex;"><span>CHAT_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;@your_channel&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 监听转发的消息（需要 Webhook 或长轮询）</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fetch_saved_messages</span>():
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://api.telegram.org/bot</span><span style="color:#e6db74">{</span>BOT_TOKEN<span style="color:#e6db74">}</span><span style="color:#e6db74">/getUpdates&#34;</span>
+</span></span><span style="display:flex;"><span>    resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, params<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;timeout&#34;</span>: <span style="color:#ae81ff">30</span>, <span style="color:#e6db74">&#34;allowed_updates&#34;</span>: [<span style="color:#e6db74">&#34;message&#34;</span>]}, proxies<span style="color:#f92672">=</span>PROXY)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> update <span style="color:#f92672">in</span> resp<span style="color:#f92672">.</span>json()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;result&#34;</span>, []):
+</span></span><span style="display:flex;"><span>        msg <span style="color:#f92672">=</span> update<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;message&#34;</span>, {})
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> msg<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;forward_from_chat&#34;</span>):  <span style="color:#75715e"># 转发的频道文章</span>
+</span></span><span style="display:flex;"><span>            slug <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;tg-</span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">.md&#34;</span>
+</span></span><span style="display:flex;"><span>            (BUF <span style="color:#f92672">/</span> slug)<span style="color:#f92672">.</span>write_text(
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;source: telegram</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">from: </span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;forward_from_chat&#39;</span>][<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">date: </span><span style="color:#e6db74">{</span>msg[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">{</span>msg<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;text&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span></code></pre></div><p>代理参数 <code>PROXY</code> 是因为 GFW 限制，不多解释。</p>
+<h2 id="四缓冲处理模式从收件箱到定时深潜">四、缓冲处理模式：从「收件箱」到「定时深潜」<a hidden class="anchor" aria-hidden="true" href="#四缓冲处理模式从收件箱到定时深潜">#</a></h2>
+<p>这是整个架构最关键的部分，与技术无关，与认知习惯有关：</p>
+<p><strong>每天固定 15 分钟，处理缓冲池。</strong></p>
+<p>打开 <code>~/buffer/raw/</code>：</p>
+<ol>
+<li>
+<p><strong>快速浏览</strong>：每篇看 30 秒，决定处理方式</p>
+<ul>
+<li>🗑️ 删除（当时觉得有价值，现在看并没有）</li>
+<li>📌 保留（归档到 <code>~/buffer/processed/date/</code>）</li>
+<li>⚡ 行动（转化为待办或笔记）</li>
+</ul>
+</li>
+<li>
+<p><strong>组块处理</strong>：同主题的归并。3 篇关于 LangChain 的文章 → 一篇笔记</p>
+</li>
+<li>
+<p><strong>关闭缓冲池</strong>：处理完立刻关上。不回头，不追加</p>
+</li>
+</ol>
+<h2 id="五工具维度的共生反思">五、工具维度的「共生」反思<a hidden class="anchor" aria-hidden="true" href="#五工具维度的共生反思">#</a></h2>
+<p>这个缓冲池不是反信息——它是对信息摄入的架构升级。不是降低信息量，而是提升信息质量：</p>
+<ul>
+<li><strong>能量维</strong>：把「随时刷新」的随机行为，降级为「固定时间深潜」的系统行为</li>
+<li><strong>环境维</strong>：87 个信息源 → 一个 <code>~/buffer/raw/</code> 目录。物理空间的归并，就是认知负担的归并</li>
+<li><strong>观察维</strong>：缓冲池让你看见真正的信息模式——哪些源持续产出垃圾，哪些源值得保留</li>
+<li><strong>工具维</strong>：不要用复杂的工具。<code>imapclient</code> + <code>requests</code> + <code>pathlib</code>，三行核心代码</li>
+</ul>
+<hr>
+<p><strong>金句</strong></p>
+<blockquote>
+<p>「信息不是货币，注意力才是。而缓冲池是你注意力的储蓄罐。」</p>
+</blockquote>
+<blockquote>
+<p>「不要优化你的信息摄入速度，优化你的信息摄入结构。」</p>
+</blockquote>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/python/">Python</a></li>
+      <li><a href="/tags/workflow/">Workflow</a></li>
+    </ul>
+  </footer><hr>
+
+
+<div style="margin: 2em 0; padding: 1em 1.5em; background: #f8f8fa; border-left: 4px solid #4e54c8; border-radius: 4px; font-size: 0.9em; color: #555; line-height: 1.8;">
+<p style="margin: 0 0 0.5em 0;"><strong>🌱 世界一隅 · 认知分发矩阵</strong></p>
+<p style="margin: 0;">如果这篇文字在你的世界里激起了一点涟漪，欢迎在评论区回复 <code>订阅：你的邮箱</code>。这是一个小小的暗号，我会将你加入「世界一隅」的认知分发矩阵，让能量在收件箱准时合龙。</p>
+</div>
+
+
+<blockquote style="margin:1.5em 0;padding:0.6em 1em;border-left:4px solid #07c160;background:#f6f9f6;border-radius:4px;color:#333;font-size:0.92em;">
+  📭 <a href="https://wxpusher.zjiecode.com/wxuser/?type=2&id=44329#/follow" target="_blank" rel="noopener" style="color:#07c160;text-decoration:none;">点击此处，订阅《世界一隅》微信系统提醒</a>
+</blockquote>
+<div style="background: #1a1a2e; padding: 40px 20px; border-radius: 16px; border: 1px solid #2d2d44; text-align: center; margin-top: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center;">
+    
+    <h3 style="color: #8f94fb; margin-bottom: 10px; letter-spacing: 2px; font-size: 1.5rem;">世界一隅 · 能量矩阵</h3>
+    <p style="color: #6c6c8a; font-size: 14px; margin-bottom: 30px;">在这里，我们通过认知对冲孤独</p>
+    
+    <div style="width: 100%; max-width: 260px; margin-bottom: 25px;">
+        <a href="https://pay.worldcorner.xyz/pay" target="_blank" style="display: block;">
+            <img src="https://pay.worldcorner.xyz/static/qr-pay.png?v=$(date +%s)" 
+                 alt="赞赏码" 
+                 style="width: 100%; border-radius: 12px; border: 1px solid #4e54c8; box-shadow: 0 0 20px rgba(78,84,200,0.2); transition: all 0.3s;"
+                 onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 30px rgba(78,84,200,0.4)'"
+                 onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 20px rgba(78,84,200,0.2)'">
+        </a>
+        <p style="color: #4e54c8; font-size: 13px; margin-top: 15px; cursor: default;">点击或长按识别二维码</p>
+    </div>
+
+    <a href="https://pay.worldcorner.xyz/pay" target="_blank"
+       style="display: inline-block; padding: 14px 36px; background: linear-gradient(135deg, #4e54c8, #8f94fb); color: #fff; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; box-shadow: 0 4px 15px rgba(78,84,200,0.3); transition: all 0.2s;"
+       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(78,84,200,0.5)'"
+       onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(78,84,200,0.3)'">
+       ✦ 进入数字化收银台
+    </a>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #2d2d44; width: 80%;">
+        <p style="font-size: 12px; color: #444; font-style: italic; letter-spacing: 1px;">“凡所有相，皆是虚妄。若见诸相非相，即见如来。”</p>
+    </div>
+</div>
+<script src="https://giscus.app/client.js"
+        data-repo="zhao818/world-corner-blog"
+        data-repo-id="R_kgDOSRYMPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSRYMPs4C8HQL"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="/posts/tooling/" class="series-sidebar-title">效率工具</a>
+        <span class="series-sidebar-count">3 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        <li>
+          <a href="/posts/tooling/wxpusher-polling-to-event-driven/"
+             class="series-capsule series-tooling"
+             title="别再轮询了。你的人生应该 Event-Driven。">
+            别再轮询了。你的人生应该 Event-Driven。
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/content-buffer-pool-design/"
+             class="series-capsule series-tooling active"
+             title="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？">
+            自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/farewell-efficiency-refugees/"
+             class="series-capsule series-tooling"
+             title="别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？">
+            别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="/posts/systems-thinking/" class="nav-btn nav-systems-thinking">
+      系统思维
+    </a>
+    <a href="/posts/learning/" class="nav-btn nav-learning">
+      学习方法
+    </a>
+    <a href="/posts/tooling/" class="nav-btn nav-tooling">
+      效率工具
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

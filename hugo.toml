@@ -1,4 +1,4 @@
-baseURL = 'https://zhao818.github.io/world-corner-blog/'
+baseURL = '/'
 languageCode = 'zh-cn'
 title = '世界一隅 | 认知能量工程'
 theme = 'PaperMod'

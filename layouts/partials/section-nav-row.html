@@ -1,0 +1,12 @@
+{{- /* Section nav capsules — visible on mobile list pages */}}
+<nav class="section-nav-row" aria-label="专栏导航">
+  {{- $currentPage := . }}
+  {{- range site.Menus.main }}
+    {{- $btnClass := printf "nav-btn nav-%s" .Identifier }}
+    {{- $menuURL := .URL | absLangURL }}
+    {{- $pageURL := $currentPage.Permalink | absLangURL }}
+    <a href="{{ .URL | absLangURL }}" class="{{ $btnClass }}{{ if eq $menuURL $pageURL }} active{{ end }}">
+      {{ .Name }}
+    </a>
+  {{- end }}
+</nav>
