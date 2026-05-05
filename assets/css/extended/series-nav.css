@@ -1,5 +1,5 @@
 /* Series nav buttons */
-#menu li a {
+.nav-btn {
     padding: 4px 14px;
     border-radius: 16px;
     font-size: 0.9em;
@@ -8,65 +8,65 @@
 }
 
 /* 系统思维 — indigo */
-#menu li a[href*="systems-thinking"] {
+.nav-systems-thinking {
     background: rgba(78, 84, 200, 0.12);
     color: #4e54c8;
     border: 1px solid rgba(78, 84, 200, 0.25);
 }
-#menu li a[href*="systems-thinking"]:hover {
+.nav-systems-thinking:hover {
     background: rgba(78, 84, 200, 0.22);
     border-color: rgba(78, 84, 200, 0.45);
 }
 
 /* 学习方法 — teal */
-#menu li a[href*="learning"] {
+.nav-learning {
     background: rgba(14, 165, 160, 0.12);
     color: #0ea5a0;
     border: 1px solid rgba(14, 165, 160, 0.25);
 }
-#menu li a[href*="learning"]:hover {
+.nav-learning:hover {
     background: rgba(14, 165, 160, 0.22);
     border-color: rgba(14, 165, 160, 0.45);
 }
 
 /* 效率工具 — amber */
-#menu li a[href*="tooling"] {
+.nav-tooling {
     background: rgba(217, 119, 6, 0.12);
     color: #d97706;
     border: 1px solid rgba(217, 119, 6, 0.25);
 }
-#menu li a[href*="tooling"]:hover {
+.nav-tooling:hover {
     background: rgba(217, 119, 6, 0.22);
     border-color: rgba(217, 119, 6, 0.45);
 }
 
-/* Dark mode adjustments */
-.dark #menu li a[href*="systems-thinking"] {
+/* Dark mode */
+.dark .nav-systems-thinking {
     background: rgba(110, 116, 230, 0.16);
     color: #9498f0;
     border-color: rgba(110, 116, 230, 0.30);
 }
-.dark #menu li a[href*="systems-thinking"]:hover {
+.dark .nav-systems-thinking:hover {
     background: rgba(110, 116, 230, 0.28);
     border-color: rgba(110, 116, 230, 0.50);
 }
 
-.dark #menu li a[href*="learning"] {
+.dark .nav-learning {
     background: rgba(20, 200, 190, 0.16);
     color: #34d4c8;
     border-color: rgba(20, 200, 190, 0.30);
 }
-.dark #menu li a[href*="learning"]:hover {
+.dark .nav-learning:hover {
     background: rgba(20, 200, 190, 0.28);
     border-color: rgba(20, 200, 190, 0.50);
 }
 
-.dark #menu li a[href*="tooling"] {
+.dark .nav-tooling {
     background: rgba(245, 158, 11, 0.16);
     color: #f5b03e;
     border-color: rgba(245, 158, 11, 0.30);
 }
-.dark #menu li a[href*="tooling"]:hover {
+.dark .nav-tooling:hover {
     background: rgba(245, 158, 11, 0.28);
     border-color: rgba(245, 158, 11, 0.50);
 }
