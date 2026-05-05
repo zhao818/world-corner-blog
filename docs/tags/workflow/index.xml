@@ -1,8 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Workflow on 世界一隅 | 认知能量工程</title><link>https://zhao818.github.io/world-corner-blog/tags/workflow/</link><description>Recent content in Workflow on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 01 May 2026 12:40:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/workflow/index.xml" rel="self" type="application/rss+xml"/><item><title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</title><link>https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/</link><pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate><guid>https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/</guid><description>&lt;p>你每天打开多少次信息应用？&lt;/p>
-&lt;p>Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。&lt;/p>
-&lt;blockquote>
-&lt;p>我统计过自己的数字行为：平均每天在不同信息源之间切换 &lt;strong>87 次&lt;/strong>。87 次上下文重建。87 次「我刚刚在想什么」。&lt;/p>
-&lt;/blockquote>
-&lt;p>这不是信息过载。这是&lt;strong>信息碎尸&lt;/strong>——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。&lt;/p>
-&lt;p>所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。&lt;/p>
-&lt;p>于是有了 &lt;strong>内容缓冲池（Content Buffer Pool）&lt;/strong>。&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Workflow on 世界一隅 | 认知能量工程</title>
+    <link>https://zhao818.github.io/world-corner-blog/tags/workflow/</link>
+    <description>Recent content in Workflow on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 01 May 2026 12:40:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/workflow/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</title>
+      <link>https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/</link>
+      <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
+      
+      <guid>https://zhao818.github.io/world-corner-blog/posts/tooling/content-buffer-pool-design/</guid>
+      <description>&lt;p&gt;你每天打开多少次信息应用？&lt;/p&gt;
+&lt;p&gt;Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我统计过自己的数字行为：平均每天在不同信息源之间切换 &lt;strong&gt;87 次&lt;/strong&gt;。87 次上下文重建。87 次「我刚刚在想什么」。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这不是信息过载。这是&lt;strong&gt;信息碎尸&lt;/strong&gt;——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。&lt;/p&gt;
+&lt;p&gt;所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。&lt;/p&gt;
+&lt;p&gt;于是有了 &lt;strong&gt;内容缓冲池（Content Buffer Pool）&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
