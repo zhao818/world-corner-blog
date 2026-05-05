@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>关系系统论 on 世界一隅 | 认知能量工程</title>
-    <link>https://zhao818.github.io/world-corner-blog/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/</link>
-    <description>Recent content in 关系系统论 on 世界一隅 | 认知能量工程</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>社交关系的「API 接口」：为什么孤独沉思不能替代师徒对话</title>
-      <link>https://zhao818.github.io/world-corner-blog/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link>
-      <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
-      
-      <guid>https://zhao818.github.io/world-corner-blog/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid>
-      <description>摘要：现代人将孤独神化为高级社交形态，却在信息茧房中走向系统的死寂。本文用工程视角重构社交与沉思——师徒是高带宽的监督式学习，爱情是端到端加密同步，而孤独，不过是本地离线预处理。没有 API 接口的智能体，其计算结果最终无法上链，终将归零。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>关系系统论 on 世界一隅 | 认知能量工程</title><link>https://zhao818.github.io/world-corner-blog/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/</link><description>Recent content in 关系系统论 on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>社交关系的「API 接口」：为什么孤独沉思不能替代师徒对话</title><link>https://zhao818.github.io/world-corner-blog/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link><pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate><guid>https://zhao818.github.io/world-corner-blog/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid><description>摘要：现代人将孤独神化为高级社交形态，却在信息茧房中走向系统的死寂。本文用工程视角重构社交与沉思——师徒是高带宽的监督式学习，爱情是端到端加密同步，而孤独，不过是本地离线预处理。没有 API 接口的智能体，其计算结果最终无法上链，终将归零。
 孤独的神话，系统的死寂 这个时代有一个隐性教条：「孤独即高级」。
 一个人吃饭叫「享受独处」；一个人旅行叫「深度体验」；一个人沉思叫「内在修行」。社交媒体上，孤独被包装成一种精神贵族阶层的入场券——仿佛只要切断社交连接，思想就会自动深邃，灵魂就会自然升华。
 但如果你拆开这个神话的底层，会发现一个残酷的真相：
@@ -38,8 +23,4 @@
 孤独，不是终点，而是 前提条件（precondition）。
 在一个带宽受限的系统中（人类每天只有有限的认知资源），如果不定期进入离线模式，你将被外部的噪声信号淹没——算法推荐、社交比较、信息过载——你的系统将进入一种「持续高负载但零产出」的状态。
 孤独沉思做的事情如下：
-数据清洗（Data Cleaning）：过滤掉社会规训投放进来的无效信息，保留对自身体系有价值的特征。 内核重建（Kernel Rebuild）：重新排列你的信念层级——三个月前觉得无比重要的东西，今天看可能只是缓存垃圾。 模型评估（Evaluation）：在没有外部干扰的环境中，自检当前认知架构是否存在逻辑漏洞或一致性矛盾。 但这里有一个致命陷阱要避免：</description>
-    </item>
-    
-  </channel>
-</rss>
+数据清洗（Data Cleaning）：过滤掉社会规训投放进来的无效信息，保留对自身体系有价值的特征。 内核重建（Kernel Rebuild）：重新排列你的信念层级——三个月前觉得无比重要的东西，今天看可能只是缓存垃圾。 模型评估（Evaluation）：在没有外部干扰的环境中，自检当前认知架构是否存在逻辑漏洞或一致性矛盾。 但这里有一个致命陷阱要避免：</description></item></channel></rss>

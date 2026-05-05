@@ -1,25 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Hugo on 世界一隅 | 认知能量工程</title>
-    <link>https://zhao818.github.io/world-corner-blog/tags/hugo/</link>
-    <description>Recent content in Hugo on 世界一隅 | 认知能量工程</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title>
-      <link>https://zhao818.github.io/world-corner-blog/posts/tooling/farewell-efficiency-refugees/</link>
-      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
-      
-      <guid>https://zhao818.github.io/world-corner-blog/posts/tooling/farewell-efficiency-refugees/</guid>
-      <description>&lt;p&gt;凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。&lt;/p&gt;
-&lt;p&gt;这个号称&amp;quot;低代码自动化神器&amp;quot;的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击&amp;quot;测试 workflow&amp;quot;，都在用我的认知带宽去喂养一个本不该存在的抽象层。&lt;/p&gt;
-&lt;p&gt;我把 n8n 的容器停了。然后写了一行 Python。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy(src, dst)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;三行代码。零依赖。零配置。零心理负担。&lt;/p&gt;
-&lt;p&gt;这不是一个关于技术选型的故事。这是一个关于&lt;strong&gt;认知能量&lt;/strong&gt;的故事。&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Hugo on 世界一隅 | 认知能量工程</title><link>https://zhao818.github.io/world-corner-blog/tags/hugo/</link><description>Recent content in Hugo on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="https://zhao818.github.io/world-corner-blog/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title><link>https://zhao818.github.io/world-corner-blog/posts/tooling/farewell-efficiency-refugees/</link><pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate><guid>https://zhao818.github.io/world-corner-blog/posts/tooling/farewell-efficiency-refugees/</guid><description>&lt;p>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。&lt;/p>
+&lt;p>这个号称&amp;quot;低代码自动化神器&amp;quot;的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击&amp;quot;测试 workflow&amp;quot;，都在用我的认知带宽去喂养一个本不该存在的抽象层。&lt;/p>
+&lt;p>我把 n8n 的容器停了。然后写了一行 Python。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>shutil&lt;span style="color:#f92672">.&lt;/span>copy(src, dst)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>三行代码。零依赖。零配置。零心理负担。&lt;/p>
+&lt;p>这不是一个关于技术选型的故事。这是一个关于&lt;strong>认知能量&lt;/strong>的故事。&lt;/p></description></item></channel></rss>
