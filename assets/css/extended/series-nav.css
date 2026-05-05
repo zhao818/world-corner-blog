@@ -236,13 +236,15 @@
 /* ===== Mobile bottom nav bar ===== */
 .section-nav-row {
     display: flex;
-    gap: 6px;
-    padding: 8px 12px;
+    gap: var(--gap);
+    padding: 10px var(--gap);
     flex-wrap: nowrap;
     position: fixed;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
     z-index: 100;
     background: var(--theme);
     border-top: 1px solid var(--border);
@@ -250,12 +252,12 @@
 }
 
 .section-nav-row .nav-btn {
-    font-size: 0.82em;
-    padding: 7px 12px;
+    font-size: 0.9em;
+    padding: 7px 0;
     border-radius: 16px;
     text-decoration: none;
     text-align: center;
-    flex: 0 1 auto;
+    flex: 1;
     min-width: 0;
     white-space: nowrap;
 }
@@ -270,7 +272,7 @@
 /* Leave room for fixed bottom nav */
 @media (max-width: 767px) {
     body {
-        padding-bottom: 62px;
+        padding-bottom: 64px;
         overflow-x: hidden;
     }
 }
