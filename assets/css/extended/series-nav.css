@@ -70,3 +70,243 @@
     background: rgba(245, 158, 11, 0.28);
     border-color: rgba(245, 158, 11, 0.50);
 }
+
+/* ===== Series Sidebar ===== */
+.post-with-sidebar {
+    display: flex;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.post-with-sidebar .post-single {
+    flex: 1;
+    min-width: 0;
+}
+
+.series-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+    align-self: flex-start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    padding: 20px 16px;
+    border-left: 1px solid var(--border);
+    font-size: 0.88em;
+}
+
+.series-sidebar-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.series-sidebar-title {
+    font-weight: 700;
+    font-size: 1.05em;
+    color: var(--primary);
+    text-decoration: none;
+}
+.series-sidebar-title:hover {
+    text-decoration: underline;
+}
+
+.series-sidebar-count {
+    font-size: 0.78em;
+    color: var(--secondary);
+}
+
+.series-sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Capsule article links */
+.series-capsule {
+    display: block;
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-size: 0.85em;
+    font-weight: 450;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Series-specific capsule colors — 系统思维 indigo */
+.series-capsule.series-systems-thinking {
+    background: rgba(78, 84, 200, 0.06);
+    color: #4e54c8;
+    border: 1px solid rgba(78, 84, 200, 0.15);
+}
+.series-capsule.series-systems-thinking:hover {
+    background: rgba(78, 84, 200, 0.16);
+    border-color: rgba(78, 84, 200, 0.35);
+}
+.series-capsule.series-systems-thinking.active {
+    background: rgba(78, 84, 200, 0.18);
+    border-color: rgba(78, 84, 200, 0.50);
+    font-weight: 600;
+}
+
+/* 学习方法 teal */
+.series-capsule.series-learning {
+    background: rgba(14, 165, 160, 0.06);
+    color: #0ea5a0;
+    border: 1px solid rgba(14, 165, 160, 0.15);
+}
+.series-capsule.series-learning:hover {
+    background: rgba(14, 165, 160, 0.16);
+    border-color: rgba(14, 165, 160, 0.35);
+}
+.series-capsule.series-learning.active {
+    background: rgba(14, 165, 160, 0.18);
+    border-color: rgba(14, 165, 160, 0.50);
+    font-weight: 600;
+}
+
+/* 效率工具 amber */
+.series-capsule.series-tooling {
+    background: rgba(217, 119, 6, 0.06);
+    color: #d97706;
+    border: 1px solid rgba(217, 119, 6, 0.15);
+}
+.series-capsule.series-tooling:hover {
+    background: rgba(217, 119, 6, 0.16);
+    border-color: rgba(217, 119, 6, 0.35);
+}
+.series-capsule.series-tooling.active {
+    background: rgba(217, 119, 6, 0.18);
+    border-color: rgba(217, 119, 6, 0.50);
+    font-weight: 600;
+}
+
+/* Dark mode overrides */
+.dark .series-capsule.series-systems-thinking {
+    background: rgba(110, 116, 230, 0.08);
+    color: #9498f0;
+    border-color: rgba(110, 116, 230, 0.20);
+}
+.dark .series-capsule.series-systems-thinking:hover,
+.dark .series-capsule.series-systems-thinking.active {
+    background: rgba(110, 116, 230, 0.20);
+    border-color: rgba(110, 116, 230, 0.45);
+}
+
+.dark .series-capsule.series-learning {
+    background: rgba(20, 200, 190, 0.08);
+    color: #34d4c8;
+    border-color: rgba(20, 200, 190, 0.20);
+}
+.dark .series-capsule.series-learning:hover,
+.dark .series-capsule.series-learning.active {
+    background: rgba(20, 200, 190, 0.20);
+    border-color: rgba(20, 200, 190, 0.45);
+}
+
+.dark .series-capsule.series-tooling {
+    background: rgba(245, 158, 11, 0.08);
+    color: #f5b03e;
+    border-color: rgba(245, 158, 11, 0.20);
+}
+.dark .series-capsule.series-tooling:hover,
+.dark .series-capsule.series-tooling.active {
+    background: rgba(245, 158, 11, 0.20);
+    border-color: rgba(245, 158, 11, 0.45);
+}
+
+/* Active state for header nav buttons */
+.nav-btn.active {
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* ===== Mobile bottom nav bar ===== */
+.section-nav-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--theme);
+    border-top: 1px solid var(--border);
+    justify-content: space-around;
+}
+
+.section-nav-row .nav-btn {
+    font-size: 0.9em;
+    padding: 8px 20px;
+    border-radius: 18px;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+    max-width: 140px;
+}
+
+/* Desktop: hide bottom nav (already in header) */
+@media (min-width: 768px) {
+    .section-nav-row {
+        display: none;
+    }
+}
+
+/* Leave room for fixed bottom nav */
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 70px;
+    }
+}
+
+/* Spacing for bottom nav row (after article list) */
+.post-entry + .section-nav-row,
+.first-entry + .section-nav-row,
+.tag-entry + .section-nav-row {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* Mobile: stack sidebar below article */
+@media (max-width: 900px) {
+    .post-with-sidebar {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .series-sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 16px 0 0;
+        margin-top: 24px;
+    }
+
+    .series-sidebar-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .series-capsule {
+        white-space: normal;
+        max-width: 100%;
+    }
+}
