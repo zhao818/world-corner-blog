@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Geek on 世界一隅 | 认知能量工程</title>
+    <link>/tags/geek/</link>
+    <description>Recent content in Geek on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 02 May 2026 20:48:14 +0800</lastBuildDate><atom:link href="/tags/geek/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>「内在文明：认知能量工程——一次针对现代人心智状态的系统实验」</title>
+      <link>/posts/systems-thinking/inner-civilization-cognitive-energy/</link>
+      <pubDate>Sat, 02 May 2026 20:48:14 +0800</pubDate>
+      
+      <guid>/posts/systems-thinking/inner-civilization-cognitive-energy/</guid>
+      <description>你无法优化一个你从未真正理解的系统，尤其是当这个系统恰好是你自己。</description>
+    </item>
+    
+  </channel>
+</rss>
