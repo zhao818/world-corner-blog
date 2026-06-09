@@ -64,6 +64,7 @@
 <meta property="article:published_time" content="2026-05-02T17:37:17+08:00" />
 <meta property="article:modified_time" content="2026-05-02T17:37:17+08:00" /><meta property="og:site_name" content="世界一隅" />
 
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="「为什么我们需要切断无意义的社交」"/>
 <meta name="twitter:description" content="为什么我们需要切断无意义的社交？因为未释放的隐式关系指针正在导致大脑的「内存泄漏」，我们需要定期的 Stop-The-World 进行系统级的垃圾回收（GC）。"/>
@@ -199,8 +200,7 @@
   </header> 
   <div class="post-content md-content"><h1 id="社交gc当隐式关系指针导致大脑内存泄漏时">社交GC：当隐式关系指针导致大脑内存泄漏时<a hidden class="anchor" aria-hidden="true" href="#社交gc当隐式关系指针导致大脑内存泄漏时">#</a></h1>
 <blockquote>
-<p>每一次无意义的社交都是一次未释放的 <code>malloc</code>，累积到临界点，系统就会用你最不想看到的方式强制回收。</p>
-</blockquote>
+<p>每一次无意义的社交都是一次未释放的 <code>malloc</code>，累积到临界点，系统就会用你最不想看到的方式强制回收。</p></blockquote>
 <hr>
 <h2 id="一隐式关系指针社交网络的内存泄漏源">一、隐式关系指针：社交网络的内存泄漏源<a hidden class="anchor" aria-hidden="true" href="#一隐式关系指针社交网络的内存泄漏源">#</a></h2>
 <p>你打开微信，看到通讯录里躺着 847 个联系人。你记得其中 37 个的名字和面孔，能准确回忆起与其中 12 人最近一次对话的内容。剩下的人，只是一个个悬空的指针——指向一段早已失效的上下文，却仍然占据着你的认知地址空间。</p>
@@ -301,9 +301,23 @@
     <aside class="series-sidebar">
       <div class="series-sidebar-header">
         <a href="/posts/systems-thinking/" class="series-sidebar-title">系统思维</a>
-        <span class="series-sidebar-count">9 篇</span>
+        <span class="series-sidebar-count">11 篇</span>
       </div>
       <ul class="series-sidebar-list">
+        <li>
+          <a href="/posts/systems-thinking/2026-06-08-signal-loss-in-yongde/"
+             class="series-capsule series-systems-thinking"
+             title="「当日报成为坟场：一个项目从数学危机到人道危机的72天」">
+            「当日报成为坟场：一个项目从数学危机到人道危机的72天」
+          </a>
+        </li>
+        <li>
+          <a href="/posts/systems-thinking/pseudo-rest-cognitive-drain/"
+             class="series-capsule series-systems-thinking"
+             title="为什么现代人越休息越累？「能量失血」才是最大的骗局">
+            为什么现代人越休息越累？「能量失血」才是最大的骗局
+          </a>
+        </li>
         <li>
           <a href="/posts/systems-thinking/eternal-combat-as-system-architecture/"
              class="series-capsule series-systems-thinking"
@@ -375,7 +389,7 @@
 
 
 <nav class="section-nav-row" aria-label="专栏导航">
-    <a href="/posts/systems-thinking/" class="nav-btn nav-systems-thinking">
+    <a href="/posts/systems-thinking/" class="nav-btn nav-systems-thinking active">
       系统思维
     </a>
     <a href="/posts/learning/" class="nav-btn nav-learning">

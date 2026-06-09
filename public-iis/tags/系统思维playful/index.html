@@ -61,6 +61,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/tags/%E7%B3%BB%E7%BB%9F%E6%80%9D%E7%BB%B4playful/" /><meta property="og:site_name" content="世界一隅" />
 
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="系统思维playful"/>
 <meta name="twitter:description" content="在算法洪流中，守护清醒的微光。"/>
@@ -154,7 +155,8 @@
 Linux 内核的 OOM Killer 算法有一个反直觉的规则：它优先杀死“内存占用高但最近不活跃”的进程。一位系统架构师在博客中写道：“我意识到自己的微信好友清理策略和 OOM Killer 完全一致——先看谁占我‘内存’最多（频繁发朋友圈但从不私聊），再看谁最近‘活跃度’最低（三年没说过话）。这不是冷漠，这是系统保护。”
 这种强制断交往往发生在深夜或情绪崩溃的时刻。你突然拉黑了一个人，退出了一个群，删除了数百个联系人——这不是冲动，是系统在内存耗尽时触发的自我保护机制。那位架构师还提到一个细节：OOM Killer 不会杀死正在执行关键任务的进程，就像你不会在对方结婚当天拉黑他。它优先清理的是那些“占用资源但不产生价值”的死进程——那些你早已不在意、却仍然占据着认知地址的关系。
 微信“朋友圈三天可见”功能的使用量超过 2 亿，这本身就是一次大规模的 OOM Killer 策略普及。产品团队最初设计它是为了隐私保护，但用户的实际动机更接近内存管理：他们不想让新认识的人通过翻看三年前的朋友圈来建立隐式关系连接。一位产品经理在内部复盘中说：“用户不是不想社交，而是不想让‘过去的关系指针’污染‘现在的关系内存’。三天可见本质上是一个自动 GC 策略：只保留最近活跃的上下文。”
-四、显式契约：内存安全的社交设计 那么，什么是健康的社交内存管理？...</p>
+四、显式契约：内存安全的社交设计 那么，什么是健康的社交内存管理？
+...</p>
   </div>
   <footer class="entry-footer">2026年5月2日 · Tianbing Zhao</footer>
   <a class="entry-link" aria-label="post link to 「为什么我们需要切断无意义的社交」" href="/posts/systems-thinking/social-memory-leak-gc/"></a>

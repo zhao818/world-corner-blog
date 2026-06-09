@@ -6,7 +6,16 @@
     <description>Recent content in 效率 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="/tags/%E6%95%88%E7%8E%87/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 May 2026 21:42:52 +0800</lastBuildDate><atom:link href="/tags/%E6%95%88%E7%8E%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验</title>
+      <link>/posts/tooling/tool-sovereignty-occams-razor/</link>
+      <pubDate>Mon, 18 May 2026 21:42:52 +0800</pubDate>
+      
+      <guid>/posts/tooling/tool-sovereignty-occams-razor/</guid>
+      <description>他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。</description>
+    </item>
+    
     <item>
       <title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title>
       <link>/posts/tooling/farewell-efficiency-refugees/</link>
