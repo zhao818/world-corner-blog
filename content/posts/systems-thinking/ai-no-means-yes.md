@@ -4,7 +4,7 @@ date: 2026-06-11
 description: "AI的'不'不是拒绝，是缺了一块拼图。你补上，它就通了。"
 author: "美好需要创造"
 tags: ["AI", "方法论", "自动化", "人机协作"]
-categories: ["methodology"]
+categories: ["systems-thinking"]
 ---
 
 每次 Claude 说"我做不到"的时候，恰恰是真正的工作开始的时刻。
