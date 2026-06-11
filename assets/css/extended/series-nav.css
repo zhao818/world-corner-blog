@@ -8,65 +8,77 @@
 }
 
 /* 系统思维 — indigo */
-.nav-systems-thinking {
+.nav-systems-thinking,
+.nav-menu-systems-thinking {
     background: rgba(78, 84, 200, 0.12);
     color: #4e54c8;
     border: 1px solid rgba(78, 84, 200, 0.25);
 }
-.nav-systems-thinking:hover {
+.nav-systems-thinking:hover,
+.nav-menu-systems-thinking:hover {
     background: rgba(78, 84, 200, 0.22);
     border-color: rgba(78, 84, 200, 0.45);
 }
 
 /* 学习方法 — teal */
-.nav-learning {
+.nav-learning,
+.nav-menu-learning {
     background: rgba(14, 165, 160, 0.12);
     color: #0ea5a0;
     border: 1px solid rgba(14, 165, 160, 0.25);
 }
-.nav-learning:hover {
+.nav-learning:hover,
+.nav-menu-learning:hover {
     background: rgba(14, 165, 160, 0.22);
     border-color: rgba(14, 165, 160, 0.45);
 }
 
 /* 效率工具 — amber */
-.nav-tooling {
+.nav-tooling,
+.nav-menu-tooling {
     background: rgba(217, 119, 6, 0.12);
     color: #d97706;
     border: 1px solid rgba(217, 119, 6, 0.25);
 }
-.nav-tooling:hover {
+.nav-tooling:hover,
+.nav-menu-tooling:hover {
     background: rgba(217, 119, 6, 0.22);
     border-color: rgba(217, 119, 6, 0.45);
 }
 
 /* Dark mode */
-.dark .nav-systems-thinking {
+.dark .nav-systems-thinking,
+.dark .nav-menu-systems-thinking {
     background: rgba(110, 116, 230, 0.16);
     color: #9498f0;
     border-color: rgba(110, 116, 230, 0.30);
 }
-.dark .nav-systems-thinking:hover {
+.dark .nav-systems-thinking:hover,
+.dark .nav-menu-systems-thinking:hover {
     background: rgba(110, 116, 230, 0.28);
     border-color: rgba(110, 116, 230, 0.50);
 }
 
-.dark .nav-learning {
+.dark .nav-learning,
+.dark .nav-menu-learning {
     background: rgba(20, 200, 190, 0.16);
     color: #34d4c8;
     border-color: rgba(20, 200, 190, 0.30);
 }
-.dark .nav-learning:hover {
+.dark .nav-learning:hover,
+.dark .nav-menu-learning:hover {
     background: rgba(20, 200, 190, 0.28);
     border-color: rgba(20, 200, 190, 0.50);
 }
 
-.dark .nav-tooling {
+.dark .nav-tooling,
+.dark .nav-menu-tooling {
     background: rgba(245, 158, 11, 0.16);
     color: #f5b03e;
     border-color: rgba(245, 158, 11, 0.30);
 }
-.dark .nav-tooling:hover {
+.dark .nav-tooling:hover,
+.dark .nav-menu-tooling:hover {
     background: rgba(245, 158, 11, 0.28);
     border-color: rgba(245, 158, 11, 0.50);
 }
