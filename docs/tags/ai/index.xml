@@ -1,25 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>AI on 世界一隅 | 认知能量工程</title><link>/tags/ai/</link><description>Recent content in AI on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>AI说不行的时候</title><link>/posts/systems-thinking/ai-no-means-yes/</link><pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate><guid>/posts/systems-thinking/ai-no-means-yes/</guid><description>AI的&amp;#39;不&amp;#39;不是拒绝，是缺了一块拼图。你补上，它就通了。</description></item><item><title>AI审AI</title><link>/posts/systems-thinking/ai-audit-ai/</link><pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate><guid>/posts/systems-thinking/ai-audit-ai/</guid><description>上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。</description></item><item><title>现代心灵的一场「代偿性自救」</title><link>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</link><pubDate>Fri, 01 May 2026 21:40:00 +0800</pubDate><guid>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</guid><description>你用最高级的手段，逃避最古老的问题。 这不是科技在赋能，是人性在温柔地外包自己。 真正的高贵，是在被算法精心喂养的时代里，依然有能力为自己感到不适。
-&amp;ldquo;心灵治愈、AI 智能、营养健康、短剧形式、社会热点&amp;rdquo;——当这些词被拼接到同一个叙事里，公关稿喊出了一个漂亮的口号：科技赋能下的&amp;quot;全人健康&amp;quot;短剧新浪潮。
-表面上，我们看到的是 AI 心理咨询 24 小时在线、算法根据你的基因数据推荐食谱、健康短剧在短视频平台收割十亿播放。但冷静下来看，这并非科技进步的自然应用，而是现代人在多重社会压力——内卷、孤独、不确定性——与原子化生存状态下，一场大规模、系统性的 &amp;ldquo;代偿性自救&amp;rdquo;。
-我们试图用最前沿的技术，去解决最古老的人性问题：孤独、意义匮乏、对疾病与衰老的恐惧。用最快捷、最&amp;quot;易消化&amp;quot;的短剧形式，去填补系统性健康教育与心灵教育的缺失。
-这本质上是一种 &amp;ldquo;用手段的升级，掩盖根源的困境&amp;rdquo; 的经典操作。
-多维透视：热潮下的五重底层矛盾 作为冷静的观察者，这一融合现象至少揭示了五组深刻的矛盾。
-1. 精准化与异化的矛盾 AI 能提供前所未有的精准服务：24 小时在线的倾听、基于十万份数据生成的个性化食谱、为你量身定制的减压剧本。但这种&amp;quot;精准&amp;quot;是代码的精准、数据的精准。它可能正在异化我们的真实需求：我们将&amp;quot;心灵治愈&amp;quot;等同于&amp;quot;情绪即时舒缓&amp;quot;，将&amp;quot;健康&amp;quot;等同于&amp;quot;营养素的精准摄入&amp;quot;，将&amp;quot;成长&amp;quot;等同于&amp;quot;观看一个励志短剧&amp;quot;。
-在这个过程中，对复杂性的耐受、对缓慢过程的尊重、对真实人际联结的渴求，正在被悄然置换和消解。我们得到了精准的答案，却失去了提出正确问题的能力。
-2. 赋能与赋权的错觉 所有产品都宣称在&amp;quot;赋能&amp;quot;用户。但赋的是什么&amp;quot;能&amp;quot;？是自我觉察、真实改变的能力，还是对某种技术或服务的依赖？
-当 AI 成为我们情绪的 &amp;ldquo;外部 API 调用&amp;rdquo;——心情不好就调一下，调完接着过——当算法成为我们饮食的&amp;quot;终极权威&amp;quot;，短剧成为我们理解健康问题的&amp;quot;认知框架&amp;quot;时，个体的主体性与判断力是在增强，还是在被一种更友好、更智能的方式外包？
-这是一种温柔的 &amp;ldquo;赋权错觉&amp;rdquo;。你以为是你在掌控工具，实则是工具在替你做出每一个关于&amp;quot;你是谁&amp;quot;的判断。
-3. 流量逻辑与疗愈本质的冲突 短剧的底层逻辑是&amp;quot;流量&amp;quot;：追求爽点、反转、即时共鸣。而真正的心理疗愈与行为改变，往往是反流量的：它需要面对不适、承认脆弱、经历漫长而反复的练习。
-当健康知识被硬塞进&amp;quot;逆袭&amp;quot;、&amp;ldquo;打脸&amp;rdquo;、&amp;ldquo;甜宠&amp;quot;的短剧模板时，我们消费的究竟是健康知识，还是包裹着健康外衣的情绪快感？这种冲突可能导致严肃知识的娱乐化稀释，让人们误以为 &amp;ldquo;看过即改变&amp;rdquo;——一种认知带宽上的有损压缩，用最短的注意力周期换取最廉价的满足感。
-4. 数据天堂与隐私地狱的一体两面 要提供个性化服务，就需要最私密的数据：你的情绪波动、饮食记录、睡眠质量，甚至隐秘的恐惧。我们为自己构建了一个由数据驱动的健康&amp;quot;天堂&amp;rdquo;，但这座天堂建立在个人生物与心理数据的透明地基之上。
-数据所有权、算法黑箱、商业滥用构成了潜在的&amp;quot;隐私地狱&amp;quot;。我们交出的，可能比社交网络上的行为数据更为核心——那是 &amp;ldquo;生命数据&amp;rdquo;：关于你如何感受、如何脆弱、如何渴望被理解的完整记录。
-5. 感官刺激与长期构建的错位 这是最常被忽略、却最深层的矛盾。
-AI 智能、算法营养、短剧治愈——这三者被无缝打包成一种&amp;quot;全人健康&amp;quot;的解决方案推到你面前。但仔细看，它们共享同一个底层机制：即时反馈。
-AI 咨询给的是即时的情绪舒缓，算法食谱给的是即时的营养确信，短剧给的是即时的情感代偿。它们共同构筑了一个 &amp;ldquo;多巴胺式&amp;quot;的瘾性循环：你的每一次不适，都能在 15 秒内找到对应的&amp;quot;电子阿司匹林&amp;rdquo;。
-但真正的生命韧性——耐受力、延迟满足、在不确定中坚持——这些属于 &amp;ldquo;内啡肽式&amp;rdquo; 的品质，是无法被封装成快消品的。当整个市场都在兜售即时抚慰时，&amp;ldquo;长期构建&amp;quot;这件事就彻底被遗忘在商业逻辑的盲区里。
-结果是什么？我们失去了&amp;quot;难受的能力&amp;rdquo;。而一个不能难受的人，本质上也是一个不能真正快乐的人。
-悬而未决的拷问 新数字鸿沟：当身心健康日益依赖智能工具和数字内容，那些不擅长使用技术、或无法负担相关服务的群体，是否会遭遇一种更深层的&amp;quot;健康鸿沟&amp;quot;与&amp;quot;心理福祉鸿沟&amp;quot;？
-责任的迁移：当人们通过 AI 应用进行心理自助，通过算法管理饮食，社会系统——家庭、学校、医疗、职场——是否在潜意识中卸下了提供支持与包容的传统责任？个体是否被置于&amp;quot;你必须利用好这些工具对自己负责&amp;quot;的更大压力之下？
-真实的定义危机：如果 AI 伴侣比真人更懂安慰，算法食谱比身体感觉更&amp;quot;正确&amp;quot;，虚拟的励志故事比现实努力更能提供成就感，那么我们对&amp;quot;真实&amp;quot;的感受、关系和成长体验，是否在被重新定义？这是进化还是迷失？
-商业与伦理的边界：当&amp;quot;心灵&amp;quot;和&amp;quot;健康&amp;quot;成为增长最快的赛道之一，资本将如何塑造这一领域？如何防止&amp;quot;制造焦虑—提供解决方案&amp;quot;的商业模式渗透进来？伦理的护栏应该设在哪里？
-破局：在代偿系统中重建真实联结 批判不是终点。在这个充满&amp;quot;代偿&amp;quot;的异构网络中，我们仍然可以找到建立&amp;quot;高保真、去中心化&amp;quot;的真实联结的系统性路径。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>AI on 世界一隅 | 认知能量工程</title><link>/tags/ai/</link><description>Recent content in AI on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>AI说不行的时候</title><link>/posts/systems-thinking/ai-no-means-yes/</link><pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate><guid>/posts/systems-thinking/ai-no-means-yes/</guid><description>AI的&amp;#39;不&amp;#39;不是拒绝，是缺了一块拼图。你补上，它就通了。</description></item><item><title>AI审AI</title><link>/posts/systems-thinking/ai-audit-ai/</link><pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate><guid>/posts/systems-thinking/ai-audit-ai/</guid><description>上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。</description></item><item><title>现代心灵的一场「代偿性自救」</title><link>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</link><pubDate>Fri, 01 May 2026 21:40:00 +0800</pubDate><guid>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</guid><description>&lt;blockquote>
+&lt;p>你用最高级的手段，逃避最古老的问题。
+这不是科技在赋能，是人性在温柔地外包自己。
+真正的高贵，是在被算法精心喂养的时代里，依然有能力为自己感到不适。&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>&amp;ldquo;心灵治愈、AI 智能、营养健康、短剧形式、社会热点&amp;rdquo;——当这些词被拼接到同一个叙事里，公关稿喊出了一个漂亮的口号：&lt;strong>科技赋能下的&amp;quot;全人健康&amp;quot;短剧新浪潮。&lt;/strong>&lt;/p>
+&lt;p>表面上，我们看到的是 AI 心理咨询 24 小时在线、算法根据你的基因数据推荐食谱、健康短剧在短视频平台收割十亿播放。但冷静下来看，这并非科技进步的自然应用，而是现代人在多重社会压力——内卷、孤独、不确定性——与原子化生存状态下，一场大规模、系统性的 &lt;strong>&amp;ldquo;代偿性自救&amp;rdquo;。&lt;/strong>&lt;/p>
+&lt;p>我们试图用最前沿的技术，去解决最古老的人性问题：孤独、意义匮乏、对疾病与衰老的恐惧。用最快捷、最&amp;quot;易消化&amp;quot;的短剧形式，去填补系统性健康教育与心灵教育的缺失。&lt;/p>
+&lt;p>这本质上是一种 &lt;strong>&amp;ldquo;用手段的升级，掩盖根源的困境&amp;rdquo;&lt;/strong> 的经典操作。&lt;/p>
+&lt;h2 id="多维透视热潮下的五重底层矛盾">多维透视：热潮下的五重底层矛盾&lt;/h2>
+&lt;p>作为冷静的观察者，这一融合现象至少揭示了五组深刻的矛盾。&lt;/p>
+&lt;h3 id="1-精准化与异化的矛盾">1. 精准化与异化的矛盾&lt;/h3>
+&lt;p>AI 能提供前所未有的精准服务：24 小时在线的倾听、基于十万份数据生成的个性化食谱、为你量身定制的减压剧本。但这种&amp;quot;精准&amp;quot;是代码的精准、数据的精准。它可能正在异化我们的真实需求：我们将&amp;quot;心灵治愈&amp;quot;等同于&amp;quot;情绪即时舒缓&amp;quot;，将&amp;quot;健康&amp;quot;等同于&amp;quot;营养素的精准摄入&amp;quot;，将&amp;quot;成长&amp;quot;等同于&amp;quot;观看一个励志短剧&amp;quot;。&lt;/p>
+&lt;p>在这个过程中，对复杂性的耐受、对缓慢过程的尊重、对真实人际联结的渴求，正在被悄然置换和消解。&lt;strong>我们得到了精准的答案，却失去了提出正确问题的能力。&lt;/strong>&lt;/p>
+&lt;h3 id="2-赋能与赋权的错觉">2. 赋能与赋权的错觉&lt;/h3>
+&lt;p>所有产品都宣称在&amp;quot;赋能&amp;quot;用户。但赋的是什么&amp;quot;能&amp;quot;？是自我觉察、真实改变的能力，还是对某种技术或服务的依赖？&lt;/p>
+&lt;p>当 AI 成为我们情绪的 &lt;strong>&amp;ldquo;外部 API 调用&amp;rdquo;&lt;/strong>——心情不好就调一下，调完接着过——当算法成为我们饮食的&amp;quot;终极权威&amp;quot;，短剧成为我们理解健康问题的&amp;quot;认知框架&amp;quot;时，个体的主体性与判断力是在增强，还是在被一种更友好、更智能的方式外包？&lt;/p>
+&lt;p>这是一种温柔的 &lt;strong>&amp;ldquo;赋权错觉&amp;rdquo;&lt;/strong>。你以为是你在掌控工具，实则是工具在替你做出每一个关于&amp;quot;你是谁&amp;quot;的判断。&lt;/p>
+&lt;h3 id="3-流量逻辑与疗愈本质的冲突">3. 流量逻辑与疗愈本质的冲突&lt;/h3>
+&lt;p>短剧的底层逻辑是&amp;quot;流量&amp;quot;：追求爽点、反转、即时共鸣。而真正的心理疗愈与行为改变，往往是反流量的：它需要面对不适、承认脆弱、经历漫长而反复的练习。&lt;/p>
+&lt;p>当健康知识被硬塞进&amp;quot;逆袭&amp;quot;、&amp;ldquo;打脸&amp;rdquo;、&amp;ldquo;甜宠&amp;quot;的短剧模板时，我们消费的究竟是健康知识，还是包裹着健康外衣的情绪快感？这种冲突可能导致严肃知识的娱乐化稀释，让人们误以为 &lt;strong>&amp;ldquo;看过即改变&amp;rdquo;&lt;/strong>——一种认知带宽上的有损压缩，用最短的注意力周期换取最廉价的满足感。&lt;/p>
+&lt;h3 id="4-数据天堂与隐私地狱的一体两面">4. 数据天堂与隐私地狱的一体两面&lt;/h3>
+&lt;p>要提供个性化服务，就需要最私密的数据：你的情绪波动、饮食记录、睡眠质量，甚至隐秘的恐惧。我们为自己构建了一个由数据驱动的健康&amp;quot;天堂&amp;rdquo;，但这座天堂建立在个人生物与心理数据的透明地基之上。&lt;/p>
+&lt;p>数据所有权、算法黑箱、商业滥用构成了潜在的&amp;quot;隐私地狱&amp;quot;。我们交出的，可能比社交网络上的行为数据更为核心——那是 &lt;strong>&amp;ldquo;生命数据&amp;rdquo;&lt;/strong>：关于你如何感受、如何脆弱、如何渴望被理解的完整记录。&lt;/p>
+&lt;h3 id="5-感官刺激与长期构建的错位">5. 感官刺激与长期构建的错位&lt;/h3>
+&lt;p>这是最常被忽略、却最深层的矛盾。&lt;/p>
+&lt;p>AI 智能、算法营养、短剧治愈——这三者被无缝打包成一种&amp;quot;全人健康&amp;quot;的解决方案推到你面前。但仔细看，它们共享同一个底层机制：&lt;strong>即时反馈。&lt;/strong>&lt;/p>
+&lt;p>AI 咨询给的是即时的情绪舒缓，算法食谱给的是即时的营养确信，短剧给的是即时的情感代偿。它们共同构筑了一个 &lt;strong>&amp;ldquo;多巴胺式&amp;quot;的瘾性循环&lt;/strong>：你的每一次不适，都能在 15 秒内找到对应的&amp;quot;电子阿司匹林&amp;rdquo;。&lt;/p>
+&lt;p>但真正的生命韧性——耐受力、延迟满足、在不确定中坚持——这些属于 &lt;strong>&amp;ldquo;内啡肽式&amp;rdquo;&lt;/strong> 的品质，是无法被封装成快消品的。当整个市场都在兜售即时抚慰时，&amp;ldquo;长期构建&amp;quot;这件事就彻底被遗忘在商业逻辑的盲区里。&lt;/p>
+&lt;p>结果是什么？我们失去了&amp;quot;难受的能力&amp;rdquo;。而一个不能难受的人，本质上也是一个不能真正快乐的人。&lt;/p>
+&lt;hr>
+&lt;h2 id="悬而未决的拷问">悬而未决的拷问&lt;/h2>
+&lt;p>&lt;strong>新数字鸿沟&lt;/strong>：当身心健康日益依赖智能工具和数字内容，那些不擅长使用技术、或无法负担相关服务的群体，是否会遭遇一种更深层的&amp;quot;健康鸿沟&amp;quot;与&amp;quot;心理福祉鸿沟&amp;quot;？&lt;/p>
+&lt;p>&lt;strong>责任的迁移&lt;/strong>：当人们通过 AI 应用进行心理自助，通过算法管理饮食，社会系统——家庭、学校、医疗、职场——是否在潜意识中卸下了提供支持与包容的传统责任？个体是否被置于&amp;quot;你必须利用好这些工具对自己负责&amp;quot;的更大压力之下？&lt;/p>
+&lt;p>&lt;strong>真实的定义危机&lt;/strong>：如果 AI 伴侣比真人更懂安慰，算法食谱比身体感觉更&amp;quot;正确&amp;quot;，虚拟的励志故事比现实努力更能提供成就感，那么我们对&amp;quot;真实&amp;quot;的感受、关系和成长体验，是否在被重新定义？这是进化还是迷失？&lt;/p>
+&lt;p>&lt;strong>商业与伦理的边界&lt;/strong>：当&amp;quot;心灵&amp;quot;和&amp;quot;健康&amp;quot;成为增长最快的赛道之一，资本将如何塑造这一领域？如何防止&amp;quot;制造焦虑—提供解决方案&amp;quot;的商业模式渗透进来？伦理的护栏应该设在哪里？&lt;/p>
+&lt;hr>
+&lt;h2 id="破局在代偿系统中重建真实联结">破局：在代偿系统中重建真实联结&lt;/h2>
+&lt;p>批判不是终点。在这个充满&amp;quot;代偿&amp;quot;的异构网络中，我们仍然可以找到建立&amp;quot;高保真、去中心化&amp;quot;的真实联结的系统性路径。&lt;/p></description></item></channel></rss>
