@@ -4,7 +4,7 @@ date: 2026-06-10
 description: "上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。"
 author: "美好需要创造"
 tags: ["AI", "审计", "自动化", "方法论"]
-categories: ["tooling"]
+categories: ["工具箱"]
 key_concepts: ["AI审计", "多Agent协作", "数据质量", "自动化"]
 thesis: "不是AI靠不靠谱，是单靠一个AI不靠谱——四个方向互相审视才靠谱。"
 ---

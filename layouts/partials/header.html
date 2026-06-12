@@ -124,7 +124,7 @@
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
             {{- $page_url:= $currentPage.Permalink | absLangURL }}
-            {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
+            {{- $menu_page := site.GetPage (strings.TrimRight "/" .URL) }}{{- if not $menu_page }}{{- $menu_page = site.GetPage .KeyName }}{{- end }}{{- $is_search := false }}{{- if $menu_page }}{{- $is_search = eq $menu_page.Layout `search` }}{{- end }}
             {{- $btnClass := printf "nav-btn nav-%s" .Identifier }}
             <li>
                 <a href="{{ .URL | absLangURL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
