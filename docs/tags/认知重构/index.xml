@@ -1,44 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>认知重构 on 世界一隅 | 认知能量工程</title>
-    <link>/tags/%E8%AE%A4%E7%9F%A5%E9%87%8D%E6%9E%84/</link>
-    <description>Recent content in 认知重构 on 世界一隅 | 认知能量工程</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sat, 28 Mar 2026 22:30:00 +0800</lastBuildDate><atom:link href="/tags/%E8%AE%A4%E7%9F%A5%E9%87%8D%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>雨季前的系统崩溃：对一个EPC项目的数学解剖</title>
-      <link>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</link>
-      <pubDate>Sat, 28 Mar 2026 22:30:00 +0800</pubDate>
-      
-      <guid>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</guid>
-      <description>&lt;p&gt;2026年3月，云南永德县。22天铺设800米钢管——这是班老村片区交出的成绩单。&lt;/p&gt;
-&lt;p&gt;项目经理看了摇头，业主代表看了皱眉，但没有人指出一个更底层的事实：&lt;strong&gt;这不是人的问题，是系统设计本身出了问题。&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;一系统底噪当-kpi-传感器失效&#34;&gt;一、系统底噪：当 KPI 传感器失效&lt;/h2&gt;
-&lt;p&gt;任何反馈控制系统都需要一个关键的元件：&lt;strong&gt;真实的传感器读数&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;永德项目的传感器报回了什么？&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;勐板片区：蓄水池 75%，DN150 管 68%，&lt;strong&gt;正在收尾&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;班老村片区：DN200 管 5.6%，&lt;strong&gt;严重滞后&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;大雪山三个子区：0%，&lt;strong&gt;死锁&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;崇岗、永康：工程量&amp;quot;待定&amp;quot;，&lt;strong&gt;盲区&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;表面上，这是一个进度报表。但作为系统工程师，我看到的是一套&lt;strong&gt;传感器网络正在给控制中心传回噪声&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;待开工&amp;quot;持续 25 天意味着什么？在反馈控制理论中，这等于一个执行器在发出了指令 25 天后，位置传感器仍报告&amp;quot;零位移&amp;rdquo;。控制算法要么认为传感器坏了，要么认为执行器与控制系统断连。&lt;/p&gt;
-&lt;p&gt;更有趣的是，&amp;ldquo;待资源到位&amp;quot;被当作一个合理的状态描述，而不是一个&lt;strong&gt;系统崩溃信号&lt;/strong&gt;。大雪山三个片区（大平山、忙旧河、大沟坝）自 3 月 2 日起置于这个状态——25 天，零进度，零报警。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;当一个系统允许执行器无限期停留在&amp;quot;就绪&amp;quot;状态而不产生任何效用时，管理者的认知过滤器已经出现了不可逆的损伤。&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;二数学危机36-到-151-的跳跃&#34;&gt;二、数学危机：36 到 151 的跳跃&lt;/h2&gt;
-&lt;p&gt;让我们做一个简单的计算。&lt;/p&gt;
-&lt;p&gt;班老村 DN200 钢管安装，22 天完成 800 米。日均速率：&lt;/p&gt;
-&lt;p&gt;$$v_{current} = \frac{800}{22} = 36.4 ; \text{米/天}$$&lt;/p&gt;
-&lt;p&gt;剩余 13,600 米，计划在 90-120 天内完成。所需日均速率：&lt;/p&gt;
-&lt;p&gt;$$v_{90} = \frac{13600}{90} = 151.1 ; \text{米/天}$$
-$$v_{120} = \frac{13600}{120} = 113.3 ; \text{米/天}$$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;效率缺口在 3.1 到 4.1 倍之间。&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>认知重构 on 世界一隅 | 认知能量工程</title><link>/tags/%E8%AE%A4%E7%9F%A5%E9%87%8D%E6%9E%84/</link><description>Recent content in 认知重构 on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 28 Mar 2026 22:30:00 +0800</lastBuildDate><atom:link href="/tags/%E8%AE%A4%E7%9F%A5%E9%87%8D%E6%9E%84/index.xml" rel="self" type="application/rss+xml"/><item><title>雨季前的系统崩溃：对一个EPC项目的数学解剖</title><link>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</link><pubDate>Sat, 28 Mar 2026 22:30:00 +0800</pubDate><guid>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</guid><description>2026年3月，云南永德县。22天铺设800米钢管——这是班老村片区交出的成绩单。
+项目经理看了摇头，业主代表看了皱眉，但没有人指出一个更底层的事实：这不是人的问题，是系统设计本身出了问题。
+一、系统底噪：当 KPI 传感器失效 任何反馈控制系统都需要一个关键的元件：真实的传感器读数。
+永德项目的传感器报回了什么？
+勐板片区：蓄水池 75%，DN150 管 68%，正在收尾 班老村片区：DN200 管 5.6%，严重滞后 大雪山三个子区：0%，死锁 崇岗、永康：工程量&amp;quot;待定&amp;quot;，盲区 表面上，这是一个进度报表。但作为系统工程师，我看到的是一套传感器网络正在给控制中心传回噪声。
+&amp;ldquo;待开工&amp;quot;持续 25 天意味着什么？在反馈控制理论中，这等于一个执行器在发出了指令 25 天后，位置传感器仍报告&amp;quot;零位移&amp;rdquo;。控制算法要么认为传感器坏了，要么认为执行器与控制系统断连。
+更有趣的是，&amp;ldquo;待资源到位&amp;quot;被当作一个合理的状态描述，而不是一个系统崩溃信号。大雪山三个片区（大平山、忙旧河、大沟坝）自 3 月 2 日起置于这个状态——25 天，零进度，零报警。
+当一个系统允许执行器无限期停留在&amp;quot;就绪&amp;quot;状态而不产生任何效用时，管理者的认知过滤器已经出现了不可逆的损伤。
+二、数学危机：36 到 151 的跳跃 让我们做一个简单的计算。
+班老村 DN200 钢管安装，22 天完成 800 米。日均速率：
+$$v_{current} = \frac{800}{22} = 36.4 ; \text{米/天}$$
+剩余 13,600 米，计划在 90-120 天内完成。所需日均速率：
+$$v_{90} = \frac{13600}{90} = 151.1 ; \text{米/天}$$ $$v_{120} = \frac{13600}{120} = 113.3 ; \text{米/天}$$
+效率缺口在 3.1 到 4.1 倍之间。</description></item></channel></rss>
