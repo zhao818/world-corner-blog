@@ -1,7 +1,7 @@
 {{ define "main" }}
 <header class="pitfalls-header">
   <h1>{{ .Title }}</h1>
-  <p class="pitfalls-desc">{{ .Content }}</p>
+  <p class="pitfalls-desc">16 条结构化踩坑经验，每条按 🩺症状 → 🔬根因 → 🔧修复 → 🛡️避免 四段式记录。踩过坑、修好坑、记住坑——不再踩第二次。</p>
   <div class="pitfall-stats">
     <span>🕳️ <strong>{{ len .Pages }}</strong> 条踩坑</span>
     <span>📅 更新于 {{ now.Format "2006-01-02" }}</span>
@@ -16,7 +16,7 @@
         <span class="card-icon">🕳️</span>
         <h2>{{ .Title }}</h2>
       </div>
-      <p class="card-excerpt">{{ .Summary | truncate 120 }}</p>
+      <p class="card-excerpt">{{ .Summary | plainify | truncate 180 }}</p>
       <div class="card-footer">
         <span class="card-date">{{ .Date.Format "2006-01-02" }}</span>
         <span class="card-read">阅读 →</span>
