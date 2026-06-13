@@ -1,7 +1,157 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>信息论 | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content><meta name=description content="在算法洪流中，守护清醒的微光。"><meta name=author content="Tianbing Zhao"><link rel=canonical href=/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/index.xml><link rel=alternate hreflang=en href=/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="信息论"><meta property="og:description" content="在算法洪流中，守护清醒的微光。"><meta property="og:type" content="website"><meta property="og:url" content="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="信息论"><meta name=twitter:description content="在算法洪流中，守护清醒的微光。"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><header class=page-header><h1>信息论</h1></header><article class="post-entry tag-entry"><header class=entry-header><h2>「一份施工组织设计的重生：从报审表空壳到完整技术文档」</h2></header><div class=entry-content><p>这篇文章记录了一次完整的工程资料审计与重建过程。不只是"我们修了哪些bug"的工作日志，更是对工程资料领域几个底层问题的追问：合同数据和设计数据谁说了算？为什么隐藏行是最危险的陷阱？为什么生成器模式比手动改文档靠谱一千倍？——希望能帮到所有和工程资料打交道的人。
-一、故事开始于一次"再看一眼" 甲方要交一份施工组织设计。项目是云南临沧一个低效林改造工程——5750亩林地，四个乡镇，312万的合同。我们之前做过一版，交了。
-然后说"再审计一下"。
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>信息论 | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="在算法洪流中，守护清醒的微光。">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/index.xml">
+<link rel="alternate" hreflang="en" href="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="信息论" />
+<meta property="og:description" content="在算法洪流中，守护清醒的微光。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/" /><meta property="og:site_name" content="世界一隅" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="信息论"/>
+<meta name="twitter:description" content="在算法洪流中，守护清醒的微光。"/>
+
+</head>
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    信息论
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>「一份施工组织设计的重生：从报审表空壳到完整技术文档」
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 这篇文章记录了一次完整的工程资料审计与重建过程。不只是&#34;我们修了哪些bug&#34;的工作日志，更是对工程资料领域几个底层问题的追问：合同数据和设计数据谁说了算？为什么隐藏行是最危险的陷阱？为什么生成器模式比手动改文档靠谱一千倍？——希望能帮到所有和工程资料打交道的人。
+一、故事开始于一次&#34;再看一眼&#34; 甲方要交一份施工组织设计。项目是云南临沧一个低效林改造工程——5750亩林地，四个乡镇，312万的合同。我们之前做过一版，交了。
+然后说&#34;再审计一下&#34;。
 这一审，审出问题了。
 不是小问题。是整个文档的根基有问题。
 二、合同10000亩，设计5750亩——数据的双重人格 这是整个项目最大的底层矛盾。
@@ -13,25 +163,105 @@
 这就是工程资料领域最经典也最危险的场景：商业文件和技术文件说的不是同一件事。 合同是商务承诺，作业设计是工程真理。两者不一致时听谁的？合同里其实写了答案——“具体以甲方经批准的作业设计为准”。这句话，就是整个数据选择逻辑的法理依据。
 底层原则1：工程资料的权威来源是经批准的作业设计，不是商业合同。合同的数字只有在和设计一致时才能用。
 三、隐藏行——Excel里最危险的幽灵 上面这个错误不是偶然的。我们来推演一下它是怎么发生的：
-有人打开XLS设计表，筛选出"云县"的行，用SUM求和。Excel的SUM函数不区分可见行和隐藏行——它全加了。于是他得到了一个接近10000的数字，觉得和合同对得上，就用了。
+有人打开XLS设计表，筛选出&#34;云县&#34;的行，用SUM求和。Excel的SUM函数不区分可见行和隐藏行——它全加了。于是他得到了一个接近10000的数字，觉得和合同对得上，就用了。
 但实际上这里面混入了大量不属于六标段的数据。
-隐藏行不是"不重要的行"。它们是"不应该在这里的行"。 但Excel不会告诉你这个。你看到的是一张表，你求和的是所有数据，你以为你做对了——直到有人用 xlrd 的 formatting_info=True + rowinfo_map[rid].hidden 把每一行拆开来看。
+隐藏行不是&#34;不重要的行&#34;。它们是&#34;不应该在这里的行&#34;。 但Excel不会告诉你这个。你看到的是一张表，你求和的是所有数据，你以为你做对了——直到有人用 xlrd 的 formatting_info=True &#43; rowinfo_map[rid].hidden 把每一行拆开来看。
 这个教训远远超出了XLS文件格式的范畴：
-底层原则2：任何聚合数据都要追问"你的分母是什么"。求和之前先问：哪些行应该参与计算？哪些行不应该？如果数据源本身有隐藏/过滤/排除逻辑，你的工具必须能感知到它。
+底层原则2：任何聚合数据都要追问&#34;你的分母是什么&#34;。求和之前先问：哪些行应该参与计算？哪些行不应该？如果数据源本身有隐藏/过滤/排除逻辑，你的工具必须能感知到它。
 从信息论的角度看，隐藏行本质上是一种带外信息（out-of-band information）——数据的含义不仅取决于单元格的值，还取决于你看不到的格式属性。忽略带外信息，就是在用一个不完整的信号做决策。
 四、生成器模式——数据与呈现的解耦 上一版施工组织设计还有一个更隐蔽的问题：面积数据分散在多个docx文件里，有些是手动填的，有些是从不同来源抄的。当发现面积数据需要修正时，要一个一个文件打开改。
 这次我们建了一个 common_data.py——项目所有关键数据（面积、预算、工期、公司信息、各乡镇明细）的唯一真相源（Single Source of Truth）。然后写了8个生成脚本（gen_*.py），每个脚本只做一件事：从 common_data 读数据，填充到文档模板里，输出 docx。
 修复的效果立竿见影：改 common_data.py 一行 → 重新运行所有 gen 脚本 → 所有产出文件自动更新。不需要手动打开任何一个 docx。
-这不是什么新技术。程序员管它叫 DRY（Don’t Repeat Yourself），数据库管它叫规范化（Normalization），工程管理管它叫"统一数据源"。名字不重要，重要的是：
+这不是什么新技术。程序员管它叫 DRY（Don’t Repeat Yourself），数据库管它叫规范化（Normalization），工程管理管它叫&#34;统一数据源&#34;。名字不重要，重要的是：
 底层原则3：如果一个数据出现在两个以上的地方，它就不应该以手动方式维护。建立唯一真相源，让所有产出文件从它派生。这不是偷懒，是防错。
-手动复制粘贴是工程资料质量的第一杀手。不是因为人不行，是因为人脑不适合做"在多处保持同一数据完全一致"这种事。这种事应该交给代码。
+手动复制粘贴是工程资料质量的第一杀手。不是因为人不行，是因为人脑不适合做&#34;在多处保持同一数据完全一致&#34;这种事。这种事应该交给代码。
 五、审计四件套——为什么要用四种不同的视角看同一件事 这次审计我们动用了四个工具，按固定顺序跑：
 顺序 工具 擅长 盲区 ① 规则脚本 数量/格式一致性（快，秒级） 看不懂上下文 ② LangGraph 多步骤交叉验证（灵活） 需要写好prompt ③ 代码审查 代码级逻辑bug 不看数据文件 ④ CrewAI 业务逻辑/语义合理性 慢，依赖LLM质量 四个工具各自发现了不同的问题：
-...</p></div><footer class=entry-footer>2026年6月9日 · Tianbing Zhao</footer><a class=entry-link aria-label="post link to 「一份施工组织设计的重生：从报审表空壳到完整技术文档」" href=/posts/tooling/construction-documents-rebirth/></a></article><nav class=section-nav-row aria-label=专栏导航><a href=/posts/systems-thinking/ class="nav-btn nav-menu-systems-thinking">系统思维
-</a><a href=/posts/learning/ class="nav-btn nav-menu-learning">学习方法
-</a><a href=/posts/tooling/ class="nav-btn nav-menu-tooling">效率工具
-</a><a href=/pitfalls/ class="nav-btn nav-menu-pitfalls">踩坑宝典</a></nav></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+...</p>
+  </div>
+  <footer class="entry-footer">2026年6月9日 · Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to 「一份施工组织设计的重生：从报审表空壳到完整技术文档」" href="/posts/tooling/construction-documents-rebirth/"></a>
+</article>
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+      系统思维
+    </a>
+    <a href="/posts/learning/" class="nav-btn nav-menu-learning">
+      学习方法
+    </a>
+    <a href="/posts/tooling/" class="nav-btn nav-menu-tooling">
+      效率工具
+    </a>
+    <a href="/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      踩坑宝典
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

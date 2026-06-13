@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.140.2
+      HUGO_VERSION: 0.146.0
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
       - name: 安装 Hugo
@@ -35,7 +35,7 @@ jobs:
           submodules: recursive
       - name: 构建 Hugo 到 docs/
         run: |
-          hugo --minify -d docs
+          hugo -d docs
       - name: 提交并推送 docs/
         run: |
           git config user.name "github-actions"

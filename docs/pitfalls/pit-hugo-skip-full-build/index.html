@@ -1,5 +1,12 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新 | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content><meta name=description content="症状
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新 | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="症状
 
 你看到什么？
 新文章 URL 可以正常访问（/posts/xxx/ 能打开），但：
@@ -97,7 +104,59 @@ l
     
   
 
-这个错误已经犯过至少 3 次。"><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-hugo-skip-full-build/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-hugo-skip-full-build/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新"><meta property="og:description" content="症状
+这个错误已经犯过至少 3 次。">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/pitfalls/pit-hugo-skip-full-build/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/pitfalls/pit-hugo-skip-full-build/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新" />
+<meta property="og:description" content="症状
 
 你看到什么？
 新文章 URL 可以正常访问（/posts/xxx/ 能打开），但：
@@ -195,7 +254,16 @@ l
     
   
 
-这个错误已经犯过至少 3 次。"><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-hugo-skip-full-build/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新"><meta name=twitter:description content="症状
+这个错误已经犯过至少 3 次。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pitfalls/pit-hugo-skip-full-build/" /><meta property="article:section" content="pitfalls" />
+<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新"/>
+<meta name="twitter:description" content="症状
 
 你看到什么？
 新文章 URL 可以正常访问（/posts/xxx/ 能打开），但：
@@ -293,13 +361,338 @@ l
     
   
 
-这个错误已经犯过至少 3 次。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新","item":"/pitfalls/pit-hugo-skip-full-build/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新","name":"Hugo 手写单篇 HTML 跳过全量构建导致分类\/列表页不更新","description":"症状 你看到什么？\n新文章 URL 可以正常访问（\/posts\/xxx\/ 能打开），但：\n分类页看不到这篇文章 首页最新文章列表没有它 所有聚合\/列表页都不知道这篇文章存在 用户从分类入口进来找不到文章，以为没发布。\n根因 到底为什么出问题？\nHugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs\/ 重新计算。手写单篇 HTML 扔进 docs\/ 相当于绕过了整个生成引擎：\n❌ ✅ 手 h 写 u g H o T M - L d → d o d c o s c \/ s \/ p o s t s \/ x x x \/ i n d e x . h t m l ← 文 ← 章 在 所 ， 有 但 页 分 面 类 同 \/ 步 列 重 表 建 \/ 首 页 从 不 更 新 这个错误已经犯过至少 3 次。\n","keywords":[],"articleBody":"症状 你看到什么？\n新文章 URL 可以正常访问（\/posts\/xxx\/ 能打开），但：\n分类页看不到这篇文章 首页最新文章列表没有它 所有聚合\/列表页都不知道这篇文章存在 用户从分类入口进来找不到文章，以为没发布。\n根因 到底为什么出问题？\nHugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs\/ 重新计算。手写单篇 HTML 扔进 docs\/ 相当于绕过了整个生成引擎：\n❌ ✅ 手 h 写 u g H o T M - L d → d o d c o s c \/ s \/ p o s t s \/ x x x \/ i n d e x . h t m l ← 文 ← 章 在 所 ， 有 但 页 分 面 类 同 \/ 步 列 重 表 建 \/ 首 页 从 不 更 新 这个错误已经犯过至少 3 次。\n修复 怎么做？\n# ✅ 唯一正确方式 hugo --minify -d docs\/ -F # -F = --buildFuture，确保未来日期文章也生成 git add docs\/ content\/ git commit -m \u0026#34;feat: \u0026lt;文章标题\u0026gt;\u0026#34; git push 绝不允许：手写单篇 HTML 到 docs\/、只复制个别文件、任何绕过 hugo 构建的操作。\n怎么避免 下次怎么不踩？\n发布管线写死步骤：step 2 永远是 hugo --minify -d docs\/ -F，不跳过 写 pre-commit hook：检测 docs\/ 下有新 HTML 但 content\/ 无对应 markdown → 拒绝提交 发布后验证：检查首页和分类页确认新文章出现在列表中 记住金句：Hugo 不是 PHP——每篇文章的存在需要全站重新编译。看起来能访问 ≠ 发布成功。分类页\/列表页\/首页 都看到才算数 ","wordCount":"157","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-hugo-skip-full-build\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><p>新文章 URL 可以正常访问（<code>/posts/xxx/</code> 能打开），但：</p><ul><li>分类页看不到这篇文章</li><li>首页最新文章列表没有它</li><li>所有聚合/列表页都不知道这篇文章存在</li></ul><p>用户从分类入口进来找不到文章，以为没发布。</p><h2 id=根因>根因</h2><blockquote><p>到底为什么出问题？</p></blockquote><p>Hugo 是一个<strong>全量静态站点生成器</strong>——每篇文章的交叉引用、分类聚合、列表渲染，都需要 <code>hugo -d docs/</code> 重新计算。手写单篇 HTML 扔进 <code>docs/</code> 相当于绕过了整个生成引擎：</p><div class="goat svg-container"><svg font-family="Menlo,Lucida Console,monospace" viewBox="0 0 480 41"><g transform="translate(8,16)"><text text-anchor="middle" x="0" y="4" fill="currentcolor" style="font-size:1em">❌</text><text text-anchor="middle" x="0" y="20" fill="currentcolor" style="font-size:1em">✅</text><text text-anchor="middle" x="16" y="4" fill="currentcolor" style="font-size:1em">手</text><text text-anchor="middle" x="16" y="20" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="24" y="4" fill="currentcolor" style="font-size:1em">写</text><text text-anchor="middle" x="24" y="20" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="32" y="20" fill="currentcolor" style="font-size:1em">g</text><text text-anchor="middle" x="40" y="4" fill="currentcolor" style="font-size:1em">H</text><text text-anchor="middle" x="40" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="48" y="4" fill="currentcolor" style="font-size:1em">T</text><text text-anchor="middle" x="56" y="4" fill="currentcolor" style="font-size:1em">M</text><text text-anchor="middle" x="56" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="64" y="4" fill="currentcolor" style="font-size:1em">L</text><text text-anchor="middle" x="64" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="80" y="4" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="80" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="88" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="96" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="96" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="104" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="104" y="20" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="112" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="112" y="20" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="120" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="128" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="136" y="4" fill="currentcolor" style="font-size:1em">p</text><text text-anchor="middle" x="144" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="152" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="160" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="168" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="176" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="184" y="4" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="192" y="4" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="200" y="4" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="208" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="216" y="4" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="224" y="4" fill="currentcolor" style="font-size:1em">n</text><text text-anchor="middle" x="232" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="240" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="248" y="4" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="256" y="4" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="264" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="272" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="280" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="288" y="4" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="320" y="4" fill="currentcolor" style="font-size:1em">←</text><text text-anchor="middle" x="336" y="4" fill="currentcolor" style="font-size:1em">文</text><text text-anchor="middle" x="336" y="20" fill="currentcolor" style="font-size:1em">←</text><text text-anchor="middle" x="344" y="4" fill="currentcolor" style="font-size:1em">章</text><text text-anchor="middle" x="352" y="4" fill="currentcolor" style="font-size:1em">在</text><text text-anchor="middle" x="352" y="20" fill="currentcolor" style="font-size:1em">所</text><text text-anchor="middle" x="360" y="4" fill="currentcolor" style="font-size:1em">，</text><text text-anchor="middle" x="360" y="20" fill="currentcolor" style="font-size:1em">有</text><text text-anchor="middle" x="368" y="4" fill="currentcolor" style="font-size:1em">但</text><text text-anchor="middle" x="368" y="20" fill="currentcolor" style="font-size:1em">页</text><text text-anchor="middle" x="376" y="4" fill="currentcolor" style="font-size:1em">分</text><text text-anchor="middle" x="376" y="20" fill="currentcolor" style="font-size:1em">面</text><text text-anchor="middle" x="384" y="4" fill="currentcolor" style="font-size:1em">类</text><text text-anchor="middle" x="384" y="20" fill="currentcolor" style="font-size:1em">同</text><text text-anchor="middle" x="392" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="392" y="20" fill="currentcolor" style="font-size:1em">步</text><text text-anchor="middle" x="400" y="4" fill="currentcolor" style="font-size:1em">列</text><text text-anchor="middle" x="400" y="20" fill="currentcolor" style="font-size:1em">重</text><text text-anchor="middle" x="408" y="4" fill="currentcolor" style="font-size:1em">表</text><text text-anchor="middle" x="408" y="20" fill="currentcolor" style="font-size:1em">建</text><text text-anchor="middle" x="416" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="424" y="4" fill="currentcolor" style="font-size:1em">首</text><text text-anchor="middle" x="432" y="4" fill="currentcolor" style="font-size:1em">页</text><text text-anchor="middle" x="440" y="4" fill="currentcolor" style="font-size:1em">从</text><text text-anchor="middle" x="448" y="4" fill="currentcolor" style="font-size:1em">不</text><text text-anchor="middle" x="456" y="4" fill="currentcolor" style="font-size:1em">更</text><text text-anchor="middle" x="464" y="4" fill="currentcolor" style="font-size:1em">新</text></g></svg></div><p><strong>这个错误已经犯过至少 3 次</strong>。</p><h2 id=修复>修复</h2><blockquote><p>怎么做？</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># ✅ 唯一正确方式</span>
-</span></span><span style=display:flex><span>hugo --minify -d docs/ -F   <span style=color:#75715e># -F = --buildFuture，确保未来日期文章也生成</span>
-</span></span><span style=display:flex><span>git add docs/ content/
-</span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;feat: &lt;文章标题&gt;&#34;</span>
-</span></span><span style=display:flex><span>git push
-</span></span></code></pre></div><p><strong>绝不允许</strong>：手写单篇 HTML 到 <code>docs/</code>、只复制个别文件、任何绕过 hugo 构建的操作。</p><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ol><li><strong>发布管线写死步骤</strong>：step 2 永远是 <code>hugo --minify -d docs/ -F</code>，不跳过</li><li><strong>写 pre-commit hook</strong>：检测 docs/ 下有新 HTML 但 content/ 无对应 markdown → 拒绝提交</li><li><strong>发布后验证</strong>：检查首页和分类页确认新文章出现在列表中</li><li><strong>记住金句</strong>：Hugo 不是 PHP——每篇文章的存在需要全站重新编译。看起来能访问 ≠ 发布成功。分类页/列表页/首页 都看到才算数</li></ol></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+这个错误已经犯过至少 3 次。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "踩坑宝典",
+      "item": "/pitfalls/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新",
+      "item": "/pitfalls/pit-hugo-skip-full-build/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新",
+  "name": "Hugo 手写单篇 HTML 跳过全量构建导致分类\/列表页不更新",
+  "description": "症状 你看到什么？\n新文章 URL 可以正常访问（\/posts\/xxx\/ 能打开），但：\n分类页看不到这篇文章 首页最新文章列表没有它 所有聚合\/列表页都不知道这篇文章存在 用户从分类入口进来找不到文章，以为没发布。\n根因 到底为什么出问题？\nHugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs\/ 重新计算。手写单篇 HTML 扔进 docs\/ 相当于绕过了整个生成引擎：\n❌ ✅ 手 h 写 u g H o T M - L d → d o d c o s c \/ s \/ p o s t s \/ x x x \/ i n d e x . h t m l ← 文 ← 章 在 所 ， 有 但 页 分 面 类 同 \/ 步 列 重 表 建 \/ 首 页 从 不 更 新 这个错误已经犯过至少 3 次。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "症状 你看到什么？\n新文章 URL 可以正常访问（\/posts\/xxx\/ 能打开），但：\n分类页看不到这篇文章 首页最新文章列表没有它 所有聚合\/列表页都不知道这篇文章存在 用户从分类入口进来找不到文章，以为没发布。\n根因 到底为什么出问题？\nHugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs\/ 重新计算。手写单篇 HTML 扔进 docs\/ 相当于绕过了整个生成引擎：\n❌ ✅ 手 h 写 u g H o T M - L d → d o d c o s c \/ s \/ p o s t s \/ x x x \/ i n d e x . h t m l ← 文 ← 章 在 所 ， 有 但 页 分 面 类 同 \/ 步 列 重 表 建 \/ 首 页 从 不 更 新 这个错误已经犯过至少 3 次。\n修复 怎么做？\n# ✅ 唯一正确方式 hugo --minify -d docs\/ -F # -F = --buildFuture，确保未来日期文章也生成 git add docs\/ content\/ git commit -m \u0026#34;feat: \u0026lt;文章标题\u0026gt;\u0026#34; git push 绝不允许：手写单篇 HTML 到 docs\/、只复制个别文件、任何绕过 hugo 构建的操作。\n怎么避免 下次怎么不踩？\n发布管线写死步骤：step 2 永远是 hugo --minify -d docs\/ -F，不跳过 写 pre-commit hook：检测 docs\/ 下有新 HTML 但 content\/ 无对应 markdown → 拒绝提交 发布后验证：检查首页和分类页确认新文章出现在列表中 记住金句：Hugo 不是 PHP——每篇文章的存在需要全站重新编译。看起来能访问 ≠ 发布成功。分类页\/列表页\/首页 都看到才算数 ",
+  "wordCount" : "157",
+  "inLanguage": "en",
+  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "\/pitfalls\/pit-hugo-skip-full-build\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+<article class="pitfall-single">
+  <header class="pitfall-hero">
+    <h1>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</h1>
+    <div class="pitfall-meta">
+      <span>📅 2026-06-13</span>
+    </div>
+  </header>
+
+  <div class="pitfall-body">
+    <h2 id="症状">症状</h2>
+<blockquote>
+<p>你看到什么？</p></blockquote>
+<p>新文章 URL 可以正常访问（<code>/posts/xxx/</code> 能打开），但：</p>
+<ul>
+<li>分类页看不到这篇文章</li>
+<li>首页最新文章列表没有它</li>
+<li>所有聚合/列表页都不知道这篇文章存在</li>
+</ul>
+<p>用户从分类入口进来找不到文章，以为没发布。</p>
+<h2 id="根因">根因</h2>
+<blockquote>
+<p>到底为什么出问题？</p></blockquote>
+<p>Hugo 是一个<strong>全量静态站点生成器</strong>——每篇文章的交叉引用、分类聚合、列表渲染，都需要 <code>hugo -d docs/</code> 重新计算。手写单篇 HTML 扔进 <code>docs/</code> 相当于绕过了整个生成引擎：</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 480 41"
+      >
+      <g transform='translate(8,16)'>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>❌</text>
+<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>✅</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>手</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>写</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>H</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>T</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>M</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>-</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>L</text>
+<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='256' y='4' fill='currentColor' style='font-size:1em'>.</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>←</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>文</text>
+<text text-anchor='middle' x='336' y='20' fill='currentColor' style='font-size:1em'>←</text>
+<text text-anchor='middle' x='344' y='4' fill='currentColor' style='font-size:1em'>章</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>在</text>
+<text text-anchor='middle' x='352' y='20' fill='currentColor' style='font-size:1em'>所</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>，</text>
+<text text-anchor='middle' x='360' y='20' fill='currentColor' style='font-size:1em'>有</text>
+<text text-anchor='middle' x='368' y='4' fill='currentColor' style='font-size:1em'>但</text>
+<text text-anchor='middle' x='368' y='20' fill='currentColor' style='font-size:1em'>页</text>
+<text text-anchor='middle' x='376' y='4' fill='currentColor' style='font-size:1em'>分</text>
+<text text-anchor='middle' x='376' y='20' fill='currentColor' style='font-size:1em'>面</text>
+<text text-anchor='middle' x='384' y='4' fill='currentColor' style='font-size:1em'>类</text>
+<text text-anchor='middle' x='384' y='20' fill='currentColor' style='font-size:1em'>同</text>
+<text text-anchor='middle' x='392' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='392' y='20' fill='currentColor' style='font-size:1em'>步</text>
+<text text-anchor='middle' x='400' y='4' fill='currentColor' style='font-size:1em'>列</text>
+<text text-anchor='middle' x='400' y='20' fill='currentColor' style='font-size:1em'>重</text>
+<text text-anchor='middle' x='408' y='4' fill='currentColor' style='font-size:1em'>表</text>
+<text text-anchor='middle' x='408' y='20' fill='currentColor' style='font-size:1em'>建</text>
+<text text-anchor='middle' x='416' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='424' y='4' fill='currentColor' style='font-size:1em'>首</text>
+<text text-anchor='middle' x='432' y='4' fill='currentColor' style='font-size:1em'>页</text>
+<text text-anchor='middle' x='440' y='4' fill='currentColor' style='font-size:1em'>从</text>
+<text text-anchor='middle' x='448' y='4' fill='currentColor' style='font-size:1em'>不</text>
+<text text-anchor='middle' x='456' y='4' fill='currentColor' style='font-size:1em'>更</text>
+<text text-anchor='middle' x='464' y='4' fill='currentColor' style='font-size:1em'>新</text>
+</g>
+
+    </svg>
+  
+</div>
+<p><strong>这个错误已经犯过至少 3 次</strong>。</p>
+<h2 id="修复">修复</h2>
+<blockquote>
+<p>怎么做？</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ✅ 唯一正确方式</span>
+</span></span><span style="display:flex;"><span>hugo --minify -d docs/ -F   <span style="color:#75715e"># -F = --buildFuture，确保未来日期文章也生成</span>
+</span></span><span style="display:flex;"><span>git add docs/ content/
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;feat: &lt;文章标题&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>git push
+</span></span></code></pre></div><p><strong>绝不允许</strong>：手写单篇 HTML 到 <code>docs/</code>、只复制个别文件、任何绕过 hugo 构建的操作。</p>
+<h2 id="怎么避免">怎么避免</h2>
+<blockquote>
+<p>下次怎么不踩？</p></blockquote>
+<ol>
+<li><strong>发布管线写死步骤</strong>：step 2 永远是 <code>hugo --minify -d docs/ -F</code>，不跳过</li>
+<li><strong>写 pre-commit hook</strong>：检测 docs/ 下有新 HTML 但 content/ 无对应 markdown → 拒绝提交</li>
+<li><strong>发布后验证</strong>：检查首页和分类页确认新文章出现在列表中</li>
+<li><strong>记住金句</strong>：Hugo 不是 PHP——每篇文章的存在需要全站重新编译。看起来能访问 ≠ 发布成功。分类页/列表页/首页 都看到才算数</li>
+</ol>
+
+  </div>
+
+  <footer class="pitfall-footer">
+    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
+  </footer>
+</article>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,5 +1,12 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致 | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content><meta name=description content="症状
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致 | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="症状
 
 你看到什么？
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
@@ -147,7 +154,59 @@ y
     
   
 
-两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。"><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-wsl-write-tool-path-failure/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-wsl-write-tool-path-failure/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致"><meta property="og:description" content="症状
+两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/pitfalls/pit-wsl-write-tool-path-failure/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/pitfalls/pit-wsl-write-tool-path-failure/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致" />
+<meta property="og:description" content="症状
 
 你看到什么？
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
@@ -295,7 +354,16 @@ y
     
   
 
-两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。"><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-wsl-write-tool-path-failure/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致"><meta name=twitter:description content="症状
+两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pitfalls/pit-wsl-write-tool-path-failure/" /><meta property="article:section" content="pitfalls" />
+<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致"/>
+<meta name="twitter:description" content="症状
 
 你看到什么？
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
@@ -443,13 +511,389 @@ y
     
   
 
-两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致","item":"/pitfalls/pit-wsl-write-tool-path-failure/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致","name":"WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致","description":"症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nB W a r s i h t e 工 具 工 ： 具 $ ： H \/ O h M o E m e → \/ z \/ h c a \/ o U t s i e a r n s b \/ i z n h g a c t l a → u d ~ e \/ - c m l e a m u o d r e y - m → e m W o S r L y 原 → 生 \/ F c S \/ U → s e 文 r 件 s 孤 \/ 立 z h ❌ a o t \/ c l a u d e - m e m o r y ✅ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n","keywords":[],"articleBody":"症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nB W a r s i h t e 工 具 工 ： 具 $ ： H \/ O h M o E m e → \/ z \/ h c a \/ o U t s i e a r n s b \/ i z n h g a c t l a → u d ~ e \/ - c m l e a m u o d r e y - m → e m W o S r L y 原 → 生 \/ F c S \/ U → s e 文 r 件 s 孤 \/ 立 z h ❌ a o t \/ c l a u d e - m e m o r y ✅ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\ncat \u0026gt; ~\/claude-memory\/pitfalls\/new-file.md \u0026lt;\u0026lt; \u0026#39;EOF\u0026#39; 文件内容... EOF 或者先确认 $HOME 的实际位置，再决定路径：\necho $HOME # 看当前是 \/c\/Users\/zhaot 还是 \/home\/zhaotianbing realpath ~\/claude-memory # 确认仓库实际位置 怎么避免 下次怎么不踩？\nWSL 项目优先 Bash 写入：cat \u0026gt; file \u0026lt;\u0026lt; \u0027EOF\u0027 永远正确 写后必验证：Write\/写操作后立刻 ls 确认文件出现 不要假设路径：~ 可能指向 \/c\/Users\/zhaot 而非 \/home\/zhaotianbing 记住金句：Write 说\u0026quot;成功\u0026quot;不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写 ","wordCount":"231","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-wsl-write-tool-path-failure\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><p>用 <code>Write</code> 工具写文件到 <code>~/claude-memory/pitfalls/xxx.md</code>（或用绝对路径 <code>/home/zhaotianbing/claude-memory/...</code>），工具报告成功，无报错。但 <code>ls ~/claude-memory/pitfalls/</code> 看不到新文件。</p><p>实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。</p><h2 id=根因>根因</h2><blockquote><p>到底为什么出问题？</p></blockquote><p>核心矛盾：<strong>当前会话的 <code>$HOME</code> 是 <code>/c/Users/zhaot</code>（Windows 侧），但 <code>Write</code> 工具把 <code>/home/zhaotianbing/</code> 路径解析到了 WSL 原生 Linux 文件系统</strong>。</p><div class="goat svg-container"><svg font-family="Menlo,Lucida Console,monospace" viewBox="0 0 656 41"><g transform="translate(8,16)"><path d="M216 16l8-16" fill="none" stroke="currentcolor"/><circle cx="224" cy="0" r="6" stroke="currentcolor" fill="#fff"/><text text-anchor="middle" x="0" y="4" fill="currentcolor" style="font-size:1em">B</text><text text-anchor="middle" x="0" y="20" fill="currentcolor" style="font-size:1em">W</text><text text-anchor="middle" x="8" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="8" y="20" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="16" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="16" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="24" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="24" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="32" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="40" y="4" fill="currentcolor" style="font-size:1em">工</text><text text-anchor="middle" x="48" y="4" fill="currentcolor" style="font-size:1em">具</text><text text-anchor="middle" x="48" y="20" fill="currentcolor" style="font-size:1em">工</text><text text-anchor="middle" x="56" y="4" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="56" y="20" fill="currentcolor" style="font-size:1em">具</text><text text-anchor="middle" x="64" y="4" fill="currentcolor" style="font-size:1em">$</text><text text-anchor="middle" x="64" y="20" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="72" y="4" fill="currentcolor" style="font-size:1em">H</text><text text-anchor="middle" x="72" y="20" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="80" y="4" fill="currentcolor" style="font-size:1em">O</text><text text-anchor="middle" x="80" y="20" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="88" y="4" fill="currentcolor" style="font-size:1em">M</text><text text-anchor="middle" x="88" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="96" y="4" fill="currentcolor" style="font-size:1em">E</text><text text-anchor="middle" x="96" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="104" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="112" y="4" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="112" y="20" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="120" y="20" fill="currentcolor" style="font-size:1em">z</text><text text-anchor="middle" x="128" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="128" y="20" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="136" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="136" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="144" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="144" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="152" y="4" fill="currentcolor" style="font-size:1em">U</text><text text-anchor="middle" x="152" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="160" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="160" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="168" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="168" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="176" y="4" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="176" y="20" fill="currentcolor" style="font-size:1em">n</text><text text-anchor="middle" x="184" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="184" y="20" fill="currentcolor" style="font-size:1em">b</text><text text-anchor="middle" x="192" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="192" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="200" y="4" fill="currentcolor" style="font-size:1em">z</text><text text-anchor="middle" x="200" y="20" fill="currentcolor" style="font-size:1em">n</text><text text-anchor="middle" x="208" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="208" y="20" fill="currentcolor" style="font-size:1em">g</text><text text-anchor="middle" x="216" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="224" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="232" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="232" y="20" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="240" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="248" y="4" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="248" y="20" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="256" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="264" y="4" fill="currentcolor" style="font-size:1em">~</text><text text-anchor="middle" x="264" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="272" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="272" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="280" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="280" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="288" y="4" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="288" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="296" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="296" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="304" y="4" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="304" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="312" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="312" y="20" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="320" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="320" y="20" fill="currentcolor" style="font-size:1em">y</text><text text-anchor="middle" x="328" y="4" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="336" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="336" y="20" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="344" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="352" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="352" y="20" fill="currentcolor" style="font-size:1em">W</text><text text-anchor="middle" x="360" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="360" y="20" fill="currentcolor" style="font-size:1em">S</text><text text-anchor="middle" x="368" y="4" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="368" y="20" fill="currentcolor" style="font-size:1em">L</text><text text-anchor="middle" x="376" y="4" fill="currentcolor" style="font-size:1em">y</text><text text-anchor="middle" x="384" y="20" fill="currentcolor" style="font-size:1em">原</text><text text-anchor="middle" x="392" y="4" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="392" y="20" fill="currentcolor" style="font-size:1em">生</text><text text-anchor="middle" x="408" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="408" y="20" fill="currentcolor" style="font-size:1em">F</text><text text-anchor="middle" x="416" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="416" y="20" fill="currentcolor" style="font-size:1em">S</text><text text-anchor="middle" x="424" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="432" y="4" fill="currentcolor" style="font-size:1em">U</text><text text-anchor="middle" x="432" y="20" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="440" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="448" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="448" y="20" fill="currentcolor" style="font-size:1em">文</text><text text-anchor="middle" x="456" y="4" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="456" y="20" fill="currentcolor" style="font-size:1em">件</text><text text-anchor="middle" x="464" y="4" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="464" y="20" fill="currentcolor" style="font-size:1em">孤</text><text text-anchor="middle" x="472" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="472" y="20" fill="currentcolor" style="font-size:1em">立</text><text text-anchor="middle" x="480" y="4" fill="currentcolor" style="font-size:1em">z</text><text text-anchor="middle" x="488" y="4" fill="currentcolor" style="font-size:1em">h</text><text text-anchor="middle" x="488" y="20" fill="currentcolor" style="font-size:1em">❌</text><text text-anchor="middle" x="496" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="504" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="512" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="520" y="4" fill="currentcolor" style="font-size:1em">/</text><text text-anchor="middle" x="528" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="536" y="4" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="544" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="552" y="4" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="560" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="568" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="576" y="4" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="584" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="592" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="600" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="608" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="616" y="4" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="624" y="4" fill="currentcolor" style="font-size:1em">y</text><text text-anchor="middle" x="640" y="4" fill="currentcolor" style="font-size:1em">✅</text></g></svg></div><p>两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。</p><h2 id=修复>修复</h2><blockquote><p>怎么做？</p></blockquote><p>在 WSL 环境创建文件时，用 <code>Bash</code> 的 cat heredoc 写入，不走 <code>Write</code> 工具：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat &gt; ~/claude-memory/pitfalls/new-file.md <span style=color:#e6db74>&lt;&lt; &#39;EOF&#39;
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>文件内容...
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
-</span></span></code></pre></div><p>或者先确认 <code>$HOME</code> 的实际位置，再决定路径：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>echo $HOME                    <span style=color:#75715e># 看当前是 /c/Users/zhaot 还是 /home/zhaotianbing</span>
-</span></span><span style=display:flex><span>realpath ~/claude-memory      <span style=color:#75715e># 确认仓库实际位置</span>
-</span></span></code></pre></div><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ol><li><strong>WSL 项目优先 Bash 写入</strong>：<code>cat > file &lt;&lt; 'EOF'</code> 永远正确</li><li><strong>写后必验证</strong>：Write/写操作后立刻 <code>ls</code> 确认文件出现</li><li><strong>不要假设路径</strong>：<code>~</code> 可能指向 <code>/c/Users/zhaot</code> 而非 <code>/home/zhaotianbing</code></li><li><strong>记住金句</strong>：Write 说"成功"不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写</li></ol></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "踩坑宝典",
+      "item": "/pitfalls/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致",
+      "item": "/pitfalls/pit-wsl-write-tool-path-failure/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致",
+  "name": "WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致",
+  "description": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nB W a r s i h t e 工 具 工 ： 具 $ ： H \/ O h M o E m e → \/ z \/ h c a \/ o U t s i e a r n s b \/ i z n h g a c t l a → u d ~ e \/ - c m l e a m u o d r e y - m → e m W o S r L y 原 → 生 \/ F c S \/ U → s e 文 r 件 s 孤 \/ 立 z h ❌ a o t \/ c l a u d e - m e m o r y ✅ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nB W a r s i h t e 工 具 工 ： 具 $ ： H \/ O h M o E m e → \/ z \/ h c a \/ o U t s i e a r n s b \/ i z n h g a c t l a → u d ~ e \/ - c m l e a m u o d r e y - m → e m W o S r L y 原 → 生 \/ F c S \/ U → s e 文 r 件 s 孤 \/ 立 z h ❌ a o t \/ c l a u d e - m e m o r y ✅ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\ncat \u0026gt; ~\/claude-memory\/pitfalls\/new-file.md \u0026lt;\u0026lt; \u0026#39;EOF\u0026#39; 文件内容... EOF 或者先确认 $HOME 的实际位置，再决定路径：\necho $HOME # 看当前是 \/c\/Users\/zhaot 还是 \/home\/zhaotianbing realpath ~\/claude-memory # 确认仓库实际位置 怎么避免 下次怎么不踩？\nWSL 项目优先 Bash 写入：cat \u0026gt; file \u0026lt;\u0026lt; \u0027EOF\u0027 永远正确 写后必验证：Write\/写操作后立刻 ls 确认文件出现 不要假设路径：~ 可能指向 \/c\/Users\/zhaot 而非 \/home\/zhaotianbing 记住金句：Write 说\u0026quot;成功\u0026quot;不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写 ",
+  "wordCount" : "231",
+  "inLanguage": "en",
+  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "\/pitfalls\/pit-wsl-write-tool-path-failure\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+<article class="pitfall-single">
+  <header class="pitfall-hero">
+    <h1>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</h1>
+    <div class="pitfall-meta">
+      <span>📅 2026-06-13</span>
+    </div>
+  </header>
+
+  <div class="pitfall-body">
+    <h2 id="症状">症状</h2>
+<blockquote>
+<p>你看到什么？</p></blockquote>
+<p>用 <code>Write</code> 工具写文件到 <code>~/claude-memory/pitfalls/xxx.md</code>（或用绝对路径 <code>/home/zhaotianbing/claude-memory/...</code>），工具报告成功，无报错。但 <code>ls ~/claude-memory/pitfalls/</code> 看不到新文件。</p>
+<p>实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。</p>
+<h2 id="根因">根因</h2>
+<blockquote>
+<p>到底为什么出问题？</p></blockquote>
+<p>核心矛盾：<strong>当前会话的 <code>$HOME</code> 是 <code>/c/Users/zhaot</code>（Windows 侧），但 <code>Write</code> 工具把 <code>/home/zhaotianbing/</code> 路径解析到了 WSL 原生 Linux 文件系统</strong>。</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 656 41"
+      >
+      <g transform='translate(8,16)'>
+<path d='M 216,16 L 224,0' fill='none' stroke='currentColor'></path>
+<circle cx='224' cy='0' r='6' stroke='currentColor' fill='#fff'></circle>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>B</text>
+<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>W</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>工</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>具</text>
+<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>工</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>：</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>具</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>$</text>
+<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>：</text>
+<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>H</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>O</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>M</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>E</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>z</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>U</text>
+<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>z</text>
+<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='240' y='20' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='256' y='20' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>~</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>-</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='288' y='20' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='296' y='20' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='304' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='304' y='20' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='312' y='20' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>-</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='336' y='20' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='344' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='352' y='20' fill='currentColor' style='font-size:1em'>W</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='360' y='20' fill='currentColor' style='font-size:1em'>S</text>
+<text text-anchor='middle' x='368' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='368' y='20' fill='currentColor' style='font-size:1em'>L</text>
+<text text-anchor='middle' x='376' y='4' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='384' y='20' fill='currentColor' style='font-size:1em'>原</text>
+<text text-anchor='middle' x='392' y='4' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='392' y='20' fill='currentColor' style='font-size:1em'>生</text>
+<text text-anchor='middle' x='408' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='408' y='20' fill='currentColor' style='font-size:1em'>F</text>
+<text text-anchor='middle' x='416' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='416' y='20' fill='currentColor' style='font-size:1em'>S</text>
+<text text-anchor='middle' x='424' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='432' y='4' fill='currentColor' style='font-size:1em'>U</text>
+<text text-anchor='middle' x='432' y='20' fill='currentColor' style='font-size:1em'>→</text>
+<text text-anchor='middle' x='440' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='448' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='448' y='20' fill='currentColor' style='font-size:1em'>文</text>
+<text text-anchor='middle' x='456' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='456' y='20' fill='currentColor' style='font-size:1em'>件</text>
+<text text-anchor='middle' x='464' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='464' y='20' fill='currentColor' style='font-size:1em'>孤</text>
+<text text-anchor='middle' x='472' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='472' y='20' fill='currentColor' style='font-size:1em'>立</text>
+<text text-anchor='middle' x='480' y='4' fill='currentColor' style='font-size:1em'>z</text>
+<text text-anchor='middle' x='488' y='4' fill='currentColor' style='font-size:1em'>h</text>
+<text text-anchor='middle' x='488' y='20' fill='currentColor' style='font-size:1em'>❌</text>
+<text text-anchor='middle' x='496' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='504' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='512' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='520' y='4' fill='currentColor' style='font-size:1em'>/</text>
+<text text-anchor='middle' x='528' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='536' y='4' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='544' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='552' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='560' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='568' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='576' y='4' fill='currentColor' style='font-size:1em'>-</text>
+<text text-anchor='middle' x='584' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='592' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='600' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='608' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='616' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='624' y='4' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='640' y='4' fill='currentColor' style='font-size:1em'>✅</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。</p>
+<h2 id="修复">修复</h2>
+<blockquote>
+<p>怎么做？</p></blockquote>
+<p>在 WSL 环境创建文件时，用 <code>Bash</code> 的 cat heredoc 写入，不走 <code>Write</code> 工具：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &gt; ~/claude-memory/pitfalls/new-file.md <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">文件内容...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><p>或者先确认 <code>$HOME</code> 的实际位置，再决定路径：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $HOME                    <span style="color:#75715e"># 看当前是 /c/Users/zhaot 还是 /home/zhaotianbing</span>
+</span></span><span style="display:flex;"><span>realpath ~/claude-memory      <span style="color:#75715e"># 确认仓库实际位置</span>
+</span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
+<blockquote>
+<p>下次怎么不踩？</p></blockquote>
+<ol>
+<li><strong>WSL 项目优先 Bash 写入</strong>：<code>cat &gt; file &lt;&lt; 'EOF'</code> 永远正确</li>
+<li><strong>写后必验证</strong>：Write/写操作后立刻 <code>ls</code> 确认文件出现</li>
+<li><strong>不要假设路径</strong>：<code>~</code> 可能指向 <code>/c/Users/zhaot</code> 而非 <code>/home/zhaotianbing</code></li>
+<li><strong>记住金句</strong>：Write 说&quot;成功&quot;不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写</li>
+</ol>
+
+  </div>
+
+  <footer class="pitfall-footer">
+    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
+  </footer>
+</article>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>
