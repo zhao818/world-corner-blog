@@ -1,0 +1,28 @@
+{{ define "main" }}
+<header class="pitfalls-header">
+  <h1>{{ .Title }}</h1>
+  <p class="pitfalls-desc">{{ .Content }}</p>
+  <div class="pitfall-stats">
+    <span>🕳️ <strong>{{ len .Pages }}</strong> 条踩坑</span>
+    <span>📅 更新于 {{ now.Format "2006-01-02" }}</span>
+  </div>
+</header>
+
+<div class="pitfall-grid">
+  {{ range .Pages.ByDate.Reverse }}
+  <article class="pitfall-card">
+    <a href="{{ .RelPermalink }}" class="card-link">
+      <div class="card-symptom">
+        <span class="card-icon">🕳️</span>
+        <h2>{{ .Title }}</h2>
+      </div>
+      <p class="card-excerpt">{{ .Summary | truncate 120 }}</p>
+      <div class="card-footer">
+        <span class="card-date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="card-read">阅读 →</span>
+      </div>
+    </a>
+  </article>
+  {{ end }}
+</div>
+{{ end }}

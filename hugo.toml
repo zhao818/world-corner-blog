@@ -24,6 +24,12 @@ theme = 'PaperMod'
   weight = 30
   identifier = "menu-tooling"
 
+[[menu.main]]
+  name = "踩坑宝典"
+  url = "/pitfalls/"
+  weight = 40
+  identifier = "menu-pitfalls"
+
 [params]
   env = 'production'
   title = '世界一隅'

@@ -1,0 +1,118 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由 | 世界一隅 | 认知能量工程</title>
+<meta name=keywords content><meta name=description content='症状
+
+你看到什么？
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+
+&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
+&ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
+
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
+根因
+
+到底为什么出问题？
+
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
+没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
+TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
+
+修复
+
+怎么做？
+匹配策略改为"全量扫描 + AND 合并"：
+输入：用户消息关键词
+匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
+合并：取所有匹配路由的并集
+加载：读全部匹配文件
+例如用户说"审计这个 Excel"：
+匹配行1: "审计五件套" → audit-four-piece.md
+匹配行2: "数据录入项目" → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md
+匹配行3: "操作 Excel" → excel-com-audit.md
+
+合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}
+→ 全量加载这 4 个文件
+自检问题（加载完文件后问自己）：'><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-triggers-multi-match-merge/><link crossorigin=anonymous href=/assets/css/stylesheet.ce3542e4fd7263c5831c258993e95c5808d8d6ed7b66aa588e68bd9c553c6d49.css integrity="sha256-zjVC5P1yY8WDHCWJk+lcWAjY1u17ZqpYjmi9nFU8bUk=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-triggers-multi-match-merge/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由"><meta property="og:description" content='症状
+
+你看到什么？
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+
+&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
+&ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
+
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
+根因
+
+到底为什么出问题？
+
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
+没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
+TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
+
+修复
+
+怎么做？
+匹配策略改为"全量扫描 + AND 合并"：
+输入：用户消息关键词
+匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
+合并：取所有匹配路由的并集
+加载：读全部匹配文件
+例如用户说"审计这个 Excel"：
+匹配行1: "审计五件套" → audit-four-piece.md
+匹配行2: "数据录入项目" → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md
+匹配行3: "操作 Excel" → excel-com-audit.md
+
+合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}
+→ 全量加载这 4 个文件
+自检问题（加载完文件后问自己）：'><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-triggers-multi-match-merge/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由"><meta name=twitter:description content='症状
+
+你看到什么？
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+
+&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
+&ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
+
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
+根因
+
+到底为什么出问题？
+
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
+没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
+TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
+
+修复
+
+怎么做？
+匹配策略改为"全量扫描 + AND 合并"：
+输入：用户消息关键词
+匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
+合并：取所有匹配路由的并集
+加载：读全部匹配文件
+例如用户说"审计这个 Excel"：
+匹配行1: "审计五件套" → audit-four-piece.md
+匹配行2: "数据录入项目" → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md
+匹配行3: "操作 Excel" → excel-com-audit.md
+
+合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}
+→ 全量加载这 4 个文件
+自检问题（加载完文件后问自己）：'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","item":"/pitfalls/pit-triggers-multi-match-merge/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","name":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","description":"症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词\r匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由\r合并：取所有匹配路由的并集\r加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md\r匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md\r匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md\r合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}\r→ 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n","keywords":[],"articleBody":"症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词\r匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由\r合并：取所有匹配路由的并集\r加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md\r匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md\r匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md\r合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}\r→ 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n用户提到了哪些关键词？ TRIGGERS.md 里有多少行匹配了这些关键词？ 我有没有全部读？ 怎么避免 下次怎么不踩？\n扫全表不早停：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项 AND 合并取并集：多条路由的文件列表取并集，去重后全读 自检三板斧： 用户说了什么关键词？ 还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认） 全量加载了吗？ 用户纠正过的地方加红线：这个坑已经被纠正过了，TRIGGERS.md 里\u0026quot;审计五件套\u0026quot;行的文件列表已更新为全量 ","wordCount":"92","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-triggers-multi-match-merge\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><p>用户说"审计五件套"来审计一个 Excel 文件。这是一个<strong>数据录入项目</strong>，TRIGGERS.md 有两条路由同时命中：</p><ul><li>&ldquo;审计五件套 / 跑审计&rdquo; → 加载 <code>audit-four-piece.md</code></li><li>&ldquo;数据录入项目&rdquo; → 加载 <code>audit-four-piece-data.md</code>、<code>excel-com-audit.md</code>、<code>data-cross-verify.md</code></li></ul><p>但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。</p><p>后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。</p><h2 id=根因>根因</h2><blockquote><p>到底为什么出问题？</p></blockquote><ol><li><strong>匹配策略是"命中即停"</strong>：扫到第一个匹配行就停下来加载了，没继续往下扫</li><li><strong>没有 OR → AND 的思维转换</strong>：多条路由匹配同一任务时，取的文件应该是<strong>并集（AND）</strong>，不是<strong>第一个命中（OR）</strong></li><li><strong>TRIGGERS 表设计有盲区</strong>：通用路由和专用路由分开写，但加载逻辑没做合并</li><li><strong>事后没自检</strong>：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"</li></ol><h2 id=修复>修复</h2><blockquote><p>怎么做？</p></blockquote><p><strong>匹配策略改为"全量扫描 + AND 合并"</strong>：</p><pre tabindex=0><code>输入：用户消息关键词
+匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
+合并：取所有匹配路由的并集
+加载：读全部匹配文件
+</code></pre><p>例如用户说"审计这个 Excel"：</p><pre tabindex=0><code>匹配行1: &#34;审计五件套&#34; → audit-four-piece.md
+匹配行2: &#34;数据录入项目&#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md
+匹配行3: &#34;操作 Excel&#34; → excel-com-audit.md
+
+合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}
+→ 全量加载这 4 个文件
+</code></pre><p><strong>自检问题</strong>（加载完文件后问自己）：</p><ol><li>用户提到了哪些关键词？</li><li>TRIGGERS.md 里有多少行匹配了这些关键词？</li><li>我有没有全部读？</li></ol><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ol><li><strong>扫全表不早停</strong>：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项</li><li><strong>AND 合并取并集</strong>：多条路由的文件列表取并集，去重后全读</li><li><strong>自检三板斧</strong>：<ul><li>用户说了什么关键词？</li><li>还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认）</li><li>全量加载了吗？</li></ul></li><li><strong>用户纠正过的地方加红线</strong>：这个坑已经被纠正过了，TRIGGERS.md 里"审计五件套"行的文件列表已更新为全量</li></ol></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
+<span>由
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
