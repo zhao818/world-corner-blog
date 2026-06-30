@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>效率 on 世界一隅 | 认知能量工程</title>
+    <link>/tags/%E6%95%88%E7%8E%87/</link>
+    <description>Recent content in 效率 on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 18 May 2026 21:42:52 +0800</lastBuildDate><atom:link href="/tags/%E6%95%88%E7%8E%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验</title>
+      <link>/posts/tooling/tool-sovereignty-occams-razor/</link>
+      <pubDate>Mon, 18 May 2026 21:42:52 +0800</pubDate>
+      
+      <guid>/posts/tooling/tool-sovereignty-occams-razor/</guid>
+      <description>他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。</description>
+    </item>
+    
+    <item>
+      <title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title>
+      <link>/posts/tooling/farewell-efficiency-refugees/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>/posts/tooling/farewell-efficiency-refugees/</guid>
+      <description>&lt;p&gt;凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。&lt;/p&gt;
+&lt;p&gt;这个号称&amp;quot;低代码自动化神器&amp;quot;的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击&amp;quot;测试 workflow&amp;quot;，都在用我的认知带宽去喂养一个本不该存在的抽象层。&lt;/p&gt;
+&lt;p&gt;我把 n8n 的容器停了。然后写了一行 Python。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy(src, dst)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;三行代码。零依赖。零配置。零心理负担。&lt;/p&gt;
+&lt;p&gt;这不是一个关于技术选型的故事。这是一个关于&lt;strong&gt;认知能量&lt;/strong&gt;的故事。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

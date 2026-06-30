@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
+
+踩过坑、修好坑、记住坑——同一个坑不踩第二次。
+
+写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
+于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
+
+🩺 症状：你看到什么？
+🔬 根因：到底为什么出问题？
+🔧 修复：怎么做？
+🛡️ 怎么避免：下次怎么不踩？
+
+攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
+
+举三条最有共鸣的
+1. Git push SSL 握手失败
+症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
+根因：Git 没走系统代理，直连被墙
+修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
+教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
+2. Python 缩进导致 140 行代码静默跳过
+症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
+根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
+修复：代码提到 if 外面，和 if 同级缩进
+教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/posts/tooling/2026-06-13-pitfall-knowledge-base/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9509714cdb3f26fa10dc6409169eb856b3b0a39ac7bf90a573f6682c73b2a4f5.css" integrity="sha256-lQlxTNs/JvoQ3GQJFp64VrOwo5rHv5Clc/ZoLHOypPU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/posts/tooling/2026-06-13-pitfall-knowledge-base/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="" />
+<meta property="og:description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
+
+踩过坑、修好坑、记住坑——同一个坑不踩第二次。
+
+写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
+于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
+
+🩺 症状：你看到什么？
+🔬 根因：到底为什么出问题？
+🔧 修复：怎么做？
+🛡️ 怎么避免：下次怎么不踩？
+
+攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
+
+举三条最有共鸣的
+1. Git push SSL 握手失败
+症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
+根因：Git 没走系统代理，直连被墙
+修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
+教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
+2. Python 缩进导致 140 行代码静默跳过
+症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
+根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
+修复：代码提到 if 外面，和 if 同级缩进
+教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tooling/2026-06-13-pitfall-knowledge-base/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="世界一隅" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
+
+踩过坑、修好坑、记住坑——同一个坑不踩第二次。
+
+写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
+于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
+
+🩺 症状：你看到什么？
+🔬 根因：到底为什么出问题？
+🔧 修复：怎么做？
+🛡️ 怎么避免：下次怎么不踩？
+
+攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
+
+举三条最有共鸣的
+1. Git push SSL 握手失败
+症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
+根因：Git 没走系统代理，直连被墙
+修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
+教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
+2. Python 缩进导致 140 行代码静默跳过
+症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
+根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
+修复：代码提到 if 外面，和 if 同级缩进
+教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "",
+      "item": "/posts/tooling/2026-06-13-pitfall-knowledge-base/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "",
+  "name": "",
+  "description": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 踩过坑、修好坑、记住坑——同一个坑不踩第二次。\n写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。\n于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：\n🩺 症状：你看到什么？ 🔬 根因：到底为什么出问题？ 🔧 修复：怎么做？ 🛡️ 怎么避免：下次怎么不踩？ 攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。\n举三条最有共鸣的 1. Git push SSL 握手失败 症状：git push 到 GitHub 每次报 SSL\/TLS handshake 失败\n根因：Git 没走系统代理，直连被墙\n修复：一行命令 —— git config --global http.proxy http:\/\/127.0.0.1:7897\n教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设\n2. Python 缩进导致 140 行代码静默跳过 症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错\n根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过\n修复：代码提到 if 外面，和 if 同级缩进\n教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 踩过坑、修好坑、记住坑——同一个坑不踩第二次。\n写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。\n于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：\n🩺 症状：你看到什么？ 🔬 根因：到底为什么出问题？ 🔧 修复：怎么做？ 🛡️ 怎么避免：下次怎么不踩？ 攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。\n举三条最有共鸣的 1. Git push SSL 握手失败 症状：git push 到 GitHub 每次报 SSL\/TLS handshake 失败\n根因：Git 没走系统代理，直连被墙\n修复：一行命令 —— git config --global http.proxy http:\/\/127.0.0.1:7897\n教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设\n2. Python 缩进导致 140 行代码静默跳过 症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错\n根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过\n修复：代码提到 if 外面，和 if 同级缩进\n教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进\n3. 公众号明文模式下回复被错误加密 症状：微信后台设为明文模式，AI 正常生成回复，日志无报错——但用户永远看不到\n根因：_maybe_encrypt() 函数用 nonce 和 timestamp 是否存在来判断要不要加密。但微信在明文模式的 POST URL 里也携带这两个参数（用于 URL 签名验证，不是加密开关）→ 条件为真 → 加密了 → 微信明文模式解密不了 → 静默丢弃\n修复：明文分支中 nonce = None; timestamp = None，同时增加类级别 _is_encrypted 标志做双重防护\n教训：加密函数不能靠 nonce\/timestamp 是否存在来判断模式——它们在明文模式下也存在\n全部 16 条踩坑 # 踩坑 核心教训 1 Git Push SSL 握手失败 新机先设 --global http.proxy 2 Python UTF-8 BOM 编码陷阱 encoding=\u0027utf-8\u0027 → \u0027utf-8-sig\u0027 3 公众号中文乱码 requests json= → data=json.dumps(ensure_ascii=False) 4 规划写完忘记 commit 规划完成立刻 commit，不等会话结束 5 docx 表格跨页断开 cantSplit=True 防止断表 6 Excel COM Save 静默失败 wb.Save() 静默失败必须用 SaveAs 7 Gitee 重复建仓库 建仓库前先查已有列表 8 TRIGGERS 多场景匹配漏读 多路由命中要 AND 合并全量加载 9 Cloudreve\/Cloudflare 上传超时 免费版 100s 超时，调小分块 10 Python 缩进导致代码静默跳过 检查控制流缩进 11 Gitee 镜像已配还手动 push 镜像自动同步，删冗余 remote 12 AstrBot XML 二次包装 完整 XML 被又包一层 → 嵌套 XML 13 公众号明文模式误加密 nonce\/timestamp 别当加密开关 14 Hugo 手写单篇跳全量构建 必须 hugo -d docs\/ -F（已犯 3 次\u002b） 15 sed 假阳性验证 grep -q 验证通过 ≠ 代码写对了 16 WSL Write 工具路径不一致 写完不验证 = 写了等于没写 链接 🌐 网站：https:\/\/worldcorner.xyz\/pitfalls\/ 📂 GitHub：https:\/\/github.com\/zhao818\/claude-memory\/tree\/master\/pitfalls 每条踩坑都是真实踩过的——不是因为聪明才写，是因为踩疼了才记住。欢迎补充你踩过的坑，一起把仓库养大。\n",
+  "wordCount" : "220",
+  "inLanguage": "en",
+  "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
+  "dateModified": "0001-01-01 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "\/posts\/tooling\/2026-06-13-pitfall-knowledge-base\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta">Tianbing Zhao
+
+</div>
+  </header> 
+  <div class="post-content md-content"><h1 id="我整理了-16-条程序员真实踩坑每条四步拆解症状根因修复避免">我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免<a hidden class="anchor" aria-hidden="true" href="#我整理了-16-条程序员真实踩坑每条四步拆解症状根因修复避免">#</a></h1>
+<blockquote>
+<p>踩过坑、修好坑、记住坑——同一个坑不踩第二次。</p></blockquote>
+<hr>
+<p>写了几年代码，发现自己踩过的坑有一个共同特点：<strong>修的时候花了好几个小时，但根因往往就一行代码的事</strong>。更气人的是，过几个月又踩一遍。</p>
+<p>于是我做了一件事：把踩过的坑按统一格式整理出来——<strong>每条固定四个段落</strong>：</p>
+<ul>
+<li>🩺 <strong>症状</strong>：你看到什么？</li>
+<li>🔬 <strong>根因</strong>：到底为什么出问题？</li>
+<li>🔧 <strong>修复</strong>：怎么做？</li>
+<li>🛡️ <strong>怎么避免</strong>：下次怎么不踩？</li>
+</ul>
+<p>攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。</p>
+<hr>
+<h2 id="举三条最有共鸣的">举三条最有共鸣的<a hidden class="anchor" aria-hidden="true" href="#举三条最有共鸣的">#</a></h2>
+<h3 id="1-git-push-ssl-握手失败">1. Git push SSL 握手失败<a hidden class="anchor" aria-hidden="true" href="#1-git-push-ssl-握手失败">#</a></h3>
+<p><strong>症状</strong>：<code>git push</code> 到 GitHub 每次报 SSL/TLS handshake 失败</p>
+<p><strong>根因</strong>：Git 没走系统代理，直连被墙</p>
+<p><strong>修复</strong>：一行命令 —— <code>git config --global http.proxy http://127.0.0.1:7897</code></p>
+<p><strong>教训</strong>：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设</p>
+<h3 id="2-python-缩进导致-140-行代码静默跳过">2. Python 缩进导致 140 行代码静默跳过<a hidden class="anchor" aria-hidden="true" href="#2-python-缩进导致-140-行代码静默跳过">#</a></h3>
+<p><strong>症状</strong>：AstrBot 微信公众号被动回复永远不执行，日志无任何报错</p>
+<p><strong>根因</strong>：140 行被动回复代码缩进在了 <code>if active_send_mode:</code> 块内部（12 空格对齐），当 <code>active_send_mode=False</code> 时整个 if 块被跳过</p>
+<p><strong>修复</strong>：代码提到 if 外面，和 if 同级缩进</p>
+<p><strong>教训</strong>：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进</p>
+<h3 id="3-公众号明文模式下回复被错误加密">3. 公众号明文模式下回复被错误加密<a hidden class="anchor" aria-hidden="true" href="#3-公众号明文模式下回复被错误加密">#</a></h3>
+<p><strong>症状</strong>：微信后台设为明文模式，AI 正常生成回复，日志无报错——但用户永远看不到</p>
+<p><strong>根因</strong>：<code>_maybe_encrypt()</code> 函数用 <code>nonce</code> 和 <code>timestamp</code> 是否存在来判断要不要加密。但微信在明文模式的 POST URL 里也携带这两个参数（用于 URL 签名验证，不是加密开关）→ 条件为真 → 加密了 → 微信明文模式解密不了 → 静默丢弃</p>
+<p><strong>修复</strong>：明文分支中 <code>nonce = None; timestamp = None</code>，同时增加类级别 <code>_is_encrypted</code> 标志做双重防护</p>
+<p><strong>教训</strong>：加密函数不能靠 nonce/timestamp 是否存在来判断模式——它们在明文模式下也存在</p>
+<hr>
+<h2 id="全部-16-条踩坑">全部 16 条踩坑<a hidden class="anchor" aria-hidden="true" href="#全部-16-条踩坑">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>踩坑</th>
+          <th>核心教训</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Git Push SSL 握手失败</td>
+          <td>新机先设 <code>--global http.proxy</code></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>Python UTF-8 BOM 编码陷阱</td>
+          <td><code>encoding='utf-8'</code> → <code>'utf-8-sig'</code></td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>公众号中文乱码</td>
+          <td><code>requests json=</code> → <code>data=json.dumps(ensure_ascii=False)</code></td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>规划写完忘记 commit</td>
+          <td>规划完成立刻 commit，不等会话结束</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>docx 表格跨页断开</td>
+          <td><code>cantSplit=True</code> 防止断表</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>Excel COM Save 静默失败</td>
+          <td><code>wb.Save()</code> 静默失败必须用 <code>SaveAs</code></td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>Gitee 重复建仓库</td>
+          <td>建仓库前先查已有列表</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>TRIGGERS 多场景匹配漏读</td>
+          <td>多路由命中要 AND 合并全量加载</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>Cloudreve/Cloudflare 上传超时</td>
+          <td>免费版 100s 超时，调小分块</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>Python 缩进导致代码静默跳过</td>
+          <td>检查控制流缩进</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>Gitee 镜像已配还手动 push</td>
+          <td>镜像自动同步，删冗余 remote</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>AstrBot XML 二次包装</td>
+          <td>完整 XML 被又包一层 → 嵌套 XML</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>公众号明文模式误加密</td>
+          <td>nonce/timestamp 别当加密开关</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>Hugo 手写单篇跳全量构建</td>
+          <td>必须 <code>hugo -d docs/ -F</code>（已犯 3 次+）</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>sed 假阳性验证</td>
+          <td><code>grep -q</code> 验证通过 ≠ 代码写对了</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>WSL Write 工具路径不一致</td>
+          <td>写完不验证 = 写了等于没写</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="链接">链接<a hidden class="anchor" aria-hidden="true" href="#链接">#</a></h2>
+<ul>
+<li>🌐 网站：https://worldcorner.xyz/pitfalls/</li>
+<li>📂 GitHub：https://github.com/zhao818/claude-memory/tree/master/pitfalls</li>
+</ul>
+<p>每条踩坑都是真实踩过的——不是因为聪明才写，是因为<strong>踩疼了才记住</strong>。欢迎补充你踩过的坑，一起把仓库养大。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><hr>
+
+
+<div style="margin: 2em 0; padding: 1em 1.5em; background: #f8f8fa; border-left: 4px solid #4e54c8; border-radius: 4px; font-size: 0.9em; color: #555; line-height: 1.8;">
+<p style="margin: 0 0 0.5em 0;"><strong>🌱 世界一隅 · 认知分发矩阵</strong></p>
+<p style="margin: 0;">如果这篇文字在你的世界里激起了一点涟漪，欢迎在评论区回复 <code>订阅：你的邮箱</code>。这是一个小小的暗号，我会将你加入「世界一隅」的认知分发矩阵，让能量在收件箱准时合龙。</p>
+</div>
+
+
+<blockquote style="margin:1.5em 0;padding:0.6em 1em;border-left:4px solid #07c160;background:#f6f9f6;border-radius:4px;color:#333;font-size:0.92em;">
+  📭 <a href="https://wxpusher.zjiecode.com/wxuser/?type=2&id=44329#/follow" target="_blank" rel="noopener" style="color:#07c160;text-decoration:none;">点击此处，订阅《世界一隅》微信系统提醒</a>
+</blockquote>
+<div style="background: #1a1a2e; padding: 40px 20px; border-radius: 16px; border: 1px solid #2d2d44; text-align: center; margin-top: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center;">
+    
+    <h3 style="color: #8f94fb; margin-bottom: 10px; letter-spacing: 2px; font-size: 1.5rem;">世界一隅 · 能量矩阵</h3>
+    <p style="color: #6c6c8a; font-size: 14px; margin-bottom: 30px;">在这里，我们通过认知对冲孤独</p>
+    
+    <div style="width: 100%; max-width: 260px; margin-bottom: 25px;">
+        <a href="https://pay.worldcorner.xyz/pay" target="_blank" style="display: block;">
+            <img src="https://pay.worldcorner.xyz/static/qr-pay.png?v=$(date +%s)" 
+                 alt="赞赏码" 
+                 style="width: 100%; border-radius: 12px; border: 1px solid #4e54c8; box-shadow: 0 0 20px rgba(78,84,200,0.2); transition: all 0.3s;"
+                 onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 0 30px rgba(78,84,200,0.4)'"
+                 onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 20px rgba(78,84,200,0.2)'">
+        </a>
+        <p style="color: #4e54c8; font-size: 13px; margin-top: 15px; cursor: default;">点击或长按识别二维码</p>
+    </div>
+
+    <a href="https://pay.worldcorner.xyz/pay" target="_blank"
+       style="display: inline-block; padding: 14px 36px; background: linear-gradient(135deg, #4e54c8, #8f94fb); color: #fff; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 600; box-shadow: 0 4px 15px rgba(78,84,200,0.3); transition: all 0.2s;"
+       onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(78,84,200,0.5)'"
+       onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(78,84,200,0.3)'">
+       ✦ 进入数字化收银台
+    </a>
+
+    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #2d2d44; width: 80%;">
+        <p style="font-size: 12px; color: #444; font-style: italic; letter-spacing: 1px;">“凡所有相，皆是虚妄。若见诸相非相，即见如来。”</p>
+    </div>
+</div>
+
+</article>
+
+
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="/posts/tooling/" class="series-sidebar-title">效率工具</a>
+        <span class="series-sidebar-count">7 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        <li>
+          <a href="/posts/tooling/ai-audit-ai/"
+             class="series-capsule series-tooling"
+             title="AI审AI">
+            AI审AI
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/construction-documents-rebirth/"
+             class="series-capsule series-tooling"
+             title="「一份施工组织设计的重生：从报审表空壳到完整技术文档」">
+            「一份施工组织设计的重生：从报审表空壳到完整技术文档」
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/tool-sovereignty-occams-razor/"
+             class="series-capsule series-tooling"
+             title="当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验">
+            当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/wxpusher-polling-to-event-driven/"
+             class="series-capsule series-tooling"
+             title="别再轮询了。你的人生应该 Event-Driven。">
+            别再轮询了。你的人生应该 Event-Driven。
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/content-buffer-pool-design/"
+             class="series-capsule series-tooling"
+             title="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？">
+            自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/farewell-efficiency-refugees/"
+             class="series-capsule series-tooling"
+             title="别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？">
+            别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？
+          </a>
+        </li>
+        <li>
+          <a href="/posts/tooling/2026-06-13-pitfall-knowledge-base/"
+             class="series-capsule series-tooling active"
+             title="">
+            
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+      系统思维
+    </a>
+    <a href="/posts/learning/" class="nav-btn nav-menu-learning">
+      学习方法
+    </a>
+    <a href="/posts/tooling/" class="nav-btn nav-menu-tooling active">
+      效率工具
+    </a>
+    <a href="/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      踩坑宝典
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>
