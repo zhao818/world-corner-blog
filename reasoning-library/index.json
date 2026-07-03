@@ -111,6 +111,28 @@
       "tags": ["时间推理", "条件推理", "语言陷阱"],
       "keywords": ["时间推理", "条件假设", "相对关系", "语言歧义"],
       "mappings": ["需求理解", "计划排期", "AI时间理解", "沟通歧义"]
+    },
+    {
+      "id": "r011",
+      "title": "如果昨天是明天",
+      "type": "deduction",
+      "file": "deduction/r011-yesterday-tomorrow.md",
+      "difficulty": 3,
+      "tags": ["时间推理", "条件推理", "语言陷阱"],
+      "keywords": ["时间推理", "条件假设", "相对关系", "语言歧义"],
+      "mappings": ["需求理解", "计划排期", "AI时间理解", "沟通歧义"]
+    },
+    {
+      "id": "r012",
+      "title": "缺失的号码",
+      "type": "pattern",
+      "file": "pattern/r012-number-sequence.md",
+      "difficulty": 3,
+      "tags": ["数字规律", "模式识别", "归纳推理"],
+      "keywords": ["规律", "模式", "归纳", "数列", "找规律"],
+      "mappings": ["趋势判断", "机器学习", "投资分析", "用户行为"]
     }
+  ]
+}
   ]
 }
