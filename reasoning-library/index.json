@@ -81,6 +81,36 @@
       "tags": ["约束满足", "排除法"],
       "keywords": ["逻辑", "约束", "排除法", "多维度"],
       "mappings": ["AI工具选择", "信息整合", "招聘", "产品设计", "系统思维"]
+    },
+    {
+      "id": "r009",
+      "title": "海龟汤：男人走进酒吧",
+      "type": "lateral-thinking",
+      "file": "lateral-thinking/r009-turtle-soup.md",
+      "difficulty": 2,
+      "tags": ["海龟汤", "情境推理", "逆向思维"],
+      "keywords": ["海龟汤", "情境谜题", "是否问答", "逆向推理"],
+      "mappings": ["需求分析", "调试Bug", "面试提问", "用户调研"]
+    },
+    {
+      "id": "r010",
+      "title": "女士的年龄",
+      "type": "deduction",
+      "file": "deduction/r010-lady-age.md",
+      "difficulty": 4,
+      "tags": ["信息博弈", "对话推理", "消除法"],
+      "keywords": ["信息不对称", "轮次推理", "消除法", "共同知识"],
+      "mappings": ["信息不对称", "市场调研", "安全审计", "谈判策略"]
+    },
+    {
+      "id": "r011",
+      "title": "如果昨天是明天",
+      "type": "deduction",
+      "file": "deduction/r011-yesterday-tomorrow.md",
+      "difficulty": 3,
+      "tags": ["时间推理", "条件推理", "语言陷阱"],
+      "keywords": ["时间推理", "条件假设", "相对关系", "语言歧义"],
+      "mappings": ["需求理解", "计划排期", "AI时间理解", "沟通歧义"]
     }
   ]
 }
