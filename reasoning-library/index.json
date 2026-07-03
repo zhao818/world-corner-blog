@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "created": "2026-07-03",
+  "puzzles": [
+    {
+      "id": "r001",
+      "title": "囚徒困境",
+      "type": "strategy",
+      "file": "strategy/r001-prisoner-dilemma.md",
+      "difficulty": 3,
+      "tags": ["博弈", "合作", "信任"],
+      "keywords": ["合作", "背叛", "纳什均衡"],
+      "mappings": ["职场合作", "价格战", "AI安全", "商业竞争"]
+    },
+    {
+      "id": "r002",
+      "title": "狼羊菜过河",
+      "type": "strategy",
+      "file": "strategy/r002-wolf-goat-cabbage.md",
+      "difficulty": 2,
+      "tags": ["约束求解", "规划"],
+      "keywords": ["约束", "顺序", "中间态"],
+      "mappings": ["项目管理", "AI任务规划", "多任务处理", "迁移"]
+    },
+    {
+      "id": "r003",
+      "title": "过桥问题",
+      "type": "strategy",
+      "file": "strategy/r003-bridge-crossing.md",
+      "difficulty": 3,
+      "tags": ["优化", "调度"],
+      "keywords": ["优化", "调度", "瓶颈", "协作"],
+      "mappings": ["团队效率", "资源调度", "人力配置", "关键路径"]
+    },
+    {
+      "id": "r004",
+      "title": "三个囚犯的帽子问题",
+      "type": "deduction",
+      "file": "deduction/r004-prison-hats.md",
+      "difficulty": 4,
+      "tags": ["推理链", "公共知识"],
+      "keywords": ["推理", "公共知识", "沉默", "间接信息"],
+      "mappings": ["沟通", "信息不对称", "阅读理解", "市场"]
+    },
+    {
+      "id": "r005",
+      "title": "九点连线",
+      "type": "lateral-thinking",
+      "file": "lateral-thinking/r005-nine-dots.md",
+      "difficulty": 2,
+      "tags": ["横向思维", "创造性"],
+      "keywords": ["假设", "边界", "跳出框架"],
+      "mappings": ["创新", "问题解决", "创业", "写作", "AI边界"]
+    },
+    {
+      "id": "r006",
+      "title": "说谎者与诚实者",
+      "type": "deduction",
+      "file": "deduction/r006-liar-truth-teller.md",
+      "difficulty": 2,
+      "tags": ["布尔逻辑", "条件判断"],
+      "keywords": ["逻辑", "问题设计", "信息筛选"],
+      "mappings": ["决策", "信息甄别", "面试", "AI提示词", "调研"]
+    },
+    {
+      "id": "r007",
+      "title": "蒙提霍尔问题（三扇门）",
+      "type": "strategy",
+      "file": "strategy/r007-monty-hall.md",
+      "difficulty": 3,
+      "tags": ["概率", "贝叶斯", "反直觉"],
+      "keywords": ["概率", "决策", "反直觉", "信息更新"],
+      "mappings": ["决策", "投资", "职业选择", "产品迭代", "A/B测试"]
+    },
+    {
+      "id": "r008",
+      "title": "谁养鱼？（爱因斯坦谜题）",
+      "type": "deduction",
+      "file": "deduction/r008-zebra-puzzle.md",
+      "difficulty": 5,
+      "tags": ["约束满足", "排除法"],
+      "keywords": ["逻辑", "约束", "排除法", "多维度"],
+      "mappings": ["AI工具选择", "信息整合", "招聘", "产品设计", "系统思维"]
+    }
+  ]
+}
