@@ -38,7 +38,11 @@ from PIL import Image, ImageDraw, ImageFont
 
 # ===== 平台模块 =====
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from platforms.base import DARK_BG, GOLD, BRAND, get_platform_cookies, update_platform_cookies, load_cookies, save_cookies
+from platforms.base import (
+    DARK_BG, GOLD, BRAND,
+    get_platform_cookies, update_platform_cookies,
+    load_cookies, save_cookies,
+)
 from platforms import list_platforms as _list_platforms, publish_to
 from platforms.publish_log import check_duplicate, record_publish
 
@@ -185,10 +189,12 @@ def setup_kuaishou():
     kp.setup_auth()
 
 
-# ===== 主入口 =====
+# ===== 辅助: 编译器 =====
+_parser_ref = None
 
-def main():
-    parser = argparse.ArgumentParser(
+
+def _build_parser():
+    p = argparse.ArgumentParser(
         description="通用发布管线：MD → 文章平台 | MP4 → 视频平台",
         formatter_class=argparse.RawDescriptionHelpFormatter,
 epilog="""
@@ -206,49 +212,48 @@ epilog="""
   python publish.py --list-platforms              # 列出支持平台
         """,
     )
+    p.add_argument("file", nargs="?", help="Markdown 文件路径")
+    p.add_argument("--wx-only", action="store_true", help="只发公众号（手动补发）")
+    p.add_argument("--jj-only", action="store_true", help="只发掘金")
+    p.add_argument("--bilibili", action="store_true", help="只发 B站（或加入发布列表）")
+    p.add_argument("--kuaishou", action="store_true", help="只发快手（或加入发布列表）")
+    p.add_argument("--douyin", action="store_true", help="只发抖音（或加入发布列表）")
+    p.add_argument("--zhihu", action="store_true", help="只发知乎（或加入发布列表）")
+    p.add_argument("--jike", action="store_true", help="只发即刻（或加入发布列表）")
+    p.add_argument("--tencent", "--tencent_cloud", action="store_true", help="只发腾讯云（或加入发布列表）")
+    p.add_argument("--afdian", action="store_true", help="只发爱发电（或加入发布列表）")
+    p.add_argument("--channels", action="store_true", help="只发视频号（或加入发布列表）")
+    p.add_argument("--url", help="指定公众号文章链接（即刻等平台需要）")
+    p.add_argument("--playwright", action="store_true", help="快手使用 Playwright 浏览器自动化")
+    p.add_argument("--no-cover", action="store_true", help="不生成封面")
+    p.add_argument("--setup-bilibili", action="store_true", help="引导配置 B站 Cookie")
+    p.add_argument("--setup-kuaishou", action="store_true", help="引导配置快手 OAuth")
+    p.add_argument("--list-platforms", action="store_true", help="列出所有支持平台")
+    p.add_argument("--log", action="store_true", help="查看最近30天发布记录")
+    p.add_argument("--sync-wechat-urls", action="store_true", help="同步公众号已发布文章URL")
+    p.add_argument("--set-wechat-url", help="手动设置最新公众号文章URL")
+    p.add_argument("--answer", action="store_true", help="回答模式：将文件作为知乎回答发布")
+    p.add_argument("--question-id", help="回答模式：目标问题 ID")
+    return p
 
-    parser.add_argument("file", nargs="?", help="Markdown 文件路径")
-    parser.add_argument("--wx-only", action="store_true", help="只发公众号（手动补发）")
-    parser.add_argument("--jj-only", action="store_true", help="只发掘金")
-    parser.add_argument("--bilibili", action="store_true", help="只发 B站（或加入发布列表）")
-    parser.add_argument("--kuaishou", action="store_true", help="只发快手（或加入发布列表）")
-    parser.add_argument("--douyin", action="store_true", help="只发抖音（或加入发布列表）")
-    parser.add_argument("--zhihu", action="store_true", help="只发知乎（或加入发布列表）")
-    parser.add_argument("--jike", action="store_true", help="只发即刻（或加入发布列表）")
-    parser.add_argument("--tencent", "--tencent_cloud", action="store_true", help="只发腾讯云（或加入发布列表）")
-    parser.add_argument("--afdian", action="store_true", help="只发爱发电（或加入发布列表）")
-    parser.add_argument("--channels", action="store_true", help="只发视频号（或加入发布列表）")
-    parser.add_argument("--url", help="指定公众号文章链接（即刻等平台需要）")
-    parser.add_argument("--playwright", action="store_true", help="快手使用 Playwright 浏览器自动化")
-    parser.add_argument("--no-cover", action="store_true", help="不生成封面")
-    parser.add_argument("--setup-bilibili", action="store_true", help="引导配置 B站 Cookie")
-    parser.add_argument("--setup-kuaishou", action="store_true", help="引导配置快手 OAuth")
-    parser.add_argument("--list-platforms", action="store_true", help="列出所有支持平台")
-    parser.add_argument("--log", action="store_true", help="查看最近30天发布记录")
-    parser.add_argument("--sync-wechat-urls", action="store_true", help="同步公众号已发布文章URL")
-    parser.add_argument("--set-wechat-url", help="手动设置最新公众号文章URL")
-    # 智能回答模式
-    parser.add_argument("--answer", action="store_true", help="回答模式：将文件作为知乎回答发布")
-    parser.add_argument("--question-id", help="回答模式：目标问题 ID")
-    args = parser.parse_args()
 
-    # 设置模式
+def _handle_setup_modes(args):
     if args.setup_bilibili:
         setup_bilibili()
-        return
+        return True
     if args.setup_kuaishou:
         setup_kuaishou()
-        return
+        return True
     if args.list_platforms:
         print("支持平台:")
         from platforms import REGISTRY
         for name, p in REGISTRY.items():
             print(f"  {name:12s} → {p.display_name}")
-        return
+        return True
     if args.log:
         from platforms.publish_log import print_summary
         print_summary(30)
-        return
+        return True
     if args.sync_wechat_urls:
         from platforms.wechat import WechatPlatform
         wp = WechatPlatform()
@@ -260,39 +265,18 @@ epilog="""
                 print(f"   {t}: {u}")
         else:
             print("⚠️ API 无权限（errcode=48001），请用 --set-wechat-url 手动设置")
-        return
+        return True
     if args.set_wechat_url:
         from platforms.wechat import WechatPlatform
         wp = WechatPlatform()
         wp._save_to_registry("手动设置", args.set_wechat_url.strip())
         print(f"✅ 文章URL已保存: {args.set_wechat_url.strip()}")
-        return
+        return True
+    return False
 
-    # ── 智能回答模式 ──
-    if args.answer:
-        if not args.question_id:
-            print("❌ 回答模式需要 --question-id 参数")
-            print("   示例: python publish.py answer.md --answer --question-id=123456")
-            sys.exit(1)
 
-        from platforms.zhihu import ZhihuPlatform
-        zp = ZhihuPlatform()
-
-        print(f"\n📤 发布回答到问题 {args.question_id}...")
-        _check_and_warn(meta.get("title", ""), "zhihu")
-        result = zp.publish_answer(args.question_id, body)
-        _print_result("zhihu", result, meta.get("title", ""), "answer")
-        print()
-        print("   管线命令 (下次直接发):")
-        print(f"     python publish.py {args.file} --answer --question-id={args.question_id}")
-        return
-
-    # 发布模式
-    if not args.file:
-        parser.print_help()
-        return
-
-    md_file = os.path.abspath(args.file)
+def _prepare_article(filepath, cover_enabled=True):
+    md_file = os.path.abspath(filepath)
     if not os.path.exists(md_file):
         print(f"❌ 文件不存在: {md_file}")
         sys.exit(1)
@@ -307,56 +291,69 @@ epilog="""
     print(f"   标题: {title}")
     print(f"   摘要: {digest}")
 
-    # 生成封面
     cover_path = None
-    if not args.no_cover:
+    if cover_enabled:
         print(f"\n🎨 生成封面...")
         cover_path = generate_cover(title, digest, category)
         print(f"   封面: {cover_path}")
 
-    # 决定要发布的平台（支持任意组合）
-    specific_platforms = []
-    if args.wx_only:    specific_platforms.append("wechat")
-    if args.jj_only:    specific_platforms.append("juejin")
-    if args.zhihu:      specific_platforms.append("zhihu")
-    if args.jike:       specific_platforms.append("jike")
-    if args.tencent:    specific_platforms.append("tencent_cloud")
-    if args.afdian:     specific_platforms.append("afdian")
+    return meta, body, cover_path
 
-    # 公众号文章链接（即刻等平台需要）
-    article_url = args.url or ""
 
-    # 组合模式
+def _handle_answer_mode(args, meta, body):
+    if not args.answer:
+        return False
+    if not args.question_id:
+        print("❌ 回答模式需要 --question-id 参数")
+        print("   示例: python publish.py answer.md --answer --question-id=123456")
+        sys.exit(1)
+
+    from platforms.zhihu import ZhihuPlatform
+    zp = ZhihuPlatform()
+
+    print(f"\n📤 发布回答到问题 {args.question_id}...")
+    _check_and_warn(meta.get("title", ""), "zhihu")
+    result = zp.publish_answer(args.question_id, body)
+    _print_result("zhihu", result, meta.get("title", ""), "answer")
+    print()
+    print("   管线命令 (下次直接发):")
+    print(f"     python publish.py {args.file} --answer --question-id={args.question_id}")
+    return True
+
+
+def _determine_targets(args):
+    platforms = []
+    if args.wx_only:    platforms.append("wechat")
+    if args.jj_only:    platforms.append("juejin")
+    if args.zhihu:      platforms.append("zhihu")
+    if args.jike:       platforms.append("jike")
+    if args.tencent:    platforms.append("tencent_cloud")
+    if args.afdian:     platforms.append("afdian")
+
+    if "wechat" in platforms and platforms[0] != "wechat":
+        platforms = ["wechat"] + [p for p in platforms if p != "wechat"]
+
+    return platforms
+
+
+def _publish_loop(platform_names, meta, body, cover_path, article_url):
     results = {}
+    title = meta.get("title", "")
+    for name in platform_names:
+        print(f"\n{'='*50}")
+        _check_and_warn(title, name)
+        if name in ("jike",) and article_url:
+            meta["url"] = article_url
+            print(f"   🔗 附带公众号文章链接: {article_url}")
+        result = publish_to(name, meta, body, cover_path)
+        results[name] = result
+        _print_result(name, result, title, "article")
+    return results
 
-    if specific_platforms:
-        ordered = specific_platforms
-        # 显式指定了 wechat 且不在首位 → 移到首位
-        if "wechat" in ordered and ordered[0] != "wechat":
-            ordered = ["wechat"] + [p for p in ordered if p != "wechat"]
 
-        for name in ordered:
-            print(f"\n{'='*50}")
-            _check_and_warn(title, name)
-            if name in ("jike",) and article_url:
-                meta["url"] = article_url
-                print(f"   🔗 附带公众号文章链接: {article_url}")
-            result = publish_to(name, meta, body, cover_path)
-            results[name] = result
-            _print_result(name, result, title, "article")
-    else:
-        all_platforms = ["juejin", "zhihu", "jike", "tencent_cloud", "afdian"]
-        for name in all_platforms:
-            print(f"\n{'='*50}")
-            _check_and_warn(title, name)
-            if name in ("jike",) and article_url:
-                meta["url"] = article_url
-                print(f"   🔗 附带公众号文章链接: {article_url}")
-            result = publish_to(name, meta, body, cover_path)
-            results[name] = result
-            _print_result(name, result, title, "article")
-
-    # 汇总
+def _print_publish_summary(results):
+    if not results:
+        return
     print(f"\n{'='*50}")
     success_count = sum(1 for r in results.values() if r.get("success"))
     total = len(results)
@@ -367,9 +364,45 @@ epilog="""
     else:
         print(f"❌ 发布失败 ({success_count}/{total})，检查各平台配置")
 
-    # 清理临时封面
+
+def _cleanup_cover(cover_path):
     if cover_path and os.path.exists(cover_path):
         os.remove(cover_path)
+
+
+# ===== 主入口 =====
+
+def main():
+    global _parser_ref
+    _parser_ref = _build_parser()
+    args = _parser_ref.parse_args()
+
+    if _handle_setup_modes(args):
+        return
+
+    if not args.file:
+        _parser_ref.print_help()
+        return
+
+    meta, body, cover_path = _prepare_article(args.file, cover_enabled=not args.no_cover)
+
+    if _handle_answer_mode(args, meta, body):
+        _cleanup_cover(cover_path)
+        return
+
+    article_url = args.url or ""
+    targets = _determine_targets(args)
+
+    if targets:
+        results = _publish_loop(targets, meta, body, cover_path, article_url)
+    else:
+        results = _publish_loop(
+            ["juejin", "zhihu", "jike", "tencent_cloud", "afdian"],
+            meta, body, cover_path, article_url,
+        )
+
+    _print_publish_summary(results)
+    _cleanup_cover(cover_path)
 
 
 def _print_result(name: str, result: dict, title: str = "", pub_type: str = "article"):
