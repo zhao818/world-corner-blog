@@ -474,7 +474,7 @@ def _check_and_warn(title: str, name: str) -> bool:
     return False
 
 
-def main_video(filepath: str, targets: list[str], title: str, desc: str, cover_path: str = None):
+def main_video(filepath: str, targets: list[str], title: str, desc: str, cover_path: str = None, tags: str = ""):
     """视频发布模式"""
     from platforms import publish_video_to, REGISTRY
 
@@ -580,7 +580,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(f"🎨 封面生成跳过: {e}")
 
-        main_video(_args.video, targets, title, desc, cover_path=cover_path)
+        main_video(_args.video, targets, title, desc, cover_path=cover_path, tags=tags)
 
         # 清理封面
         if cover_path and os.path.exists(cover_path):

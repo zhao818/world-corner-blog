@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容运营管线全景框架</title>
+<style>
+  /* ========== Brand ========== */
+  :root {
+    --bg: #0f0f1a;
+    --bg2: #1a1a2e;
+    --bg3: #252545;
+    --gold: #c8a03c;
+    --gold-dim: #a07820;
+    --text: #e8e6e3;
+    --text-dim: #888;
+    --border: #2a2a4a;
+    --card: #1e1e38;
+    --blue-accent: #3a6ea5;
+    --red: #e74c3c;
+    --green: #27ae60;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ========== Header ========== */
+  .header {
+    background: linear-gradient(135deg, var(--bg2) 0%, #12122a 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .header h1 small {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-dim);
+    letter-spacing: 0;
+    margin-left: 12px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+  }
+  .header-stats span {
+    background: var(--bg3);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .header-stats i { color: var(--gold); margin-right: 4px; }
+
+  /* ========== Search ========== */
+  .search-bar {
+    padding: 12px 30px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 76px;
+    z-index: 99;
+  }
+  .search-bar input {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search-bar input:focus { border-color: var(--gold); }
+  .search-bar input::placeholder { color: var(--text-dim); }
+
+  /* ========== Layout ========== */
+  .app {
+    display: flex;
+    height: calc(100vh - 130px);
+  }
+  .tree-panel {
+    width: 380px;
+    min-width: 380px;
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+    padding: 16px 0 40px;
+  }
+  .detail-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px;
+  }
+
+  /* ========== Tree ========== */
+  .tree { list-style: none; padding-left: 0; }
+  .tree li { position: relative; }
+  .tree-node {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px 6px 8px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all .15s;
+    user-select: none;
+    font-size: 13px;
+    line-height: 1.4;
+    position: relative;
+  }
+  .tree-node:hover { background: rgba(200,160,60,.08); }
+  .tree-node.active {
+    background: rgba(200,160,60,.15);
+    border-left-color: var(--gold);
+  }
+  .tree-node .icon {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    font-size: 14px;
+    opacity: .7;
+  }
+  .tree-node .label { flex: 1; min-width: 0; }
+  .tree-node .badge {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 8px;
+    background: var(--bg3);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .tree-node .badge.py { color: #4ec9b0; border-color: #4ec9b0; }
+  .tree-node .badge.key { color: var(--gold); border-color: var(--gold); }
+  .tree-node .badge.platform { color: var(--blue-accent); border-color: var(--blue-accent); }
+  .tree-node .badge.count { font-size: 10px; }
+  .toggle {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--text-dim);
+    transition: transform .2s;
+  }
+  .toggle.closed { transform: rotate(-90deg); }
+  .children { overflow: hidden; transition: max-height .25s ease; }
+  .children.collapsed { max-height: 0 !important; }
+  .depth-1 > .tree-node { padding-left: 28px; font-size: 12.5px; }
+  .depth-2 > .tree-node { padding-left: 48px; font-size: 12px; }
+  .depth-3 > .tree-node { padding-left: 68px; font-size: 11.5px; }
+  .depth-4 > .tree-node { padding-left: 88px; font-size: 11px; }
+
+  /* ========== Detail Panel ========== */
+  .detail-panel h2 {
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .detail-panel .subtitle {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .detail-section {
+    margin-bottom: 20px;
+  }
+  .detail-section h3 {
+    font-size: 14px;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .detail-section h3::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .detail-section p, .detail-section li {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: .9;
+  }
+  .detail-section ul { padding-left: 20px; }
+  .detail-section li { margin-bottom: 3px; }
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .detail-table th {
+    text-align: left;
+    padding: 6px 10px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    color: var(--gold-dim);
+  }
+  .detail-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .detail-table tr:hover td { background: rgba(200,160,60,.04); }
+  .detail-tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin: 1px 2px;
+  }
+  .detail-tag.py { background: rgba(78,201,176,.15); color: #4ec9b0; border: 1px solid rgba(78,201,176,.3); }
+  .detail-tag.platform { background: rgba(58,110,165,.15); color: #5a9fd5; border: 1px solid rgba(58,110,165,.3); }
+  .detail-tag.core { background: rgba(200,160,60,.15); color: var(--gold); border: 1px solid rgba(200,160,60,.3); }
+  .detail-tag.updated { background: rgba(39,174,96,.15); color: #27ae60; border: 1px solid rgba(39,174,96,.3); }
+  .code-block {
+    background: rgba(0,0,0,.3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    margin: 8px 0;
+    line-height: 1.6;
+  }
+  .iter-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 12px;
+    border-left: 2px solid var(--gold-dim);
+  }
+  .iter-item {
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .iter-date {
+    color: var(--gold);
+    font-weight: 600;
+    flex-shrink: 0;
+    min-width: 80px;
+  }
+  .iter-desc { color: var(--text); opacity: .85; }
+  .empty-detail {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .empty-detail .big-icon { font-size: 48px; margin-bottom: 16px; opacity: .3; }
+  .empty-detail p { font-size: 14px; line-height: 1.8; }
+
+  /* ========== Scrollbar ========== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+  /* ========== Responsive ========== */
+  @media (max-width: 768px) {
+    .app { flex-direction: column; height: auto; }
+    .tree-panel { width: 100%; min-width: 0; max-height: 50vh; border-right: none; border-bottom: 1px solid var(--border); }
+    .detail-panel { min-height: 50vh; }
+    .header h1 { font-size: 17px; }
+    .header-stats span { font-size: 10px; padding: 2px 8px; }
+  }
+
+  /* highlight search */
+  .hl { background: rgba(200,160,60,.3); border-radius: 2px; padding: 0 2px; }
+</style>
+</head>
+<body>
+
+<!-- ========== Header ========== -->
+<div class="header">
+  <div>
+    <h1>📦 内容运营管线 <small>美好需要创造 · AI提效实战派</small></h1>
+  </div>
+  <div class="header-stats">
+    <span>📜 35+ 脚本</span>
+    <span>🌐 11 平台</span>
+    <span>🔍 6 引擎</span>
+    <span>🧠 5 技能</span>
+    <span>📅 24天迭代</span>
+  </div>
+</div>
+
+<!-- ========== Search ========== -->
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="🔍 搜索脚本名称、关键词、功能…（如: publish、视频、知乎、抖音）" oninput="filterTree(this.value)">
+</div>
+
+<!-- ========== App ========== -->
+<div class="app" id="app">
+  <div class="tree-panel" id="treePanel"></div>
+  <div class="detail-panel" id="detailPanel">
+    <div class="empty-detail" id="emptyDetail">
+      <div class="big-icon">🗺️</div>
+      <p><strong>点击左侧任一节点</strong><br>查看详细说明、文件信息、迭代记录</p>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">或使用搜索框快速定位</p>
+    </div>
+    <div id="detailContent" style="display:none;"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  DATA — 完整的管线数据
+// ============================================================
+const DATA = {
+  label: '📦 内容运营管线',
+  type: 'root',
+  details: {
+    desc: '内容生产 → 多平台发布 → 视频生成 → 数据追踪 → 商业变现 全链路',
+    brand: '美好需要创造',
+    positioning: 'AI提效实战派 + 融合框架',
+    dirs: ['~/world-corner-blog/ 生产管线', '~/catalog/ 深度创作', '~/projects/remotion-video-platform/ 视频平台'],
+    skills: '5个核心技能（~/.claude/skills/）'
+  },
+  children: [
+    // ===== 1. 核心管线 =====
+    {
+      label: '⚡ 核心发文管线',
+      type: 'group',
+      details: { desc: '三条内容生产主路径：快速发文 → 深度创作 → 多平台分发' },
+      children: [
+        {
+          label: '① 快速发文 — wechat-publish',
+          type: 'skill',
+          details: {
+            title: 'wechat-publish · 公众号一键发文',
+            desc: '5步直达公众号草稿：AI选题 → DeepSeek搜索 → JSON起草 → 公众号推送 → 内容登记',
+            overview: '一站式公众号发文管线，从0到1只需一条命令。核心架构是 搜索→生成→推送 三阶段串行：<br><br>' +
+              '• <b>Step 0 AI选题</b>：调用deepseek_web.search()，prompt驱动自动出3个选题，正则提取最优<br>' +
+              '• <b>Step 1 DeepSeek搜索</b>：Playwright控chat.deepseek.com，反检测三层+持久化storage_state<br>' +
+              '• <b>Step 2 JSON起草</b>：LLM产出结构化JSON {title, digest, body}，V2加入了robust JSON解析（去markdown代码块+最外层{}提取+\\\\n转义回退）<br>' +
+              '• <b>Step 3 公众号推送</b>：调WechatPlatform.publish()，走微信API创建草稿<br>' +
+              '• <b>Step 4 内容登记</b>：RegistryManager统一入库content_registry.json，去重+状态更新<br><br>' +
+              'Token计费贯穿全程（deepseek_v3_tokenizer），统计in/out token量到token-usage.jsonl',
+            architecture: '用户输入\n  │\n  ▼\n[0/5] AI选题 ────── deepseek_web.search() ──── 正则提取\n  │\n  ▼\n[1/5] DeepSeek搜索 ── deepseek_web.search() ── Playwright\n  │\n  ▼\n[2/5] JSON起草 ────── deepseek_web.search() ── JSON解析(V2 robust)\n  │\n  ▼\n[3/5] 公众号推送 ──── WechatPlatform.publish() ── API草稿\n  │\n  ▼\n[4/5] 内容登记 ────── RegistryManager ── content_registry.json\n  │\n  ▼\nToken计费 ────────── deepseek_v3_tokenizer ── token-usage.jsonl',
+            pros: [
+              '单命令完成全流程，运营效率极高（5分钟出一篇草稿）',
+              'JSON解析V2有三级回退机制：标准json.loads → \\\\n转义修复 → 原始文本，鲁棒性好',
+              'Token计费贯穿全程，费用透明（DeepSeek网页版免费）',
+              'RegistryManager统一格式去重，避免重复登记',
+            ],
+            cons: [
+              '仅支持公众号单平台，多平台分发需要另外调 publish.py',
+              'DeepSeek Web依赖Playwright+持久化登录态，storage_state过期需要手动刷新',
+              'JSON起草prompt死板，产出质量依赖LLM能力上限，无质量审核闸门',
+              '无重试机制——任何一个步骤失败（搜索/JSON解析/推送）都直接return，没有自动重试',
+              'Token计费用的是本地v3 tokenizer而非API返回，计数有偏差',
+            ],
+            upstream: '无（独立入口）<br>调用自 content-orchestrator 的 Step 5',
+            downstream: '• WechatPlatform → 微信API（草稿推送）<br>• RegistryManager → content_registry.json<br>• token-usage.jsonl（计费日志）',
+            optimizations: [
+              {
+                suggestion: '加入自动重试+指数退避',
+                detail: '搜索/JSON解析失败时自动重试3次，间隔递增（1s→3s→9s），提高管线容错率',
+                priority: '高',
+                reference: 'Exponential Backoff (AWS Architecture Blog, 2023) — 分布式系统容错黄金模式'
+              },
+              {
+                suggestion: '引入质量审核闸门（参考content-orchestrator）',
+                detail: 'JSON起草后自动过五维评分（content_eval.py），<70分自动重新生成，避免低质量文章进入推送',
+                priority: '高',
+                reference: 'LLM-as-Judge (Zheng et al., 2023, "Judging LLM-as-a-Judge with MT-Bench") — 用LLM自评输出质量'
+              },
+              {
+                suggestion: 'Playwright连接池化',
+                detail: '每次搜索都新建browser→context→page，开销大。复用持久化browser实例可提速50%+',
+                priority: '中',
+                reference: 'Playwright Best Practices (Microsoft, 2024) — browser实例复用可减少80%启动时间'
+              },
+              {
+                suggestion: 'Token计数改用API response',
+                detail: '本地v3 tokenizer与DeepSeek实际计费有偏差，改用API返回的usage字段（未来切API版时）',
+                priority: '低',
+                reference: 'DeepSeek API Docs — usage字段含input_tokens/output_tokens精确值'
+              },
+            ],
+          }
+        },
+        {
+          label: '② 深度创作 — content-orchestrator',
+          type: 'skill',
+          details: {
+            title: 'content-orchestrator · 三AI协作深度写文章',
+            desc: '7步精耕细作：选题调研→骨架生成→精加工→文章组装→发布→视频→登记，每步有审核闸门',
+            overview: '在publish_one.py（单AI→公众号）之上加一层精耕细作框架。核心创新是 multi_search() 自动降级引擎：<br><br>' +
+              '• <b>自动降级链</b>：豆包(Playwright) → Gemini(Playwright) → DeepSeek(API)，带 engine_health 健康检查，出问题自动跳过<br>' +
+              '• <b>审核闸门</b>：每步完成后可选 继续/修改/重做/跳过，保证质量可控<br>' +
+              '• <b>双内容线</b>：--track ai（AI提效实战派）和 --track thinking（哲思文），两套不同的 prompt / 品牌 / 语调<br>' +
+              '• <b>端到端集成</b>：Step 5调publish_one.py发布，Step 6调video_pipeline.py做视频，Step 7调content_dashboard.py登记<br><br>' +
+              '本质上是一个「AI AI编排器」——用Python做LLM调用的控制流编排，比纯Agent更可控',
+            architecture: 'Step 1: 选题调研 ── multi_search(doubao→gemini→deepseek) ── 热点/角度\n  │ 👀 审核闸门（继续/修改/重做/跳过）\n  ▼\nStep 2: 骨架生成 ── multi_search(...) ── 文章架构+初稿\n  │ 👀 审核闸门\n  ▼\nStep 3: 精加工 ── multi_search(...) ── 文献补充+修正\n  │ 👀 审核闸门\n  ▼\nStep 4: 文章组装 ── 清洗+合并+meta写入文件\n  │ 👀 发布前终审\n  ▼\nStep 5: 管线发布 ── publish_one.py (公众号) / publish.py (多平台)\n  │\n  ▼\nStep 6: 视频生成 ── video_pipeline.py (Remotion)\n  │\n  ▼\nStep 7: 登记追踪 ── content_dashboard.py',
+            pros: [
+              '三AI协同+自动降级保证产出不中断，豆包/Gemini/DeepSeek任一可用即可完成',
+              '审核闸门机制让AI不失控，每步有人工干预点',
+              'engine_health模块会禁用连续失败的引擎，避免反复浪费时间',
+              '双内容线设计（ai/thinking）适配不同品牌调性，代码复用率高',
+              '端到端集成完整：写完自动发布+做视频+登记',
+            ],
+            cons: [
+              '全流程依赖Playwright+持久化Cookie，三个搜索引擎都需要登录态维护',
+              '审核闸门打断自动化流程——适合精耕细作，不适合批量生产',
+              '三条AI各跑一遍搜索，Token消耗大（depth轮次×引擎数量）',
+              '无缓存机制——同样的选题每次都要重新搜索，无法命中缓存',
+              '不是真正的「多Agent并行」，是串行管线，墙钟时间较长',
+            ],
+            upstream: '用户直接触发（"写文章"/"深度写"）',
+            downstream: '• Step 5 → publish_one.py / publish.py<br>• Step 6 → video_pipeline.py<br>• Step 7 → content_dashboard.py<br>• 产出：MD文章 → articles/',
+            optimizations: [
+              {
+                suggestion: '引入搜索结果缓存（LRU Cache + TTL）',
+                detail: '同一选题/关键词24小时内命中缓存，避免重复搜索降Token消耗。预计可减少40-60% API调用',
+                priority: '高',
+                reference: 'Caching in LLM Pipelines (DSPy Paper, 2024) — "Cached LM calls reduce cost by 40-70% with minimal quality impact"'
+              },
+              {
+                suggestion: '改造成真正的多Agent并行+投票',
+                detail: '当前是串行管线，可以改成三AI各自独立产出完整文章→交叉评审→择优/融合。参考AlphaGo的MCTS思想',
+                priority: '高',
+                reference: 'Multi-Agent Debate (Du et al., 2023, "Improving Factuality and Reasoning in Language Models through Multiagent Debate") — 多Agent辩论提升输出质量'
+              },
+              {
+                suggestion: '审核闸门改为LLM自动评判',
+                detail: '大部分审核可以通过LLM-as-Judge自动化，只有触发风险标签（如政治/争议）才人工介入',
+                priority: '中',
+                reference: 'Constitutional AI (Bai et al., 2022, Anthropic) — 用AI做自动审核+价值观对齐'
+              },
+              {
+                suggestion: 'Playwright实例池化复用',
+                detail: '三个搜索引擎各开Playwright实例，启动开销大。改为浏览器实例池+context隔离',
+                priority: '中',
+                reference: 'Google Chrome DevTools Protocol Best Practices — CDP连接复用可减少70%启动延迟'
+              },
+            ],
+          }
+        },
+        {
+          label: '③ 多平台分发 — publish.py',
+          type: 'script',
+          details: {
+            title: '多平台分发引擎',
+            desc: '一个Markdown文件 → 11个平台同时/选择发布',
+            overview: '项目的「最后一公里」——把文章分发到所有内容平台。核心架构是策略模式（Strategy Pattern）：<br><br>' +
+              '• <b>统一接口</b>：BasePlatform基类定义了 publish() 抽象方法，每个平台独立实现<br>' +
+              '• <b>平台注册表</b>：platforms/__init__.py 的 REGISTRY 字典，平台模块导入时自动注册<br>' +
+              '• <b>反检测三层</b>：base.py 中的 SessionPersona + random viewport + human_delay，模拟真人操作<br>' +
+              '• <b>去重机制</b>：publish_log.py 的 check_duplicate() 避免同一文章重复发布<br>' +
+              '• <b>封面生成</b>：内嵌Pillow封面图生成，品牌色深海蓝+暖金<br><br>' +
+              '11个平台分两类：TEXT（公众号/掘金/知乎/即刻/腾讯云/爱发电/闲鱼）和 VIDEO（抖音/快手/视频号/B站/小红书）',
+            architecture: 'publish.py（入口）\n  │ 解析MD → YAML frontmatter(title/digest/category)\n  │ 生成封面 → Pillow → cover.png\n  ▼\nplatforms.__init__.publish_to()\n  │\n  ├─ 文字平台: wechat.py / juejin.py / zhihu.py / jike.py\n  │            tencent_cloud.py / afdian.py / goofish.py\n  │\n  ├─ 视频平台: bilibili.py / douyin.py / kuaishou.py\n  │            xiaohongshu.py / channels.py\n  │\n  └─ 公共: traffic.py(引流文案) / content_adapter.py(格式) / publish_log.py(去重)',
+            pros: [
+              '策略模式架构优雅，加新平台只需新建一个类+实现publish()方法',
+              '反检测三层（Persona+视口+延时）有效减少平台封号风险',
+              '去重机制防止同一文章重复发布到同一平台',
+              '统一的引流文案中心 traffic.py，修改文案不用改平台代码',
+              '支持--platform参数精确控制发布范围',
+            ],
+            cons: [
+              '视频平台发布的代码可能不稳定——各平台反爬规则频繁更新，Playwright选择器脆弱',
+              '缺乏发布后验证——没有检查文章是否真的成功发布/可见',
+              '日志记录在本地JSON，没有数据库或远程存储',
+              '部分平台（抖音/快手）需要大量Cookie/Token维护，过期后人工介入成本高',
+            ],
+            upstream: '• publish_one.py → 公众号发布<br>• content_orchestrator Step 5 → 发布<br>• 用户直接调用 publish.py article.md',
+            downstream: '各平台API/网页 → 文章发布 → publish_log.json（记录）',
+            optimizations: [
+              {
+                suggestion: '发布后验证机制',
+                detail: '发布后自动打开目标平台页面，截图验证文章是否可见，失败则告警+重试',
+                priority: '中',
+                reference: 'E2E Testing Principles (Google Testing Blog) — 发布后验证应该像生产部署的health check一样是标配'
+              },
+              {
+                suggestion: 'Playwright选择器升级为data-testid',
+                detail: '当前用placeholder/CSS class定位元素，平台改版即失效。建议注入data-testid属性或改用视觉定位',
+                priority: '高',
+                reference: 'Testing Library Guiding Principles (Kent C. Dodds, 2020) — 按用户看到的方式定位元素'
+              },
+              {
+                suggestion: '引入发布队列+异步兜底',
+                detail: '当前是同步串行发布，一个平台失败可能阻塞后续。改为异步消息队列（简单SQLite即可），失败单独重试',
+                priority: '中',
+                reference: 'Outbox Pattern (Microsoft Cloud Patterns) — 确保消息至少一次投递'
+              },
+            ],
+          }
+        },
+      ]
+    },
+    // ===== 2. 视频 =====
+    {
+      label: '🎬 视频管线',
+      type: 'group',
+      children: [
+        {
+          label: 'video-pipeline — Remotion视频生成',
+          type: 'skill',
+          details: {
+            title: 'video-pipeline · Remotion视频生成',
+            desc: '6步：Hook选择 → 文章注册 → 素材生成 → TTS+BGM → Remotion渲染 → 注册表更新',
+            overview: '文字转视频的全自动管线。suggest_hook.py实现8种钩子自动评分，generate_assets.py用Pillow生成10套主题素材，edge-tts做TTS+20%速率，Remotion渲染1080x1920竖屏视频。<br><br>10套主题: midnight-galaxy / ocean-depths / sunset-boulevard / forest-canopy / modern-minimalist / golden-hour / arctic-frost / desert-rose / tech-innovation / botanical-garden',
+            architecture: 'video_pipeline.py\n  │ Hook选择(0/6) → score_hooks()评分 → generate_hook_config()\n  │ 文章注册(1/6) → data/articles.json\n  │ 素材生成(2/6) → generate_assets.py → Pillow → 封面+4背景\n  │ TTS+BGM(3/6) → edge-tts → lo-fi合成 → .wav\n  │ Remotion渲染(4/6) → npx remotion render → .mp4\n  │ 注册表更新(5/6) → content_registry.json\n  ▼\n成品: out/{id}.mp4 (1080x1920, 30fps, 25s, 4场景)',
+            pros: [
+              '端到端自动化：从文章到短视频全自动，零人工介入',
+              '10套主题视觉丰富，AI自动匹配钩子到主题',
+              'Remotion方案比传统视频编辑灵活，React组件化模板好维护',
+              'PipelineTracker让长管线可视化，用户知道进度',
+            ],
+            cons: [
+              'Remotion渲染需要Chrome，Windows下易出编码问题（patach_videofast.py就是补丁）',
+              '25秒固定时长，文章长内容会被截断，无自适应时长',
+              'TTS只支持单嗓音(XiaoxiaoNeural)，缺乏多音色选择',
+              '依赖多个外部工具(edge-tts/ffmpeg/Remotion/Node)，环境配置复杂',
+            ],
+            upstream: 'content-orchestrator Step 6调用 | 用户直接调用',
+            downstream: 'out/*.mp4视频成品 | content_registry.json状态更新 | upload-video.py后续上传',
+            optimizations: [
+              { suggestion: '自适应视频时长', detail: '根据文章字数/金句数量动态调整15-60s', priority: '高', reference: 'Dynamic Video Length (TikTok Creator Insights, 2024)' },
+              { suggestion: 'TTS多音色库', detail: '集成Fish-Speech/CosyVoice等开源TTS，内容风格自动匹配音色', priority: '中', reference: 'CosyVoice (Alibaba, 2024) — 零样本语音克隆4.2MOS' },
+              { suggestion: '并行渲染管道', detail: '多篇文章视频并发渲染，提高GPU利用率', priority: '低', reference: 'Remotion Lambda — Serverless并行渲染架构' },
+            ],
+          }
+        },
+        {
+          label: '视频上传',
+          type: 'group',
+          children: [
+            {
+              label: 'upload-video.py', type: 'script',
+              details: { title: '视频上传管线', desc: 'MP4→抖音/快手/B站三平台上传', cmd: 'python upload-video.py 视频.mp4 --all', files: [{ name: 'upload-video.py', tag: 'py' }],
+              overview: 'Playwright自动化上传，支持单平台参数(--douyin/--bilibili)或--all全发。Cookie读platform-cookies.json。',
+              pros: ['三平台统一入口', '支持单平台选择'], cons: ['Playwright选择器脆弱，平台改版即失效'], downstream: '视频发布→各平台',
+              optimizations: [{ suggestion: '追加小红书/视频号支持', priority: '中', reference: '统一上传接口模式扩展' }] }
+            },
+            {
+              label: 'publish_xhs_video.py', type: 'script',
+              details: { title: '小红书视频发布', desc: '独立脚本发小红书视频', cmd: 'python publish_xhs_video.py', files: [{ name: 'publish_xhs_video.py', tag: 'py' }],
+              overview: '配置驱动的独立脚本，硬编码VIDEO_PATH/TITLE/DESC/TOPICS/CONTENT_TYPE，改配置即可发布不同视频。',
+              pros: ['简单直接，改配置即可'], cons: ['配置硬编码非CLI参数', '无发布确认机制(可配)'], upstream: 'video_pipeline产出mp4',
+              optimizations: [{ suggestion: '改为CLI参数替代硬编码', priority: '高', reference: '12 Factor App — 配置与代码分离' }] }
+            },
+            {
+              label: 'videofast_server.py', type: 'script',
+              details: { title: 'VideoFast订单服务', desc: 'Flask API接单→Remotion渲染→Gmail发成品', cmd: 'python videofast_server.py --port 5001',
+              files: [{ name: 'videofast_server.py', tag: 'py' }, { name: 'patch_videofast.py', tag: 'py' }],
+              overview: 'Flask REST API: POST /videofast/order(接单)→异步线程渲染→Gmail发成品下载链接。3模板: 口播干货/开箱带货/数据报告。TEMPLATE_MAP映射模板→Hook+主题+CTA。',
+              pros: ['FaaS模式，API驱动', '订单异步处理不阻塞'], cons: ['单机部署无队列', 'Gmail发大附件可能被拒'],
+              optimizations: [{ suggestion: '引入任务队列(Celery/RQ)', priority: '高', reference: '分布式任务队列模式' }] }
+            }
+          ]
+        }
+      ]
+    },
+    // ===== 3. 平台模块 =====
+    {
+      label: '🌐 平台模块（11个）',
+      type: 'group',
+      details: { desc: '统一 BasePlatform 基类，每个平台独立模块。策略模式架构，加新平台只需新建类实现publish()方法。', overview: '<b>文字平台(7个)</b>: 公众号/掘金/知乎/即刻/腾讯云/爱发电/闲鱼 | <b>视频平台(5个)</b>: B站/抖音/快手/小红书/视频号。公共模块: traffic.py(引流文案)+content_adapter.py(格式转换)。反检测三层: SessionPersona人格化+随机视口+human_delay。',
+      pros: ['策略模式加新平台成本低', '统一Cookie管理', '反检测三层减少封号'], cons: ['Playwright选择器脆弱', 'Cookie过期维护成本高', '缺统一发布后验证'],
+      optimizations: [{ suggestion: '所有平台统一发布后截图验证', priority: '高', reference: 'E2E Testing — 发布后验证如健康检查' }, { suggestion: '引入视觉定位替代CSS选择器', priority: '中', reference: 'Testing Library — 按用户所见定位元素' }] },
+      children: [
+        { label: '文字平台', type: 'group', children: [
+          { label: '📘 wechat.py — 公众号', type: 'platform', details: { title: '公众号平台', desc: 'WechatPlatform · API推草稿（appID: wx331b651c8159fdcb）', files: [{ name: 'platforms/wechat.py', desc: '公众号发布模块', tag: 'py platform' }] }},
+          { label: '📕 juejin.py — 掘金', type: 'platform', details: { title: '掘金', desc: 'JuejinPlatform · 技术文章发布', files: [{ name: 'platforms/juejin.py', tag: 'py platform' }] }},
+          { label: '📗 zhihu.py — 知乎', type: 'platform', details: { title: '知乎', desc: 'ZhihuPlatform · 文章发布', files: [{ name: 'platforms/zhihu.py', tag: 'py platform' }] }},
+          { label: '📘 jike.py — 即刻', type: 'platform', details: { title: '即刻', desc: 'JikePlatform · 动态发布', files: [{ name: 'platforms/jike.py', tag: 'py platform' }] }},
+          { label: '📙 tencent_cloud.py — 腾讯云', type: 'platform', details: { title: '腾讯云社区', desc: 'TencentCloudPlatform', files: [{ name: 'platforms/tencent_cloud.py', tag: 'py platform' }] }},
+          { label: '💌 afdian.py — 爱发电', type: 'platform', details: { title: '爱发电', desc: 'AfdianPlatform · 创作者文章', files: [{ name: 'platforms/afdian.py', tag: 'py platform' }] }},
+          { label: '🏷️ goofish.py — 闲鱼', type: 'platform', details: { title: '闲鱼', desc: 'GoofishPlatform · 虚拟商品发布', files: [{ name: 'platforms/goofish.py', desc: '数字服务商品发布', tag: 'py platform' }, { name: 'platforms/goofish_delivery.py', desc: '自动发货', tag: 'py' }] }},
+        ]},
+        { label: '视频平台', type: 'group', children: [
+          { label: '🎥 bilibili.py — B站', type: 'platform', details: { title: 'B站', desc: 'BilibiliPlatform · 视频+文章', files: [{ name: 'platforms/bilibili.py', tag: 'py platform' }] }},
+          { label: '🎬 douyin.py — 抖音', type: 'platform', details: { title: '抖音', desc: 'DouyinPlatform · 视频上传', files: [{ name: 'platforms/douyin.py', tag: 'py platform' }] }},
+          { label: '📺 kuaishou.py — 快手', type: 'platform', details: { title: '快手', desc: 'KuaishouPlatform · 短视频', files: [{ name: 'platforms/kuaishou.py', tag: 'py platform' }] }},
+          { label: '📱 xiaohongshu.py — 小红书', type: 'platform', details: { title: '小红书', desc: 'XiaohongshuPlatform · 图文/视频', files: [{ name: 'platforms/xiaohongshu.py', tag: 'py platform' }] }},
+          { label: '📹 channels.py — 视频号', type: 'platform', details: { title: '微信视频号', desc: 'ChannelsPlatform · channels.weixin.qq.com', files: [{ name: 'platforms/channels.py', tag: 'py platform' }] }},
+        ]},
+        { label: '公共模块', type: 'group', children: [
+          { label: 'traffic.py — 引流中心', type: 'script', details: { desc: '统一引流文案(按内容类型匹配话术)', files: [{ name: 'platforms/traffic.py', tag: 'py' }], overview: '5种内容类型(generic/tech/tool/literary/philosophy)各配article_footer+tagline。BRAND_NAME="美好需要创造"，MAIN_SITE="世界一隅"。被所有平台模块引用。', pros: ['一发改全网', '内容类型细分'], cons: ['改文案需改代码'] }},
+          { label: 'content_adapter.py — 格式适配', type: 'script', details: { desc: 'Markdown→各平台HTML转换', files: [{ name: 'platforms/content_adapter.py', tag: 'py' }], overview: '处理平台间差异: 代码块样式/图片尺寸/链接格式/表格语法等。被publish.py调用做发布前转换。' }},
+        ]}
+      ]
+    },
+    // ===== 4. 数据 =====
+    {
+      label: '📊 数据采集与分析',
+      type: 'group',
+      children: [
+        {
+          label: '数据采集 (collectors)',
+          type: 'group',
+          details: { desc: '每个平台独立采集器，统一存储到content-inventory.json' },
+          children: [
+            { label: 'collect.py — 统一入口', type: 'script', details: { desc: '遍历各平台采集器拉数据', files: [{ name: 'collectors/collect.py', tag: 'py' }] }},
+            { label: 'base_reader.py — 采集基类', type: 'script', details: { desc: '公共采集逻辑+反爬', files: [{ name: 'collectors/base_reader.py', tag: 'py' }] }},
+            { label: 'bilibili_reader.py', type: 'script', details: { desc: 'B站播放量/点赞/评论', files: [{ name: 'collectors/bilibili_reader.py', tag: 'py' }] }},
+            { label: 'douyin_reader.py', type: 'script', details: { desc: '抖音数据采集', files: [{ name: 'collectors/douyin_reader.py', tag: 'py' }] }},
+            { label: 'kuaishou_reader.py', type: 'script', details: { desc: '快手数据采集', files: [{ name: 'collectors/kuaishou_reader.py', tag: 'py' }] }},
+            { label: 'wechat_reader.py', type: 'script', details: { desc: '公众号阅读量/在看', files: [{ name: 'collectors/wechat_reader.py', tag: 'py' }] }},
+            { label: 'zhihu_reader.py', type: 'script', details: { desc: '知乎赞同/评论/关注', files: [{ name: 'collectors/zhihu_reader.py', tag: 'py' }] }},
+            { label: 'juejin_reader.py', type: 'script', details: { desc: '掘金数据采集', files: [{ name: 'collectors/juejin_reader.py', tag: 'py' }] }},
+            { label: 'channels_reader.py', type: 'script', details: { desc: '视频号数据采集', files: [{ name: 'collectors/channels_reader.py', tag: 'py' }] }},
+            { label: 'inventory_store.py', type: 'script', details: { desc: '统一写入~/.claude/ content-inventory.json', files: [{ name: 'collectors/inventory_store.py', tag: 'py' }] }},
+            { label: 'models.py', type: 'script', details: { desc: '6平台数据模型: VideoMetrics/ArticleMetrics等', files: [{ name: 'collectors/models.py', tag: 'py' }] }},
+            { label: 'wbi_sign.py', type: 'script', details: { desc: 'B站WBI签名算法(反爬)', files: [{ name: 'collectors/wbi_sign.py', tag: 'py' }] }},
+          ]
+        },
+        {
+          label: '分析报告 (reports)',
+          type: 'group',
+          children: [
+            { label: 'cross_reference.py — 交叉引用', type: 'script', details: { desc: '跨平台数据交叉验证分析', files: [{ name: 'reports/cross_reference.py', tag: 'py' }] }},
+            { label: 'engagement_report.py — 互动报告', type: 'script', details: { desc: '各平台互动数据汇总', files: [{ name: 'reports/engagement_report.py', tag: 'py' }] }},
+            { label: 'feedback_analysis.py — 反馈分析', type: 'script', details: { desc: '读者评论/反馈情感分析', files: [{ name: 'reports/feedback_analysis.py', tag: 'py' }] }},
+            { label: 'strategy_recommend.py — 策略推荐', type: 'script', details: { desc: '基于数据的内容策略建议', files: [{ name: 'reports/strategy_recommend.py', tag: 'py' }] }},
+          ]
+        },
+        {
+          label: '驱动脚本',
+          type: 'group',
+          children: [
+            { label: 'content_dashboard.py — 仪表盘', type: 'script', details: { title: '内容发布仪表盘+索引系统', desc: 'serve/list/add/mark/pending/summary/sync — 内容状态管理看板', cmd: 'python content_dashboard.py serve', files: [{ name: 'content_dashboard.py', tag: 'py core' }, { name: 'dashboard_template.html', tag: 'html' }, { name: 'content_registry.json', tag: 'data' }], overview: '基于Python http.server的轻量仪表盘，读取content_registry.json展示内容分发状态。11平台分类（TEXT/VIDEO），5种状态（not_planned/pending/published/failed/skipped）。核心是RegistryManager类提供add/update/find/sync等CRUD操作。', pros: ['零依赖，http.server标准库即可', 'RegistryManager统一CRUD接口', 'serve模式开箱即用'], cons: ['纯前端模板，无后端数据库', '多个用户同时操作有竞态', '无认证/鉴权'], upstream: 'publish_one.py Step 4 → 登记', downstream: 'http://127.0.0.1:5000 看板', optimizations: [{ suggestion: '改用SQLite持久化', detail: '替代JSON文件，支持并发读写', priority: '中', reference: 'SQLite: 百万级并发场景最佳实践' }] }},
+        { label: 'collect_video_stats.py — 统计', type: 'script', details: { title: '视频数据定时采集', desc: '遍历content_registry.json采集各平台视频数据', cmd: 'python collect_video_stats.py --summary', files: [{ name: 'collect_video_stats.py', tag: 'py' }],
+        overview: '每次运行遍历注册表中所有已发视频，按平台分类采集播放/点赞/评论等。输出~/.claude/content-inventory.json(与collectors共享)。支持--platform/--piece/--summary过滤。',
+        pros: ['批量采集效率高', '与collectors共享存储'], cons: ['采集速度受平台限速', '无增量更新机制'] }},
+            { label: 'content_eval.py — 五维评分', type: 'script', details: { desc: '标题/结构/金句/引流/品牌 | 综合≥70放行', files: [{ name: 'content_eval.py', tag: 'py' }], overview: '5维度正则评分: 标题≤9字100分/SCQA标记+20/金句≥3条+15/引流CTA存在+10/品牌色出现+10。综合≥70分放行发布。', pros: ['轻量(无LLM调用)', '规则明确可解释'], cons: ['正则评分粗糙', '无法评估内容实质质量'], optimizations: [{ suggestion: 'LLM-as-Judge辅助评估', priority: '中', reference: 'MT-Bench (Zheng et al., 2023)' }] }},
+            { label: 'content_registry.json — 注册表', type: 'data', details: { desc: '所有发布记录统一存储(~82KB)', overview: 'JSON数组结构，每篇记录含id/title/type/platforms状态等。RegistryManager类封装CRUD操作。被publish_one.py/publish.py/content_dashboard.py共同读写。', pros: ['简单JSON，零依赖'], cons: ['不支持并发写', '无历史版本'], optimizations: [{ suggestion: 'JSON→SQLite迁移', priority: '低', reference: 'Python sqlite3标准库足够' }] }},
+          ]
+        }
+      ]
+    },
+    // ===== 5. 搜索引擎 =====
+    {
+      label: '🔍 搜索引擎（6种）',
+      type: 'group',
+      details: { desc: '按优先级自动降级，确保搜索不中断' },
+      children: [
+        { label: '① yuanbao_search.py — 元宝搜索', type: 'script', details: {
+            title: '元宝搜索引擎',
+            desc: '腾讯元宝联网搜索，CLAUDE.md铁律首选。Playwright控yuanbao.tencent.com，反检测三层。',
+            cmd: 'python yuanbao_search.py -r "问题"',
+            files: [{ name: 'yuanbao_search.py', tag: 'py' }],
+            overview: '反检测三层: stealth.js+随机视口+人格化延时。输出模式: -r(纯文本) / -j(JSON)。Cookie存~/.claude/。铁律: 所有搜索优先用元宝，失败才降级。',
+            pros: ['中文搜索质量优于通用WebSearch', '反检测三层降低封号风险'],
+            cons: ['Playwright Cookie维护成本', '元宝更新DOM会中断搜索'],
+            upstream: 'publish_one.py / content_orchestrator / 用户',
+            downstream: '搜索结果 → 文章起草 / 情报采集',
+            optimizations: [
+              { suggestion: '缓存同关键词搜索结果', detail: '24小时TTL，减少重复搜索', priority: '中', reference: 'DSPy缓存研究: 40-70%成本节约' },
+              { suggestion: '失败自动告警+降级', detail: '连续3次失败切WebSearch', priority: '高', reference: 'Chaos Engineering原则' },
+            ]
+        }},
+        { label: '② deepseek_web.py — DS Web', type: 'script', details: {
+            title: 'DeepSeek Web搜索',
+            desc: 'Playwright+storage_state控chat.deepseek.com，管线搜索主力。接口兼容设计。',
+            cmd: 'python deepseek_web.py -q "query"',
+            files: [{ name: 'deepseek_web.py', tag: 'py' }],
+            overview: '反检测三层: navigator.webdriver篡改+随机视口+SessionPersona人格化(gamma/指数/均匀分布随机)。storage_state持久化(~/.claude/deepseek-state.json)。接口兼容yuanbao_search。',
+            pros: ['接口兼容可互换', '反检测三层策略完整', 'storage_state持久化免登录'],
+            cons: ['Playwright性能开销大', 'storage_state过期需刷新'],
+            upstream: 'publish_one.py / yuanbao_pipeline.py',
+            downstream: '搜索结果 → JSON起草 → 公众号',
+            optimizations: [
+              { suggestion: 'Browser实例池化', detail: '复用实例减少80%启动时间', priority: '高', reference: 'Playwright Best Practices (Microsoft, 2024)' },
+              { suggestion: '混合搜索', detail: '快速query走API版，深度搜索走Web版', priority: '中', reference: 'DS API vs Web版费用结构差异' },
+            ]
+        }},
+        { label: '③ deepseek_search.py — DS API', type: 'script', details: { desc: 'DeepSeek API搜索(快速模式，无需Playwright)', files: [{ name: 'deepseek_search.py', tag: 'py' }], overview: 'content-orchestrator降级链的DeepSeek引擎。API速度快但知识截止。', pros: ['无浏览器依赖', 'API稳定'], upstream: 'content-orchestrator.multi_search()' }},
+        { label: '④ doubao_search.py — 豆包', type: 'script', details: { desc: 'Playwright控doubao.com', files: [{ name: 'catalog/scripts/doubao_search.py', tag: 'py' }], overview: 'content-orchestrator降级链第一环', upstream: 'content-orchestrator.multi_search()' }},
+        { label: '⑤ gemini_search.py — Gemini', type: 'script', details: { desc: 'Playwright控gemini.google.com', files: [{ name: 'catalog/scripts/gemini_search.py', tag: 'py' }], overview: 'content-orchestrator降级链第二环', upstream: 'content-orchestrator.multi_search()' }},
+        { label: '⑥ WebSearch — 最终降级', type: 'builtin', details: { desc: '内置WebSearch工具兜底' }},
+      ]
+    },
+    // ===== 6. 商业变现 =====
+    {
+      label: '💰 商业变现',
+      type: 'group',
+      details: { desc: '免费内容→引流微信→钩子产品→付费数字产品→高价咨询' },
+      children: [
+        { label: 'commerce_pipeline.py — 管线入口', type: 'script', details: { title: '商业流水线—内容变现', desc: '从内容到变现的完整管线：钩子产品→产品阶梯→读者CRM→关键词引流', cmd: 'python commerce_pipeline.py --status', files: [{ name: 'commerce_pipeline.py', tag: 'py' }], overview: '4个子命令: --generate-lead-magnet(钩子产品)、--update-cta(引流文案)、--status(状态看板)、--reader-report(CRM报告)。引用了commerce/目录下的4个模块: lead_magnet/product_ladder/reader_crm/wechat_keyword。', pros: ['变现路径清晰: 免费→付费', '模块化设计，各组件独立'], cons: ['引流文案更新需要手动，没有自动化', '缺乏转化漏斗分析'], upstream: '内容管线产出物 → 引流', downstream: '微信私域 → 付费转化', optimizations: [{ suggestion: '监控转化漏斗', detail: '追踪: 阅读量→加微信→购买 每一步转化率', priority: '高', reference: 'AARRR增长模型(Dave McClure, 2007)' }] }},
+        { label: 'lead_magnet.py — 钩子产品', type: 'script', details: { desc: '生成钩子HTML+PDF+封面', files: [{ name: 'commerce/lead_magnet.py', tag: 'py' }], overview: '两个产品: "工程人AI提效实战笔记"和"深度阅读者的AI工具包"。Pillow生成封面+WeasyPrint转PDF。', pros: ['一键出产品物料'], downstream: 'static/lead-magnet/' }},
+        { label: 'product_ladder.py — 产品阶梯', type: 'script', details: { desc: '免费→付费→高价产品体系', files: [{ name: 'commerce/product_ladder.py', tag: 'py' }], overview: '定义CTA_HOOKS产品矩阵+免费/付费/高价三层阶梯，被traffic.py引用作引流文案。' }},
+        { label: 'reader_crm.py — 读者CRM', type: 'script', details: { desc: '读者关系管理+报告', files: [{ name: 'commerce/reader_crm.py', tag: 'py' }], overview: '记录读者互动历史，生成CRM报告(--reader-report)。支持CSV导出。' }},
+        { label: 'wechat_keyword.py — 关键词回复', type: 'script', details: { desc: '公众号关键词自动回复', files: [{ name: 'commerce/wechat_keyword.py', tag: 'py' }, { name: 'commerce/deploy_wechat_keyword.sh', tag: 'sh' }], overview: '调用公众号API设置关键词自动回复规则。deploy_wechat_keyword.sh部署脚本。' }},
+      ]
+    },
+    // ===== 7. 引流运营 =====
+    {
+      label: '📢 引流 & 社区运营',
+      type: 'group',
+      children: [
+        { label: 'zhihu_answer.py — 知乎智能回答', type: 'script', details: { title: '知乎智能回答系统', desc: '问题→知识库→LLM(DS/Qwen双引擎)→去AI味→草稿/发布', cmd: 'python zhihu_answer.py --auto', files: [{ name: 'zhihu_answer.py', tag: 'py core' }], overview: '最大的独立脚本(36KB)。核心架构: Playwright抓问题→知识库检索(系统思维/工具类/CAD等)→LLM生成→去AI味(语气词/句式重构)→草稿/直接发布。双LLM引擎: DeepSeek优先，Qwen回退。Cookie存~/.claude/。', pros: ['完整管线: 抓取→思考→生成→去AI味→发布', '双引擎降级', '本地知识库检索增强RAG'], cons: ['36KB脚本，耦合度高', '依赖Playwright+持久化Cookie', '缺质量评分和A/B测试'], upstream: '用户直接触发', downstream: '知乎草稿/发布 → zhihu-answer-log.json', optimizations: [{ suggestion: '拆分为多模块', detail: '按职责分4个文件: fetcher/retriever/generator/ publisher', priority: '中', reference: '单一职责原则(SOLID)' }, { suggestion: '经典RAG优化', detail: '引入向量检索替代关键词匹配', priority: '高', reference: 'Retrieval-Augmented Generation (Lewis et al., 2020, Meta)' }] }},
+        { label: 'zhihu_traffic.py — 知乎引流', type: 'script', details: { desc: '搜索高流量问题→回答→挂文章链接', files: [{ name: 'zhihu_traffic.py', tag: 'py' }], overview: '预配置CAD/AI等主题的搜索词+回答模板+OUR_ARTICLES链接映射。自动加引流链接。', pros: ['回答模板复用', '主题映射清晰'], cons: ['模板硬编码', '缺A/B测试'] }},
+        { label: 'auto_comment.py — 自动评论', type: 'script', details: { desc: '知乎+掘金自动评论(带去重)', files: [{ name: 'auto_comment.py', tag: 'py' }], overview: 'Playwright自动评论+URL去重(~/.claude/commented_articles.json)。OUR_LINK预置两平台文章链接。' }},
+        { label: 'zhihu_answer_search.py — 问题发现', type: 'script', details: { desc: '知乎长尾问题搜索', files: [{ name: 'zhihu_answer_search.py', tag: 'py' }], overview: '基于关键词发现高潜力问题，供zhihu_answer或zhihu_traffic使用。' }},
+      ]
+    },
+    // ===== 8. 迭代时间线 =====
+    {
+      label: '📅 迭代时间线（2026年6-7月）',
+      type: 'timeline',
+      details: {
+        timeline: [
+          ['06-10', '博客项目初始化（Hugo主题/布局/hermes规则）'],
+          ['06-12', 'deepseek_search / 合集封面生成 / 封面引导'],
+          ['06-13', 'Hugo配置/layouts'],
+          ['06-14', 'issue-to-pitfall / publish_wechat_auto_reply'],
+          ['06-15', 'upload-video.py / 多平台发布避坑指南视频'],
+          ['06-19', 'TTS视频系列（3个MP4）'],
+          ['06-20', 'Commerce管线全线：lead_magnet / product_ladder / reader_crm'],
+          ['06-21', 'zhihu_traffic知乎引流 / auto_comment自动评论'],
+          ['06-24', 'xiaowei测试视频 / setup_xhs_cookies小红书配置'],
+          ['06-26', 'zhihu_answer知乎智能回答（DS/Qwen双引擎）'],
+          ['06-28', 'yuanbao_pipeline V4 + publish.py多平台 + content_adapter + 闲鱼/腾讯云'],
+          ['06-29', 'V2修复集：JSON解析/RegistryManager/content_dashboard/collect_video_stats'],
+          ['06-30', 'Afdian（爱发电）平台上线 / videofast_server'],
+          ['07-01', '博客目录结构调整'],
+          ['07-03', 'content-orchestrator 技能封装（三AI协作+自动降级）+ 多Agent文章'],
+        ]
+      }
+    },
+    // ===== 9. 辅助工具 =====
+    {
+      label: '🔧 辅助工具',
+      type: 'group',
+      children: [
+        { label: 'publish_llm_article.py — Hugo→公众号', type: 'script', details: { desc: 'Hugo MD(含品牌HTML)→封面→公众号草稿', overview: '解析Hugo文章的frontmatter+body→Pillow生成封面→WechatPlatform推草稿。适合Hugo博客内容复用。' }},
+        { label: 'publish_afdian.py — 爱发电发文', type: 'script', details: { desc: '爱发电一键发文(MD/AI选题)', cmd: 'python publish_afdian.py', overview: '三模式: AI自动选题/AI起草+发布/MD文件发布。同publish_one.py架构但目标为爱发电。' }},
+        { label: '_debug_wechat.py — 公众号调试脚本', type: 'script', details: { desc: '公众号接口调试，单独测试API连通性' }},
+        { label: 'token_count.py — Token计费', type: 'script', details: { desc: '基于DeepSeek v3 tokenizer的本地计费', overview: '轻量脚本，加载本地tokenizer计算输入/输出token量。被publish_one.py引用。', pros: ['本地计算，无需API'] }},
+        { label: 'generate_collection_cover.py — 封面生成', type: 'script', details: { desc: 'Pillow生成合集封面' }},
+        { label: 'setup_xhs_cookies.py — 小红书Cookie', type: 'script', details: { desc: '引导配置小红书Cookie到platform-cookies.json' }},
+        { label: 'issue-to-pitfall.py — Issue转踩坑记忆', type: 'script', details: { desc: 'GitHub Issue→claude-memory踩坑记录格式转换' }},
+        { label: 'PLATFORM_STATUS.md — 平台状态文档', type: 'doc', details: { desc: '各平台发布状态/注意事项文档' }},
+        { label: 'dashboard_template.html — 看板HTML模板', type: 'data', details: { desc: 'content_dashboard.py serve用的HTML模板' }},
+        { label: 'MoneyPrinterPlus — 视频自动生成(独立项目)', type: 'project', details: { desc: 'Streamlit UI视频自动生成项目，路径: ~/projects/MoneyPrinterPlus/', overview: 'Streamlit主入口+自动视频+视频混剪+自动发布4模块。与Remotion video_pipeline独立并行。' }},
+        { label: 'pipeline_tracker.py — 管线可视化', type: 'script', details: { desc: '≥3步管线自动可视化进度追踪', overview: 'CLAUDE.md铁律: ≥3步管线自动包裹PipelineTracker。steps/hints/title三参数驱动。' }},
+      ]
+    },
+  ]
+};
+
+// ============================================================
+//  RENDER
+// ============================================================
+let activeNode = null;
+
+function renderTree(data, parentEl, depth) {
+  if (!data.children || !data.children.length) return;
+  const ul = document.createElement('ul');
+  ul.className = 'tree';
+
+  data.children.forEach((child, idx) => {
+    const li = document.createElement('li');
+
+    // ── node bar ──
+    const node = document.createElement('div');
+    node.className = 'tree-node depth-' + depth;
+    if (child._id) node.dataset.id = child._id;
+
+    // toggle
+    const hasChildren = child.children && child.children.length > 0;
+    const tog = document.createElement('span');
+    tog.className = 'toggle';
+    tog.textContent = hasChildren ? '▼' : '·';
+    if (!hasChildren) tog.style.visibility = 'hidden';
+    node.appendChild(tog);
+
+    // icon
+    const icon = document.createElement('span');
+    icon.className = 'icon';
+    icon.textContent = getIcon(child.type);
+    node.appendChild(icon);
+
+    // label
+    const lbl = document.createElement('span');
+    lbl.className = 'label';
+    lbl.textContent = child.label;
+    node.appendChild(lbl);
+
+    // badge
+    if (child.type === 'script') {
+      const badge = document.createElement('span');
+      badge.className = 'badge py';
+      badge.textContent = '.py';
+      node.appendChild(badge);
+    } else if (child.type === 'platform') {
+      const badge = document.createElement('span');
+      badge.className = 'badge platform';
+      badge.textContent = '平台';
+      node.appendChild(badge);
+    } else if (child.type === 'skill') {
+      const badge = document.createElement('span');
+      badge.className = 'badge key';
+      badge.textContent = 'skill';
+      node.appendChild(badge);
+    }
+
+    // click
+    node.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (hasChildren) {
+        const wrapper = li.querySelector(':scope > .children');
+        const isNowCollapsed = wrapper.classList.toggle('collapsed');
+        tog.classList.toggle('closed', isNowCollapsed);
+      }
+      showDetail(child);
+      document.querySelectorAll('.tree-node.active').forEach(el => el.classList.remove('active'));
+      node.classList.add('active');
+    });
+
+    li.appendChild(node);
+
+    // children
+    if (hasChildren) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'children';
+      li.appendChild(wrapper);
+      renderTree(child, wrapper, depth + 1);
+      // auto-expand first 2 levels; collapse deeper levels initially
+      if (depth >= 1) {
+        wrapper.classList.add('collapsed');
+        tog.classList.add('closed');
+      }
+    }
+
+    ul.appendChild(li);
+  });
+
+  parentEl.appendChild(ul);
+}
+
+function getIcon(type) {
+  switch(type) {
+    case 'root': return '🏠';
+    case 'group': return '📂';
+    case 'skill': return '🧠';
+    case 'script': return '📄';
+    case 'platform': return '🌐';
+    case 'timeline': return '📅';
+    case 'data': return '📁';
+    case 'builtin': return '⚙️';
+    case 'project': return '📦';
+    case 'doc': return '📝';
+    default: return '📄';
+  }
+}
+
+// ============================================================
+//  DETAIL
+// ============================================================
+function showDetail(data) {
+  const d = data.details || {};
+  const el = document.getElementById('detailContent');
+  const empty = document.getElementById('emptyDetail');
+  empty.style.display = 'none';
+  el.style.display = 'block';
+
+  let html = '';
+
+  // title
+  if (d.title) {
+    html += `<h2>${d.title}</h2>`;
+  } else {
+    html += `<h2>${data.label}</h2>`;
+  }
+
+  // subtitle / desc
+  if (d.desc) html += `<p class="subtitle">${d.desc}</p>`;
+
+  // ─── 核心架构 ───
+  if (d.overview) {
+    html += `<div class="detail-section"><h3>核心架构</h3><p>${d.overview}</p></div>`;
+  }
+  if (d.architecture) {
+    html += `<div class="detail-section"><h3>架构流程</h3><div class="code-block">${escapeHtml(d.architecture)}</div></div>`;
+  }
+
+  // ─── 优点 / 缺点 ───
+  if (d.pros && d.pros.length) {
+    html += `<div class="detail-section"><h3>✅ 优点</h3><ul>`;
+    d.pros.forEach(p => html += `<li>${escapeHtml(p)}</li>`);
+    html += `</ul></div>`;
+  }
+  if (d.cons && d.cons.length) {
+    html += `<div class="detail-section"><h3>⚠️ 缺点 / 风险</h3><ul>`;
+    d.cons.forEach(c => html += `<li>${escapeHtml(c)}</li>`);
+    html += `</ul></div>`;
+  }
+
+  // ─── 上下游关系 ───
+  if (d.upstream || d.downstream) {
+    html += `<div class="detail-section"><h3>上下游关系</h3><table class="detail-table"><tbody>`;
+    if (d.upstream) html += `<tr><td style="width:80px;color:var(--gold);font-weight:600;">⬆ 上游</td><td>${d.upstream}</td></tr>`;
+    if (d.downstream) html += `<tr><td style="width:80px;color:var(--gold);font-weight:600;">⬇ 下游</td><td>${d.downstream}</td></tr>`;
+    html += `</tbody></table></div>`;
+  }
+
+  // ─── 可优化空间 + 理论依据 ───
+  if (d.optimizations && d.optimizations.length) {
+    html += `<div class="detail-section"><h3>🔧 可优化空间</h3>`;
+    d.optimizations.forEach((opt, i) => {
+      const priorityMap = {高: '🔴', 中: '🟡', 低: '🟢'};
+      const pIcon = priorityMap[opt.priority] || '⚪';
+      html += `<div style="background:var(--bg3);border-radius:6px;padding:10px 14px;margin-bottom:10px;border-left:3px solid ${opt.priority === '高' ? 'var(--red)' : opt.priority === '中' ? 'var(--gold)' : 'var(--green)'};">`;
+      html += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">`;
+      html += `<span>${pIcon}</span><strong>${escapeHtml(opt.suggestion)}</strong>`;
+      html += `<span style="font-size:11px;background:var(--bg2);padding:1px 8px;border-radius:8px;color:var(--text-dim);">${opt.priority}优先级</span>`;
+      html += `</div>`;
+      if (opt.detail) html += `<p style="font-size:12.5px;margin:4px 0;opacity:.85;">${opt.detail}</p>`;
+      if (opt.reference) html += `<p style="font-size:11px;color:var(--gold-dim);margin:2px 0 0;"><em>📚 理论依据：${opt.reference}</em></p>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // ─── 命令 ───
+  if (d.cmd) {
+    html += `<div class="detail-section"><h3>一键运行</h3>`;
+    html += `<div class="code-block">${escapeHtml(d.cmd)}</div>`;
+    if (d.cmd2) html += `<div class="code-block" style="margin-top:4px;">${escapeHtml(d.cmd2)}</div>`;
+    html += `</div>`;
+  }
+
+  // trigger
+  if (d.trigger) {
+    html += `<div class="detail-section"><h3>触发关键词</h3><p>${d.trigger}</p></div>`;
+  }
+
+  // constraints
+  if (d.constraints) {
+    html += `<div class="detail-section"><h3>品牌约束</h3><p>${d.constraints}</p></div>`;
+  }
+
+  // specs / scenes
+  if (d.specs) {
+    html += `<div class="detail-section"><h3>规格</h3><p>${d.specs}</p></div>`;
+  }
+  if (d.scenes) {
+    html += `<div class="detail-section"><h3>场景结构</h3><p>${d.scenes}</p></div>`;
+  }
+  if (d.notes) {
+    html += `<div class="detail-section"><h3>核心特性</h3><p>${d.notes}</p></div>`;
+  }
+
+  // files
+  if (d.files && d.files.length) {
+    html += `<div class="detail-section"><h3>文件清单</h3><table class="detail-table"><thead><tr><th>文件</th><th>说明</th><th>版本</th></tr></thead><tbody>`;
+    d.files.forEach(f => {
+      html += `<tr><td><span class="detail-tag ${f.tag ? f.tag.split(' ')[0] : 'py'}">${escapeHtml(f.name)}</span></td><td>${escapeHtml(f.desc || '')}</td><td>${escapeHtml(f.ver || '')}</td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  }
+
+  // iterations
+  if (d.iterations && d.iterations.length) {
+    html += `<div class="detail-section"><h3>迭代记录</h3><div class="iter-timeline">`;
+    d.iterations.forEach(it => {
+      const m = it.match(/^(\d{4}-\d{2}-\d{2})\s+(.*)/);
+      if (m) {
+        html += `<div class="iter-item"><span class="iter-date">${m[1]}</span><span class="iter-desc">${m[2]}</span></div>`;
+      } else {
+        html += `<div class="iter-item"><span class="iter-desc">${it}</span></div>`;
+      }
+    });
+    html += `</div></div>`;
+  }
+
+  // timeline (special)
+  if (d.timeline && d.timeline.length) {
+    html += `<div class="detail-section"><h3>迭代时间线</h3><div class="iter-timeline">`;
+    d.timeline.forEach(([date, desc]) => {
+      html += `<div class="iter-item"><span class="iter-date">${date}</span><span class="iter-desc">${desc}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ============================================================
+//  SEARCH
+// ============================================================
+function filterTree(query) {
+  const nodes = document.querySelectorAll('.tree-node');
+  const q = query.toLowerCase().trim();
+
+  nodes.forEach(node => {
+    const text = node.textContent.toLowerCase();
+    const li = node.closest('li');
+    if (!q) {
+      li.style.display = '';
+      node.innerHTML = node.innerHTML.replace(/<mark class="hl">/g, '').replace(/<\/mark>/g, '');
+      return;
+    }
+    const match = text.includes(q);
+    li.style.display = match ? '' : 'none';
+
+    // highlight
+    if (match && q.length > 0) {
+      const label = node.querySelector('.label');
+      if (label) {
+        const orig = label.textContent;
+        const idx = orig.toLowerCase().indexOf(q);
+        if (idx >= 0) {
+          label.innerHTML = orig.slice(0, idx) + '<mark class="hl">' + orig.slice(idx, idx + q.length) + '</mark>' + orig.slice(idx + q.length);
+        }
+      }
+    }
+  });
+
+  // auto-expand visible parents
+  document.querySelectorAll('.children').forEach(c => {
+    const hasVisible = c.querySelector('li[style*="display: block"], li[style*="display: list-item"], li:not([style*="display: none"])');
+    if (hasVisible && q) {
+      c.classList.remove('collapsed');
+      const toggle = c.parentElement?.querySelector('.toggle');
+      if (toggle) toggle.classList.remove('closed');
+    }
+  });
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const treePanel = document.getElementById('treePanel');
+  renderTree(DATA, treePanel, 0);
+  // expand root
+  const first = treePanel.querySelector('.children');
+  if (first) { first.classList.remove('collapsed'); }
+});
+</script>
+</body>
+</html>

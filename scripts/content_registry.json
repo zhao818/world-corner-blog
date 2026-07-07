@@ -1,0 +1,3432 @@
+{
+  "version": 1,
+  "updated_at": "2026-07-06T22:19:34.419842",
+  "platforms": [
+    "wechat",
+    "juejin",
+    "zhihu",
+    "bilibili",
+    "douyin",
+    "kuaishou",
+    "channels",
+    "xiaohongshu",
+    "goofish",
+    "jike",
+    "tencent_cloud"
+  ],
+  "pieces": [
+    {
+      "id": "20260706_2219_别拿错剧本",
+      "title": "别拿错剧本",
+      "digest": "内容创作者用好Claude的核心策略",
+      "created": "2026-07-06T22:19:34.419842",
+      "track": "thinking",
+      "platforms": {
+        "wechat": {
+          "status": "pending",
+          "url": "",
+          "media_id": "uohiBa_iOzkD2OcZecjBQJYV4cYqoClX_CI3622ZB1ch8BorKyfrcvhyz8_luLbr"
+        }
+      },
+      "sources": []
+    },
+    {
+      "id": "爱有四种模样你见过几种",
+      "title": "爱有四种模样你见过几种",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:/Users/zhaot/Desktop/publish-test.mp4",
+      "created_date": "2026-06-16",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "published",
+          "url": "https://creator.douyin.com/creator-micro/content/post/video",
+          "date": "2026-06-16"
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-16"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "觉悟与偏执只有一线之隔",
+      "title": "觉悟与偏执只有一线之隔",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\Desktop\\video_test_channels.mp4",
+      "created_date": "2026-06-18",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-18"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "琼瑶写了52部爱情小说",
+      "title": "琼瑶写了52部爱情小说",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot/Desktop/video_ch4_channels.mp4",
+      "created_date": "2026-06-18",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-18"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "推石头上山的人",
+      "title": "推石头上山的人",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-18",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-18"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-18"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-18"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "zhihu-zhaojian-xingfu",
+      "title": "zhihu-zhaojian-xingfu",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://zhuanlan.zhihu.com/p/2051270444100104279",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "照见幸福七篇关于内心觉醒的文章",
+      "title": "照见幸福：七篇关于内心觉醒的文章",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://member.bilibili.com/platform/upload/text/draft?id=372288",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "tts_video_1781841064",
+      "title": "tts_video_1781841064",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "tts_video_1781842285",
+      "title": "tts_video_1781842285",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "skipped",
+          "url": "",
+          "date": "2026-07-04"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "六个练习帮你升维人生",
+      "title": "六个练习帮你升维人生",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\AppData\\Local\\Temp\\claude\\tts_video_1781842285.mp4",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-19"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "公众号怎么赚到第一笔付费",
+      "title": "公众号怎么赚到第一笔付费",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "我发了付费文章后才知道的一件事",
+      "title": "我发了付费文章后才知道的一件事",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\AppData\\Local\\Temp\\claude\\tts_video_1781845145.mp4",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-19"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "脱离本能绑架",
+      "title": "脱离本能绑架",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\Desktop\\脱离本能绑架.mp4",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-19"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "脱离本能绑架人类文明的晋级游戏三道天命关卡横在你面前",
+      "title": "脱离本能绑架——人类文明的晋级游戏，三道天命关卡横在你面前",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://zhuanlan.zhihu.com/p/2051307365769777655",
+      "created_date": "2026-06-19",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-19"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "当古老本能撞上现代科技",
+      "title": "当古老本能撞上现代科技",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://zhuanlan.zhihu.com/p/2051625449210618999",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-20"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "当一个工程师决定用-ai-打造个人内容工厂关于效率规则与技术降维的真实实验",
+      "title": "当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQK0ao6B6Kz7NdQda3y-RHzwiad9SQq4AMEsEcnFU-o1K",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "别再做效率难民为什么一行粗糙的代码胜过一万篇完美的干货",
+      "title": "别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQKg1jyMlkBWtn4keWr5xY4pXzjZjkT64yYANdc6iMNaj",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "别再轮询了你的人生应该-event-driven",
+      "title": "别再轮询了。你的人生应该 Event-Driven。",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQKHwlT6q8q30_zsRWvT3xU_2o-a4_g5NLjdcqwAqd2s3",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "自动化生存指南如何用-python-构建你的专属内容缓冲池",
+      "title": "自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQEELALZT_qdHdvo8fz_Bpfq84UkcUmkNyECeKkk_O4DS",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "多平台发布避坑指南",
+      "title": "多平台发布避坑指南",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQCcpck3x8Kxd8e5ZTt4FO9NK_PNYWXzuU6ficzBKXxuk",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai审ai",
+      "title": "AI审AI",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQJKKX9MgSgxwJ4AjKS6woKwq94IMGHGe07VsXHBMFsza",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "让你的公众号用你的口吻自动回复我做完了这是完整指南",
+      "title": "让你的公众号用你的口吻自动回复——我做完了，这是完整指南",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQEBxcv3FF5yXPWvGb-fB9blc9TcUHCemOqIdswGML-Kl",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "2026-06-13-pitfall-knowledge-base",
+      "title": "2026-06-13-pitfall-knowledge-base",
+      "digest": "",
+      "type": "article",
+      "file_path": "草稿 media_id: uohiBa_iOzkD2OcZecjBQOKVdanhflAru8pHmTWxI7z0U5y1jcyhtSk0A3yPAwpJ",
+      "created_date": "2026-06-20",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-20"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "你被ai工具收税了吗copilot一夜涨价60倍背后的工具主权战争",
+      "title": "你被AI工具收税了吗：Copilot一夜涨价60倍背后的工具主权战争",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-21",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-21"
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-21"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "你被ai工具收税了吗",
+      "title": "你被AI工具收税了吗",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot/AppData/Local/Temp/claude\\tts_video_1782009596.mp4",
+      "created_date": "2026-06-21",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-21"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai-写脚本填表82-份记录-3-分钟效率提升-100-倍",
+      "title": "AI 写脚本填表：82 份记录 3 分钟，效率提升 100 倍",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://juejin.cn/post/7654069744534175770",
+      "created_date": "2026-06-22",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-22"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-22"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "蜜雪冰城卖ai",
+      "title": "蜜雪冰城卖AI",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\Desktop\\deepseek-cost.mp4",
+      "created_date": "2026-06-23",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-23"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "165个人的工地",
+      "title": "165个人的工地",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\Desktop\\gaobiaozhun.mp4",
+      "created_date": "2026-06-23",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-23"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "165个人的工地欠薪证据合集",
+      "title": "165个人的工地——欠薪证据合集",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-23",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-23"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-23"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-23"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-23"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai裁掉的不是人",
+      "title": "AI裁掉的不是人",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot\\projects\\remotion-video-platform\\out\\ai-cut.mp4",
+      "created_date": "2026-06-24",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-24"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-24"
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-24"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "小微48小时实测",
+      "title": "小微48小时实测",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-24",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-24"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai-cut",
+      "title": "ai-cut",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-25",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "doubao-2-1",
+      "title": "doubao-2-1",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-25",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-25"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "豆包的另一面",
+      "title": "豆包的另一面",
+      "digest": "",
+      "type": "video",
+      "file_path": "out/doubao-2-1.mp4",
+      "created_date": "2026-06-25",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-25"
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-25"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai办公三天实战录",
+      "title": "AI办公三天实战录",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://zhuanlan.zhihu.com/p/2053920536284156815/edit",
+      "created_date": "2026-06-26",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-26"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-26"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-26"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-26"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-26"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-26"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai的定价逻辑",
+      "title": "AI的定价逻辑",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-27",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-27"
+        },
+        "xiaohongshu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai定价两极分化65倍成本差的底层逻辑是什么",
+      "title": "AI定价两极分化，65倍成本差的底层逻辑是什么？",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://zhuanlan.zhihu.com/p/2054166845918274322/edit",
+      "created_date": "2026-06-27",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai的定价逻辑65倍成本差揭示的行业终局",
+      "title": "AI的定价逻辑：65倍成本差揭示的行业终局",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://juejin.cn/post/7655594666130587689",
+      "created_date": "2026-06-27",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-27"
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "creator-toolkit",
+      "title": "creator-toolkit",
+      "digest": "",
+      "type": "video",
+      "file_path": "",
+      "created_date": "2026-06-28",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-28"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "创作者工具包",
+      "title": "创作者工具包",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:/Users/zhaot/projects/remotion-video-platform/out/creator-toolkit.mp4",
+      "created_date": "2026-06-28",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-28"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai编程踩坑知识库33个坑换来的工程化体系",
+      "title": "AI编程踩坑知识库——33个坑换来的工程化体系",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://juejin.cn/post/7656064169444835334",
+      "created_date": "2026-06-28",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      }
+    },
+    {
+      "id": "ai编程踩坑知识库",
+      "title": "AI编程踩坑知识库",
+      "digest": "",
+      "type": "video",
+      "file_path": "C:\\Users\\zhaot/projects/remotion-video-platform/out/ai编程踩坑知识库.mp4",
+      "created_date": "2026-06-28",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "zhihu": {
+          "status": "skipped",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-06-29"
+        },
+        "xiaohongshu": {
+          "status": "skipped",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "goofish": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        },
+        "jike": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-29"
+        },
+        "tencent_cloud": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-28"
+        }
+      }
+    },
+    {
+      "id": "ai-save-3-hours-2026-06-29",
+      "title": "AI编程每天帮我省3小时的3个技巧",
+      "digest": "早下班的前提，不是干得快，而是返工少。",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "pending",
+        "juejin": "pending",
+        "zhihu": "pending",
+        "jike": "pending",
+        "tencent_cloud": "pending",
+        "goofish": "pending"
+      },
+      "tags": [
+        "AI编程",
+        "提效",
+        "自动化"
+      ]
+    },
+    {
+      "id": "一行代码胜过一万篇干货-20260629-1631",
+      "title": "一行代码胜过一万篇干货",
+      "digest": "老派程序员都知道一个段子：UNIX",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "pending",
+        "zhihu": "pending",
+        "juejin": "pending",
+        "jike": "pending",
+        "tencent_cloud": "pending",
+        "goofish": "pending"
+      },
+      "tags": [],
+      "body_md": "# 元宝草稿\n> 选题: 一行代码胜过一万篇干货 | 模式: D | 2026-06-29 16:31\n\n已阅读 14 个网页\n一行代码\n\n解决问题，从来不在行数\n\n老派程序员都知道一个段子：UNIX大师曾对来访的程序员说，“UNIX传统上认为，一行SHELL脚本胜过万行C程序。”那位C程序员不服，大师让徒弟在黑板上写下一行管道命令，问：“用纯C实现，是不是要一万行？”程序员沉默了-\n1\n。\n\n这个段子流传了几十年，直到今天——AI写代码的时代——它突然有了新的味道。\n\nGoogle CEO皮查伊刚说完“我们75%的新代码由AI生成”，内部平台Memegen上就炸了锅。工程师们用各种梗图吐槽：AI确实让“写代码”变快了——但只是“写”这个动作本身。随之而来的，是代码审查积压、测试周期拉长、基础设施跟不上节奏-\n8\n-\n9\n。\n\n你看，AI帮我们省下了“敲键盘”的时间，却把更多时间塞进了“审代码”的环节。有位工程师直言：“我们发现，AI缓解了代码生成环节的瓶颈，可是除此之外的一切都成了新的瓶颈。”-\n9\n\n✦ 工具不是目的，“少返工”才是一眼看穿本质-\n4\n。\n\n多数人以为AI提效就是“"
+    },
+    {
+      "id": "一行代码胜过一万篇干货-20260629-1639",
+      "title": "一行代码胜过一万篇干货",
+      "digest": "麻省理工和威斯康星大学的研究团队最",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "pending",
+        "zhihu": "pending",
+        "juejin": "pending",
+        "jike": "pending",
+        "tencent_cloud": "pending",
+        "goofish": "pending"
+      },
+      "tags": [],
+      "body_md": "# 元宝草稿\n> 选题: 一行代码胜过一万篇干货 | 模式: D | 2026-06-29 16:39\n\n一行胜万行\n\n一行规格，胜过一万行代码\n\n麻省理工和威斯康星大学的研究团队最近发了一篇论文，测了11个主流大模型写代码的能力。结果扎心了：没有一个AI能独立做完任何一个完整项目。\n\nClaude Opus 4.6的严格通过率只有17.2%。而且AI写的代码有个致命问题——迭代越多，烂得越快。结构侵蚀和代码冗余度，是人类“屎山”的2.2倍。\n\n这跟很多人的体感一模一样。\n\n第一天：AI十分钟写个登录接口，一把过。\n第五天：加了验证码、三方登录、权限系统——代码变成了一锅粥，改A崩B。\n第二周：你重写了整个模块，边重构边骂：“说好的AI替代程序员呢？最后擦屁股的不还是我？”\n\n你开始怀疑：AI编程是不是伪命题？\n\nHacker News上有个十年后端工程师发了一篇自白，说他的职业支柱正在倒塌。他干了十年金融支付系统，引以为傲的是三样东西：领域专业知识（幂等性设计、分布式事务）、分布式系统Debug能力、代码架构品味。\n\n结果呢？这些东西现在用ChatGPT Pro加个Extended "
+    },
+    {
+      "id": "AI编程中最容易被-20260629-1716",
+      "title": "AI编程中最容易被",
+      "digest": "壹 · 感觉快了，实际慢了",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "AI编程最容易忽视-20260629-1718",
+      "title": "AI编程最容易忽视",
+      "digest": "壹 · 审查圈套",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "AI编程最容易忽视-20260629-1720",
+      "title": "AI编程最容易忽视",
+      "digest": "壹 · 代码洪流",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "AI编程效率提升-20260629-1724",
+      "title": "AI编程效率提升",
+      "digest": "壹 · 代码多了 活没少",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "别再写提示词了-20260629-1726",
+      "title": "别再写提示词了",
+      "digest": "壹 · 提示词是假把式",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "AI编程效率提升-20260629-1730",
+      "title": "AI编程效率提升",
+      "digest": "壹 · 提速180%，然后呢",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      },
+      "tags": []
+    },
+    {
+      "id": "AI编程效率提升-20260629-1734",
+      "title": "AI编程效率提升",
+      "digest": "AI编程效率提升",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      }
+    },
+    {
+      "id": "AI写代码，越写越-20260629-1737",
+      "title": "AI写代码，越写越",
+      "digest": "AI让资深开发者更慢了19%",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      }
+    },
+    {
+      "id": "AI编程提效-20260629-1825",
+      "title": "AI编程提效",
+      "digest": "AI编程提效",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      }
+    },
+    {
+      "id": "AI编程提效-20260629-1833",
+      "title": "AI编程提效",
+      "digest": "AI编程提效",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      }
+    },
+    {
+      "id": "《别查了，问AI》-20260629-2105",
+      "title": "《别查了，问AI》",
+      "digest": "《别查了，问AI》- 直击职场人遇",
+      "type": "article",
+      "date": "2026-06-29",
+      "status": {
+        "wechat": "published"
+      }
+    },
+    {
+      "id": "auto-sync-test-article",
+      "title": "Auto-Sync Test Article",
+      "digest": "",
+      "type": "article",
+      "file_path": "test/test.md",
+      "created_date": "2026-06-29",
+      "topics": [],
+      "series": "测试",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "https://example.com",
+          "date": "2026-06-29"
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "video_path": ""
+    },
+    {
+      "id": "测试文章-可删除",
+      "title": "测试文章-可删除",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://ifdian.net/dashboard",
+      "created_date": "2026-06-30",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "afdian": {
+          "status": "published",
+          "url": "",
+          "date": "2026-06-30"
+        }
+      },
+      "video_path": ""
+    },
+    {
+      "id": "20260703_0017_cursor写代码技巧",
+      "title": "20260703_0017_Cursor写代码技巧",
+      "digest": "",
+      "type": "article",
+      "file_path": "",
+      "created_date": "2026-07-03",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "video_path": ""
+    },
+    {
+      "id": "cursor写代码狠活",
+      "title": "Cursor写代码狠活",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://juejin.cn/post/7657895886556004358",
+      "created_date": "2026-07-03",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "bilibili": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "douyin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "kuaishou": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "channels": {
+          "status": "published",
+          "url": "https://channels.weixin.qq.com/platform/post/create",
+          "date": "2026-07-03"
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "video_path": ""
+    },
+    {
+      "id": "技术越强人越累",
+      "title": "技术越强，人越累?",
+      "digest": "",
+      "type": "article",
+      "file_path": "https://juejin.cn/post/7657873776144023595",
+      "created_date": "2026-07-03",
+      "topics": [],
+      "series": "",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "zhihu": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-03"
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "video_path": ""
+    },
+    {
+      "title": "去Claude化真",
+      "digest": "开源与路由，谁在闷声发财",
+      "type": "article",
+      "id": "去claude化真",
+      "platforms": {
+        "wechat": {
+          "status": "published",
+          "url": "",
+          "date": "2026-07-06"
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "file_path": "",
+      "created_date": "2026-07-06",
+      "topics": [],
+      "series": "",
+      "video_path": ""
+    },
+    {
+      "title": "去Claude化",
+      "digest": "微软禁用Claude，谁在闷声发财",
+      "type": "article",
+      "id": "去claude化",
+      "platforms": {
+        "wechat": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "juejin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "zhihu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "bilibili": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "douyin": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "kuaishou": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "channels": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "xiaohongshu": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "goofish": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "jike": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        },
+        "tencent_cloud": {
+          "status": "not_planned",
+          "url": "",
+          "date": null
+        }
+      },
+      "file_path": "",
+      "created_date": "2026-07-06",
+      "topics": [],
+      "series": "",
+      "video_path": ""
+    }
+  ]
+}
