@@ -2,16 +2,17 @@
 """
 通用发布管线：Markdown 文件 → 文章发布  |  MP4 → 视频发布
 
-文章平台: 公众号(wechat) | 掘金(juejin) | 知乎(zhihu) | 即刻(jike) | 腾讯云(tencent_cloud)
-视频平台: 抖音(douyin) | B站(bilibili) | 快手(kuaishou) | 视频号(channels) | 小红书(xiaohongshu)
+ 文章平台: 公众号(wechat) | 掘金(juejin) | 知乎(zhihu) | 即刻(jike) | 腾讯云(tencent_cloud) | 爱发电(afdian)
+ 视频平台: 抖音(douyin) | B站(bilibili) | 快手(kuaishou) | 视频号(channels) | 小红书(xiaohongshu)
 
-用法:
-  python publish.py article.md                     # 发布到所有文章平台
-  python publish.py article.md --wx-only           # 只发公众号
-  python publish.py article.md --zhihu             # 只发知乎
-  python publish.py article.md --jj-only           # 只发掘金
-  python publish.py article.md --jike              # 只发即刻
-  python publish.py article.md --tencent           # 只发腾讯云
+ 用法:
+   python publish.py article.md                     # 发布到所有文章平台
+   python publish.py article.md --wx-only           # 只发公众号
+   python publish.py article.md --zhihu             # 只发知乎
+   python publish.py article.md --jj-only           # 只发掘金
+   python publish.py article.md --jike              # 只发即刻
+   python publish.py article.md --tencent           # 只发腾讯云
+   python publish.py article.md --afdian            # 只发爱发电
   python publish.py video.mp4 --douyin             # 只发抖音（视频模式）
   python publish.py video.mp4 --bilibili           # 只发 B站（视频模式）
   python publish.py video.mp4 --all                # 发到所有视频平台
@@ -54,6 +55,7 @@ import platforms.channels  # noqa
 import platforms.xiaohongshu  # noqa
 import platforms.goofish     # noqa
 import platforms.jike        # noqa
+import platforms.afdian      # noqa
 
 
 # ===== 工具函数 =====
@@ -193,8 +195,9 @@ def main():
   python publish.py article.md --wx-only          # 只发公众号
   python publish.py article.md --zhihu            # 只发知乎
   python publish.py article.md --jj-only          # 只发掘金
-  python publish.py article.md --jike             # 只发即刻
-  python publish.py video.mp4 --douyin            # 只发抖音（视频模式）
+   python publish.py article.md --jike             # 只发即刻
+   python publish.py article.md --afdian           # 只发爱发电
+   python publish.py video.mp4 --douyin            # 只发抖音（视频模式）
   python publish.py video.mp4 --all               # 所有视频平台
   python publish.py --setup-bilibili              # 配置 B站 Cookie
   python publish.py --list-platforms              # 列出支持平台
@@ -210,6 +213,7 @@ def main():
     parser.add_argument("--zhihu", action="store_true", help="只发知乎（或加入发布列表）")
     parser.add_argument("--jike", action="store_true", help="只发即刻（或加入发布列表）")
     parser.add_argument("--tencent", "--tencent_cloud", action="store_true", help="只发腾讯云（或加入发布列表）")
+    parser.add_argument("--afdian", action="store_true", help="只发爱发电（或加入发布列表）")
     parser.add_argument("--channels", action="store_true", help="只发视频号（或加入发布列表）")
     parser.add_argument("--playwright", action="store_true", help="快手使用 Playwright 浏览器自动化")
     parser.add_argument("--no-cover", action="store_true", help="不生成封面")
@@ -313,6 +317,7 @@ def main():
     if args.zhihu:      specific_platforms.append("zhihu")
     if args.jike:       specific_platforms.append("jike")
     if args.tencent:    specific_platforms.append("tencent_cloud")
+    if args.afdian:     specific_platforms.append("afdian")
 
     # 公众号优先发布（其他平台需要它的文章链接）
     wechat_first = "wechat" in specific_platforms or (not specific_platforms)
