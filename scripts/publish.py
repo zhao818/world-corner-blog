@@ -2,17 +2,19 @@
 """
 通用发布管线：Markdown 文件 → 文章发布  |  MP4 → 视频发布
 
- 文章平台: 公众号(wechat) | 掘金(juejin) | 知乎(zhihu) | 即刻(jike) | 腾讯云(tencent_cloud) | 爱发电(afdian)
- 视频平台: 抖音(douyin) | B站(bilibili) | 快手(kuaishou) | 视频号(channels) | 小红书(xiaohongshu)
+文章平台: 掘金(juejin) | 知乎(zhihu) | 即刻(jike) | 腾讯云(tencent_cloud) | 爱发电(afdian)
+视频平台: 抖音(douyin) | B站(bilibili) | 快手(kuaishou) | 视频号(channels) | 小红书(xiaohongshu)
+公众号: 仅在「写文章」阶段推草稿箱，发文章阶段不再默认包含；需手动补发用 --wx-only
 
- 用法:
-   python publish.py article.md                     # 发布到所有文章平台
-   python publish.py article.md --wx-only           # 只发公众号
-   python publish.py article.md --zhihu             # 只发知乎
-   python publish.py article.md --jj-only           # 只发掘金
-   python publish.py article.md --jike              # 只发即刻
-   python publish.py article.md --tencent           # 只发腾讯云
-   python publish.py article.md --afdian            # 只发爱发电
+用法:
+  python publish.py article.md                     # 发布到所有文章平台（不含公众号）
+  python publish.py article.md --wx-only           # 只发公众号（手动补发）
+  python publish.py article.md --zhihu             # 只发知乎
+  python publish.py article.md --jj-only           # 只发掘金
+  python publish.py article.md --jike              # 只发即刻
+  python publish.py article.md --tencent           # 只发腾讯云
+  python publish.py article.md --afdian            # 只发爱发电
+  python publish.py article.md --url "https://..." # 指定公众号链接（即刻需要）
   python publish.py video.mp4 --douyin             # 只发抖音（视频模式）
   python publish.py video.mp4 --bilibili           # 只发 B站（视频模式）
   python publish.py video.mp4 --all                # 发到所有视频平台
@@ -189,15 +191,16 @@ def main():
     parser = argparse.ArgumentParser(
         description="通用发布管线：MD → 文章平台 | MP4 → 视频平台",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
+epilog="""
 示例:
-  python publish.py article.md                    # 全文章平台发布（公众号+掘金+知乎+即刻）
-  python publish.py article.md --wx-only          # 只发公众号
+  python publish.py article.md                    # 全文章平台发布（掘金+知乎+即刻+腾讯云+爱发电）
+  python publish.py article.md --wx-only          # 只发公众号（手动补发）
   python publish.py article.md --zhihu            # 只发知乎
   python publish.py article.md --jj-only          # 只发掘金
-   python publish.py article.md --jike             # 只发即刻
-   python publish.py article.md --afdian           # 只发爱发电
-   python publish.py video.mp4 --douyin            # 只发抖音（视频模式）
+  python publish.py article.md --jike             # 只发即刻
+  python publish.py article.md --afdian           # 只发爱发电
+  python publish.py article.md --url "https://..." # 指定公众号链接（即刻需要）
+  python publish.py video.mp4 --douyin            # 只发抖音（视频模式）
   python publish.py video.mp4 --all               # 所有视频平台
   python publish.py --setup-bilibili              # 配置 B站 Cookie
   python publish.py --list-platforms              # 列出支持平台
@@ -205,7 +208,7 @@ def main():
     )
 
     parser.add_argument("file", nargs="?", help="Markdown 文件路径")
-    parser.add_argument("--wx-only", action="store_true", help="只发公众号")
+    parser.add_argument("--wx-only", action="store_true", help="只发公众号（手动补发）")
     parser.add_argument("--jj-only", action="store_true", help="只发掘金")
     parser.add_argument("--bilibili", action="store_true", help="只发 B站（或加入发布列表）")
     parser.add_argument("--kuaishou", action="store_true", help="只发快手（或加入发布列表）")
@@ -215,6 +218,7 @@ def main():
     parser.add_argument("--tencent", "--tencent_cloud", action="store_true", help="只发腾讯云（或加入发布列表）")
     parser.add_argument("--afdian", action="store_true", help="只发爱发电（或加入发布列表）")
     parser.add_argument("--channels", action="store_true", help="只发视频号（或加入发布列表）")
+    parser.add_argument("--url", help="指定公众号文章链接（即刻等平台需要）")
     parser.add_argument("--playwright", action="store_true", help="快手使用 Playwright 浏览器自动化")
     parser.add_argument("--no-cover", action="store_true", help="不生成封面")
     parser.add_argument("--setup-bilibili", action="store_true", help="引导配置 B站 Cookie")
@@ -319,39 +323,29 @@ def main():
     if args.tencent:    specific_platforms.append("tencent_cloud")
     if args.afdian:     specific_platforms.append("afdian")
 
-    # 公众号优先发布（其他平台需要它的文章链接）
-    wechat_first = "wechat" in specific_platforms or (not specific_platforms)
-    if wechat_first and "wechat" not in specific_platforms:
-        # 默认全平台模式：确保公众号在列表里
-        pass  # 由 all_platforms 处理
-
-    # 如果指定了即刻，确保公众号先发（需要公众号URL）
-    article_url = ""
+    # 公众号文章链接（即刻等平台需要）
+    article_url = args.url or ""
 
     # 组合模式
     results = {}
 
     if specific_platforms:
-        # 公众号优先
         ordered = specific_platforms
+        # 显式指定了 wechat 且不在首位 → 移到首位
         if "wechat" in ordered and ordered[0] != "wechat":
             ordered = ["wechat"] + [p for p in ordered if p != "wechat"]
 
         for name in ordered:
             print(f"\n{'='*50}")
             _check_and_warn(title, name)
-            # 传文章URL给需要链接的平台（即刻、知乎等）
             if name in ("jike",) and article_url:
                 meta["url"] = article_url
                 print(f"   🔗 附带公众号文章链接: {article_url}")
             result = publish_to(name, meta, body, cover_path)
             results[name] = result
             _print_result(name, result, title, "article")
-            # 公众号发布成功后提取URL
-            if name == "wechat" and result.get("success") and result.get("url"):
-                article_url = result["url"]
     else:
-        all_platforms = ["wechat", "juejin", "zhihu", "jike", "tencent_cloud"]
+        all_platforms = ["juejin", "zhihu", "jike", "tencent_cloud", "afdian"]
         for name in all_platforms:
             print(f"\n{'='*50}")
             _check_and_warn(title, name)
@@ -361,8 +355,6 @@ def main():
             result = publish_to(name, meta, body, cover_path)
             results[name] = result
             _print_result(name, result, title, "article")
-            if name == "wechat" and result.get("success") and result.get("url"):
-                article_url = result["url"]
 
     # 汇总
     print(f"\n{'='*50}")
