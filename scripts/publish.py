@@ -46,6 +46,14 @@ from platforms.base import (
 from platforms import list_platforms as _list_platforms, publish_to
 from platforms.publish_log import check_duplicate, record_publish
 
+# ===== 通用管线执行引擎 =====
+sys.path.insert(0, os.path.join(os.path.expanduser("~"), "catalog", "scripts"))
+try:
+    from pipeline_executor import PipelineExecutor, Step, run_platforms
+    _HAS_EXECUTOR = True
+except ImportError:
+    _HAS_EXECUTOR = False
+
 # ===== 配置 =====
 FONT_PATH = "C:/Windows/Fonts/msyh.ttc"
 
@@ -337,18 +345,44 @@ def _determine_targets(args):
 
 
 def _publish_loop(platform_names, meta, body, cover_path, article_url):
-    results = {}
-    title = meta.get("title", "")
-    for name in platform_names:
-        print(f"\n{'='*50}")
-        _check_and_warn(title, name)
-        if name in ("jike",) and article_url:
+    if not _HAS_EXECUTOR:
+        results = {}
+        title = meta.get("title", "")
+        for name in platform_names:
+            print(f"\n{'='*50}")
+            _check_and_warn(title, name)
+            if name in ("jike",) and article_url:
+                meta["url"] = article_url
+                print(f"   🔗 附带公众号文章链接: {article_url}")
+            result = publish_to(name, meta, body, cover_path)
+            results[name] = result
+            _print_result(name, result, title, "article")
+        return results
+
+    hints = {
+        "HTTP 500": "检查网络代理或图片尺寸是否超过 10MB",
+        "SSL": "SSL 失败 → git config --global http.proxy http://127.0.0.1:7897",
+        "timeout": "上传超时，检查文件大小或网络稳定性",
+        "403": "Cookie/Token 可能过期，重新配置 --setup-bilibili",
+        "401": "认证失败，检查 Cookie 或 Token",
+    }
+
+    def _publish_one(platform_name, **kw):
+        title = meta.get("title", "")
+        _check_and_warn(title, platform_name)
+        if platform_name == "jike" and article_url:
             meta["url"] = article_url
-            print(f"   🔗 附带公众号文章链接: {article_url}")
-        result = publish_to(name, meta, body, cover_path)
-        results[name] = result
-        _print_result(name, result, title, "article")
-    return results
+        result = publish_to(platform_name, meta, body, cover_path)
+        if result.get("success"):
+            _print_result(platform_name, result, title, "article")
+            return result
+        raise RuntimeError(result.get("error", "发布失败"))
+
+    ex = PipelineExecutor("文章多平台分发", hints=hints)
+    ex.run_platform_loop("发布", _publish_one,
+        platforms=platform_names, retry=3, skip=True)
+    ex.print_report()
+    return None  # 报告已由 executor 打印
 
 
 def _print_publish_summary(results):
@@ -401,7 +435,8 @@ def main():
             meta, body, cover_path, article_url,
         )
 
-    _print_publish_summary(results)
+    if results:  # None when executor already printed report
+        _print_publish_summary(results)
     _cleanup_cover(cover_path)
 
 
@@ -443,22 +478,43 @@ def main_video(filepath: str, targets: list[str], title: str, desc: str, cover_p
     """视频发布模式"""
     from platforms import publish_video_to, REGISTRY
 
-    results = {}
-    for name in targets:
+    if not _HAS_EXECUTOR:
+        results = {}
+        for name in targets:
+            print(f"\n{'='*50}")
+            _check_and_warn(title, name)
+            result = publish_video_to(name, filepath, title, desc, tags, cover_path=cover_path)
+            results[name] = result
+            _print_result(name, result, title, "video")
+        ok = sum(1 for r in results.values() if r.get("success"))
         print(f"\n{'='*50}")
-        _check_and_warn(title, name)
-        result = publish_video_to(name, filepath, title, desc, tags, cover_path=cover_path)
-        results[name] = result
-        _print_result(name, result, title, "video")
+        if ok == len(results):
+            print(f"✅ 视频全平台发布完成 ({ok}/{len(results)})")
+        elif ok > 0:
+            print(f"⚠️  部分完成 ({ok}/{len(results)})")
+        else:
+            print(f"❌ 所有平台失败")
+        return
 
-    ok = sum(1 for r in results.values() if r.get("success"))
-    print(f"\n{'='*50}")
-    if ok == len(results):
-        print(f"✅ 视频全平台发布完成 ({ok}/{len(results)})")
-    elif ok > 0:
-        print(f"⚠️  部分完成 ({ok}/{len(results)})")
-    else:
-        print(f"❌ 所有平台失败")
+    def _publish_one_video(platform_name, **kw):
+        _check_and_warn(title, platform_name)
+        result = publish_video_to(platform_name, filepath, title, desc, tags, cover_path=cover_path)
+        if result.get("success"):
+            _print_result(platform_name, result, title, "video")
+            return result
+        raise RuntimeError(result.get("error", "发布失败"))
+
+    hints = {
+        "HTTP 500": "检查网络代理或视频文件是否合规",
+        "SSL": "SSL 失败 → git config --global http.proxy http://127.0.0.1:7897",
+        "timeout": "上传超时，检查视频文件大小",
+        "size": "视频文件过大，尝试压缩",
+        "403": "Cookie 可能过期，重新登录",
+    }
+    ex = PipelineExecutor("视频多平台分发", hints=hints)
+    ex.run_platform_loop("发布视频", _publish_one_video,
+        platforms=targets, retry=3, skip=True)
+    ex.print_report()
 
 
 if __name__ == "__main__":
