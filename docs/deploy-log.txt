@@ -1,0 +1,1 @@
+[2026-07-05 12:49:31] Hugo build FAILED: partial head.html not found -- baseof.html references layouts/partials/head.html which does not exist. Available partials: header.html, footer.html, extend_head.html, comments.html, energy-matrix.html, newsletter.html, section-nav-row.html, series-sidebar.html. Fix: create layouts/partials/head.html or update baseof.html.

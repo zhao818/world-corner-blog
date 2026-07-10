@@ -1,504 +1,68 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>踩坑宝典 | 世界一隅 | 认知能量工程</title>
-<meta name="keywords" content="">
-<meta name="description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑">
-<meta name="author" content="Tianbing Zhao">
-<link rel="canonical" href="/pitfalls/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="mask-icon" href="/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="/pitfalls/index.xml">
-<link rel="alternate" hreflang="en" href="/pitfalls/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
-<meta property="og:title" content="踩坑宝典" />
-<meta property="og:description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="/pitfalls/" /><meta property="og:site_name" content="世界一隅" />
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="踩坑宝典"/>
-<meta name="twitter:description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "踩坑宝典",
-      "item": "/pitfalls/"
-    }
-  ]
-}
-</script>
-</head>
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span class="active">踩坑宝典</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-<header class="pitfalls-header">
-  <h1>踩坑宝典</h1>
-  <p class="pitfalls-desc">16 条结构化踩坑经验，每条按 🩺症状 → 🔬根因 → 🔧修复 → 🛡️避免 四段式记录。踩过坑、修好坑、记住坑——不再踩第二次。</p>
-  <div class="pitfall-stats">
-    <span>🕳️ <strong>16</strong> 条踩坑</span>
-    <span>📅 更新于 2026-07-01</span>
-  </div>
-</header>
-
-<div class="pitfall-grid">
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-plan-lost-not-committed/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>长时间规划结束忘记 commit 丢失进度</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>踩坑宝典 | 世界一隅 | 认知能量工程</title>
+<meta name=keywords content><meta name=description content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑"><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=/pitfalls/index.xml><link rel=alternate hreflang=en href=/pitfalls/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="踩坑宝典"><meta property="og:description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑"><meta property="og:type" content="website"><meta property="og:url" content="/pitfalls/"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="踩坑宝典"><meta name=twitter:description content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"}]}</script></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span class=active>踩坑宝典</span></a></li></ul></nav></header><main class=main><header class=pitfalls-header><h1>踩坑宝典</h1><p class=pitfalls-desc>16 条结构化踩坑经验，每条按 🩺症状 → 🔬根因 → 🔧修复 → 🛡️避免 四段式记录。踩过坑、修好坑、记住坑——不再踩第二次。</p><div class=pitfall-stats><span>🕳️ <strong>16</strong> 条踩坑</span>
+<span>📅 更新于 2026-07-10</span></div></header><div class=pitfall-grid><article class=pitfall-card><a href=/pitfalls/pit-plan-lost-not-committed/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>长时间规划结束忘记 commit 丢失进度</h2></div><p class=card-excerpt>症状 你看到什么？
 和 AI 协作做了一整套书籍架构规划（章节设计、字数分配、主题方向），会话正常结束。下次开工发现：规划文件没 commit，本地修改丢了（或被覆盖）。全部重来。
 根因 真正的原因是什么？
-人的注意力在&quot;思考规划内容&quot;上，不在&quot;保存规划结果&quot;上。规划过程可能持续几十分钟到几小时，期间一直在输出和修改， …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-wechat-plaintext-falsely-encrypted/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>公众号明文模式下 nonce/timestamp 非空导致回复被错误加密</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+人的注意力在"思考规划内容"上，不在"保存规划结果"上。规划过程可能持续几十分钟到几小时，期间一直在输出和修改， …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-wechat-plaintext-falsely-encrypted/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>公众号明文模式下 nonce/timestamp 非空导致回复被错误加密</h2></div><p class=card-excerpt>症状 你看到什么？
 微信后台配置为「明文模式」。修复了 XML 二次包装后，日志无报错、AI 正常生成回复、cached_xml 有值——但用户手机端仍然看不到任何自动回复。表现和 XML 嵌套完全一样，给排查造成极大困扰。
 根因 到底为什么出问题？
-_maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在： …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-wsl-write-tool-path-failure/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+_maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在： …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-wsl-write-tool-path-failure/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</h2></div><p class=card-excerpt>症状 你看到什么？
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
-实际上本次会话就复现了：5 篇新踩坑用 Write 工具 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-triggers-multi-match-merge/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
-用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
-&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md &ldquo;数据录入项目&rdquo; → …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-wechat-chinese-garbled-requests-json/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>requests json= 参数导致公众号中文乱码</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+实际上本次会话就复现了：5 篇新踩坑用 Write 工具 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-triggers-multi-match-merge/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h2></div><p class=card-excerpt>症状 你看到什么？
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md &ldquo;数据录入项目&rdquo; → …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-wechat-chinese-garbled-requests-json/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>requests json= 参数导致公众号中文乱码</h2></div><p class=card-excerpt>症状 你看到什么？
 公众号推送文章草稿后，读者看到的中文全部变成 我是 这样的 Unicode 转义序列。微信后台预览正常，但推送后乱码。踩了 3 次才修好。
 根因 真正的原因是什么？
-requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 ensure_ascii=True， …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-docx-table-page-break-cantsplit/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>python-docx 表格跨页断开无法控制</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 ensure_ascii=True， …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-docx-table-page-break-cantsplit/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>python-docx 表格跨页断开无法控制</h2></div><p class=card-excerpt>症状 你看到什么？
 用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。
 根因 真正的原因是什么？
-python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性。Word 打开文档后，按自己的分页 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-python-indentation-silent-skip/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Python 缩进错位导致 140 行被动回复代码完全跳过</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/> 属性。Word 打开文档后，按自己的分页 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-python-indentation-silent-skip/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Python 缩进错位导致 140 行被动回复代码完全跳过</h2></div><p class=card-excerpt>症状 你看到什么？
 AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=False）完全不工作：
-用户发消息到公众号 → 无任何回复 日志报 TypeError: The response value returned by the view function cannot be None 调试器中 AI 回复正常，部署后就是 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-python-utf8-bom-encoding/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Python encoding=&#39;utf-8&#39; 不能自动处理 BOM</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
-with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f: for line in f: if line.startswith(&#34;GITEE_TOKEN=&#34;): # ← 永远不匹配 token = …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-hugo-skip-full-build/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+用户发消息到公众号 → 无任何回复 日志报 TypeError: The response value returned by the view function cannot be None 调试器中 AI 回复正常，部署后就是 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-python-utf8-bom-encoding/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Python encoding='utf-8' 不能自动处理 BOM</h2></div><p class=card-excerpt>症状 你看到什么？
+with open("config.txt", encoding="utf-8") as f: for line in f: if line.startswith("GITEE_TOKEN="): # ← 永远不匹配 token = …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-hugo-skip-full-build/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</h2></div><p class=card-excerpt>症状 你看到什么？
 新文章 URL 可以正常访问（/posts/xxx/ 能打开），但：
 分类页看不到这篇文章 首页最新文章列表没有它 所有聚合/列表页都不知道这篇文章存在 用户从分类入口进来找不到文章，以为没发布。
 根因 到底为什么出问题？
-Hugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs/ 重 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-sed-false-positive-verification/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>GNU sed a 命令中 
- 被当字面量——假阳性验证导致以为修好实际没修</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+Hugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs/ 重 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-sed-false-positive-verification/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>GNU sed a 命令中
+被当字面量——假阳性验证导致以为修好实际没修</h2></div><p class=card-excerpt>症状 你看到什么？
 用 deploy_fix4.sh 部署修复到 AstrBot 后：
-sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过（匹配到关键字） 服务器重启后返回 500 错误 用户以为修好了，实际服务器崩了。
+sed 命令执行成功（exit 0） grep -q "nonce = None" 验证通过（匹配到关键字） 服务器重启后返回 500 错误 用户以为修好了，实际服务器崩了。
 根因 到底为什么出问题？
-部署脚本用了 GNU sed …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-gitee-duplicate-repo-check/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Gitee 建仓库前没查已有仓库，建了重复仓库</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+部署脚本用了 GNU sed …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-gitee-duplicate-repo-check/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Gitee 建仓库前没查已有仓库，建了重复仓库</h2></div><p class=card-excerpt>症状 你看到什么？
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
 结果：
-多了一个无用仓库，要手动删除 镜像同步配置白做了  …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-gitee-mirror-dual-push/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Gitee 已配镜像还手动 push gitee，做了多余操作</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
-每次 git commit 后都跑 git push origin master &amp;&amp; git push gitee master，两条命令都成功。实际上 Gitee 那边早已配置了从 GitHub 自动镜像同步，push origin 之后 Gitee 会自动拉取。手动再 push gitee 不仅多余，还可能在极端情况 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-git-push-ssl-proxy-fix/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Git push GitHub SSL 握手失败</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+多了一个无用仓库，要手动删除 镜像同步配置白做了 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-gitee-mirror-dual-push/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Gitee 已配镜像还手动 push gitee，做了多余操作</h2></div><p class=card-excerpt>症状 你看到什么？
+每次 git commit 后都跑 git push origin master && git push gitee master，两条命令都成功。实际上 Gitee 那边早已配置了从 GitHub 自动镜像同步，push origin 之后 Gitee 会自动拉取。手动再 push gitee 不仅多余，还可能在极端情况 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-git-push-ssl-proxy-fix/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Git push GitHub SSL 握手失败</h2></div><p class=card-excerpt>症状 你看到什么？
 git push 到 GitHub 报错：fatal: unable to access 'https://github.com/...': SSL connection error 或 TLS handshake failed。每次 push 都失败，ping 不通 GitHub。
 根因 真正的原因是什么？
-Windows 环境 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-excel-com-save-silent-fail/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Excel COM wb.Save() 静默失败，必须用 SaveAs</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+Windows 环境 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-excel-com-save-silent-fail/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Excel COM wb.Save() 静默失败，必须用 SaveAs</h2></div><p class=card-excerpt>症状 你看到什么？
 用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 wb.Save() 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。
-# 跑了半小时的修复脚本... for row in range(2, 500): ws.Cells(row, col).Value = fix_value …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-cloudreve-upload-timeout-cloudflare/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>Cloudreve 上传大文件超时：Cloudflare 免费版 100 秒限制</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
-Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示&quot;上传失败&quot;。Cloudreve 日志里看不到明显错误。
+# 跑了半小时的修复脚本... for row in range(2, 500): ws.Cells(row, col).Value = fix_value …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-cloudreve-upload-timeout-cloudflare/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>Cloudreve 上传大文件超时：Cloudflare 免费版 100 秒限制</h2></div><p class=card-excerpt>症状 你看到什么？
+Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示"上传失败"。Cloudreve 日志里看不到明显错误。
 换小文件（&lt;5MB）上传正常。大文件必挂。
 根因 到底为什么出问题？
 请求链路：
-浏 览 器 → C l o …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-  <article class="pitfall-card">
-    <a href="/pitfalls/pit-astrbot-xml-double-wrap/" class="card-link">
-      <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
-        <h2>AstrBot 公众号被动回复 XML 二次包装导致微信无法解析</h2>
-      </div>
-      <p class="card-excerpt">症状 你看到什么？
+浏 览 器 → C l o …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article><article class=pitfall-card><a href=/pitfalls/pit-astrbot-xml-double-wrap/ class=card-link><div class=card-symptom><span class=card-icon>🕳️</span><h2>AstrBot 公众号被动回复 XML 二次包装导致微信无法解析</h2></div><p class=card-excerpt>症状 你看到什么？
 AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。
 根因 到底为什么出问题？
-callback 函数把 AI 结 …</p>
-      <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
-      </div>
-    </a>
-  </article>
-  
-</div>
-
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
-    <span>
-        由
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-        驱动
-    </span>
-</footer>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-</html>
+callback 函数把 AI 结 …</p><div class=card-footer><span class=card-date>2026-06-13</span>
+<span class=card-read>阅读 →</span></div></a></article></div></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
+<span>由
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

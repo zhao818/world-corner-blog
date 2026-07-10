@@ -1,34 +1,27 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由 | 世界一隅 | 认知能量工程</title>
-<meta name="keywords" content="">
-<meta name="description" content="症状
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由 | 世界一隅 | 认知能量工程</title>
+<meta name=keywords content><meta name=description content='症状
 
 你看到什么？
-用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
 &ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
 
-但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒&quot;我记得优化过你的记忆啊，为什么还做不到&quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
 后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
 根因
 
 到底为什么出问题？
 
-匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
-事后没自检：加载完文件后没问自己&quot;用户说的是审计&#43;Excel，我有没有读 Excel 相关的路由？&quot;
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
 
 修复
 
 怎么做？
-匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
+匹配策略改为"全量扫描 + AND 合并"：
 
 
 
@@ -103,81 +96,29 @@ d
     
   
 
-例如用户说&quot;审计这个 Excel&quot;：">
-<meta name="author" content="Tianbing Zhao">
-<link rel="canonical" href="/pitfalls/pit-triggers-multi-match-merge/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="mask-icon" href="/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="/pitfalls/pit-triggers-multi-match-merge/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
-<meta property="og:title" content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由" />
-<meta property="og:description" content="症状
+例如用户说"审计这个 Excel"：'><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-triggers-multi-match-merge/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-triggers-multi-match-merge/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由"><meta property="og:description" content='症状
 
 你看到什么？
-用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
 &ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
 
-但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒&quot;我记得优化过你的记忆啊，为什么还做不到&quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
 后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
 根因
 
 到底为什么出问题？
 
-匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
-事后没自检：加载完文件后没问自己&quot;用户说的是审计&#43;Excel，我有没有读 Excel 相关的路由？&quot;
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
 
 修复
 
 怎么做？
-匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
+匹配策略改为"全量扫描 + AND 合并"：
 
 
 
@@ -252,38 +193,29 @@ d
     
   
 
-例如用户说&quot;审计这个 Excel&quot;：" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/pitfalls/pit-triggers-multi-match-merge/" /><meta property="article:section" content="pitfalls" />
-<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由"/>
-<meta name="twitter:description" content="症状
+例如用户说"审计这个 Excel"：'><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-triggers-multi-match-merge/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由"><meta name=twitter:description content='症状
 
 你看到什么？
-用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
 &ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
 
-但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒&quot;我记得优化过你的记忆啊，为什么还做不到&quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
 后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
 根因
 
 到底为什么出问题？
 
-匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
-事后没自检：加载完文件后没问自己&quot;用户说的是审计&#43;Excel，我有没有读 Excel 相关的路由？&quot;
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
 
 修复
 
 怎么做？
-匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
+匹配策略改为"全量扫描 + AND 合并"：
 
 
 
@@ -358,601 +290,8 @@ d
     
   
 
-例如用户说&quot;审计这个 Excel&quot;："/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "踩坑宝典",
-      "item": "/pitfalls/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "TRIGGERS 多场景同时命中时只读第一条，漏了后续路由",
-      "item": "/pitfalls/pit-triggers-multi-match-merge/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "TRIGGERS 多场景同时命中时只读第一条，漏了后续路由",
-  "name": "TRIGGERS 多场景同时命中时只读第一条，漏了后续路由",
-  "description": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输 匹 合 加 入 配 并 载 ： ： ： ： 用 扫 取 读 户 描 所 全 消 有 部 息 T 匹 匹 关 R 配 配 键 I 路 文 词 G 由 件 G 的 E 并 R 集 S . m d 全 部 行 ， 收 集 所 有 匹 配 的 路 由 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输 匹 合 加 入 配 并 载 ： ： ： ： 用 扫 取 读 户 描 所 全 消 有 部 息 T 匹 匹 关 R 配 配 键 I 路 文 词 G 由 件 G 的 E 并 R 集 S . m d 全 部 行 ， 收 集 所 有 匹 配 的 路 由 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹 匹 匹 合 → 配 配 配 并 行 行 行 结 全 1 2 3 果 量 : : : 加 = 载 \u0022 \u0022 \u0022 这 审 数 操 { 计 据 作 a 4 五 录 u 件 入 E d 个 套 项 x i 文 \u0022 目 c t 件 \u0022 e - → l f → \u0022 o a u u a → r d u - i d e p t i x i - t c e f - e c o f l e u o - . r u c m - r o d p - m , i p - e i a a c e u u e c d d . e i i m - t t d d . - a m f t d o a u . r m - d p , i e e c x e c - e d l a - t c a o . m m - d a , u d e i x t c . e m l d - , c o d m a - t a a u - d c i r t o . s m s d - , v e d r a i t f a y - . c m r d o s s - v e r i f y . m d } 自检问题（加载完文件后问自己）：\n用户提到了哪些关键词？ TRIGGERS.md 里有多少行匹配了这些关键词？ 我有没有全部读？ 怎么避免 下次怎么不踩？\n扫全表不早停：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项 AND 合并取并集：多条路由的文件列表取并集，去重后全读 自检三板斧： 用户说了什么关键词？ 还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认） 全量加载了吗？ 用户纠正过的地方加红线：这个坑已经被纠正过了，TRIGGERS.md 里\u0026quot;审计五件套\u0026quot;行的文件列表已更新为全量 ",
-  "wordCount" : "367",
-  "inLanguage": "en",
-  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
-  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
-  "author":{
-    "@type": "Person",
-    "name": "Tianbing Zhao"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "\/pitfalls\/pit-triggers-multi-match-merge\/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "世界一隅 | 认知能量工程",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span>踩坑宝典</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-<article class="pitfall-single">
-  <header class="pitfall-hero">
-    <h1>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h1>
-    <div class="pitfall-meta">
-      <span>📅 2026-06-13</span>
-    </div>
-  </header>
-
-  <div class="pitfall-body">
-    <h2 id="症状">症状</h2>
-<blockquote>
-<p>你看到什么？</p></blockquote>
-<p>用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个<strong>数据录入项目</strong>，TRIGGERS.md 有两条路由同时命中：</p>
-<ul>
-<li>&ldquo;审计五件套 / 跑审计&rdquo; → 加载 <code>audit-four-piece.md</code></li>
-<li>&ldquo;数据录入项目&rdquo; → 加载 <code>audit-four-piece-data.md</code>、<code>excel-com-audit.md</code>、<code>data-cross-verify.md</code></li>
-</ul>
-<p>但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒&quot;我记得优化过你的记忆啊，为什么还做不到&quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。</p>
-<p>后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。</p>
-<h2 id="根因">根因</h2>
-<blockquote>
-<p>到底为什么出问题？</p></blockquote>
-<ol>
-<li><strong>匹配策略是&quot;命中即停&quot;</strong>：扫到第一个匹配行就停下来加载了，没继续往下扫</li>
-<li><strong>没有 OR → AND 的思维转换</strong>：多条路由匹配同一任务时，取的文件应该是<strong>并集（AND）</strong>，不是<strong>第一个命中（OR）</strong></li>
-<li><strong>TRIGGERS 表设计有盲区</strong>：通用路由和专用路由分开写，但加载逻辑没做合并</li>
-<li><strong>事后没自检</strong>：加载完文件后没问自己&quot;用户说的是审计+Excel，我有没有读 Excel 相关的路由？&quot;</li>
-</ol>
-<h2 id="修复">修复</h2>
-<blockquote>
-<p>怎么做？</p></blockquote>
-<p><strong>匹配策略改为&quot;全量扫描 + AND 合并&quot;</strong>：</p>
-
-
-
-<div class="goat svg-container ">
-  
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      font-family="Menlo,Lucida Console,monospace"
-      
-        viewBox="0 0 256 73"
-      >
-      <g transform='translate(8,16)'>
-<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>输</text>
-<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='0' y='36' fill='currentColor' style='font-size:1em'>合</text>
-<text text-anchor='middle' x='0' y='52' fill='currentColor' style='font-size:1em'>加</text>
-<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>入</text>
-<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='8' y='36' fill='currentColor' style='font-size:1em'>并</text>
-<text text-anchor='middle' x='8' y='52' fill='currentColor' style='font-size:1em'>载</text>
-<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>：</text>
-<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>：</text>
-<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>：</text>
-<text text-anchor='middle' x='16' y='52' fill='currentColor' style='font-size:1em'>：</text>
-<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>用</text>
-<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>扫</text>
-<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>取</text>
-<text text-anchor='middle' x='24' y='52' fill='currentColor' style='font-size:1em'>读</text>
-<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>户</text>
-<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>描</text>
-<text text-anchor='middle' x='32' y='36' fill='currentColor' style='font-size:1em'>所</text>
-<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>全</text>
-<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>消</text>
-<text text-anchor='middle' x='40' y='36' fill='currentColor' style='font-size:1em'>有</text>
-<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>部</text>
-<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>息</text>
-<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>T</text>
-<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='48' y='52' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>关</text>
-<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>R</text>
-<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='56' y='52' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>键</text>
-<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>I</text>
-<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>路</text>
-<text text-anchor='middle' x='64' y='52' fill='currentColor' style='font-size:1em'>文</text>
-<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>词</text>
-<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>G</text>
-<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>由</text>
-<text text-anchor='middle' x='72' y='52' fill='currentColor' style='font-size:1em'>件</text>
-<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>G</text>
-<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>的</text>
-<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>E</text>
-<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>并</text>
-<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>R</text>
-<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>集</text>
-<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>S</text>
-<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>全</text>
-<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>部</text>
-<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>行</text>
-<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>，</text>
-<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>收</text>
-<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>集</text>
-<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>所</text>
-<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>有</text>
-<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>的</text>
-<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>路</text>
-<text text-anchor='middle' x='240' y='20' fill='currentColor' style='font-size:1em'>由</text>
-</g>
-
-    </svg>
-  
-</div>
-<p>例如用户说&quot;审计这个 Excel&quot;：</p>
-
-
-
-<div class="goat svg-container ">
-  
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      font-family="Menlo,Lucida Console,monospace"
-      
-        viewBox="0 0 776 105"
-      >
-      <g transform='translate(8,16)'>
-<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='0' y='36' fill='currentColor' style='font-size:1em'>匹</text>
-<text text-anchor='middle' x='0' y='68' fill='currentColor' style='font-size:1em'>合</text>
-<text text-anchor='middle' x='0' y='84' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='8' y='36' fill='currentColor' style='font-size:1em'>配</text>
-<text text-anchor='middle' x='8' y='68' fill='currentColor' style='font-size:1em'>并</text>
-<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>行</text>
-<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>行</text>
-<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>行</text>
-<text text-anchor='middle' x='16' y='68' fill='currentColor' style='font-size:1em'>结</text>
-<text text-anchor='middle' x='16' y='84' fill='currentColor' style='font-size:1em'>全</text>
-<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>1</text>
-<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>2</text>
-<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>3</text>
-<text text-anchor='middle' x='24' y='68' fill='currentColor' style='font-size:1em'>果</text>
-<text text-anchor='middle' x='24' y='84' fill='currentColor' style='font-size:1em'>量</text>
-<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>:</text>
-<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>:</text>
-<text text-anchor='middle' x='32' y='36' fill='currentColor' style='font-size:1em'>:</text>
-<text text-anchor='middle' x='32' y='84' fill='currentColor' style='font-size:1em'>加</text>
-<text text-anchor='middle' x='40' y='68' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='40' y='84' fill='currentColor' style='font-size:1em'>载</text>
-<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='48' y='84' fill='currentColor' style='font-size:1em'>这</text>
-<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>审</text>
-<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>数</text>
-<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>操</text>
-<text text-anchor='middle' x='56' y='68' fill='currentColor' style='font-size:1em'>{</text>
-<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>计</text>
-<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>据</text>
-<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>作</text>
-<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='64' y='84' fill='currentColor' style='font-size:1em'>4</text>
-<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>五</text>
-<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>录</text>
-<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>件</text>
-<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>入</text>
-<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>E</text>
-<text text-anchor='middle' x='80' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='80' y='84' fill='currentColor' style='font-size:1em'>个</text>
-<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>套</text>
-<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>项</text>
-<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>x</text>
-<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='88' y='84' fill='currentColor' style='font-size:1em'>文</text>
-<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>目</text>
-<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='96' y='84' fill='currentColor' style='font-size:1em'>件</text>
-<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='104' y='36' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='112' y='36' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='112' y='68' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='120' y='36' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='120' y='68' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='136' y='36' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='136' y='68' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='144' y='20' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='152' y='36' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='152' y='68' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='160' y='20' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='160' y='36' fill='currentColor' style='font-size:1em'>x</text>
-<text text-anchor='middle' x='160' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='168' y='20' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='168' y='36' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='168' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='176' y='36' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='176' y='68' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='184' y='20' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='184' y='36' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='184' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='192' y='36' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='192' y='68' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='200' y='36' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='200' y='68' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='208' y='20' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='208' y='36' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='208' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='216' y='36' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='216' y='68' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='224' y='36' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='232' y='36' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='232' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='240' y='20' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='240' y='36' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='240' y='68' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='248' y='36' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='248' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='256' y='4' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='256' y='20' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='256' y='36' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='256' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='264' y='36' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='264' y='68' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='272' y='36' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='272' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='280' y='36' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='280' y='68' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='288' y='20' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='288' y='36' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='288' y='68' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='296' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='296' y='68' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='304' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='304' y='68' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='312' y='20' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='312' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='320' y='68' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='328' y='20' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='328' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='336' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='344' y='20' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='344' y='68' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='352' y='20' fill='currentColor' style='font-size:1em'>x</text>
-<text text-anchor='middle' x='352' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='360' y='20' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='360' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='368' y='20' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='368' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='376' y='20' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='376' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='384' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='384' y='68' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='392' y='20' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='392' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='400' y='20' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='400' y='68' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='408' y='20' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='408' y='68' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='416' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='416' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='424' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='424' y='68' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='432' y='20' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='440' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='440' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='448' y='20' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='448' y='68' fill='currentColor' style='font-size:1em'>x</text>
-<text text-anchor='middle' x='456' y='20' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='456' y='68' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='464' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='464' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='472' y='20' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='472' y='68' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='480' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='480' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='488' y='20' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='488' y='68' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='496' y='68' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='504' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='504' y='68' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='512' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='512' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='520' y='20' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='520' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='528' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='528' y='68' fill='currentColor' style='font-size:1em'>u</text>
-<text text-anchor='middle' x='536' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='536' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='544' y='20' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='544' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='552' y='20' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='552' y='68' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='560' y='20' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='560' y='68' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='568' y='20' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='568' y='68' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='576' y='20' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='576' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='584' y='20' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='584' y='68' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='592' y='20' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='600' y='20' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='600' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='608' y='20' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='608' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='616' y='20' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='616' y='68' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='624' y='20' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='624' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='632' y='20' fill='currentColor' style='font-size:1em'>y</text>
-<text text-anchor='middle' x='632' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='640' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='640' y='68' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='648' y='20' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='648' y='68' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='656' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='656' y='68' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='664' y='68' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='672' y='68' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='680' y='68' fill='currentColor' style='font-size:1em'>-</text>
-<text text-anchor='middle' x='688' y='68' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='696' y='68' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='704' y='68' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='712' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='720' y='68' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='728' y='68' fill='currentColor' style='font-size:1em'>y</text>
-<text text-anchor='middle' x='736' y='68' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='744' y='68' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='752' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='760' y='68' fill='currentColor' style='font-size:1em'>}</text>
-</g>
-
-    </svg>
-  
-</div>
-<p><strong>自检问题</strong>（加载完文件后问自己）：</p>
-<ol>
-<li>用户提到了哪些关键词？</li>
-<li>TRIGGERS.md 里有多少行匹配了这些关键词？</li>
-<li>我有没有全部读？</li>
-</ol>
-<h2 id="怎么避免">怎么避免</h2>
-<blockquote>
-<p>下次怎么不踩？</p></blockquote>
-<ol>
-<li><strong>扫全表不早停</strong>：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项</li>
-<li><strong>AND 合并取并集</strong>：多条路由的文件列表取并集，去重后全读</li>
-<li><strong>自检三板斧</strong>：
-<ul>
-<li>用户说了什么关键词？</li>
-<li>还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认）</li>
-<li>全量加载了吗？</li>
-</ul>
-</li>
-<li><strong>用户纠正过的地方加红线</strong>：这个坑已经被纠正过了，TRIGGERS.md 里&quot;审计五件套&quot;行的文件列表已更新为全量</li>
-</ol>
-
-  </div>
-
-  <footer class="pitfall-footer">
-    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
-    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
-  </footer>
-</article>
-
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
-    <span>
-        由
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-        驱动
-    </span>
-</footer>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-</html>
+例如用户说"审计这个 Excel"：'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","item":"/pitfalls/pit-triggers-multi-match-merge/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","name":"TRIGGERS 多场景同时命中时只读第一条，漏了后续路由","description":"症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输 匹 合 加 入 配 并 载 ： ： ： ： 用 扫 取 读 户 描 所 全 消 有 部 息 T 匹 匹 关 R 配 配 键 I 路 文 词 G 由 件 G 的 E 并 R 集 S . m d 全 部 行 ， 收 集 所 有 匹 配 的 路 由 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n","keywords":[],"articleBody":"症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输 匹 合 加 入 配 并 载 ： ： ： ： 用 扫 取 读 户 描 所 全 消 有 部 息 T 匹 匹 关 R 配 配 键 I 路 文 词 G 由 件 G 的 E 并 R 集 S . m d 全 部 行 ， 收 集 所 有 匹 配 的 路 由 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹 匹 匹 合 → 配 配 配 并 行 行 行 结 全 1 2 3 果 量 : : : 加 = 载 \u0022 \u0022 \u0022 这 审 数 操 { 计 据 作 a 4 五 录 u 件 入 E d 个 套 项 x i 文 \u0022 目 c t 件 \u0022 e - → l f → \u0022 o a u u a → r d u - i d e p t i x i - t c e f - e c o f l e u o - . r u c m - r o d p - m , i p - e i a a c e u u e c d d . e i i m - t t d d . - a m f t d o a u . r m - d p , i e e c x e c - e d l a - t c a o . m m - d a , u d e i x t c . e m l d - , c o d m a - t a a u - d c i r t o . s m s d - , v e d r a i t f a y - . c m r d o s s - v e r i f y . m d } 自检问题（加载完文件后问自己）：\n用户提到了哪些关键词？ TRIGGERS.md 里有多少行匹配了这些关键词？ 我有没有全部读？ 怎么避免 下次怎么不踩？\n扫全表不早停：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项 AND 合并取并集：多条路由的文件列表取并集，去重后全读 自检三板斧： 用户说了什么关键词？ 还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认） 全量加载了吗？ 用户纠正过的地方加红线：这个坑已经被纠正过了，TRIGGERS.md 里\u0026quot;审计五件套\u0026quot;行的文件列表已更新为全量 ","wordCount":"367","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-triggers-multi-match-merge\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><p>用户说"审计五件套"来审计一个 Excel 文件。这是一个<strong>数据录入项目</strong>，TRIGGERS.md 有两条路由同时命中：</p><ul><li>&ldquo;审计五件套 / 跑审计&rdquo; → 加载 <code>audit-four-piece.md</code></li><li>&ldquo;数据录入项目&rdquo; → 加载 <code>audit-four-piece-data.md</code>、<code>excel-com-audit.md</code>、<code>data-cross-verify.md</code></li></ul><p>但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。</p><p>后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。</p><h2 id=根因>根因</h2><blockquote><p>到底为什么出问题？</p></blockquote><ol><li><strong>匹配策略是"命中即停"</strong>：扫到第一个匹配行就停下来加载了，没继续往下扫</li><li><strong>没有 OR → AND 的思维转换</strong>：多条路由匹配同一任务时，取的文件应该是<strong>并集（AND）</strong>，不是<strong>第一个命中（OR）</strong></li><li><strong>TRIGGERS 表设计有盲区</strong>：通用路由和专用路由分开写，但加载逻辑没做合并</li><li><strong>事后没自检</strong>：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"</li></ol><h2 id=修复>修复</h2><blockquote><p>怎么做？</p></blockquote><p><strong>匹配策略改为"全量扫描 + AND 合并"</strong>：</p><div class="goat svg-container"><svg font-family="Menlo,Lucida Console,monospace" viewBox="0 0 256 73"><g transform="translate(8,16)"><text text-anchor="middle" x="0" y="4" fill="currentcolor" style="font-size:1em">输</text><text text-anchor="middle" x="0" y="20" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="0" y="36" fill="currentcolor" style="font-size:1em">合</text><text text-anchor="middle" x="0" y="52" fill="currentcolor" style="font-size:1em">加</text><text text-anchor="middle" x="8" y="4" fill="currentcolor" style="font-size:1em">入</text><text text-anchor="middle" x="8" y="20" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="8" y="36" fill="currentcolor" style="font-size:1em">并</text><text text-anchor="middle" x="8" y="52" fill="currentcolor" style="font-size:1em">载</text><text text-anchor="middle" x="16" y="4" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="16" y="20" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="16" y="36" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="16" y="52" fill="currentcolor" style="font-size:1em">：</text><text text-anchor="middle" x="24" y="4" fill="currentcolor" style="font-size:1em">用</text><text text-anchor="middle" x="24" y="20" fill="currentcolor" style="font-size:1em">扫</text><text text-anchor="middle" x="24" y="36" fill="currentcolor" style="font-size:1em">取</text><text text-anchor="middle" x="24" y="52" fill="currentcolor" style="font-size:1em">读</text><text text-anchor="middle" x="32" y="4" fill="currentcolor" style="font-size:1em">户</text><text text-anchor="middle" x="32" y="20" fill="currentcolor" style="font-size:1em">描</text><text text-anchor="middle" x="32" y="36" fill="currentcolor" style="font-size:1em">所</text><text text-anchor="middle" x="32" y="52" fill="currentcolor" style="font-size:1em">全</text><text text-anchor="middle" x="40" y="4" fill="currentcolor" style="font-size:1em">消</text><text text-anchor="middle" x="40" y="36" fill="currentcolor" style="font-size:1em">有</text><text text-anchor="middle" x="40" y="52" fill="currentcolor" style="font-size:1em">部</text><text text-anchor="middle" x="48" y="4" fill="currentcolor" style="font-size:1em">息</text><text text-anchor="middle" x="48" y="20" fill="currentcolor" style="font-size:1em">T</text><text text-anchor="middle" x="48" y="36" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="48" y="52" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="56" y="4" fill="currentcolor" style="font-size:1em">关</text><text text-anchor="middle" x="56" y="20" fill="currentcolor" style="font-size:1em">R</text><text text-anchor="middle" x="56" y="36" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="56" y="52" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="64" y="4" fill="currentcolor" style="font-size:1em">键</text><text text-anchor="middle" x="64" y="20" fill="currentcolor" style="font-size:1em">I</text><text text-anchor="middle" x="64" y="36" fill="currentcolor" style="font-size:1em">路</text><text text-anchor="middle" x="64" y="52" fill="currentcolor" style="font-size:1em">文</text><text text-anchor="middle" x="72" y="4" fill="currentcolor" style="font-size:1em">词</text><text text-anchor="middle" x="72" y="20" fill="currentcolor" style="font-size:1em">G</text><text text-anchor="middle" x="72" y="36" fill="currentcolor" style="font-size:1em">由</text><text text-anchor="middle" x="72" y="52" fill="currentcolor" style="font-size:1em">件</text><text text-anchor="middle" x="80" y="20" fill="currentcolor" style="font-size:1em">G</text><text text-anchor="middle" x="80" y="36" fill="currentcolor" style="font-size:1em">的</text><text text-anchor="middle" x="88" y="20" fill="currentcolor" style="font-size:1em">E</text><text text-anchor="middle" x="88" y="36" fill="currentcolor" style="font-size:1em">并</text><text text-anchor="middle" x="96" y="20" fill="currentcolor" style="font-size:1em">R</text><text text-anchor="middle" x="96" y="36" fill="currentcolor" style="font-size:1em">集</text><text text-anchor="middle" x="104" y="20" fill="currentcolor" style="font-size:1em">S</text><text text-anchor="middle" x="112" y="20" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="120" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="128" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="144" y="20" fill="currentcolor" style="font-size:1em">全</text><text text-anchor="middle" x="152" y="20" fill="currentcolor" style="font-size:1em">部</text><text text-anchor="middle" x="160" y="20" fill="currentcolor" style="font-size:1em">行</text><text text-anchor="middle" x="168" y="20" fill="currentcolor" style="font-size:1em">，</text><text text-anchor="middle" x="176" y="20" fill="currentcolor" style="font-size:1em">收</text><text text-anchor="middle" x="184" y="20" fill="currentcolor" style="font-size:1em">集</text><text text-anchor="middle" x="192" y="20" fill="currentcolor" style="font-size:1em">所</text><text text-anchor="middle" x="200" y="20" fill="currentcolor" style="font-size:1em">有</text><text text-anchor="middle" x="208" y="20" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="216" y="20" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="224" y="20" fill="currentcolor" style="font-size:1em">的</text><text text-anchor="middle" x="232" y="20" fill="currentcolor" style="font-size:1em">路</text><text text-anchor="middle" x="240" y="20" fill="currentcolor" style="font-size:1em">由</text></g></svg></div><p>例如用户说"审计这个 Excel"：</p><div class="goat svg-container"><svg font-family="Menlo,Lucida Console,monospace" viewBox="0 0 776 105"><g transform="translate(8,16)"><text text-anchor="middle" x="0" y="4" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="0" y="20" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="0" y="36" fill="currentcolor" style="font-size:1em">匹</text><text text-anchor="middle" x="0" y="68" fill="currentcolor" style="font-size:1em">合</text><text text-anchor="middle" x="0" y="84" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="8" y="4" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="8" y="20" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="8" y="36" fill="currentcolor" style="font-size:1em">配</text><text text-anchor="middle" x="8" y="68" fill="currentcolor" style="font-size:1em">并</text><text text-anchor="middle" x="16" y="4" fill="currentcolor" style="font-size:1em">行</text><text text-anchor="middle" x="16" y="20" fill="currentcolor" style="font-size:1em">行</text><text text-anchor="middle" x="16" y="36" fill="currentcolor" style="font-size:1em">行</text><text text-anchor="middle" x="16" y="68" fill="currentcolor" style="font-size:1em">结</text><text text-anchor="middle" x="16" y="84" fill="currentcolor" style="font-size:1em">全</text><text text-anchor="middle" x="24" y="4" fill="currentcolor" style="font-size:1em">1</text><text text-anchor="middle" x="24" y="20" fill="currentcolor" style="font-size:1em">2</text><text text-anchor="middle" x="24" y="36" fill="currentcolor" style="font-size:1em">3</text><text text-anchor="middle" x="24" y="68" fill="currentcolor" style="font-size:1em">果</text><text text-anchor="middle" x="24" y="84" fill="currentcolor" style="font-size:1em">量</text><text text-anchor="middle" x="32" y="4" fill="currentcolor" style="font-size:1em">:</text><text text-anchor="middle" x="32" y="20" fill="currentcolor" style="font-size:1em">:</text><text text-anchor="middle" x="32" y="36" fill="currentcolor" style="font-size:1em">:</text><text text-anchor="middle" x="32" y="84" fill="currentcolor" style="font-size:1em">加</text><text text-anchor="middle" x="40" y="68" fill="currentcolor" style="font-size:1em">=</text><text text-anchor="middle" x="40" y="84" fill="currentcolor" style="font-size:1em">载</text><text text-anchor="middle" x="48" y="4" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="48" y="20" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="48" y="36" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="48" y="84" fill="currentcolor" style="font-size:1em">这</text><text text-anchor="middle" x="56" y="4" fill="currentcolor" style="font-size:1em">审</text><text text-anchor="middle" x="56" y="20" fill="currentcolor" style="font-size:1em">数</text><text text-anchor="middle" x="56" y="36" fill="currentcolor" style="font-size:1em">操</text><text text-anchor="middle" x="56" y="68" fill="currentcolor" style="font-size:1em">{</text><text text-anchor="middle" x="64" y="4" fill="currentcolor" style="font-size:1em">计</text><text text-anchor="middle" x="64" y="20" fill="currentcolor" style="font-size:1em">据</text><text text-anchor="middle" x="64" y="36" fill="currentcolor" style="font-size:1em">作</text><text text-anchor="middle" x="64" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="64" y="84" fill="currentcolor" style="font-size:1em">4</text><text text-anchor="middle" x="72" y="4" fill="currentcolor" style="font-size:1em">五</text><text text-anchor="middle" x="72" y="20" fill="currentcolor" style="font-size:1em">录</text><text text-anchor="middle" x="72" y="68" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="80" y="4" fill="currentcolor" style="font-size:1em">件</text><text text-anchor="middle" x="80" y="20" fill="currentcolor" style="font-size:1em">入</text><text text-anchor="middle" x="80" y="36" fill="currentcolor" style="font-size:1em">E</text><text text-anchor="middle" x="80" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="80" y="84" fill="currentcolor" style="font-size:1em">个</text><text text-anchor="middle" x="88" y="4" fill="currentcolor" style="font-size:1em">套</text><text text-anchor="middle" x="88" y="20" fill="currentcolor" style="font-size:1em">项</text><text text-anchor="middle" x="88" y="36" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="88" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="88" y="84" fill="currentcolor" style="font-size:1em">文</text><text text-anchor="middle" x="96" y="4" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="96" y="20" fill="currentcolor" style="font-size:1em">目</text><text text-anchor="middle" x="96" y="36" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="96" y="68" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="96" y="84" fill="currentcolor" style="font-size:1em">件</text><text text-anchor="middle" x="104" y="20" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="104" y="36" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="104" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="112" y="4" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="112" y="36" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="112" y="68" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="120" y="20" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="120" y="36" fill="currentcolor" style="font-size:1em">"</text><text text-anchor="middle" x="120" y="68" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="128" y="4" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="128" y="68" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="136" y="4" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="136" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="136" y="36" fill="currentcolor" style="font-size:1em">→</text><text text-anchor="middle" x="136" y="68" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="144" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="144" y="20" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="144" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="152" y="4" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="152" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="152" y="36" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="152" y="68" fill="currentcolor" style="font-size:1em">p</text><text text-anchor="middle" x="160" y="4" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="160" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="160" y="36" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="160" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="168" y="4" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="168" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="168" y="36" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="168" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="176" y="4" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="176" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="176" y="36" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="176" y="68" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="184" y="4" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="184" y="20" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="184" y="36" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="184" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="192" y="4" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="192" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="192" y="36" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="192" y="68" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="200" y="4" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="200" y="20" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="200" y="36" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="200" y="68" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="208" y="4" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="208" y="20" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="208" y="36" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="208" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="216" y="4" fill="currentcolor" style="font-size:1em">p</text><text text-anchor="middle" x="216" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="216" y="36" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="216" y="68" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="224" y="4" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="224" y="20" fill="currentcolor" style="font-size:1em">p</text><text text-anchor="middle" x="224" y="36" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="232" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="232" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="232" y="36" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="232" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="240" y="4" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="240" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="240" y="36" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="240" y="68" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="248" y="4" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="248" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="248" y="36" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="248" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="256" y="4" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="256" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="256" y="36" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="256" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="264" y="4" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="264" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="264" y="36" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="264" y="68" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="272" y="4" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="272" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="272" y="36" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="272" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="280" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="280" y="36" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="280" y="68" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="288" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="288" y="36" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="288" y="68" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="296" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="296" y="68" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="304" y="20" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="304" y="68" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="312" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="312" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="320" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="320" y="68" fill="currentcolor" style="font-size:1em">p</text><text text-anchor="middle" x="328" y="20" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="328" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="336" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="344" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="344" y="68" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="352" y="20" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="352" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="360" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="360" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="368" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="368" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="376" y="20" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="376" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="384" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="384" y="68" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="392" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="392" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="400" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="400" y="68" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="408" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="408" y="68" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="416" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="416" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="424" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="424" y="68" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="432" y="20" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="440" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="440" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="448" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="448" y="68" fill="currentcolor" style="font-size:1em">x</text><text text-anchor="middle" x="456" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="456" y="68" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="464" y="20" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="464" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="472" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="472" y="68" fill="currentcolor" style="font-size:1em">l</text><text text-anchor="middle" x="480" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="480" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="488" y="20" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="488" y="68" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="496" y="68" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="504" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="504" y="68" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="512" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="512" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="520" y="20" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="520" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="528" y="20" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="528" y="68" fill="currentcolor" style="font-size:1em">u</text><text text-anchor="middle" x="536" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="536" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="544" y="20" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="544" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="552" y="20" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="552" y="68" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="560" y="20" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="560" y="68" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="568" y="20" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="568" y="68" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="576" y="20" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="576" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="584" y="20" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="584" y="68" fill="currentcolor" style="font-size:1em">,</text><text text-anchor="middle" x="592" y="20" fill="currentcolor" style="font-size:1em">v</text><text text-anchor="middle" x="600" y="20" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="600" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="608" y="20" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="608" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="616" y="20" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="616" y="68" fill="currentcolor" style="font-size:1em">t</text><text text-anchor="middle" x="624" y="20" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="624" y="68" fill="currentcolor" style="font-size:1em">a</text><text text-anchor="middle" x="632" y="20" fill="currentcolor" style="font-size:1em">y</text><text text-anchor="middle" x="632" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="640" y="20" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="640" y="68" fill="currentcolor" style="font-size:1em">c</text><text text-anchor="middle" x="648" y="20" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="648" y="68" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="656" y="20" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="656" y="68" fill="currentcolor" style="font-size:1em">o</text><text text-anchor="middle" x="664" y="68" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="672" y="68" fill="currentcolor" style="font-size:1em">s</text><text text-anchor="middle" x="680" y="68" fill="currentcolor" style="font-size:1em">-</text><text text-anchor="middle" x="688" y="68" fill="currentcolor" style="font-size:1em">v</text><text text-anchor="middle" x="696" y="68" fill="currentcolor" style="font-size:1em">e</text><text text-anchor="middle" x="704" y="68" fill="currentcolor" style="font-size:1em">r</text><text text-anchor="middle" x="712" y="68" fill="currentcolor" style="font-size:1em">i</text><text text-anchor="middle" x="720" y="68" fill="currentcolor" style="font-size:1em">f</text><text text-anchor="middle" x="728" y="68" fill="currentcolor" style="font-size:1em">y</text><text text-anchor="middle" x="736" y="68" fill="currentcolor" style="font-size:1em">.</text><text text-anchor="middle" x="744" y="68" fill="currentcolor" style="font-size:1em">m</text><text text-anchor="middle" x="752" y="68" fill="currentcolor" style="font-size:1em">d</text><text text-anchor="middle" x="760" y="68" fill="currentcolor" style="font-size:1em">}</text></g></svg></div><p><strong>自检问题</strong>（加载完文件后问自己）：</p><ol><li>用户提到了哪些关键词？</li><li>TRIGGERS.md 里有多少行匹配了这些关键词？</li><li>我有没有全部读？</li></ol><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ol><li><strong>扫全表不早停</strong>：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项</li><li><strong>AND 合并取并集</strong>：多条路由的文件列表取并集，去重后全读</li><li><strong>自检三板斧</strong>：<ul><li>用户说了什么关键词？</li><li>还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认）</li><li>全量加载了吗？</li></ul></li><li><strong>用户纠正过的地方加红线</strong>：这个坑已经被纠正过了，TRIGGERS.md 里"审计五件套"行的文件列表已更新为全量</li></ol></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
+<span>由
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>

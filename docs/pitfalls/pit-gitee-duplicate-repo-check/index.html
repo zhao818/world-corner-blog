@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Gitee 建仓库前没查已有仓库，建了重复仓库 | 世界一隅 | 认知能量工程</title>
-<meta name="keywords" content="">
-<meta name="description" content="症状
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Gitee 建仓库前没查已有仓库，建了重复仓库 | 世界一隅 | 认知能量工程</title>
+<meta name=keywords content><meta name=description content='症状
 
 你看到什么？
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
@@ -21,9 +14,9 @@
 到底为什么出问题？
 
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
-命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
+命名冲动：想了一个"好听的名字"就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
-没有&quot;先确认再行动&quot;的肌肉记忆：对平台操作的敬畏不够
+没有"先确认再行动"的肌肉记忆：对平台操作的敬畏不够
 
 修复
 
@@ -41,59 +34,7 @@ gh repo list zhao818 --limit 50
 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名
 # GitHub: zhao818/claude-memory
 # Gitee:  Zhaotianbibg1/claude-memory  ← 对齐
-删除多余仓库后，重新配置镜像：">
-<meta name="author" content="Tianbing Zhao">
-<link rel="canonical" href="/pitfalls/pit-gitee-duplicate-repo-check/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css" integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="mask-icon" href="/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="/pitfalls/pit-gitee-duplicate-repo-check/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript>
-<meta property="og:title" content="Gitee 建仓库前没查已有仓库，建了重复仓库" />
-<meta property="og:description" content="症状
+删除多余仓库后，重新配置镜像：'><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-gitee-duplicate-repo-check/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-gitee-duplicate-repo-check/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="Gitee 建仓库前没查已有仓库，建了重复仓库"><meta property="og:description" content='症状
 
 你看到什么？
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
@@ -108,9 +49,9 @@ gh repo list zhao818 --limit 50
 到底为什么出问题？
 
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
-命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
+命名冲动：想了一个"好听的名字"就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
-没有&quot;先确认再行动&quot;的肌肉记忆：对平台操作的敬畏不够
+没有"先确认再行动"的肌肉记忆：对平台操作的敬畏不够
 
 修复
 
@@ -128,16 +69,7 @@ gh repo list zhao818 --limit 50
 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名
 # GitHub: zhao818/claude-memory
 # Gitee:  Zhaotianbibg1/claude-memory  ← 对齐
-删除多余仓库后，重新配置镜像：" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/pitfalls/pit-gitee-duplicate-repo-check/" /><meta property="article:section" content="pitfalls" />
-<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
-<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Gitee 建仓库前没查已有仓库，建了重复仓库"/>
-<meta name="twitter:description" content="症状
+删除多余仓库后，重新配置镜像：'><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-gitee-duplicate-repo-check/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="Gitee 建仓库前没查已有仓库，建了重复仓库"><meta name=twitter:description content='症状
 
 你看到什么？
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
@@ -152,9 +84,9 @@ gh repo list zhao818 --limit 50
 到底为什么出问题？
 
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
-命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
+命名冲动：想了一个"好听的名字"就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
-没有&quot;先确认再行动&quot;的肌肉记忆：对平台操作的敬畏不够
+没有"先确认再行动"的肌肉记忆：对平台操作的敬畏不够
 
 修复
 
@@ -172,270 +104,24 @@ gh repo list zhao818 --limit 50
 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名
 # GitHub: zhao818/claude-memory
 # Gitee:  Zhaotianbibg1/claude-memory  ← 对齐
-删除多余仓库后，重新配置镜像："/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "踩坑宝典",
-      "item": "/pitfalls/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Gitee 建仓库前没查已有仓库，建了重复仓库",
-      "item": "/pitfalls/pit-gitee-duplicate-repo-check/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Gitee 建仓库前没查已有仓库，建了重复仓库",
-  "name": "Gitee 建仓库前没查已有仓库，建了重复仓库",
-  "description": "症状 你看到什么？\n踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。\n结果：\n多了一个无用仓库，要手动删除 镜像同步配置白做了 概念混乱：哪个仓库才是真的？ 根因 到底为什么出问题？\n不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库 命名冲动：想了一个\u0026quot;好听的名字\u0026quot;就建了，没考虑是否和已有仓库功能重叠 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐 没有\u0026quot;先确认再行动\u0026quot;的肌肉记忆：对平台操作的敬畏不够 修复 具体步骤。\n# 1. 先查 GitHub 上已有的仓库 gh repo list zhao818 --limit 50 # 2. 再查 Gitee 上已有的仓库 # 浏览器打开 https:\/\/gitee.com\/Zhaotianbibg1 → 看仓库列表 # 3. 确认没有同名\/同功能仓库后，再建 # GitHub → Settings → Developer settings → Personal access tokens # Gitee → 设置 → 私人令牌 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名 # GitHub: zhao818\/claude-memory # Gitee: Zhaotianbibg1\/claude-memory ← 对齐 删除多余仓库后，重新配置镜像：\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "症状 你看到什么？\n踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。\n结果：\n多了一个无用仓库，要手动删除 镜像同步配置白做了 概念混乱：哪个仓库才是真的？ 根因 到底为什么出问题？\n不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库 命名冲动：想了一个\u0026quot;好听的名字\u0026quot;就建了，没考虑是否和已有仓库功能重叠 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐 没有\u0026quot;先确认再行动\u0026quot;的肌肉记忆：对平台操作的敬畏不够 修复 具体步骤。\n# 1. 先查 GitHub 上已有的仓库 gh repo list zhao818 --limit 50 # 2. 再查 Gitee 上已有的仓库 # 浏览器打开 https:\/\/gitee.com\/Zhaotianbibg1 → 看仓库列表 # 3. 确认没有同名\/同功能仓库后，再建 # GitHub → Settings → Developer settings → Personal access tokens # Gitee → 设置 → 私人令牌 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名 # GitHub: zhao818\/claude-memory # Gitee: Zhaotianbibg1\/claude-memory ← 对齐 删除多余仓库后，重新配置镜像：\n# Gitee 仓库设置 → 镜像仓库管理 → 添加镜像 # 源: https:\/\/github.com\/zhao818\/claude-memory.git # 目标: https:\/\/gitee.com\/Zhaotianbibg1\/claude-memory.git 怎么避免 下次怎么不踩？\n建仓库前三问： 这个仓库解决什么问题？（一句话） 已有仓库有没有已经解决这个问题的？（查列表） 能不能合并到已有仓库而不是新建？（优先合并） 命名对齐：GitHub 和 Gitee 的仓库名必须一致（否则镜像对不上） 查完整列表：gh repo list \u002b 浏览器确认，两边的仓库都要看 先规划后建仓：写下来「仓库名 \u002b 用途 \u002b 镜像关系」，确认无误再动手 ",
-  "wordCount" : "126",
-  "inLanguage": "en",
-  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
-  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
-  "author":{
-    "@type": "Person",
-    "name": "Tianbing Zhao"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "\/pitfalls\/pit-gitee-duplicate-repo-check\/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "世界一隅 | 认知能量工程",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\/favicon.ico"
-    }
-  }
-}
-</script>
-</head>
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                <ul class="lang-switch"><li>|</li>
-                </ul>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span>踩坑宝典</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-<article class="pitfall-single">
-  <header class="pitfall-hero">
-    <h1>Gitee 建仓库前没查已有仓库，建了重复仓库</h1>
-    <div class="pitfall-meta">
-      <span>📅 2026-06-13</span>
-    </div>
-  </header>
-
-  <div class="pitfall-body">
-    <h2 id="症状">症状</h2>
-<blockquote>
-<p>你看到什么？</p></blockquote>
-<p>踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 <code>pitfall-knowledge-base</code> 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 <code>claude-memory</code> 仓库，功能完全重叠——<code>claude-memory</code> 本身就是踩坑知识库。</p>
-<p>结果：</p>
-<ul>
-<li>多了一个无用仓库，要手动删除</li>
-<li>镜像同步配置白做了</li>
-<li>概念混乱：哪个仓库才是真的？</li>
-</ul>
-<h2 id="根因">根因</h2>
-<blockquote>
-<p>到底为什么出问题？</p></blockquote>
-<ol>
-<li><strong>不查就建</strong>：建仓库前没跑 <code>gh repo list zhao818</code> 或登录 Gitee 看已有仓库</li>
-<li><strong>命名冲动</strong>：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠</li>
-<li><strong>平台不统一</strong>：GitHub 一个名、Gitee 一个名，镜像对不齐</li>
-<li><strong>没有&quot;先确认再行动&quot;的肌肉记忆</strong>：对平台操作的敬畏不够</li>
-</ol>
-<h2 id="修复">修复</h2>
-<blockquote>
-<p>具体步骤。</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. 先查 GitHub 上已有的仓库</span>
-</span></span><span style="display:flex;"><span>gh repo list zhao818 --limit <span style="color:#ae81ff">50</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 再查 Gitee 上已有的仓库</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 浏览器打开 https://gitee.com/Zhaotianbibg1 → 看仓库列表</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. 确认没有同名/同功能仓库后，再建</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># GitHub → Settings → Developer settings → Personal access tokens</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gitee → 设置 → 私人令牌</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># GitHub: zhao818/claude-memory</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Gitee:  Zhaotianbibg1/claude-memory  ← 对齐</span>
-</span></span></code></pre></div><p>删除多余仓库后，重新配置镜像：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Gitee 仓库设置 → 镜像仓库管理 → 添加镜像</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 源: https://github.com/zhao818/claude-memory.git</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标: https://gitee.com/Zhaotianbibg1/claude-memory.git</span>
-</span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
-<blockquote>
-<p>下次怎么不踩？</p></blockquote>
-<ol>
-<li><strong>建仓库前三问</strong>：
-<ul>
-<li>这个仓库解决什么问题？（一句话）</li>
-<li>已有仓库有没有已经解决这个问题的？（查列表）</li>
-<li>能不能合并到已有仓库而不是新建？（优先合并）</li>
-</ul>
-</li>
-<li><strong>命名对齐</strong>：GitHub 和 Gitee 的仓库名必须一致（否则镜像对不上）</li>
-<li><strong>查完整列表</strong>：<code>gh repo list</code> + 浏览器确认，两边的仓库都要看</li>
-<li><strong>先规划后建仓</strong>：写下来「仓库名 + 用途 + 镜像关系」，确认无误再动手</li>
-</ol>
-
-  </div>
-
-  <footer class="pitfall-footer">
-    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
-    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
-  </footer>
-</article>
-
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
-    <span>
-        由
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-        驱动
-    </span>
-</footer>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-</html>
+删除多余仓库后，重新配置镜像：'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"Gitee 建仓库前没查已有仓库，建了重复仓库","item":"/pitfalls/pit-gitee-duplicate-repo-check/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Gitee 建仓库前没查已有仓库，建了重复仓库","name":"Gitee 建仓库前没查已有仓库，建了重复仓库","description":"症状 你看到什么？\n踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。\n结果：\n多了一个无用仓库，要手动删除 镜像同步配置白做了 概念混乱：哪个仓库才是真的？ 根因 到底为什么出问题？\n不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库 命名冲动：想了一个\u0026quot;好听的名字\u0026quot;就建了，没考虑是否和已有仓库功能重叠 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐 没有\u0026quot;先确认再行动\u0026quot;的肌肉记忆：对平台操作的敬畏不够 修复 具体步骤。\n# 1. 先查 GitHub 上已有的仓库 gh repo list zhao818 --limit 50 # 2. 再查 Gitee 上已有的仓库 # 浏览器打开 https:\/\/gitee.com\/Zhaotianbibg1 → 看仓库列表 # 3. 确认没有同名\/同功能仓库后，再建 # GitHub → Settings → Developer settings → Personal access tokens # Gitee → 设置 → 私人令牌 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名 # GitHub: zhao818\/claude-memory # Gitee: Zhaotianbibg1\/claude-memory ← 对齐 删除多余仓库后，重新配置镜像：\n","keywords":[],"articleBody":"症状 你看到什么？\n踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。\n结果：\n多了一个无用仓库，要手动删除 镜像同步配置白做了 概念混乱：哪个仓库才是真的？ 根因 到底为什么出问题？\n不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库 命名冲动：想了一个\u0026quot;好听的名字\u0026quot;就建了，没考虑是否和已有仓库功能重叠 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐 没有\u0026quot;先确认再行动\u0026quot;的肌肉记忆：对平台操作的敬畏不够 修复 具体步骤。\n# 1. 先查 GitHub 上已有的仓库 gh repo list zhao818 --limit 50 # 2. 再查 Gitee 上已有的仓库 # 浏览器打开 https:\/\/gitee.com\/Zhaotianbibg1 → 看仓库列表 # 3. 确认没有同名\/同功能仓库后，再建 # GitHub → Settings → Developer settings → Personal access tokens # Gitee → 设置 → 私人令牌 # 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名 # GitHub: zhao818\/claude-memory # Gitee: Zhaotianbibg1\/claude-memory ← 对齐 删除多余仓库后，重新配置镜像：\n# Gitee 仓库设置 → 镜像仓库管理 → 添加镜像 # 源: https:\/\/github.com\/zhao818\/claude-memory.git # 目标: https:\/\/gitee.com\/Zhaotianbibg1\/claude-memory.git 怎么避免 下次怎么不踩？\n建仓库前三问： 这个仓库解决什么问题？（一句话） 已有仓库有没有已经解决这个问题的？（查列表） 能不能合并到已有仓库而不是新建？（优先合并） 命名对齐：GitHub 和 Gitee 的仓库名必须一致（否则镜像对不上） 查完整列表：gh repo list \u002b 浏览器确认，两边的仓库都要看 先规划后建仓：写下来「仓库名 \u002b 用途 \u002b 镜像关系」，确认无误再动手 ","wordCount":"126","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-gitee-duplicate-repo-check\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>Gitee 建仓库前没查已有仓库，建了重复仓库</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><p>踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 <code>pitfall-knowledge-base</code> 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 <code>claude-memory</code> 仓库，功能完全重叠——<code>claude-memory</code> 本身就是踩坑知识库。</p><p>结果：</p><ul><li>多了一个无用仓库，要手动删除</li><li>镜像同步配置白做了</li><li>概念混乱：哪个仓库才是真的？</li></ul><h2 id=根因>根因</h2><blockquote><p>到底为什么出问题？</p></blockquote><ol><li><strong>不查就建</strong>：建仓库前没跑 <code>gh repo list zhao818</code> 或登录 Gitee 看已有仓库</li><li><strong>命名冲动</strong>：想了一个"好听的名字"就建了，没考虑是否和已有仓库功能重叠</li><li><strong>平台不统一</strong>：GitHub 一个名、Gitee 一个名，镜像对不齐</li><li><strong>没有"先确认再行动"的肌肉记忆</strong>：对平台操作的敬畏不够</li></ol><h2 id=修复>修复</h2><blockquote><p>具体步骤。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 1. 先查 GitHub 上已有的仓库</span>
+</span></span><span style=display:flex><span>gh repo list zhao818 --limit <span style=color:#ae81ff>50</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 2. 再查 Gitee 上已有的仓库</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 浏览器打开 https://gitee.com/Zhaotianbibg1 → 看仓库列表</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3. 确认没有同名/同功能仓库后，再建</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># GitHub → Settings → Developer settings → Personal access tokens</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Gitee → 设置 → 私人令牌</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 4. 名称对齐：GitHub 和 Gitee 用同一个仓库名</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># GitHub: zhao818/claude-memory</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Gitee:  Zhaotianbibg1/claude-memory  ← 对齐</span>
+</span></span></code></pre></div><p>删除多余仓库后，重新配置镜像：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Gitee 仓库设置 → 镜像仓库管理 → 添加镜像</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 源: https://github.com/zhao818/claude-memory.git</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 目标: https://gitee.com/Zhaotianbibg1/claude-memory.git</span>
+</span></span></code></pre></div><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ol><li><strong>建仓库前三问</strong>：<ul><li>这个仓库解决什么问题？（一句话）</li><li>已有仓库有没有已经解决这个问题的？（查列表）</li><li>能不能合并到已有仓库而不是新建？（优先合并）</li></ul></li><li><strong>命名对齐</strong>：GitHub 和 Gitee 的仓库名必须一致（否则镜像对不上）</li><li><strong>查完整列表</strong>：<code>gh repo list</code> + 浏览器确认，两边的仓库都要看</li><li><strong>先规划后建仓</strong>：写下来「仓库名 + 用途 + 镜像关系」，确认无误再动手</li></ol></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
+<span>由
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
