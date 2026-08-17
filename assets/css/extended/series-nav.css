@@ -46,6 +46,17 @@
     border-color: rgba(217, 119, 6, 0.45);
 }
 
+/* 踩坑宝典 — navy/gold */
+.nav-menu-pitfalls {
+    background: rgba(26, 26, 46, 0.12);
+    color: #1a1a2e;
+    border: 1px solid rgba(26, 26, 46, 0.25);
+}
+.nav-menu-pitfalls:hover {
+    background: rgba(26, 26, 46, 0.22);
+    border-color: rgba(26, 26, 46, 0.45);
+}
+
 /* Dark mode */
 .dark .nav-systems-thinking,
 .dark .nav-menu-systems-thinking {
@@ -81,6 +92,16 @@
 .dark .nav-menu-tooling:hover {
     background: rgba(245, 158, 11, 0.28);
     border-color: rgba(245, 158, 11, 0.50);
+}
+
+.dark .nav-menu-pitfalls {
+    background: rgba(200, 160, 60, 0.16);
+    color: #c8a03c;
+    border-color: rgba(200, 160, 60, 0.30);
+}
+.dark .nav-menu-pitfalls:hover {
+    background: rgba(200, 160, 60, 0.28);
+    border-color: rgba(200, 160, 60, 0.50);
 }
 
 /* ===== Series Sidebar ===== */

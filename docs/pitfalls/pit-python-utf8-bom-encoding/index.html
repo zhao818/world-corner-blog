@@ -1,11 +1,18 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Python encoding='utf-8' 不能自动处理 BOM | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content><meta name=description content='症状
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Python encoding=&#39;utf-8&#39; 不能自动处理 BOM | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="症状
 
 你看到什么？
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
-        if line.startswith("GITEE_TOKEN="):  # ← 永远不匹配
-            token = line.strip().split("=", 1)[1]
+        if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
+            token = line.strip().split(&#34;=&#34;, 1)[1]
 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。
 根因
 
@@ -15,10 +22,10 @@ Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 
 
 具体怎么修的？
 # ❌ 错误
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
 # ✅ 正确——自动跳过 BOM
-with open("config.txt", encoding="utf-8-sig") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 一行之差，三天之坑。
 怎么避免
 
@@ -27,13 +34,65 @@ with open("config.txt", encoding="utf-8-sig") as f:
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
 如果不想改 encoding，可以手动 line.lstrip(&#39;﻿&#39;)
-'><meta name=author content="Tianbing Zhao"><link rel=canonical href=/pitfalls/pit-python-utf8-bom-encoding/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=/pitfalls/pit-python-utf8-bom-encoding/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="Python encoding='utf-8' 不能自动处理 BOM"><meta property="og:description" content='症状
+">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/pitfalls/pit-python-utf8-bom-encoding/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/pitfalls/pit-python-utf8-bom-encoding/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="Python encoding=&#39;utf-8&#39; 不能自动处理 BOM" />
+<meta property="og:description" content="症状
 
 你看到什么？
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
-        if line.startswith("GITEE_TOKEN="):  # ← 永远不匹配
-            token = line.strip().split("=", 1)[1]
+        if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
+            token = line.strip().split(&#34;=&#34;, 1)[1]
 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。
 根因
 
@@ -43,10 +102,10 @@ Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 
 
 具体怎么修的？
 # ❌ 错误
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
 # ✅ 正确——自动跳过 BOM
-with open("config.txt", encoding="utf-8-sig") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 一行之差，三天之坑。
 怎么避免
 
@@ -55,13 +114,21 @@ with open("config.txt", encoding="utf-8-sig") as f:
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
 如果不想改 encoding，可以手动 line.lstrip(&#39;﻿&#39;)
-'><meta property="og:type" content="article"><meta property="og:url" content="/pitfalls/pit-python-utf8-bom-encoding/"><meta property="article:section" content="pitfalls"><meta property="article:published_time" content="2026-06-13T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-13T00:00:00+00:00"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="Python encoding='utf-8' 不能自动处理 BOM"><meta name=twitter:description content='症状
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pitfalls/pit-python-utf8-bom-encoding/" /><meta property="article:section" content="pitfalls" />
+<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python encoding=&#39;utf-8&#39; 不能自动处理 BOM"/>
+<meta name="twitter:description" content="症状
 
 你看到什么？
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
-        if line.startswith("GITEE_TOKEN="):  # ← 永远不匹配
-            token = line.strip().split("=", 1)[1]
+        if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
+            token = line.strip().split(&#34;=&#34;, 1)[1]
 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。
 根因
 
@@ -71,10 +138,10 @@ Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 
 
 具体怎么修的？
 # ❌ 错误
-with open("config.txt", encoding="utf-8") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
 # ✅ 正确——自动跳过 BOM
-with open("config.txt", encoding="utf-8-sig") as f:
+with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 一行之差，三天之坑。
 怎么避免
 
@@ -83,17 +150,245 @@ with open("config.txt", encoding="utf-8-sig") as f:
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
 如果不想改 encoding，可以手动 line.lstrip(&#39;﻿&#39;)
-'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"踩坑宝典","item":"/pitfalls/"},{"@type":"ListItem","position":1,"name":"Python encoding='utf-8' 不能自动处理 BOM","item":"/pitfalls/pit-python-utf8-bom-encoding/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Python encoding='utf-8' 不能自动处理 BOM","name":"Python encoding=\u0027utf-8\u0027 不能自动处理 BOM","description":"症状 你看到什么？\nwith open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: for line in f: if line.startswith(\u0026#34;GITEE_TOKEN=\u0026#34;): # ← 永远不匹配 token = line.strip().split(\u0026#34;=\u0026#34;, 1)[1] 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。\n根因 真正的原因是什么？\nWindows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=\u0027utf-8\u0027 不会自动跳过 BOM，它被当作第一个字符读进去。\n修复 具体怎么修的？\n# ❌ 错误 with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: # ✅ 正确——自动跳过 BOM with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8-sig\u0026#34;) as f: 一行之差，三天之坑。\n怎么避免 下次怎么不踩？\n读配置文件、.env、用户输入文件时，默认用 utf-8-sig 调试编码问题第一招：print(repr(line)) 看原始字符 如果不想改 encoding，可以手动 line.lstrip(\u0027﻿\u0027) ","keywords":[],"articleBody":"症状 你看到什么？\nwith open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: for line in f: if line.startswith(\u0026#34;GITEE_TOKEN=\u0026#34;): # ← 永远不匹配 token = line.strip().split(\u0026#34;=\u0026#34;, 1)[1] 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。\n根因 真正的原因是什么？\nWindows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=\u0027utf-8\u0027 不会自动跳过 BOM，它被当作第一个字符读进去。\n修复 具体怎么修的？\n# ❌ 错误 with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: # ✅ 正确——自动跳过 BOM with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8-sig\u0026#34;) as f: 一行之差，三天之坑。\n怎么避免 下次怎么不踩？\n读配置文件、.env、用户输入文件时，默认用 utf-8-sig 调试编码问题第一招：print(repr(line)) 看原始字符 如果不想改 encoding，可以手动 line.lstrip(\u0027﻿\u0027) ","wordCount":"73","inLanguage":"en","datePublished":"2026-06-13 00:00:00 \u002b0000 UTC","dateModified":"2026-06-13 00:00:00 \u002b0000 UTC","author":{"@type":"Person","name":"Tianbing Zhao"},"mainEntityOfPage":{"@type":"WebPage","@id":"\/pitfalls\/pit-python-utf8-bom-encoding\/"},"publisher":{"@type":"Organization","name":"世界一隅 | 认知能量工程","logo":{"@type":"ImageObject","url":"\/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><article class=pitfall-single><header class=pitfall-hero><h1>Python encoding='utf-8' 不能自动处理 BOM</h1><div class=pitfall-meta><span>📅 2026-06-13</span></div></header><div class=pitfall-body><h2 id=症状>症状</h2><blockquote><p>你看到什么？</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#34;config.txt&#34;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>) <span style=color:#66d9ef>as</span> f:
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> line <span style=color:#f92672>in</span> f:
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> line<span style=color:#f92672>.</span>startswith(<span style=color:#e6db74>&#34;GITEE_TOKEN=&#34;</span>):  <span style=color:#75715e># ← 永远不匹配</span>
-</span></span><span style=display:flex><span>            token <span style=color:#f92672>=</span> line<span style=color:#f92672>.</span>strip()<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34;=&#34;</span>, <span style=color:#ae81ff>1</span>)[<span style=color:#ae81ff>1</span>]
-</span></span></code></pre></div><p>文件明明以 <code>GITEE_TOKEN=cfe33...</code> 开头，但 <code>startswith</code> 永远返回 False，令牌读不到。打了 <code>print(repr(line))</code> 才发现行首有 <code>﻿</code>。</p><h2 id=根因>根因</h2><blockquote><p>真正的原因是什么？</p></blockquote><p>Windows 下某些工具（记事本、PowerShell <code>Out-File</code>、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，<code>﻿</code>）。Python 的 <code>encoding='utf-8'</code> 不会自动跳过 BOM，它被当作第一个字符读进去。</p><h2 id=修复>修复</h2><blockquote><p>具体怎么修的？</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># ❌ 错误</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#34;config.txt&#34;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8&#34;</span>) <span style=color:#66d9ef>as</span> f:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#75715e># ✅ 正确——自动跳过 BOM</span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>with</span> open(<span style=color:#e6db74>&#34;config.txt&#34;</span>, encoding<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;utf-8-sig&#34;</span>) <span style=color:#66d9ef>as</span> f:
-</span></span></code></pre></div><p>一行之差，三天之坑。</p><h2 id=怎么避免>怎么避免</h2><blockquote><p>下次怎么不踩？</p></blockquote><ul><li>读配置文件、.env、用户输入文件时，默认用 <code>utf-8-sig</code></li><li>调试编码问题第一招：<code>print(repr(line))</code> 看原始字符</li><li>如果不想改 encoding，可以手动 <code>line.lstrip('﻿')</code></li></ul></div><footer class=pitfall-footer><p>🕳️ 这条踩坑对你有用吗？<a href=https://github.com/zhao818/claude-memory/issues/new target=_blank>报告新踩坑</a></p><p><a href=/pitfalls/>← 返回踩坑宝典</a></p></footer></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "踩坑宝典",
+      "item": "/pitfalls/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Python encoding='utf-8' 不能自动处理 BOM",
+      "item": "/pitfalls/pit-python-utf8-bom-encoding/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Python encoding='utf-8' 不能自动处理 BOM",
+  "name": "Python encoding=\u0027utf-8\u0027 不能自动处理 BOM",
+  "description": "症状 你看到什么？\nwith open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: for line in f: if line.startswith(\u0026#34;GITEE_TOKEN=\u0026#34;): # ← 永远不匹配 token = line.strip().split(\u0026#34;=\u0026#34;, 1)[1] 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。\n根因 真正的原因是什么？\nWindows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=\u0027utf-8\u0027 不会自动跳过 BOM，它被当作第一个字符读进去。\n修复 具体怎么修的？\n# ❌ 错误 with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: # ✅ 正确——自动跳过 BOM with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8-sig\u0026#34;) as f: 一行之差，三天之坑。\n怎么避免 下次怎么不踩？\n读配置文件、.env、用户输入文件时，默认用 utf-8-sig 调试编码问题第一招：print(repr(line)) 看原始字符 如果不想改 encoding，可以手动 line.lstrip(\u0027﻿\u0027) ",
+  "keywords": [
+    
+  ],
+  "articleBody": "症状 你看到什么？\nwith open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: for line in f: if line.startswith(\u0026#34;GITEE_TOKEN=\u0026#34;): # ← 永远不匹配 token = line.strip().split(\u0026#34;=\u0026#34;, 1)[1] 文件明明以 GITEE_TOKEN=cfe33... 开头，但 startswith 永远返回 False，令牌读不到。打了 print(repr(line)) 才发现行首有 ﻿。\n根因 真正的原因是什么？\nWindows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=\u0027utf-8\u0027 不会自动跳过 BOM，它被当作第一个字符读进去。\n修复 具体怎么修的？\n# ❌ 错误 with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8\u0026#34;) as f: # ✅ 正确——自动跳过 BOM with open(\u0026#34;config.txt\u0026#34;, encoding=\u0026#34;utf-8-sig\u0026#34;) as f: 一行之差，三天之坑。\n怎么避免 下次怎么不踩？\n读配置文件、.env、用户输入文件时，默认用 utf-8-sig 调试编码问题第一招：print(repr(line)) 看原始字符 如果不想改 encoding，可以手动 line.lstrip(\u0027﻿\u0027) ",
+  "wordCount" : "73",
+  "inLanguage": "en",
+  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "\/pitfalls\/pit-python-utf8-bom-encoding\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+<article class="pitfall-single">
+  <header class="pitfall-hero">
+    <h1>Python encoding=&#39;utf-8&#39; 不能自动处理 BOM</h1>
+    <div class="pitfall-meta">
+      <span>📅 2026-06-13</span>
+    </div>
+  </header>
+
+  <div class="pitfall-body">
+    <h2 id="症状">症状</h2>
+<blockquote>
+<p>你看到什么？</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> line<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;GITEE_TOKEN=&#34;</span>):  <span style="color:#75715e"># ← 永远不匹配</span>
+</span></span><span style="display:flex;"><span>            token <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>, <span style="color:#ae81ff">1</span>)[<span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><p>文件明明以 <code>GITEE_TOKEN=cfe33...</code> 开头，但 <code>startswith</code> 永远返回 False，令牌读不到。打了 <code>print(repr(line))</code> 才发现行首有 <code>﻿</code>。</p>
+<h2 id="根因">根因</h2>
+<blockquote>
+<p>真正的原因是什么？</p></blockquote>
+<p>Windows 下某些工具（记事本、PowerShell <code>Out-File</code>、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，<code>﻿</code>）。Python 的 <code>encoding='utf-8'</code> 不会自动跳过 BOM，它被当作第一个字符读进去。</p>
+<h2 id="修复">修复</h2>
+<blockquote>
+<p>具体怎么修的？</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ❌ 错误</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ✅ 正确——自动跳过 BOM</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8-sig&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span></code></pre></div><p>一行之差，三天之坑。</p>
+<h2 id="怎么避免">怎么避免</h2>
+<blockquote>
+<p>下次怎么不踩？</p></blockquote>
+<ul>
+<li>读配置文件、.env、用户输入文件时，默认用 <code>utf-8-sig</code></li>
+<li>调试编码问题第一招：<code>print(repr(line))</code> 看原始字符</li>
+<li>如果不想改 encoding，可以手动 <code>line.lstrip('﻿')</code></li>
+</ul>
+
+  </div>
+
+  <footer class="pitfall-footer">
+    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
+  </footer>
+</article>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,10 +1,159 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>自动化 | 世界一隅 | 认知能量工程</title>
-<meta name=keywords content><meta name=description content="在算法洪流中，守护清醒的微光。"><meta name=author content="Tianbing Zhao"><link rel=canonical href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/><link crossorigin=anonymous href=/assets/css/stylesheet.f16579b5abd9a8338ceaa11efe588a0a36ee3f072ebfacc934cd2859a74d234b.css integrity="sha256-8WV5tavZqDOM6qEe/liKCjbuPwcuv6zJNM0oWadNI0s=" rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate type=application/rss+xml href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml><link rel=alternate hreflang=en href=/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="自动化"><meta property="og:description" content="在算法洪流中，守护清醒的微光。"><meta property="og:type" content="website"><meta property="og:url" content="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"><meta property="og:site_name" content="世界一隅"><meta name=twitter:card content="summary"><meta name=twitter:title content="自动化"><meta name=twitter:description content="在算法洪流中，守护清醒的微光。"></head><body class=list id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/ accesskey=h title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li></ul></div></div><ul id=menu><li><a href=/posts/systems-thinking/ title=系统思维 class="nav-btn nav-menu-systems-thinking"><span>系统思维</span></a></li><li><a href=/posts/learning/ title=学习方法 class="nav-btn nav-menu-learning"><span>学习方法</span></a></li><li><a href=/posts/tooling/ title=效率工具 class="nav-btn nav-menu-tooling"><span>效率工具</span></a></li><li><a href=/pitfalls/ title=踩坑宝典 class="nav-btn nav-menu-pitfalls"><span>踩坑宝典</span></a></li></ul></nav></header><main class=main><header class=page-header><h1>自动化</h1></header><article class="post-entry tag-entry"><header class=entry-header><h2>AI说不行的时候</h2></header><div class=entry-content><p>每次 Claude 说"我做不到"的时候，恰恰是真正的工作开始的时刻。
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>自动化 | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="在算法洪流中，守护清醒的微光。">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml">
+<link rel="alternate" hreflang="en" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="自动化" />
+<meta property="og:description" content="在算法洪流中，守护清醒的微光。" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自动化"/>
+<meta name="twitter:description" content="在算法洪流中，守护清醒的微光。"/>
+
+</head>
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    自动化
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>AI说不行的时候
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>每次 Claude 说&#34;我做不到&#34;的时候，恰恰是真正的工作开始的时刻。
 今天我让它帮我发求职邮件。六封。
 它说不行——没有邮箱授权码。我给了它。它写了一个 Python 脚本，六封邮件在三十秒内全部发出。然后它说不能读回信——没有 IMAP。我给了它。它架了一个心跳监控，每两个半小时扫一次收件箱，匹配到我投递的那几家公司，有真人回复立刻通知。
-从"发不了邮件"到全自动求职管线，只用了两个小时。但这两个小时里最重要的工序，不是 AI 做了什么，而是我在每一次它说"不行"的时候做了同一件事：不给它答案，给它一把钥匙。
-一、“不行"不是一个结论，是一个接口 绝大多数人把 AI 的拒绝当作结果：“你看，它做不到。“然后放弃。
-但你仔细听 AI 说"不行"的时候，它的措辞其实很精确。它不会说"这件事不可能”，它会说"我需要 X，但我现在没有 X”。
+从&#34;发不了邮件&#34;到全自动求职管线，只用了两个小时。但这两个小时里最重要的工序，不是 AI 做了什么，而是我在每一次它说&#34;不行&#34;的时候做了同一件事：不给它答案，给它一把钥匙。
+一、“不行&#34;不是一个结论，是一个接口 绝大多数人把 AI 的拒绝当作结果：“你看，它做不到。“然后放弃。
+但你仔细听 AI 说&#34;不行&#34;的时候，它的措辞其实很精确。它不会说&#34;这件事不可能”，它会说&#34;我需要 X，但我现在没有 X”。
 X 可能是一个授权码。一个浏览器插件。一个账号密码。一个被你忽略的配置文件。
 你以为它卡在能力边界上，其实它卡在权限边界上。区别在于：能力是它的事，权限是你的事。你把权限给它，它自己会搞定能力。
 这不是我发现的规律。这是软件工程里的老道理——“关注点分离”——但放到人机协作里，突然变得锋利起来。
@@ -12,17 +161,29 @@ X 可能是一个授权码。一个浏览器插件。一个账号密码。一个
 第一次：打开 QQ 邮箱，点设置，生成一个 SMTP 授权码。第二次：同样的授权码，告诉它 IMAP 服务器地址。
 就这两次。剩下的——简历整理、邮件措辞、收件人匹配、发送时序、监控脚本、夜间休眠逻辑、回复分类——全是它做的。
 这很像建筑工地的测量放线：你定三个桩，工人照着干一整个月。桩偏了，全偏了；桩对了，剩下的都是体力活。
-AI 时代最高杠杆的动作，不是"干得最多”，而是"给得最准"。给一个授权码，解锁一整条管线。给一句"试试 SMTP"，打通一个你以为不可能的事情。
+AI 时代最高杠杆的动作，不是&#34;干得最多”，而是&#34;给得最准&#34;。给一个授权码，解锁一整条管线。给一句&#34;试试 SMTP&#34;，打通一个你以为不可能的事情。
 三、它不会主动问你要钥匙，你得自己知道哪里有门 这是整件事里最难的部分。
-Claude 第一次拒绝时，它说的是"我没有你的邮箱密码，也没法替你登录"。它不是让我去生成 SMTP 授权码。它甚至没提 SMTP 这条路。
-这条路是我自己知道的——我知道 QQ 邮箱有 SMTP，知道可以用 Python 的 smtplib，知道授权码和密码不一样。如果你不知道这些，对话在"我没法替你登录"就结束了。
+Claude 第一次拒绝时，它说的是&#34;我没有你的邮箱密码，也没法替你登录&#34;。它不是让我去生成 SMTP 授权码。它甚至没提 SMTP 这条路。
+这条路是我自己知道的——我知道 QQ 邮箱有 SMTP，知道可以用 Python 的 smtplib，知道授权码和密码不一样。如果你不知道这些，对话在&#34;我没法替你登录&#34;就结束了。
 所以真正的门槛不是你愿不愿意推下去，是你有没有推下去的知识储备。
-这听起来像是在说"你得先懂技术才行"，但不是。你不必懂 smtplib 的语法，但你得懂**“这事儿理论上能通”**。比如你知道邮箱可以第三方客户端登录，那就能追问一句"能不能用 SMTP 那种方式发"。一句话就够了。AI 会把余下的代码写了。
+这听起来像是在说&#34;你得先懂技术才行&#34;，但不是。你不必懂 smtplib 的语法，但你得懂**“这事儿理论上能通”**。比如你知道邮箱可以第三方客户端登录，那就能追问一句&#34;能不能用 SMTP 那种方式发&#34;。一句话就够了。AI 会把余下的代码写了。
 你需要的不是技术，是方向感。
 四、人与 AI 的新分工 旧分工是：人想，人做。
 AI 出现后的第一代分工是：人想，AI 做。
 现在进化到第二代：人指方向，AI 铺路；人给钥匙，AI 开门。
-...</p></div><footer class=entry-footer>&lt;span title='2026-06-11 00:00:00 +0000 UTC'>2026年6月11日&lt;/span>&amp;nbsp;·&amp;nbsp;美好需要创造</footer><a class=entry-link aria-label="post link to AI说不行的时候" href=/posts/systems-thinking/ai-no-means-yes/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>AI审AI</h2></header><div class=entry-content><p>上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。
+...</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-06-11 00:00:00 &#43;0000 UTC&#39;&gt;2026年6月11日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;美好需要创造</footer>
+  <a class="entry-link" aria-label="post link to AI说不行的时候" href="/posts/systems-thinking/ai-no-means-yes/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>AI审AI
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。
 做工资专户数据录入。导出平台数据一看，有几个人的月薪高得离谱——普通工人月入七万？不是工人工资高，是上一个智能体把数据做坏了。应发那列明明写的是两千多，实发列被填成了七万多。数字前面凭空多了一位。几个人，几个月，几十条记录，全部污染。
 壹 · 四件套上场 不是随便看一眼就改。用的是审计四件套——四道关卡一轮轮过。
 ① 规则脚本：字段级硬查。日期格式对不对、金额是不是正数、进账有没有对方账户。秒级跑完，数百条逐一筛查。
@@ -32,12 +193,25 @@ AI 出现后的第一代分工是：人想，AI 做。
 贰 · 到底谁靠谱 跑完第一轮发现问题 → 修 → 再跑验证 → 全绿。
 不是AI靠不靠谱，是单靠一个AI不靠谱，三个互相审才靠谱。
 那个把两千写成七万的智能体，单独干活的时候没人盯着。现在有了四件套——四个方向，四个工具，同时看。
-任何一个方向的检查单独拿出来都有盲区。规则脚本看不出"这个人月薪不太对"，代码审查发现不了"进账比出账少"。但四个凑在一起，盲区就重叠不起来了。
-叁 · 最后 不是什么高深的技术。就是把"多看一眼"这件事制度化了。四个维度，四个工具，跑完验证，不绿不交。
+任何一个方向的检查单独拿出来都有盲区。规则脚本看不出&#34;这个人月薪不太对&#34;，代码审查发现不了&#34;进账比出账少&#34;。但四个凑在一起，盲区就重叠不起来了。
+叁 · 最后 不是什么高深的技术。就是把&#34;多看一眼&#34;这件事制度化了。四个维度，四个工具，跑完验证，不绿不交。
 别信任何一个AI的第一次输出。多过几道关，才是对数据负责。格式零错误，金额全对上，四件套跑完，全绿入库。
 这跟《AI说不行的时候》讨论的是同一个底层逻辑——AI的能力不是问题，问题是你有没有给它足够的检查和反馈机制。单独一个AI的盲区，只有在多角度的交叉审视中才会暴露。
-核心要点 单靠一个AI不靠谱，三个互相审才靠谱。 任何一个方向的检查单独都有盲区，四个凑在一起盲区就重叠不起来。 审计不是查一次，是制度化。 把"多看一眼"变成四道关卡：规则→LangGraph→代码审查→CrewAI，不绿不交。 数据质量是底线。 一个数字多一位、一个月份对不上，就会污染几十条记录。格式零错误，金额全对上。 写于永德 · 2026.06.10</p></div><footer class=entry-footer>&lt;span title='2026-06-10 00:00:00 +0000 UTC'>2026年6月10日&lt;/span>&amp;nbsp;·&amp;nbsp;美好需要创造</footer><a class=entry-link aria-label="post link to AI审AI" href=/posts/tooling/ai-audit-ai/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验</h2></header><div class=entry-content><p>一、引子：深夜的 WSL 命令行 凌晨一点，光标在 WSL 终端里闪烁。屏幕上是第 14 次 curl 调用返回的 JSON：
-{"errcode":40001,"errmsg":"invalid credential"} 不是域名备案的死循环，就是 API 令牌的隐藏规则；不是签名算法文档的暧昧，就是 OAuth 流程中某个神秘的 redirect_uri 校验。每一家平台都像一座围城，用厚厚的 API 文档砌起高墙，对闯入者说：要么遵守我的规则，要么滚。
+核心要点 单靠一个AI不靠谱，三个互相审才靠谱。 任何一个方向的检查单独都有盲区，四个凑在一起盲区就重叠不起来。 审计不是查一次，是制度化。 把&#34;多看一眼&#34;变成四道关卡：规则→LangGraph→代码审查→CrewAI，不绿不交。 数据质量是底线。 一个数字多一位、一个月份对不上，就会污染几十条记录。格式零错误，金额全对上。 写于永德 · 2026.06.10
+</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-06-10 00:00:00 &#43;0000 UTC&#39;&gt;2026年6月10日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;美好需要创造</footer>
+  <a class="entry-link" aria-label="post link to AI审AI" href="/posts/tooling/ai-audit-ai/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一、引子：深夜的 WSL 命令行 凌晨一点，光标在 WSL 终端里闪烁。屏幕上是第 14 次 curl 调用返回的 JSON：
+{&#34;errcode&#34;:40001,&#34;errmsg&#34;:&#34;invalid credential&#34;} 不是域名备案的死循环，就是 API 令牌的隐藏规则；不是签名算法文档的暧昧，就是 OAuth 流程中某个神秘的 redirect_uri 校验。每一家平台都像一座围城，用厚厚的 API 文档砌起高墙，对闯入者说：要么遵守我的规则，要么滚。
 而他想要的，只不过是一个简单到近乎原始的需求——把自己写的长文，从 WSL 的终端，推向手机锁屏上的一条通知。
 这听起来像是一个技术宅的自找麻烦。但如果你仔细看，会发现这其实是这个时代每个个体创作者都在面临的困境：我们赖以生存的数字工具，正在被大公司的“标准化”逻辑层层加码。一个简单的念头，包裹在 API 鉴权、域名备案、SSL 证书、Webhook IP 白名单的层层叠叠之中——等它穿透这些门槛时，最初那点灵光早已灰飞烟灭。
 这不是一个技术问题。这是一个系统性问题。
@@ -51,36 +225,128 @@ AI 出现后的第一代分工是：人想，AI 做。
 真正的突破发生在你跳出这条回路，从更高维度审视它的时候。当意识到“我不是技术不行，而是用错了工具范式”的那一刻，环境回路的锁链就断开了。
 三、破局：技术降维的微小实验 1️⃣ 放弃重型 API，拥抱 Webhook 转折点异常简单：不再去管什么 access_token，不再理会 OAuth 流程。从“与企业系统对接”的思维框架中跳出来，转而问一个更本质的问题：
 我只是想把一段文字从点 A 送到点 B，最短路径是什么？
-...</p></div><footer class=entry-footer>&lt;span title='2026-05-18 21:42:52 +0800 CST'>2026年5月18日&lt;/span>&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer><a class=entry-link aria-label="post link to 当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验" href=/posts/tooling/tool-sovereignty-occams-razor/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>别再轮询了。你的人生应该 Event-Driven。</h2></header><div class=entry-content><p>人类正在经历一场前所未有的姿势悲剧。
+...</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-05-18 21:42:52 &#43;0800 CST&#39;&gt;2026年5月18日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to 当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验" href="/posts/tooling/tool-sovereignty-occams-razor/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>别再轮询了。你的人生应该 Event-Driven。
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>人类正在经历一场前所未有的姿势悲剧。
 我们像一群被钉在椅子上的稻草人，每隔几分钟就下意识地掏出手机——刷新一下邮件、刷一下数据面板、刷一下抢票页面。明明是个有高级认知能力的物种，行为模式却退化成了实验室里踩踏板的鸽子：不断地按键，只为了确定下一颗食丸有没有掉下来。
 这就是系统的耻辱。
-你写代码的时候都知道不要用 while True: time.sleep(5) 做轮询——他在消耗 CPU、空转 IO、让风扇狂转却什么都没等到。但在生活里，你把自己活成了一个轮询进程：打开页面、F5、没变化；再 F5、还是没变化。一直刷到凌晨两点，直到那个绿色的"有票"按钮终于出现，而你因为手抖错过了最后的 0.3 秒。
+你写代码的时候都知道不要用 while True: time.sleep(5) 做轮询——他在消耗 CPU、空转 IO、让风扇狂转却什么都没等到。但在生活里，你把自己活成了一个轮询进程：打开页面、F5、没变化；再 F5、还是没变化。一直刷到凌晨两点，直到那个绿色的&#34;有票&#34;按钮终于出现，而你因为手抖错过了最后的 0.3 秒。
 别骗自己了。你缺的根本不是手速，你缺的是一个事件驱动的架构。
 问题：你还在用人肉轮询？ 把现代人的信息焦虑拆开，你会发现一个可悲的共性：
 我们在用最原始的方式，对抗一个早已成熟的异步世界。
-服务器宕机了——你没有第一时间收到告警，因为邮件进了垃圾箱，短信延迟了 20 分钟。你在监控面板前盯了三个小时"绿色正常"，然后错过了一条真正要命的消息，原因是你的大脑已经对满屏绿色产生了视觉疲劳。
+服务器宕机了——你没有第一时间收到告警，因为邮件进了垃圾箱，短信延迟了 20 分钟。你在监控面板前盯了三个小时&#34;绿色正常&#34;，然后错过了一条真正要命的消息，原因是你的大脑已经对满屏绿色产生了视觉疲劳。
 抢票/抢课/抢茅台——你在第三方的 APP 里充了会员，那个 APP 在后台疯狂刷新接口，把手机的电量烧到发烫，把流量吃到月底欠费。最后告诉你结果的方式是给你手机弹一个系统通知——而你当时正好在看短视频，手指一划，错过了。
 爬虫跑完了，脚本执行完了，收益计算完成了——但你在外面。你在等回家，等打开电脑，等终端里的那行 print。那几个小时里的决策窗口，就这么白白流走了。
 这个时代最大的信息差，从来不是别人知道你不知道——而是消息到你面前的时候，别人已经走完了下一轮。
-而且，那些号称"通知推送"的商业方案呢？
+而且，那些号称&#34;通知推送&#34;的商业方案呢？
 臃肿、耗电、要注册、要下载 APP、要开后台权限、要忍受广告。你只是想在自己的微信上收到一条简单的消息，那些平台却恨不得在你的手机里安一个全家桶。
 你缺的从来不是工具。你缺的是一个真正属于你的、干净的、一秒直达的通道。
 解决方案：用 WxPusher 让你的人生变得 Event-Driven 我花了不少时间寻找答案。试过 Server酱（停服了）、试过 Pushover（要钱、要装 APP）、试过 Telegram Bot（优雅但国内收不到推送，每天得挂着代理）。
 直到我遇到 WxPusher。
 一句说透——WxPusher 是依托微信服务号的消息推送接口。你发一个 HTTP 请求，你的微信就收到一条消息。
 没有 APP 需要安装。没有后台需要保活。没有复杂的公众号注册流程。不需要服务器，不需要证书，不需要心跳包。就是一行 cURL。
-从"我要亲自盯着"到"事件来了它会找我"，这个转变只需要两步。
+从&#34;我要亲自盯着&#34;到&#34;事件来了它会找我&#34;，这个转变只需要两步。
 它不是又一个通知工具。它是把你从轮询地狱里捞出来的杠杆。
-你的每一个脚本，每一个定时任务，每一句 if + trigger，突然都有了直接通向你手机的权限。 这才是你应该拥有的控制力。
-那些让人觉得"相见恨晚"的场景 我把它装进了我每一天的缝隙里，然后发现——以前我为什么没早点用。
+你的每一个脚本，每一个定时任务，每一句 if &#43; trigger，突然都有了直接通向你手机的权限。 这才是你应该拥有的控制力。
+那些让人觉得&#34;相见恨晚&#34;的场景 我把它装进了我每一天的缝隙里，然后发现——以前我为什么没早点用。
 你的服务器，终于有了一个 24 小时不睡觉的合伙人 CPU 超过 85%？数据库连接池撑不住了？磁盘只剩下 5% 了？你的 Prometheus 上面挂了 Grafana，Grafana 报警邮件发给了你的 QQ 邮箱，QQ 邮箱手机端推送到你的通知栏，被你玩游戏的时候一个左滑清掉了。
-...</p></div><footer class=entry-footer>&lt;span title='2026-05-02 20:38:00 +0800 CST'>2026年5月2日&lt;/span>&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer><a class=entry-link aria-label="post link to 别再轮询了。你的人生应该 Event-Driven。" href=/posts/tooling/wxpusher-polling-to-event-driven/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</h2></header><div class=entry-content><p>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。
-这个号称"低代码自动化神器"的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击"测试 workflow"，都在用我的认知带宽去喂养一个本不该存在的抽象层。
+...</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-05-02 20:38:00 &#43;0800 CST&#39;&gt;2026年5月2日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to 别再轮询了。你的人生应该 Event-Driven。" href="/posts/tooling/wxpusher-polling-to-event-driven/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。
+这个号称&#34;低代码自动化神器&#34;的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击&#34;测试 workflow&#34;，都在用我的认知带宽去喂养一个本不该存在的抽象层。
 我把 n8n 的容器停了。然后写了一行 Python。
 shutil.copy(src, dst) 三行代码。零依赖。零配置。零心理负担。
 这不是一个关于技术选型的故事。这是一个关于认知能量的故事。
-...</p></div><footer class=entry-footer>&lt;span title='2026-05-01 12:30:00 +0800 CST'>2026年5月1日&lt;/span>&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer><a class=entry-link aria-label="post link to 别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？" href=/posts/tooling/farewell-efficiency-refugees/></a></article></main><footer class=footer><span>&copy; 2026 <a href=/>世界一隅 | 认知能量工程</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+...</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-05-01 12:30:00 &#43;0800 CST&#39;&gt;2026年5月1日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to 别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？" href="/posts/tooling/farewell-efficiency-refugees/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,1 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>内在探索 on 世界一隅 | 认知能量工程</title><link>/tags/%E5%86%85%E5%9C%A8%E6%8E%A2%E7%B4%A2/</link><description>Recent content in 内在探索 on 世界一隅 | 认知能量工程</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 20 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%86%85%E5%9C%A8%E6%8E%A2%E7%B4%A2/index.xml" rel="self" type="application/rss+xml"/><item><title>思想需要被说出来</title><link>/posts/systems-thinking/2026-06-20-intro-thought-expression/</link><pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate><guid>/posts/systems-thinking/2026-06-20-intro-thought-expression/</guid><description>思想不是天生的火把，而是碰撞后擦出的火星——它必须先被说出来，才能找到属于它的真理之路。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>内在探索 on 世界一隅 | 认知能量工程</title>
+    <link>/tags/%E5%86%85%E5%9C%A8%E6%8E%A2%E7%B4%A2/</link>
+    <description>Recent content in 内在探索 on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 20 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%86%85%E5%9C%A8%E6%8E%A2%E7%B4%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>思想需要被说出来</title>
+      <link>/posts/systems-thinking/2026-06-20-intro-thought-expression/</link>
+      <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/systems-thinking/2026-06-20-intro-thought-expression/</guid>
+      <description>思想不是天生的火把，而是碰撞后擦出的火星——它必须先被说出来，才能找到属于它的真理之路。</description>
+    </item>
+    
+  </channel>
+</rss>
