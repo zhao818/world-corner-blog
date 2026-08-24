@@ -86,9 +86,13 @@
 .app-qr-card figcaption em {
   font-style: normal;
   font-size: 0.76rem;
-  color: var(--secondary);
+  color: var(--brand-gold);
   font-family: var(--mono-stack);
   letter-spacing: 0.06em;
+}
+.qr-desc {
+  font-size: 0.78rem;
+  color: var(--secondary);
 }
 .app-find h2 {
   margin: 0 0 16px;

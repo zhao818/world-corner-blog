@@ -7,9 +7,11 @@ app:
   qrs:
     - name: 灵魂之觅
       tag: 36问 · 深度情感连接
+      desc: 36问实验 · 智能配对 · 匿名心语
       qr: /qr/linghunzhimi-code.jpg
     - name: 内心的修炼
-      tag: 九书修炼体系 · 断舍离到立财基
+      tag: 身心社财 · 四层闭环
+      desc: 九关修炼 · 灵魂测评 · 有声书 · 每日打卡
       qr: /qr/weiyu-code.jpg
   features:
     - icon: heart

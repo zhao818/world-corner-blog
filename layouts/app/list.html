@@ -19,6 +19,9 @@
         <figcaption>
           <strong>{{ .name }}</strong>
           <em>{{ .tag }}</em>
+          {{- if .desc }}
+          <span class="qr-desc">{{ .desc }}</span>
+          {{- end }}
         </figcaption>
       </figure>
       {{- end }}
