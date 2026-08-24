@@ -1,7 +1,8 @@
-baseURL = '/'
+baseURL = 'https://worldcorner.xyz/'
 languageCode = 'zh-cn'
 title = '世界一隅 | 认知能量工程'
 theme = 'PaperMod'
+enableRobotsTXT = true
 
 [markup.goldmark.renderer]
   unsafe = true
