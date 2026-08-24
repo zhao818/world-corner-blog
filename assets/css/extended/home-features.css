@@ -1,0 +1,90 @@
+/* ========== 首页新板块入口(听书 × 小程序) ========== */
+
+.home-features {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 16px;
+  max-width: 900px;
+  margin: 10px 0 30px;
+}
+.home-feature {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+.home-feature::before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 160, 60, 0.16), transparent 70%);
+  pointer-events: none;
+}
+.home-feature.is-wide {
+  border-color: rgba(200, 160, 60, 0.55);
+}
+.home-feature:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(16, 16, 28, 0.22);
+}
+.hf-icon {
+  display: inline-flex;
+  color: var(--brand-gold);
+  flex-shrink: 0;
+}
+.hf-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.hf-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.hf-body strong {
+  color: var(--primary);
+  font-size: 1.02rem;
+}
+.home-feature:hover .hf-body strong {
+  color: var(--brand-gold-light);
+}
+.hf-body em {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hf-arrow {
+  margin-left: auto;
+  display: inline-flex;
+  color: var(--secondary);
+}
+.hf-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+.home-feature:hover .hf-arrow {
+  color: var(--brand-gold);
+  transform: translateX(3px);
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 720px) {
+  .home-features {
+    grid-template-columns: 1fr;
+  }
+}

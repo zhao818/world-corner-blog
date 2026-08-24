@@ -1,0 +1,87 @@
+{{ define "main" }}
+{{- $d := site.Data.collections -}}
+
+{{- /* 英雄区:金环头像 */ -}}
+<div class="collec-hero">
+  <span class="hero-vein" aria-hidden="true"></span>
+  <div class="collec-avatar">
+    <div class="avatar-ring"></div>
+    <span class="avatar-glyph">赵</span>
+  </div>
+  <h1>{{ $d.profile.name }}</h1>
+  <p class="collec-roles">{{ $d.profile.roles }}</p>
+  <p class="collec-bio">{{ $d.profile.bio }}</p>
+  <a class="collec-vlink" href="{{ $d.profile.vlink }}" target="_blank" rel="noopener noreferrer">
+    {{ partial "icon.html" (dict "name" "sparkle" "class" "inline-icon" ) }}
+    全部账号与联系方式
+  </a>
+</div>
+
+{{- /* 公众号专辑 */ -}}
+<div class="shelf">
+  <div class="shelf-head">
+    <span class="shelf-index">01</span>
+    <h2>公众号专辑</h2>
+    <span class="shelf-count">{{ len $d.albums }} 个系列</span>
+  </div>
+  <div class="shelf-grid">
+    {{- range $d.albums }}
+    <a class="album-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+      <div class="album-no">{{ .no }}</div>
+      <h3>{{ .title }}</h3>
+      <p class="album-desc">{{ .desc }}</p>
+      <span class="album-arrow" aria-hidden="true">{{ partial "icon.html" (dict "name" "arrow" "class" "mini-icon" ) }}</span>
+    </a>
+    {{- end }}
+  </div>
+</div>
+
+{{- /* 主要链接 */ -}}
+<div class="shelf">
+  <div class="shelf-head">
+    <span class="shelf-index">02</span>
+    <h2>主要链接</h2>
+  </div>
+  <div class="link-window">
+    {{- range $d.mainLinks }}
+      {{- if .url }}
+      <a class="link-pill" href="{{ .url }}" {{- if hasPrefix .url "http" }} target="_blank" rel="noopener noreferrer"{{- end }}>
+        {{ partial "icon.html" (dict "name" .icon "class" "pill-icon" ) }}
+        <span class="pill-text">
+          <strong>{{ .title }}</strong>
+          <em>{{ .desc }}</em>
+        </span>
+        {{ partial "icon.html" (dict "name" "arrow" "class" "pill-arrow" ) }}
+      </a>
+      {{- else }}
+      <div class="link-pill is-pending">
+        {{ partial "icon.html" (dict "name" .icon "class" "pill-icon" ) }}
+        <span class="pill-text">
+          <strong>{{ .title }}</strong>
+          <em>{{ .desc }}</em>
+        </span>
+        <span class="pill-todo">待补充</span>
+      </div>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>
+
+{{- /* 社交 */ -}}
+<div class="shelf">
+  <div class="shelf-head">
+    <span class="shelf-index">03</span>
+    <h2>社交账户</h2>
+  </div>
+  <div class="social-row">
+    {{- range $d.socials }}
+      {{- if .url }}
+      <a class="social-chip" href="{{ .url }}" target="_blank" rel="noopener noreferrer" title="{{ .platform }}">
+        {{ partial "icon.html" (dict "name" .icon "class" "mini-icon" ) }}
+        <span>{{ .platform }}</span>
+      </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,565 @@
+/*
+ * worldcorner.xyz · 深夜书房 · 品牌视觉基建
+ * 定位:覆盖 PaperMod 核心变量 + 全局细节,与公众号「美好需要创造」同品牌(深藏青+金)
+ * 覆盖规则:本文件在 theme core css 之后加载(见 head.html $stylesheet),可直接覆盖变量与基础样式
+ */
+
+/* ============================================================
+   ── 1. 品牌设计令牌
+   ============================================================ */
+:root {
+  --gap: 24px;
+  --content-gap: 20px;
+  --main-width: 740px;
+
+  /* 日间 · 白昼书房(米白纸面) */
+  --theme: rgb(248, 246, 242);
+  --entry: rgb(255, 253, 249);
+  --primary: rgb(43, 42, 38);
+  --secondary: rgb(110, 106, 96);
+  --tertiary: rgb(219, 213, 202);
+  --content: rgb(48, 47, 42);
+  --hljs-bg: rgb(26, 26, 46);
+  --code-bg: rgb(240, 236, 228);
+  --border: rgb(226, 220, 209);
+
+  /* 品牌定制令牌 */
+  --brand-night: #1a1a2e;          /* 深藏青 · 品牌色 */
+  --brand-night-deep: #10101c;     /* 墨蓝暗部 */
+  --brand-mist: #2a2a44;           /* 暗金雾 · 次级底 */
+  --brand-gold: #c8a03c;           /* 品牌金 · 点缀 */
+  --brand-gold-light: #e6c86f;     /* 烛金 · hover/强调 */
+  --brand-paper: #f8f6f2;          /* 米白 · 纸面 */
+  --ink-soft: #6f6a5e;
+  --serif-stack: "Noto Serif SC", Georgia, "Songti SC", "SimSun", serif;
+  --mono-stack: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+}
+
+.dark {
+  /* 深夜 · 灯下(深藏青夜色) */
+  --theme: rgb(26, 26, 46);
+  --entry: rgb(32, 32, 55);
+  --primary: rgb(240, 237, 230);
+  --secondary: rgb(164, 160, 148);
+  --tertiary: rgb(70, 70, 98);
+  --content: rgb(212, 208, 196);
+  --hljs-bg: rgb(16, 16, 28);
+  --code-bg: rgb(36, 36, 60);
+  --border: rgb(58, 58, 84);
+
+  --brand-soft: #d8d2e4;           /* 预留:暗夜下的浅调 */
+  --brand-line: rgba(200, 160, 60, 0.35);
+  --brand-mist: #26263f;
+  --text-faint: rgba(248, 246, 242, 0.72);
+  --hero-veil: rgba(16, 16, 28, 0.55);
+}
+
+/* ============================================================
+   ── 2. 字体系统(全站衬线书卷气)
+   ============================================================ */
+body {
+  font-family: var(--serif-stack);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: 0.012em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 关键结构文字回退到无衬线太突兀的组件:保持衬线,仅缩进/重量区分 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.entry-title,
+.site-title {
+  font-family: var(--serif-stack);
+  letter-spacing: 0.02em;
+}
+
+/* 代码/数字点缀:等宽 */
+pre,
+code,
+kbd,
+samp,
+.post-meta,
+.entry-date,
+.time-separator {
+  font-family: var(--mono-stack);
+}
+
+/* ============================================================
+   ── 3. 全局氛围 · 纸感与细节
+   ============================================================ */
+::selection {
+  background: var(--brand-gold);
+  color: var(--brand-night);
+}
+
+:root[lang],
+html {
+  scroll-behavior: smooth;
+}
+
+/* 滚动条:暗夜书页边缘 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-gold);
+  border-radius: 6px;
+  border: 2px solid var(--theme);
+}
+::-webkit-scrollbar-track {
+  background: var(--theme);
+}
+
+/* header:品牌化导航 */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--theme) 82%, transparent);
+  backdrop-filter: blur(8px);
+}
+.site-header .logo {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--brand-gold);
+}
+.nav a:hover,
+.nav a:focus {
+  color: var(--brand-gold-light);
+  text-decoration-color: var(--brand-gold);
+}
+
+/* 链接:金色墨痕 */
+.post-entry .entry-header a,
+.post-content a,
+.post-single a {
+  color: var(--primary);
+  text-decoration-color: var(--brand-gold);
+  text-underline-offset: 3px;
+  transition: color 0.18s ease;
+}
+.post-entry .entry-header a:hover,
+.post-content a:hover {
+  color: var(--brand-gold-light);
+}
+
+/* 正文氛围:引文、提醒等 */
+.post-content blockquote {
+  border-left: 3px solid var(--brand-gold);
+  background: color-mix(in srgb, var(--brand-gold) 7%, transparent);
+  border-radius: 0 8px 8px 0;
+  padding: 4px 18px;
+  margin-left: 0;
+  margin-right: 0;
+}
+.post-content blockquote p {
+  color: var(--secondary);
+  font-style: normal;
+}
+
+/* 代码块:灯下墨盒 */
+.post-content pre {
+  background: var(--code-bg);
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 28%, transparent);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.post-content code {
+  font-size: 0.92em;
+}
+.post-content code:not(pre code) {
+  background: color-mix(in srgb, var(--brand-gold) 12%, transparent);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--brand-gold-light);
+}
+#TableOfContents {
+  font-size: 0.92rem;
+}
+#TableOfContents > ul {
+  margin-left: -0.5rem;
+}
+
+/* 表格:书页线框 */
+.post-content table {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.post-content th {
+  background: color-mix(in srgb, var(--brand-gold) 12%, var(--theme));
+}
+
+/* 文章标题:大号衬线 + 金色引线 */
+.post-single .post-title,
+.post-single .post-title h1 {
+  font-size: 2.1em;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+.post-single h1,
+.post-single h2,
+.post-single h3,
+.single .post-content h1,
+.single .post-content h2,
+.single .post-content h3 {
+  position: relative;
+  padding-left: 0.7em;
+}
+.single .post-content h2,
+.single .post-content h3 {
+  /* 章节标题:金色竖墨痕 */
+  padding-left: 0.85em;
+}
+.single .post-content h2::before,
+.single .post-content h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.34em;
+  bottom: 0.34em;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--brand-gold);
+  opacity: 0.75;
+}
+
+/* 日期/元信息:等宽小注 */
+.post-meta {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+.entry-footer time {
+  color: var(--secondary);
+}
+
+/* 分页器:金色页码 */
+.pagination .page-link {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-light);
+}
+.pagination .page-link:hover {
+  background: var(--brand-gold);
+  color: var(--brand-night);
+}
+
+/* ============================================================
+   ── 4. 列表/分类页:书架气质
+   ============================================================ */
+.page-header h1 {
+  font-size: 1.9em;
+  position: relative;
+  padding-left: 0.8em;
+}
+.page-header h1::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.22em;
+  bottom: 0.22em;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--brand-gold);
+}
+.page-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+}
+
+/* 文章条目卡:书卡 */
+.entry-card,
+.post-entry {
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.post-entry:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(16, 16, 28, 0.16);
+}
+.post-entry .entry-title,
+.first-entry .entry-title {
+  font-weight: 700;
+}
+.first-entry h2 {
+  font-size: 1.7em;
+  font-weight: 800;
+}
+
+/* ============================================================
+   ── 5. 首页专用组件(hero + 书架抽屉)
+   ============================================================ */
+
+/* 视觉锚:金色竖轴(灯下光柱) */
+.hero-vein {
+  position: absolute;
+  left: 6.5%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--brand-gold) 22%,
+    rgba(200, 160, 60, 0.55) 58%,
+    transparent 100%
+  );
+}
+
+.home-hero {
+  position: relative;
+  padding: clamp(48px, 8vw, 96px) 0 28px;
+}
+.home-hero .hero-eyebrow {
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+  margin-left: calc(6.5% + 30px);
+}
+.home-hero h1 {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 1.25;
+  margin: 14px 0 10px;
+  margin-left: calc(6.5% + 30px);
+  max-width: 13em;
+}
+.home-hero h1 .accent {
+  color: var(--brand-gold-light);
+}
+.home-hero .hero-slogan {
+  margin-left: calc(6.5% + 30px);
+  max-width: 34em;
+  font-size: 1.06rem;
+  color: var(--secondary);
+  position: relative;
+}
+.home-hero .hero-slogan::after {
+  content: "—— 世界一隅 · 认知能量工程";
+  display: block;
+  margin-top: 10px;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  color: var(--brand-gold);
+  opacity: 0.85;
+}
+
+/* 书架抽屉:栏目橱窗 */
+.shelf {
+  margin-top: clamp(30px, 5vw, 54px);
+  position: relative;
+}
+.shelf-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  border-bottom: 2px solid var(--brand-gold);
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+.shelf-head .shelf-index {
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+  color: var(--brand-gold);
+  letter-spacing: 0.2em;
+}
+.shelf-head h2 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 800;
+}
+.shelf-head h2 a {
+  color: var(--primary);
+}
+.shelf-head h2 a:hover {
+  color: var(--brand-gold-light);
+}
+.shelf-head .shelf-count {
+  margin-left: auto;
+  font-family: var(--mono-stack);
+  font-size: 0.8rem;
+  color: var(--secondary);
+  white-space: nowrap;
+}
+.shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+/* 橱窗文章卡 */
+.shelf-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.shelf-card::after {
+  /* 金色书签线 */
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--brand-gold), transparent 78%);
+  opacity: 0.55;
+}
+.shelf-card:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(16, 16, 28, 0.2);
+}
+.shelf-card .sc-date {
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--brand-gold);
+  margin-bottom: 6px;
+}
+.shelf-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.08em;
+  line-height: 1.5;
+}
+.shelf-card h3 a,
+.shelf-card h3 a:hover {
+  color: var(--primary);
+}
+.shelf-card h3 a:hover {
+  color: var(--brand-gold-light);
+}
+.shelf-card .sc-summary {
+  font-size: 0.9em;
+  color: var(--secondary);
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.shelf-card .sc-tags {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.shelf-card .sc-tags a {
+  font-size: 0.72rem;
+  font-family: var(--mono-stack);
+  color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 9px;
+  transition: all 0.18s ease;
+}
+.shelf-card .sc-tags a:hover {
+  color: var(--brand-night);
+  background: var(--brand-gold);
+  border-color: var(--brand-gold);
+}
+
+/* 首页最新一览 */
+.latest-block {
+  margin-top: clamp(34px, 5vw, 56px);
+}
+.latest-block .shelf-head h2 {
+  font-size: 1.3em;
+}
+.latest-block table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.latest-block tr {
+  border-bottom: 1px dashed var(--border);
+}
+.latest-block td {
+  padding: 11px 6px;
+  vertical-align: middle;
+}
+.latest-block td.lb-date {
+  font-family: var(--mono-stack);
+  font-size: 0.76rem;
+  color: var(--brand-gold);
+  white-space: nowrap;
+  width: 9em;
+}
+.latest-block td.lb-title a {
+  font-size: 1.02em;
+}
+.latest-block tr:hover td.lb-title a {
+  color: var(--brand-gold-light);
+}
+
+/* 入场动效:灯亮起 */
+@keyframes lamp-glow {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.home-hero > *,
+.shelf,
+.latest-block {
+  animation: lamp-glow 0.7s ease both;
+}
+.shelf {
+  animation-delay: 0.25s;
+}
+.latest-block {
+  animation-delay: 0.4s;
+}
+
+/* ============================================================
+   ── 6. 页脚:渐隐金线
+   ============================================================ */
+.site-footer {
+  border-top: none;
+}
+.site-footer::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 4%, var(--brand-gold) 50%, transparent 96%);
+  opacity: 0.55;
+  margin-bottom: 22px;
+}
+.site-footer {
+  color: var(--secondary);
+}
+
+/* ============================================================
+   ── 7. 响应式微调
+   ============================================================ */
+@media (max-width: 640px) {
+  .home-hero h1,
+  .home-hero .hero-eyebrow,
+  .home-hero .hero-slogan {
+    margin-left: 0;
+  }
+  .hero-vein {
+    left: 0;
+    width: 2px;
+  }
+  .shelf-grid {
+    grid-template-columns: 1fr;
+  }
+}

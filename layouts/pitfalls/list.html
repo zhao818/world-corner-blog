@@ -1,10 +1,10 @@
 {{ define "main" }}
 <header class="pitfalls-header">
   <h1>{{ .Title }}</h1>
-  <p class="pitfalls-desc">16 条结构化踩坑经验，每条按 🩺症状 → 🔬根因 → 🔧修复 → 🛡️避免 四段式记录。踩过坑、修好坑、记住坑——不再踩第二次。</p>
+  <p class="pitfalls-desc">{{ partial "icon.html" (dict "name" "symptom" "class" "inline-icon" ) }} 症状 → {{ partial "icon.html" (dict "name" "root" "class" "inline-icon" ) }} 根因 → {{ partial "icon.html" (dict "name" "fix" "class" "inline-icon" ) }} 修复 → {{ partial "icon.html" (dict "name" "avoid" "class" "inline-icon" ) }} 避免:每一条踩坑经验都按四段式记录。踩过坑、修好坑、记住坑——不踩第二次。</p>
   <div class="pitfall-stats">
-    <span>🕳️ <strong>{{ len .Pages }}</strong> 条踩坑</span>
-    <span>📅 更新于 {{ now.Format "2006-01-02" }}</span>
+    <span>{{ partial "icon.html" (dict "name" "hole" "class" "inline-icon" ) }} <strong>{{ len .Pages }}</strong> 条踩坑</span>
+    <span>{{ partial "icon.html" (dict "name" "calendar" "class" "inline-icon" ) }} 更新于 {{ now.Format "2006-01-02" }}</span>
   </div>
 </header>
 
@@ -13,13 +13,13 @@
   <article class="pitfall-card">
     <a href="{{ .RelPermalink }}" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        {{ partial "icon.html" (dict "name" "hole" "class" "card-icon" ) }}
         <h2>{{ .Title }}</h2>
       </div>
       <p class="card-excerpt">{{ .Summary | plainify | truncate 180 }}</p>
       <div class="card-footer">
-        <span class="card-date">{{ .Date.Format "2006-01-02" }}</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date">{{ partial "icon.html" (dict "name" "calendar" "class" "mini-icon" ) }}{{ .Date.Format "2006-01-02" }}</span>
+        <span class="card-read">阅读 {{ partial "icon.html" (dict "name" "arrow" "class" "mini-icon" ) }}</span>
       </div>
     </a>
   </article>

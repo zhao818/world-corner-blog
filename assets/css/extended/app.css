@@ -1,0 +1,176 @@
+/* ========== 小程序页(灵魂之觅 · 深夜书房版) ========== */
+
+/* --- 英雄区 --- */
+.app-hero {
+  position: relative;
+  padding: clamp(36px, 5vw, 60px) 0 16px;
+}
+.app-kicker {
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  color: var(--brand-gold);
+  margin: 0 0 10px;
+  margin-left: calc(6.5% + 30px);
+}
+.app-hero h1 {
+  margin: 0 0 8px;
+  margin-left: calc(6.5% + 30px);
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  color: var(--primary);
+}
+.app-slogan {
+  margin: 0 0 12px;
+  margin-left: calc(6.5% + 30px);
+  color: var(--brand-gold);
+  letter-spacing: 0.1em;
+  font-size: 1.05rem;
+}
+.app-intro {
+  margin: 0;
+  margin-left: calc(6.5% + 30px);
+  max-width: 38em;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+
+/* --- 舞台区 --- */
+.app-stage {
+  max-width: 940px;
+  display: grid;
+  gap: 30px;
+  padding: 8px 0 24px;
+}
+
+/* --- 小程序码 + 打开方式(不对称双栏) --- */
+.app-qr-block {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: clamp(22px, 4vw, 40px);
+  align-items: center;
+  padding: clamp(22px, 4vw, 34px);
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.app-qr-frame {
+  width: 200px;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+  background: radial-gradient(circle at 30% 25%, #26263f, var(--brand-night) 72%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 34px rgba(16, 16, 28, 0.4);
+  overflow: hidden;
+}
+.app-qr-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.qr-empty-tag {
+  font-size: 0.78rem;
+  font-family: var(--mono-stack);
+  letter-spacing: 0.12em;
+  color: var(--secondary);
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  padding: 6px 16px;
+}
+.app-find h2 {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+.find-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.find-steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+.step-no {
+  font-family: var(--mono-stack);
+  font-size: 0.75rem;
+  color: var(--brand-gold);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* --- 功能三卡 --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.feature-card {
+  padding: 24px 22px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.feature-card:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-3px);
+}
+.feature-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.feature-icon {
+  display: inline-flex;
+  color: var(--brand-gold);
+}
+.feature-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.feature-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: var(--primary);
+}
+.feature-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--secondary);
+  line-height: 1.75;
+}
+
+/* --- 响应式 --- */
+@media (max-width: 720px) {
+  .app-qr-block {
+    grid-template-columns: 1fr;
+  }
+  .app-qr-frame {
+    width: 160px;
+    justify-self: center;
+  }
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-kicker,
+  .app-hero h1,
+  .app-slogan,
+  .app-intro {
+    margin-left: 0;
+  }
+}

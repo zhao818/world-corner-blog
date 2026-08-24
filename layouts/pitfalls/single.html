@@ -3,7 +3,7 @@
   <header class="pitfall-hero">
     <h1>{{ .Title }}</h1>
     <div class="pitfall-meta">
-      <span>📅 {{ .Date.Format "2006-01-02" }}</span>
+      <span>{{ partial "icon.html" (dict "name" "calendar" "class" "mini-icon" ) }} {{ .Date.Format "2006-01-02" }}</span>
     </div>
   </header>
 
@@ -12,7 +12,7 @@
   </div>
 
   <footer class="pitfall-footer">
-    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p>{{ partial "icon.html" (dict "name" "hole" "class" "inline-icon" ) }} 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
     <p><a href="{{ .Site.BaseURL }}pitfalls/">← 返回踩坑宝典</a></p>
   </footer>
 </article>

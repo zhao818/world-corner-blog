@@ -1,0 +1,63 @@
+{{- define "main" }}
+{{- $all := site.RegularPages }}
+{{- $shelves := slice
+      (dict "path" "posts/systems-thinking" "index" "01" "title" "系统思维")
+      (dict "path" "posts/learning" "index" "02" "title" "学习方法")
+      (dict "path" "posts/tooling" "index" "03" "title" "效率工具")
+      (dict "path" "pitfalls" "index" "04" "title" "踩坑宝典")
+}}
+
+{{- /* 深夜书房 · 主视觉 */ -}}
+<div class="home-hero">
+  <span class="hero-vein" aria-hidden="true"></span>
+  <p class="hero-eyebrow">世界一隅 · Worldcorner</p>
+  <h1>在算法洪流中,<br><span class="accent">守护清醒的微光</span></h1>
+  <p class="hero-slogan">系统思维 · 学习方法 · 效率工具 · 踩坑宝典<br>
+    一套关于认知能量与理性生活的实践笔记。</p>
+</div>
+
+{{- /* 新板块入口:听书 × 小程序(不对称双卡) */ -}}
+<div class="home-features">
+  <a class="home-feature is-wide" href="/audiobook/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "headphones" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>听书</strong>
+      <em>两本有声书,完整连播 · 打开就听,不用逐集点</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+  <a class="home-feature" href="/app/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "heart" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>灵魂之觅 · 小程序</strong>
+      <em>36 个问题,遇见对的人</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+</div>
+
+{{- /* 书架抽屉:四大栏目 */ -}}
+{{- range $shelves }}
+  {{- $sec := site.GetPage .path }}
+  {{- if $sec }}
+    {{- partial "shelf.html" (dict "sec" $sec "index" .index "title" .title "pages" (first 3 $sec.RegularPages) "count" (len $sec.RegularPages)) -}}
+  {{- end }}
+{{- end }}
+
+{{- /* 最近更新一览 */ -}}
+<div class="latest-block">
+  <div class="shelf-head">
+    <span class="shelf-index">05</span>
+    <h2>最近更新</h2>
+    <span class="shelf-count">全部 {{ len $all }} 篇</span>
+  </div>
+  <table>
+    {{- range first 10 $all.ByDate.Reverse }}
+    <tr>
+      <td class="lb-date">{{ .Date.Format "2006-01-02" }}</td>
+      <td class="lb-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+    </tr>
+    {{- end }}
+  </table>
+</div>
+{{- end }}

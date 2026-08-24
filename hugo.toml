@@ -31,10 +31,28 @@ enableRobotsTXT = true
   weight = 40
   identifier = "menu-pitfalls"
 
+[[menu.main]]
+  name = "合集"
+  url = "/collections/"
+  weight = 50
+  identifier = "menu-collections"
+
+[[menu.main]]
+  name = "听书"
+  url = "/audiobook/"
+  weight = 60
+  identifier = "menu-audiobook"
+
+[[menu.main]]
+  name = "小程序"
+  url = "/app/"
+  weight = 70
+  identifier = "menu-app"
+
 [params]
   env = 'production'
   title = '世界一隅'
   description = '在算法洪流中，守护清醒的微光。'
   DateFormat = '2006年1月2日'
   author = 'Tianbing Zhao'
-  defaultTheme = 'auto'
+  defaultTheme = 'dark'

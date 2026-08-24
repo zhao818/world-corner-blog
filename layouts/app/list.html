@@ -1,0 +1,47 @@
+{{ define "main" }}
+{{- $d := site.Data.app -}}
+
+<section class="app-hero">
+  <span class="hero-vein" aria-hidden="true"></span>
+  <p class="app-kicker">MINI PROGRAM · 微信小程序</p>
+  <h1>{{ $d.app.name }}</h1>
+  <p class="app-slogan">{{ $d.app.slogan }}</p>
+  <p class="app-intro">{{ $d.app.intro }}</p>
+</section>
+
+<div class="app-stage">
+  {{- /* 小程序码 × 打开方式 */ -}}
+  <div class="app-qr-block">
+    {{- if $d.app.qr }}
+    <div class="app-qr-frame">
+      <img src="{{ $d.app.qr }}" alt="《灵魂之觅》小程序码" loading="lazy">
+    </div>
+    {{- else }}
+    <div class="app-qr-frame is-empty">
+      <span class="qr-empty-tag">小程序码 · 待补充</span>
+    </div>
+    {{- end }}
+    <div class="app-find">
+      <h2>怎么找到它</h2>
+      <ol class="find-steps">
+        {{- range $i, $w := $d.app.findways }}
+        <li><span class="step-no">{{ printf "%02d" (add $i 1) }}</span>{{ $w }}</li>
+        {{- end }}
+      </ol>
+    </div>
+  </div>
+
+  {{- /* 功能三卡 */ -}}
+  <div class="feature-grid">
+    {{- range $d.app.features }}
+    <div class="feature-card">
+      <div class="feature-head">
+        {{- partial "icon.html" (dict "name" .icon "class" "feature-icon" ) }}
+        <h3>{{ .title }}</h3>
+      </div>
+      <p>{{ .desc }}</p>
+    </div>
+    {{- end }}
+  </div>
+</div>
+{{ end }}

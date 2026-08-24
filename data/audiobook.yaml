@@ -1,0 +1,17 @@
+# 有声书数据 — 完整连播版(音频托管于 CloudBase 云存储 CDN)
+# 每本一个完整体,打开即播、免费连播,无需逐集切换
+books:
+  - id: xingfu
+    title: 幸福的内在
+    tracks: "31 篇"
+    vol: "连播 2小时05分"
+    cover: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-happiness.jpg
+    src: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/happiness.mp3
+    desc: 从「思想之光」到「升维」,31 篇散文小辑。适合睡前一刷、走路骑行、专注间隙给自己留一口气——它不催你,只陪你。
+  - id: neixin
+    title: 内心的修炼
+    tracks: "11 篇"
+    vol: "连播 8小时"
+    cover: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice.jpg
+    src: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/mind-practice.mp3
+    desc: 九关修炼体系——断舍离、立根本、炼心术、破执念、养身体、结善缘、明规则、明经济、立财基。每一关借一本书当拐杖:《沉思录》《传习录》《人生的智慧》…… 从序言听到完结篇,8 小时读完一门人生通识课。

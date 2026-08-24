@@ -1,0 +1,22 @@
+{{- /* 书架抽屉:栏目橱窗 */ -}}
+<div class="shelf">
+  <div class="shelf-head">
+    <span class="shelf-index">{{ .index }}</span>
+    <h2><a href="{{ .sec.RelPermalink }}">{{ .title }}</a></h2>
+    <span class="shelf-count">{{ .count }} 篇</span>
+  </div>
+  <div class="shelf-grid">
+    {{- range .pages }}
+    <a class="shelf-card" href="{{ .RelPermalink }}">
+      <div class="sc-date">{{ .Date.Format "2006-01-02" }}</div>
+      <h3>{{ .Title }}</h3>
+      <p class="sc-summary">{{ .Summary | plainify | htmlUnescape | truncate 72 }}</p>
+      {{- with .Params.tags }}
+      <div class="sc-tags">
+        {{- range first 3 . }}<span>#{{ . }}</span>{{- end }}
+      </div>
+      {{- end }}
+    </a>
+    {{- end }}
+  </div>
+</div>
