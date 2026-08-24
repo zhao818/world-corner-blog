@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>深度思考 on 世界一隅 | 认知能量工程</title>
-    <link>/tags/%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83/</link>
+    <link>https://worldcorner.xyz/tags/%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83/</link>
     <description>Recent content in 深度思考 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 18 May 2026 21:42:52 +0800</lastBuildDate><atom:link href="/tags/%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 May 2026 21:42:52 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E6%B7%B1%E5%BA%A6%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>为什么现代人越休息越累？「能量失血」才是最大的骗局</title>
-      <link>/posts/systems-thinking/pseudo-rest-cognitive-drain/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/pseudo-rest-cognitive-drain/</link>
       <pubDate>Mon, 18 May 2026 21:42:52 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/pseudo-rest-cognitive-drain/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/pseudo-rest-cognitive-drain/</guid>
       <description>刷了三小时短视频、周末躺到下午两点、把《老友记》第十季又刷了一遍——周一早上你依然像被卡车碾过。问题出在哪？不是休息不够，是你根本不会休息。</description>
     </item>
     
     <item>
       <title>社交关系的「API 接口」：为什么孤独沉思不能替代师徒对话</title>
-      <link>/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link>
       <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：现代人将孤独神化为高级社交形态，却在信息茧房中走向系统的死寂。本文用工程视角重构社交与沉思——师徒是高带宽的监督式学习，爱情是端到端加密同步，而孤独，不过是本地离线预处理。没有 API 接口的智能体，其计算结果最终无法上链，终将归零。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
@@ -74,10 +74,10 @@
     
     <item>
       <title>现代心灵的一场「代偿性自救」</title>
-      <link>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</link>
       <pubDate>Fri, 01 May 2026 21:40:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-modern-compensation-self-rescue/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;你用最高级的手段，逃避最古老的问题。
 这不是科技在赋能，是人性在温柔地外包自己。

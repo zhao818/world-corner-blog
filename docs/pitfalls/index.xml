@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>踩坑宝典 on 世界一隅 | 认知能量工程</title>
-    <link>/pitfalls/</link>
+    <link>https://worldcorner.xyz/pitfalls/</link>
     <description>Recent content in 踩坑宝典 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/pitfalls/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/pitfalls/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AstrBot 公众号被动回复 XML 二次包装导致微信无法解析</title>
-      <link>/pitfalls/pit-astrbot-xml-double-wrap/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-astrbot-xml-double-wrap/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-astrbot-xml-double-wrap/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-astrbot-xml-double-wrap/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -42,10 +42,10 @@
     
     <item>
       <title>Cloudreve 上传大文件超时：Cloudflare 免费版 100 秒限制</title>
-      <link>/pitfalls/pit-cloudreve-upload-timeout-cloudflare/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-cloudreve-upload-timeout-cloudflare/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-cloudreve-upload-timeout-cloudflare/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-cloudreve-upload-timeout-cloudflare/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -55,96 +55,28 @@
 &lt;blockquote&gt;
 &lt;p&gt;到底为什么出问题？&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;请求链路：&lt;/p&gt;
-
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 608 25&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;浏&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;览&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;器&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;C&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;C&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;D&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;N&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;1&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;超&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;时&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;304&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;328&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;400&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;D&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;k&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;472&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;488&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;C&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;496&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;504&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;512&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;520&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;528&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;536&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;544&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;552&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;560&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;:&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;568&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;5&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;576&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;2&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;584&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;1&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;592&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;2&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Cloudflare 免费版 HTTP 代理有硬性 100 秒超时&lt;/strong&gt;。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。&lt;/p&gt;</description>
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;浏览器 → Cloudflare CDN (100s 超时) → cloudflared tunnel → Docker Cloudreve:5212
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Cloudflare 免费版 HTTP 代理有硬性 100 秒超时&lt;/strong&gt;。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。&lt;/p&gt;
+&lt;p&gt;这不是 Cloudreve 的 bug，也不是网络问题——是 Cloudflare 免费版的&lt;strong&gt;硬限制&lt;/strong&gt;。付费版可以调超时时间（最长 600 秒）。&lt;/p&gt;
+&lt;h2 id=&#34;修复&#34;&gt;修复&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;怎么做？&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;去 Cloudreve 后台调整存储策略的分块大小：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;登录 Cloudreve 管理后台（&lt;code&gt;/admin&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;仪表盘 → 存储策略 → 默认策略 → 编辑&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调小分块大小&lt;/strong&gt;：从默认 25MB 改成 &lt;strong&gt;5MB&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;保存&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这样 15MB 文件分成 3 块上传，每块控制在 30-40 秒内，不会触发 100 秒限制。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Excel COM wb.Save() 静默失败，必须用 SaveAs</title>
-      <link>/pitfalls/pit-excel-com-save-silent-fail/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-excel-com-save-silent-fail/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-excel-com-save-silent-fail/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-excel-com-save-silent-fail/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -192,10 +124,10 @@
     
     <item>
       <title>Git push GitHub SSL 握手失败</title>
-      <link>/pitfalls/pit-git-push-ssl-proxy-fix/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-git-push-ssl-proxy-fix/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-git-push-ssl-proxy-fix/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-git-push-ssl-proxy-fix/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -222,10 +154,10 @@
     
     <item>
       <title>Gitee 已配镜像还手动 push gitee，做了多余操作</title>
-      <link>/pitfalls/pit-gitee-mirror-dual-push/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-gitee-mirror-dual-push/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-gitee-mirror-dual-push/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-gitee-mirror-dual-push/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -254,10 +186,10 @@
     
     <item>
       <title>Gitee 建仓库前没查已有仓库，建了重复仓库</title>
-      <link>/pitfalls/pit-gitee-duplicate-repo-check/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-gitee-duplicate-repo-check/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-gitee-duplicate-repo-check/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-gitee-duplicate-repo-check/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -299,10 +231,10 @@
     <item>
       <title>GNU sed a 命令中 
  被当字面量——假阳性验证导致以为修好实际没修</title>
-      <link>/pitfalls/pit-sed-false-positive-verification/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-sed-false-positive-verification/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-sed-false-positive-verification/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-sed-false-positive-verification/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -329,10 +261,10 @@
     
     <item>
       <title>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</title>
-      <link>/pitfalls/pit-hugo-skip-full-build/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-hugo-skip-full-build/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-hugo-skip-full-build/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-hugo-skip-full-build/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -347,104 +279,29 @@
 &lt;blockquote&gt;
 &lt;p&gt;到底为什么出问题？&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Hugo 是一个&lt;strong&gt;全量静态站点生成器&lt;/strong&gt;——每篇文章的交叉引用、分类聚合、列表渲染，都需要 &lt;code&gt;hugo -d docs/&lt;/code&gt; 重新计算。手写单篇 HTML 扔进 &lt;code&gt;docs/&lt;/code&gt; 相当于绕过了整个生成引擎：&lt;/p&gt;
-
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 480 41&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;❌&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;✅&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;手&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;写&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;g&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;H&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;T&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;M&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;L&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;240&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;256&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;.&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;←&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;文&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;←&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;章&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;在&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;所&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;，&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;有&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;但&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;页&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;分&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;面&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;类&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;同&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;步&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;400&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;列&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;400&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;重&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;408&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;表&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;408&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;建&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;424&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;首&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;页&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;从&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;不&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;更&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;新&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;这个错误已经犯过至少 3 次&lt;/strong&gt;。&lt;/p&gt;</description>
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;❌ 手写 HTML → docs/posts/xxx/index.html   ← 文章在，但分类/列表/首页从不更新
+✅ hugo -d docs/                           ← 所有页面同步重建
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;这个错误已经犯过至少 3 次&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;修复&#34;&gt;修复&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;怎么做？&lt;/p&gt;&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# ✅ 唯一正确方式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hugo --minify -d docs/ -F   &lt;span style=&#34;color:#75715e&#34;&gt;# -F = --buildFuture，确保未来日期文章也生成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git add docs/ content/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;feat: &amp;lt;文章标题&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;绝不允许&lt;/strong&gt;：手写单篇 HTML 到 &lt;code&gt;docs/&lt;/code&gt;、只复制个别文件、任何绕过 hugo 构建的操作。&lt;/p&gt;
+&lt;h2 id=&#34;怎么避免&#34;&gt;怎么避免&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下次怎么不踩？&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python encoding=&#39;utf-8&#39; 不能自动处理 BOM</title>
-      <link>/pitfalls/pit-python-utf8-bom-encoding/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-python-utf8-bom-encoding/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-python-utf8-bom-encoding/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-python-utf8-bom-encoding/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -478,10 +335,10 @@
     
     <item>
       <title>Python 缩进错位导致 140 行被动回复代码完全跳过</title>
-      <link>/pitfalls/pit-python-indentation-silent-skip/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-python-indentation-silent-skip/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-python-indentation-silent-skip/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-python-indentation-silent-skip/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -514,10 +371,10 @@
     
     <item>
       <title>python-docx 表格跨页断开无法控制</title>
-      <link>/pitfalls/pit-docx-table-page-break-cantsplit/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-docx-table-page-break-cantsplit/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-docx-table-page-break-cantsplit/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-docx-table-page-break-cantsplit/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -557,10 +414,10 @@
     
     <item>
       <title>requests json= 参数导致公众号中文乱码</title>
-      <link>/pitfalls/pit-wechat-chinese-garbled-requests-json/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-wechat-chinese-garbled-requests-json/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-wechat-chinese-garbled-requests-json/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-wechat-chinese-garbled-requests-json/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -597,10 +454,10 @@
     
     <item>
       <title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</title>
-      <link>/pitfalls/pit-triggers-multi-match-merge/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-triggers-multi-match-merge/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-triggers-multi-match-merge/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-triggers-multi-match-merge/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -624,94 +481,26 @@
 &lt;blockquote&gt;
 &lt;p&gt;怎么做？&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;匹配策略改为&amp;quot;全量扫描 + AND 合并&amp;quot;&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;输入：用户消息关键词
+匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
+合并：取所有匹配路由的并集
+加载：读全部匹配文件
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例如用户说&amp;quot;审计这个 Excel&amp;quot;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;匹配行1: &amp;#34;审计五件套&amp;#34; → audit-four-piece.md
+匹配行2: &amp;#34;数据录入项目&amp;#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md
+匹配行3: &amp;#34;操作 Excel&amp;#34; → excel-com-audit.md
 
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 256 73&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;输&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;匹&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;合&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;加&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;入&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;配&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;并&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;载&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;用&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;扫&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;取&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;读&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;户&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;描&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;所&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;全&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;消&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;有&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;部&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;息&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;T&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;匹&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;匹&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;关&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;R&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;配&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;配&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;键&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;I&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;路&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;文&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;词&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;G&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;由&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;件&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;G&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;的&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;E&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;并&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;R&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;集&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;S&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;.&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;全&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;部&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;行&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;，&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;收&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;集&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;所&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;有&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;匹&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;配&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;的&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;路&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;240&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;由&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;例如用户说&amp;quot;审计这个 Excel&amp;quot;：&lt;/p&gt;</description>
+合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}
+→ 全量加载这 4 个文件
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;自检问题&lt;/strong&gt;（加载完文件后问自己）：&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</title>
-      <link>/pitfalls/pit-wsl-write-tool-path-failure/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-wsl-write-tool-path-failure/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-wsl-write-tool-path-failure/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-wsl-write-tool-path-failure/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -721,159 +510,21 @@
 &lt;blockquote&gt;
 &lt;p&gt;到底为什么出问题？&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;核心矛盾：&lt;strong&gt;当前会话的 &lt;code&gt;$HOME&lt;/code&gt; 是 &lt;code&gt;/c/Users/zhaot&lt;/code&gt;（Windows 侧），但 &lt;code&gt;Write&lt;/code&gt; 工具把 &lt;code&gt;/home/zhaotianbing/&lt;/code&gt; 路径解析到了 WSL 原生 Linux 文件系统&lt;/strong&gt;。&lt;/p&gt;
-
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 656 41&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;path d=&#39;M 216,16 L 224,0&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;circle cx=&#39;224&#39; cy=&#39;0&#39; r=&#39;6&#39; stroke=&#39;currentColor&#39; fill=&#39;#fff&#39;&gt;&lt;/circle&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;B&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;W&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;工&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;具&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;工&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;具&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;$&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;：&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;H&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;O&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;M&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;E&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;z&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;U&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;b&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;z&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;g&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;240&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;256&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;~&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;304&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;304&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;328&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;W&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;S&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;L&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;原&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;生&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;408&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;408&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;F&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;S&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;424&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;U&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;→&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;文&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;件&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;孤&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;472&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;472&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;立&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;480&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;z&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;488&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;488&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;❌&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;496&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;504&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;512&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;520&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;528&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;536&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;544&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;552&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;560&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;568&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;576&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;584&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;592&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;600&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;608&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;616&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;624&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;y&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;640&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;✅&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。&lt;/p&gt;</description>
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Bash 工具：$HOME → /c/Users/zhaot → ~/claude-memory → /c/Users/zhaot/claude-memory ✅
+Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤立 ❌
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。&lt;/p&gt;
+&lt;h2 id=&#34;修复&#34;&gt;修复&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;怎么做？&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在 WSL 环境创建文件时，用 &lt;code&gt;Bash&lt;/code&gt; 的 cat heredoc 写入，不走 &lt;code&gt;Write&lt;/code&gt; 工具：&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>公众号明文模式下 nonce/timestamp 非空导致回复被错误加密</title>
-      <link>/pitfalls/pit-wechat-plaintext-falsely-encrypted/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-wechat-plaintext-falsely-encrypted/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-wechat-plaintext-falsely-encrypted/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-wechat-plaintext-falsely-encrypted/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;
@@ -902,10 +553,10 @@
     
     <item>
       <title>长时间规划结束忘记 commit 丢失进度</title>
-      <link>/pitfalls/pit-plan-lost-not-committed/</link>
+      <link>https://worldcorner.xyz/pitfalls/pit-plan-lost-not-committed/</link>
       <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/pitfalls/pit-plan-lost-not-committed/</guid>
+      <guid>https://worldcorner.xyz/pitfalls/pit-plan-lost-not-committed/</guid>
       <description>&lt;h2 id=&#34;症状&#34;&gt;症状&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;你看到什么？&lt;/p&gt;&lt;/blockquote&gt;

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>关系系统论 on 世界一隅 | 认知能量工程</title>
-    <link>/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/</link>
+    <link>https://worldcorner.xyz/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/</link>
     <description>Recent content in 关系系统论 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>社交关系的「API 接口」：为什么孤独沉思不能替代师徒对话</title>
-      <link>/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-the-api-of-relationships/</link>
       <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/2026-05-01-the-api-of-relationships/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：现代人将孤独神化为高级社交形态，却在信息茧房中走向系统的死寂。本文用工程视角重构社交与沉思——师徒是高带宽的监督式学习，爱情是端到端加密同步，而孤独，不过是本地离线预处理。没有 API 接口的智能体，其计算结果最终无法上链，终将归零。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;

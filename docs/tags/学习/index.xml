@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>学习 on 世界一隅 | 认知能量工程</title>
-    <link>/tags/%E5%AD%A6%E4%B9%A0/</link>
+    <link>https://worldcorner.xyz/tags/%E5%AD%A6%E4%B9%A0/</link>
     <description>Recent content in 学习 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 May 2026 22:30:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>在系统的噪音中，重构灵魂的索引</title>
-      <link>/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</link>
       <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</guid>
       <description>&lt;h2 id=&#34;引子学习是最优雅的逃逸&#34;&gt;引子：学习是最优雅的逃逸&lt;/h2&gt;
 &lt;p&gt;你打开一本书，或者点开一个课程的播放键。屏幕的光打在脸上，知识流进大脑，神经元开始构建新的突触。你感到充实。&lt;/p&gt;
 &lt;p&gt;但你感到了什么？&lt;/p&gt;
@@ -70,10 +70,10 @@
     
     <item>
       <title>学习的本质，是为内心「重新索引」——当学习心境成为AI时代的底层内核</title>
-      <link>/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</link>
+      <link>https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
       
-      <guid>/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</guid>
+      <guid>https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</guid>
       <description>在AI算力爆炸时代，学习不再是知识获取，而是内心的重新索引。</description>
     </item>
     

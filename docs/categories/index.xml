@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on 世界一隅 | 认知能量工程</title>
-    <link>/categories/</link>
+    <link>https://worldcorner.xyz/categories/</link>
     <description>Recent content in Categories on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Systems-Thinking</title>
-      <link>/categories/systems-thinking/</link>
+      <link>https://worldcorner.xyz/categories/systems-thinking/</link>
       <pubDate>Sat, 27 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/categories/systems-thinking/</guid>
+      <guid>https://worldcorner.xyz/categories/systems-thinking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Learning</title>
-      <link>/categories/learning/</link>
+      <link>https://worldcorner.xyz/categories/learning/</link>
       <pubDate>Fri, 12 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/categories/learning/</guid>
+      <guid>https://worldcorner.xyz/categories/learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>工具箱</title>
-      <link>/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</link>
+      <link>https://worldcorner.xyz/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</link>
       <pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate>
       
-      <guid>/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</guid>
+      <guid>https://worldcorner.xyz/categories/%E5%B7%A5%E5%85%B7%E7%AE%B1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>深度</title>
-      <link>/categories/%E6%B7%B1%E5%BA%A6/</link>
+      <link>https://worldcorner.xyz/categories/%E6%B7%B1%E5%BA%A6/</link>
       <pubDate>Sat, 02 May 2026 22:30:00 +0800</pubDate>
       
-      <guid>/categories/%E6%B7%B1%E5%BA%A6/</guid>
+      <guid>https://worldcorner.xyz/categories/%E6%B7%B1%E5%BA%A6/</guid>
       <description></description>
     </item>
     
     <item>
       <title>自动化</title>
-      <link>/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+      <link>https://worldcorner.xyz/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
       <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
       
-      <guid>/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+      <guid>https://worldcorner.xyz/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
       <description></description>
     </item>
     
     <item>
       <title>认知能量</title>
-      <link>/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/</link>
+      <link>https://worldcorner.xyz/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/</link>
       <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
       
-      <guid>/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/</guid>
+      <guid>https://worldcorner.xyz/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/</guid>
       <description></description>
     </item>
     

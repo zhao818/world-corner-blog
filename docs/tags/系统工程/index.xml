@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>系统工程 on 世界一隅 | 认知能量工程</title>
-    <link>/tags/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/</link>
+    <link>https://worldcorner.xyz/tags/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/</link>
     <description>Recent content in 系统工程 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 08 Jun 2026 23:00:00 +0800</lastBuildDate><atom:link href="/tags/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Jun 2026 23:00:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>「当日报成为坟场：一个项目从数学危机到人道危机的72天」</title>
-      <link>/posts/systems-thinking/2026-06-08-signal-loss-in-yongde/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/2026-06-08-signal-loss-in-yongde/</link>
       <pubDate>Mon, 08 Jun 2026 23:00:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/2026-06-08-signal-loss-in-yongde/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/2026-06-08-signal-loss-in-yongde/</guid>
       <description>三个月前我们用数学证明了这个项目不可能在雨季前完工。现在它停了——不是因为下雨，而是因为系统在设计之初就没有为&amp;#39;坏消息&amp;#39;预留传输通道。</description>
     </item>
     
     <item>
       <title>雨季前的系统崩溃：对一个EPC项目的数学解剖</title>
-      <link>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</link>
+      <link>https://worldcorner.xyz/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</link>
       <pubDate>Sat, 28 Mar 2026 22:30:00 +0800</pubDate>
       
-      <guid>/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</guid>
+      <guid>https://worldcorner.xyz/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/</guid>
       <description>&lt;p&gt;2026年3月，云南永德县。22天铺设800米钢管——这是班老村片区交出的成绩单。&lt;/p&gt;
 &lt;p&gt;项目经理看了摇头，业主代表看了皱眉，但没有人指出一个更底层的事实：&lt;strong&gt;这不是人的问题，是系统设计本身出了问题。&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;

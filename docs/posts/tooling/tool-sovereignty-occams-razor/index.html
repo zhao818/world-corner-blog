@@ -8,18 +8,18 @@
 <meta name="keywords" content="效率, 自动化, 工具哲学, AI时代, 奥卡姆剃刀, 世界一隅">
 <meta name="description" content="他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。">
 <meta name="author" content="Tianbing Zhao">
-<link rel="canonical" href="/posts/tooling/tool-sovereignty-occams-razor/">
+<link rel="canonical" href="https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="/posts/tooling/tool-sovereignty-occams-razor/">
+<link rel="alternate" hreflang="en" href="https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/">
 <noscript>
     <style>
         #theme-toggle,
@@ -60,7 +60,7 @@
 <meta property="og:title" content="当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验" />
 <meta property="og:description" content="他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/tooling/tool-sovereignty-occams-razor/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2026-05-18T21:42:52+08:00" />
 <meta property="article:modified_time" content="2026-05-18T21:42:52+08:00" /><meta property="og:site_name" content="世界一隅" />
 
@@ -77,8 +77,20 @@
     {
       "@type": "ListItem",
       "position":  1 ,
+      "name": "Posts",
+      "item": "https://worldcorner.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "效率工具",
+      "item": "https://worldcorner.xyz/posts/tooling/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
       "name": "当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验",
-      "item": "/posts/tooling/tool-sovereignty-occams-razor/"
+      "item": "https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/"
     }
   ]
 }
@@ -96,22 +108,22 @@
   "articleBody": "一、引子：深夜的 WSL 命令行 凌晨一点，光标在 WSL 终端里闪烁。屏幕上是第 14 次 curl 调用返回的 JSON：\n{\u0026#34;errcode\u0026#34;:40001,\u0026#34;errmsg\u0026#34;:\u0026#34;invalid credential\u0026#34;} 不是域名备案的死循环，就是 API 令牌的隐藏规则；不是签名算法文档的暧昧，就是 OAuth 流程中某个神秘的 redirect_uri 校验。每一家平台都像一座围城，用厚厚的 API 文档砌起高墙，对闯入者说：要么遵守我的规则，要么滚。\n而他想要的，只不过是一个简单到近乎原始的需求——把自己写的长文，从 WSL 的终端，推向手机锁屏上的一条通知。\n这听起来像是一个技术宅的自找麻烦。但如果你仔细看，会发现这其实是这个时代每个个体创作者都在面临的困境：我们赖以生存的数字工具，正在被大公司的“标准化”逻辑层层加码。一个简单的念头，包裹在 API 鉴权、域名备案、SSL 证书、Webhook IP 白名单的层层叠叠之中——等它穿透这些门槛时，最初那点灵光早已灰飞烟灭。\n这不是一个技术问题。这是一个系统性问题。\n二、深潜：被“标准化”驯服的创作者 从“内在文明”框架来看，这场个人内容工厂的搭建实验，本质上是 个体与环境之间的一场博弈。\n工具共生论：谁在驾驭谁？ 工具不是中立的。设计者的价值观早已被编码进每一行代码。\n企业微信的 API 文档，是为“企业开发者”写的。它的鉴权流程假设你有法务团队审核隐私条款，有运维管理 SSL 证书，有产品经理梳理 API 调用的业务场景。当你作为一个“个体”去使用它时，你会发现自己被一个错位的身份期望绑架了——平台默认你是组织的一部分，而你不是。\n这就是 工具共生论 所警示的：当工具与使用者的天然规模不匹配时，工具就开始反向塑造使用者。你不是在驾驭工具，而是在为工具的规则做牛做马。调试了三个小时 API 的开发者，和被困在算法推荐里无法自拔的短视频用户，面对的其实是同一个问题——工具本是外骨骼，但你正在变成它的容器。\n环境回路论：谁塑造了谁的认知？ 更深一层，这个困境揭示了 环境回路 的隐秘力量。\n你的物理环境（WSL 终端）、社会环境（没有企业服务团队）、数字环境（微信生态的封闭性）构成了一条完整的回路。在这条回路中，每一次 API 调用的失败不仅仅是代码层面的错误，更是一次“环境记忆”的写入：你开始相信“这事一个人搞不定”，你开始怀疑自己的技术能力，你开始觉得“大公司的东西就该这么复杂”。\n这就是环境回路最阴险的地方——它不声张，只是不断让你碰壁，直到你把壁当作常态。\n真正的突破发生在你跳出这条回路，从更高维度审视它的时候。当意识到“我不是技术不行，而是用错了工具范式”的那一刻，环境回路的锁链就断开了。\n三、破局：技术降维的微小实验 1️⃣ 放弃重型 API，拥抱 Webhook 转折点异常简单：不再去管什么 access_token，不再理会 OAuth 流程。从“与企业系统对接”的思维框架中跳出来，转而问一个更本质的问题：\n我只是想把一段文字从点 A 送到点 B，最短路径是什么？\n答案是：微信群里一个自定义机器人 Webhook。\n没有鉴权协商，没有令牌刷新，没有 IP 白名单。一个 POST 请求，一段 JSON，一行 curl。耗时：2 分钟。\n从意识到问题到解决，2 分钟。而之前被困在 API 迷宫里，是整整两天。\n2️⃣ “如无必要，勿增实体”的工程哲学 这不仅是技术选择，更是哲学选择。奥卡姆剃刀在数字时代的含义是：任何在你与目标之间插入额外步骤的中间件，都是“实体”。\n不需要 n8n 中间件 → 砍掉 不需要定时脚本轮询 → 砍掉 不需要鉴权流程 → 砍掉 不需要域名、备案、IP 白名单 → 全部砍掉 在 AI 时代，“轻量化”不是偷懒，而是一种生存策略。当大公司的“标准化”在不断加厚实体层时，个体创作者的竞争优势恰恰在于可以随时抽身，选择一个更薄的路径。\n3️⃣ 战术退守，战略胜利 这表面上是一场退守——从“接入企业 API”退到“用一个微信群机器人”。但这是一次 降维打击：你不再向大公司的规则体系低头，而是绕开它，找一条它根本没有设防的路。\n从“环境回路论”来看，你重构了自己的数字环境。这条新回路只有两个节点：WSL → 手机。没有 API Gateway，没有双向认证，没有回调 URL。简洁到几乎不可能出问题。\n而从“工具共生论”来看，你重新夺回了主导权——工具不再是你的束缚，而是你随叫随到的仆人。\n四、升华：不被工具驯服的人 这场实验的真正启示不在技术层面，而在认识论层面。\n在 AI 时代，“会的工具越多”不是优势，“越少地依赖工具完成目标”才是。真正的专家不是知道最多 API 端点的人，而是知道什么时候 不 用 API 的人。\n我们正在进入一个 工具通胀 的时代：每天的 SaaS 服务新上市数量、AI 工具的迭代频率、API 版本的废弃周期，都已经超过了人类的认知带宽。在这样的环境中，焦虑不是来自工具不够，而是来自被工具绑架的太深。\n“内在文明”给出的方向是清晰的：\n不为工具做加法，而为目标做减法。\n回到那个最初的深夜：光标闪烁，终端吐出一行 errcode 40001。2 分钟后，一篇深度长文从 WSL 自动飞向了手机。没有中间件、没有 OAuth、没有 SSL 证书。只有一行命令，和一个清醒到知道自己想要什么的人。\n✨ 金句 “这不只是战术退守——在 API 的高墙面前，绕过去比撞破它需要更多的清醒。”\n“真正的工具驾驭，不是会用好多少 API，而是知道什么时候扔掉所有 API，只用一行 curl。”\n“当工具开始定义你的路径而非扩展你的能力时，你就已经不是使用工具的人了——你只是它规则里的一个参数。”\n本文收录于《世界一隅》专栏，探讨在 AI 时代如何做一个清醒的使用者而非被使用者。\n“这不只是战术退守——在 API 的高墙面前，绕过去比撞破它需要更多的清醒。”\n“真正的工具驾驭，不是会用好多少 API，而是知道什么时候扔掉所有 API，只用一行 curl。”\n“当工具开始定义你的路径而非扩展你的能力时，你就已经不是使用工具的人了——你只是它规则里的一个参数。”\n本文收录于《世界一隅》专栏，探讨在 AI 时代如何做一个清醒的使用者而非被使用者。\n本文收录于《世界一隅》专栏，探讨在 AI 时代如何做一个清醒的使用者而非被使用者。\n",
   "wordCount" : "175",
   "inLanguage": "en",
-  "datePublished": "2026-05-18 21:42:52 \u002b0800 CST",
-  "dateModified": "2026-05-18 21:42:52 \u002b0800 CST",
+  "datePublished": "2026-05-18 21:42:52 \u002b0800 \u002b0800",
+  "dateModified": "2026-05-18 21:42:52 \u002b0800 \u002b0800",
   "author":{
     "@type": "Person",
     "name": "Tianbing Zhao"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "\/posts\/tooling\/tool-sovereignty-occams-razor\/"
+    "@id": "https:\/\/worldcorner.xyz\/posts\/tooling\/tool-sovereignty-occams-razor\/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "世界一隅 | 认知能量工程",
     "logo": {
       "@type": "ImageObject",
-      "url": "\/favicon.ico"
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
     }
   }
 }
@@ -132,7 +144,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <a href="https://worldcorner.xyz/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -160,25 +172,25 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="/posts/systems-thinking/" title="系统思维"
+                <a href="https://worldcorner.xyz/posts/systems-thinking/" title="系统思维"
                 class="nav-btn nav-menu-systems-thinking">
                     <span>系统思维</span>
                 </a>
             </li>
             <li>
-                <a href="/posts/learning/" title="学习方法"
+                <a href="https://worldcorner.xyz/posts/learning/" title="学习方法"
                 class="nav-btn nav-menu-learning">
                     <span>学习方法</span>
                 </a>
             </li>
             <li>
-                <a href="/posts/tooling/" title="效率工具"
+                <a href="https://worldcorner.xyz/posts/tooling/" title="效率工具"
                 class="nav-btn nav-menu-tooling">
                     <span>效率工具</span>
                 </a>
             </li>
             <li>
-                <a href="/pitfalls/" title="踩坑宝典"
+                <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
                 class="nav-btn nav-menu-pitfalls">
                     <span>踩坑宝典</span>
                 </a>
@@ -199,7 +211,7 @@
     <div class="post-description">
       他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。
     </div>
-    <div class="post-meta">&lt;span title=&#39;2026-05-18 21:42:52 &#43;0800 CST&#39;&gt;2026年5月18日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao
+    <div class="post-meta">&lt;span title=&#39;2026-05-18 21:42:52 &#43;0800 &#43;0800&#39;&gt;2026年5月18日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao
 
 </div>
   </header> 
@@ -287,12 +299,12 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="/tags/%E6%95%88%E7%8E%87/">效率</a></li>
-      <li><a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></li>
-      <li><a href="/tags/%E5%B7%A5%E5%85%B7%E5%93%B2%E5%AD%A6/">工具哲学</a></li>
-      <li><a href="/tags/ai%E6%97%B6%E4%BB%A3/">AI时代</a></li>
-      <li><a href="/tags/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80/">奥卡姆剃刀</a></li>
-      <li><a href="/tags/%E4%B8%96%E7%95%8C%E4%B8%80%E9%9A%85/">世界一隅</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E6%95%88%E7%8E%87/">效率</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E5%B7%A5%E5%85%B7%E5%93%B2%E5%AD%A6/">工具哲学</a></li>
+      <li><a href="https://worldcorner.xyz/tags/ai%E6%97%B6%E4%BB%A3/">AI时代</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80/">奥卡姆剃刀</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E4%B8%96%E7%95%8C%E4%B8%80%E9%9A%85/">世界一隅</a></li>
     </ul>
   </footer><hr>
 
@@ -354,64 +366,57 @@
 
     <aside class="series-sidebar">
       <div class="series-sidebar-header">
-        <a href="/posts/tooling/" class="series-sidebar-title">效率工具</a>
-        <span class="series-sidebar-count">8 篇</span>
+        <a href="https://worldcorner.xyz/posts/tooling/" class="series-sidebar-title">效率工具</a>
+        <span class="series-sidebar-count">7 篇</span>
       </div>
       <ul class="series-sidebar-list">
         <li>
-          <a href="/posts/tooling/ai-audit-ai/"
+          <a href="https://worldcorner.xyz/posts/tooling/ai-audit-ai/"
              class="series-capsule series-tooling"
              title="AI审AI">
             AI审AI
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/construction-documents-rebirth/"
+          <a href="https://worldcorner.xyz/posts/tooling/construction-documents-rebirth/"
              class="series-capsule series-tooling"
              title="「一份施工组织设计的重生：从报审表空壳到完整技术文档」">
             「一份施工组织设计的重生：从报审表空壳到完整技术文档」
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/tool-sovereignty-occams-razor/"
+          <a href="https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/"
              class="series-capsule series-tooling active"
              title="当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验">
             当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/wxpusher-polling-to-event-driven/"
+          <a href="https://worldcorner.xyz/posts/tooling/wxpusher-polling-to-event-driven/"
              class="series-capsule series-tooling"
              title="别再轮询了。你的人生应该 Event-Driven。">
             别再轮询了。你的人生应该 Event-Driven。
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/content-buffer-pool-design/"
+          <a href="https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/"
              class="series-capsule series-tooling"
              title="自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？">
             自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/farewell-efficiency-refugees/"
+          <a href="https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/"
              class="series-capsule series-tooling"
              title="别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？">
             别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？
           </a>
         </li>
         <li>
-          <a href="/posts/tooling/2026-06-13-pitfall-knowledge-base/"
+          <a href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"
              class="series-capsule series-tooling"
              title="">
             
-          </a>
-        </li>
-        <li>
-          <a href="/posts/tooling/pipeline-thinking/"
-             class="series-capsule series-tooling"
-             title="管线思维">
-            管线思维
           </a>
         </li>
       </ul>
@@ -422,16 +427,16 @@
 
 
 <nav class="section-nav-row" aria-label="专栏导航">
-    <a href="/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+    <a href="https://worldcorner.xyz/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
       系统思维
     </a>
-    <a href="/posts/learning/" class="nav-btn nav-menu-learning">
+    <a href="https://worldcorner.xyz/posts/learning/" class="nav-btn nav-menu-learning">
       学习方法
     </a>
-    <a href="/posts/tooling/" class="nav-btn nav-menu-tooling active">
+    <a href="https://worldcorner.xyz/posts/tooling/" class="nav-btn nav-menu-tooling active">
       效率工具
     </a>
-    <a href="/pitfalls/" class="nav-btn nav-menu-pitfalls">
+    <a href="https://worldcorner.xyz/pitfalls/" class="nav-btn nav-menu-pitfalls">
       踩坑宝典
     </a>
 </nav>
@@ -439,7 +444,7 @@
     </main>
     
 <footer class="footer">
-    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/">世界一隅 | 认知能量工程</a></span>
     <span>
         由
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
