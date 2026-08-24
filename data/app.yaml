@@ -8,8 +8,8 @@ app:
     - name: 灵魂之觅
       tag: 36问 · 深度情感连接
       qr: /qr/linghunzhimi-code.jpg
-    - name: 世界一隅
-      tag: 认知与写作 · 角落书房
+    - name: 内心的修炼
+      tag: 九书修炼体系 · 断舍离到立财基
       qr: /qr/weiyu-code.jpg
   features:
     - icon: heart
