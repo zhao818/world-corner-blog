@@ -9,7 +9,7 @@
 <meta name="description" content="在算法洪流中，守护清醒的微光。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/tags/ai/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72cef39fed2e098d72e01fd6214ad081a86d719eac013523dbd3fa44eacfd37.css" integrity="sha256-1yzvOf7S4JjXLgH9YhStCBqG1xnqwBNSPb0/pE6s/Tc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -27,35 +27,10 @@
         }
 
     </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
 </noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <meta property="og:title" content="AI" />
 <meta property="og:description" content="在算法洪流中，守护清醒的微光。" />
 <meta property="og:type" content="website" />
@@ -66,14 +41,10 @@
 <meta name="twitter:description" content="在算法洪流中，守护清醒的微光。"/>
 
 </head>
-<body class="list" id="top">
+<body class="list dark" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
+    if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
     }
 
 </script>
@@ -132,6 +103,24 @@
                     <span>踩坑宝典</span>
                 </a>
             </li>
+            <li>
+                <a href="https://worldcorner.xyz/collections/" title="合集"
+                class="nav-btn nav-menu-collections">
+                    <span>合集</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/audiobook/" title="听书"
+                class="nav-btn nav-menu-audiobook">
+                    <span>听书</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/app/" title="小程序"
+                class="nav-btn nav-menu-app">
+                    <span>小程序</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -141,6 +130,44 @@
     AI
   </h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>DeepSeek分水岭
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 开篇：这是一篇迟到了四个月的文章。不是不想写——是形势一直在变。但有些问题，不会因为你不看就消失。
+🔴 DeepSeek最大的敌人不是OpenAI，不是Kimi——是自己。
+7月20日，V4仍未正式发布。这已经是第三次延期。
+从春节前拖到5月，从5月推到7月中旬，从7月中旬变成了&#34;灰度测试中&#34;。
+每一次延期都有&#34;技术原因&#34;——适配华为昇腾芯片，重写了超200个核心算子。听起来很硬核。但真正让人揪心的，不是V4本身——而是藏在延期背后的那个更根本的问题。
+一、看得见的战场：三方角力 先看清局面。
+Kimi K3 已经杀出来了。综合推理能力略高于V4 Pro，价格高出约一个数量级（K3输出$15/百万tokens，V4 Pro仅$0.87）。不是&#34;天壤之别&#34;，更像&#34;95分和80分&#34;。
+✦ 但AI竞赛从来不是&#34;谁更聪明&#34;——是&#34;谁能让更多人用得起&#34;。
+Reasonix（第三方开源项目，非DeepSeek官方）标星1.8万，已被DeepSeek API文档收录。它的杀手锏是极致省钱：围绕前缀缓存做深度优化，单日435M token，缓存命中率99.82%，费用从61美元降至12美元。
+而真正的&#34;暗雷&#34;是 OpenCode：一个开源AI编程助手，插件整合40多种免费模型（含英伟达免费API）。月活从65万飙至650万，GitHub星标16.1万。
+🟡 转发给做AI的朋友：OpenCode的威胁在于——它让DeepSeek模型沦为&#34;可随时替换的备胎&#34;。低价护城河，正在被瓦解。
+二、裂缝在哪里？ 三个战场，DeepSeek同时在打。
+三条战线：①V4模型发布（华为昇腾适配）②Harness智能体框架（对标Claude Code）③自研AI推理芯片。
+问题不是方向错了——而是同时推进三件事，资源被分散，每一条线都不及预期。
+“目标正确，执行失速。” 这是对DeepSeek目前状态最精准的概括。
+战略节奏出了三个问题：
+目标定得太满、太急 时间评估过于乐观 多条战线在抢同一批顶尖人才 目前还有半年左右的窗口期。不是来自Kimi（太贵）或OpenAI/Claude（中国用户有天然门槛），而是来自用户耐心——用户不会永远等下去。
+三、最本质的问题：管理 到这里我们分析的是&#34;外因&#34;。但真正的问题，在内不在外。
+V4的反复延期，表面是技术问题，深层是管理问题：
+优先级不清晰 资源调配不合理 跨部门协同不到位 决策链路过长 这不是&#34;技术不行&#34;，是&#34;组织能力&#34;追不上&#34;业务野心&#34;。
+DeepSeek的创始人梁文锋是顶尖技术天才——但技术能力与管理能力是两套完全不同的逻辑。
+✦ 技术天才擅长&#34;解决技术问题&#34;，管理高手擅长&#34;整合资源、凝聚人心、把控节奏&#34;。
+一个人能带50人，不代表能带1000人。
+这无关能力高下，而是角色错位。
+四、人才：真正的暗流 从2025下半年至今，DeepSeek核心研发的流失触目惊心：
+姓名 角色 去向 罗福莉 V2核心开发者 → 小米，MiMo大模型负责人 郭达雅 R1核心研究员 → 字节跳动，Agent负责人 王炳宣 第一代大模型核心作者 → 腾讯混元团队 阮翀 多模态负责人 已离职 魏浩然 OCR核心作者 已离职 覆盖基座模型、推理、多模态、OCR四条核心技术路线。
+...</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-07-23 00:00:00 &#43;0000 UTC&#39;&gt;2026年7月23日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to DeepSeek分水岭" href="https://worldcorner.xyz/posts/systems-thinking/2026-07-23-deepseek-watershed/"></a>
+</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">

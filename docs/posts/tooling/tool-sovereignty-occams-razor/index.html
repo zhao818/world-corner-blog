@@ -9,7 +9,7 @@
 <meta name="description" content="他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72cef39fed2e098d72e01fd6214ad081a86d719eac013523dbd3fa44eacfd37.css" integrity="sha256-1yzvOf7S4JjXLgH9YhStCBqG1xnqwBNSPb0/pE6s/Tc=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
@@ -28,35 +28,10 @@
         }
 
     </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
 </noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <meta property="og:title" content="当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验" />
 <meta property="og:description" content="他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。" />
 <meta property="og:type" content="article" />
@@ -129,14 +104,10 @@
 }
 </script>
 </head>
-<body class="" id="top">
+<body class=" dark" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
+    if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
     }
 
 </script>
@@ -193,6 +164,24 @@
                 <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
                 class="nav-btn nav-menu-pitfalls">
                     <span>踩坑宝典</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/collections/" title="合集"
+                class="nav-btn nav-menu-collections">
+                    <span>合集</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/audiobook/" title="听书"
+                class="nav-btn nav-menu-audiobook">
+                    <span>听书</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/app/" title="小程序"
+                class="nav-btn nav-menu-app">
+                    <span>小程序</span>
                 </a>
             </li>
         </ul>
@@ -438,6 +427,15 @@
     </a>
     <a href="https://worldcorner.xyz/pitfalls/" class="nav-btn nav-menu-pitfalls">
       踩坑宝典
+    </a>
+    <a href="https://worldcorner.xyz/collections/" class="nav-btn nav-menu-collections">
+      合集
+    </a>
+    <a href="https://worldcorner.xyz/audiobook/" class="nav-btn nav-menu-audiobook">
+      听书
+    </a>
+    <a href="https://worldcorner.xyz/app/" class="nav-btn nav-menu-app">
+      小程序
     </a>
 </nav>
 

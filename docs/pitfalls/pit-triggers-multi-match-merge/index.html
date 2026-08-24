@@ -43,7 +43,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 自检问题（加载完文件后问自己）：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-triggers-multi-match-merge/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72cef39fed2e098d72e01fd6214ad081a86d719eac013523dbd3fa44eacfd37.css" integrity="sha256-1yzvOf7S4JjXLgH9YhStCBqG1xnqwBNSPb0/pE6s/Tc=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
@@ -62,35 +62,10 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
         }
 
     </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
 </noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <meta property="og:title" content="TRIGGERS 多场景同时命中时只读第一条，漏了后续路由" />
 <meta property="og:description" content="症状
 
@@ -225,14 +200,10 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 }
 </script>
 </head>
-<body class="" id="top">
+<body class=" dark" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
+    if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
     }
 
 </script>
@@ -291,6 +262,24 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
                     <span>踩坑宝典</span>
                 </a>
             </li>
+            <li>
+                <a href="https://worldcorner.xyz/collections/" title="合集"
+                class="nav-btn nav-menu-collections">
+                    <span>合集</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/audiobook/" title="听书"
+                class="nav-btn nav-menu-audiobook">
+                    <span>听书</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/app/" title="小程序"
+                class="nav-btn nav-menu-app">
+                    <span>小程序</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -299,7 +288,8 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
   <header class="pitfall-hero">
     <h1>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h1>
     <div class="pitfall-meta">
-      <span>📅 2026-06-13</span>
+      <span><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+ 2026-06-13</span>
     </div>
   </header>
 
@@ -363,7 +353,8 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
   </div>
 
   <footer class="pitfall-footer">
-    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
     <p><a href="https://worldcorner.xyz/pitfalls/">← 返回踩坑宝典</a></p>
   </footer>
 </article>

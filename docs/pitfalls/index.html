@@ -9,7 +9,7 @@
 <meta name="description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0594e8e040363075bdf4a02ca10f7d1fe9a2b77b6fe08b29236317dd9b4d052e.css" integrity="sha256-BZTo4EA2MHW99KAsoQ99H&#43;mit3tv4IspI2MX3ZtNBS4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72cef39fed2e098d72e01fd6214ad081a86d719eac013523dbd3fa44eacfd37.css" integrity="sha256-1yzvOf7S4JjXLgH9YhStCBqG1xnqwBNSPb0/pE6s/Tc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -27,35 +27,10 @@
         }
 
     </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
 </noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <meta property="og:title" content="踩坑宝典" />
 <meta property="og:description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑" />
 <meta property="og:type" content="website" />
@@ -81,14 +56,10 @@
 }
 </script>
 </head>
-<body class="list" id="top">
+<body class="list dark" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
+    if (localStorage.getItem("pref-theme") === "light") {
         document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
     }
 
 </script>
@@ -147,16 +118,40 @@
                     <span class="active">踩坑宝典</span>
                 </a>
             </li>
+            <li>
+                <a href="https://worldcorner.xyz/collections/" title="合集"
+                class="nav-btn nav-menu-collections">
+                    <span>合集</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/audiobook/" title="听书"
+                class="nav-btn nav-menu-audiobook">
+                    <span>听书</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/app/" title="小程序"
+                class="nav-btn nav-menu-app">
+                    <span>小程序</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
 <main class="main">
 <header class="pitfalls-header">
   <h1>踩坑宝典</h1>
-  <p class="pitfalls-desc">16 条结构化踩坑经验，每条按 🩺症状 → 🔬根因 → 🔧修复 → 🛡️避免 四段式记录。踩过坑、修好坑、记住坑——不再踩第二次。</p>
+  <p class="pitfalls-desc"><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.6" y2="16.6"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg></span>
+ 症状 → <span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 5V3"></path><path d="M12 21v-2"></path><path d="M5 12H3"></path><path d="M21 12h-2"></path><path d="M6.2 6.2L4.8 4.8"></path><path d="M19.2 19.2l-1.4-1.4"></path><path d="M17.8 6.2l1.4-1.4"></path><path d="M4.8 19.2l1.4-1.4"></path></svg></span>
+ 根因 → <span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a5 5 0 0 0-6.9 6.9l-5.6 5.6 1.4 1.4 5.6-5.6a5 5 0 0 0 6.9-6.9l-2.8 2.8-3.5-3.5 2.8-2.8z"></path><path d="M17.5 13.3l3.2 3.2a1 1 0 0 1 0 1.4l-1.4 1.4a1 1 0 0 1-1.4 0l-3.2-3.2"></path></svg></span>
+ 修复 → <span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.6c0 5-3.4 8.6-8 10.4-4.6-1.8-8-5.4-8-10.4V5.5L12 2z"></path><polyline points="8.5 12 11 14.5 15.5 9.5"></polyline></svg></span>
+ 避免:每一条踩坑经验都按四段式记录。踩过坑、修好坑、记住坑——不踩第二次。</p>
   <div class="pitfall-stats">
-    <span>🕳️ <strong>16</strong> 条踩坑</span>
-    <span>📅 更新于 2026-08-24</span>
+    <span><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+ <strong>16</strong> 条踩坑</span>
+    <span><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+ 更新于 2026-08-24</span>
   </div>
 </header>
 
@@ -165,7 +160,8 @@
   <article class="pitfall-card">
     <a href="/pitfalls/pit-plan-lost-not-committed/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>长时间规划结束忘记 commit 丢失进度</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -173,8 +169,10 @@
 根因 真正的原因是什么？
 人的注意力在&quot;思考规划内容&quot;上，不在&quot;保存规划结果&quot;上。规划过程可能持续几十分钟到几小时，期间一直在输出和修改， …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -182,7 +180,8 @@
   <article class="pitfall-card">
     <a href="/pitfalls/pit-wechat-plaintext-falsely-encrypted/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>公众号明文模式下 nonce/timestamp 非空导致回复被错误加密</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -190,8 +189,10 @@
 根因 到底为什么出问题？
 _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在： …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -199,15 +200,18 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
   <article class="pitfall-card">
     <a href="/pitfalls/pit-wsl-write-tool-path-failure/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
 实际上本次会话就复现了：5 篇新踩坑用 Write 工具 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -215,15 +219,18 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
   <article class="pitfall-card">
     <a href="/pitfalls/pit-triggers-multi-match-merge/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md &ldquo;数据录入项目&rdquo; → …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -231,7 +238,8 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
   <article class="pitfall-card">
     <a href="/pitfalls/pit-wechat-chinese-garbled-requests-json/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>requests json= 参数导致公众号中文乱码</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -239,8 +247,10 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
 根因 真正的原因是什么？
 requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 ensure_ascii=True， …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -248,7 +258,8 @@ requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 e
   <article class="pitfall-card">
     <a href="/pitfalls/pit-docx-table-page-break-cantsplit/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>python-docx 表格跨页断开无法控制</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -256,8 +267,10 @@ requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 e
 根因 真正的原因是什么？
 python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性。Word 打开文档后，按自己的分页 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -265,15 +278,18 @@ python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性�
   <article class="pitfall-card">
     <a href="/pitfalls/pit-python-indentation-silent-skip/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Python 缩进错位导致 140 行被动回复代码完全跳过</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=False）完全不工作：
 用户发消息到公众号 → 无任何回复 日志报 TypeError: The response value returned by the view function cannot be None 调试器中 AI 回复正常，部署后就是 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -281,14 +297,17 @@ AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=Fals
   <article class="pitfall-card">
     <a href="/pitfalls/pit-python-utf8-bom-encoding/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Python encoding=&#39;utf-8&#39; 不能自动处理 BOM</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f: for line in f: if line.startswith(&#34;GITEE_TOKEN=&#34;): # ← 永远不匹配 token = …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -296,7 +315,8 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f: for line in f: i
   <article class="pitfall-card">
     <a href="/pitfalls/pit-hugo-skip-full-build/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Hugo 手写单篇 HTML 跳过全量构建导致分类/列表页不更新</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -305,8 +325,10 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f: for line in f: i
 根因 到底为什么出问题？
 Hugo 是一个全量静态站点生成器——每篇文章的交叉引用、分类聚合、列表渲染，都需要 hugo -d docs/ 重 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -314,7 +336,8 @@ Hugo 是一个全量静态站点生成器——每篇文章的交叉引用、分
   <article class="pitfall-card">
     <a href="/pitfalls/pit-sed-false-positive-verification/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>GNU sed a 命令中 
  被当字面量——假阳性验证导致以为修好实际没修</h2>
       </div>
@@ -324,8 +347,10 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
 根因 到底为什么出问题？
 部署脚本用了 GNU sed …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -333,7 +358,8 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
   <article class="pitfall-card">
     <a href="/pitfalls/pit-gitee-duplicate-repo-check/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Gitee 建仓库前没查已有仓库，建了重复仓库</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -341,8 +367,10 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
 结果：
 多了一个无用仓库，要手动删除 镜像同步配置白做了  …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -350,14 +378,17 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
   <article class="pitfall-card">
     <a href="/pitfalls/pit-gitee-mirror-dual-push/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Gitee 已配镜像还手动 push gitee，做了多余操作</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 每次 git commit 后都跑 git push origin master &amp;&amp; git push gitee master，两条命令都成功。实际上 Gitee 那边早已配置了从 GitHub 自动镜像同步，push origin 之后 Gitee 会自动拉取。手动再 push gitee 不仅多余，还可能在极端情况 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -365,7 +396,8 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
   <article class="pitfall-card">
     <a href="/pitfalls/pit-git-push-ssl-proxy-fix/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Git push GitHub SSL 握手失败</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -373,8 +405,10 @@ git push 到 GitHub 报错：fatal: unable to access 'https://github.com/...': S
 根因 真正的原因是什么？
 Windows 环境 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -382,15 +416,18 @@ Windows 环境 …</p>
   <article class="pitfall-card">
     <a href="/pitfalls/pit-excel-com-save-silent-fail/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Excel COM wb.Save() 静默失败，必须用 SaveAs</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
 用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 wb.Save() 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。
 # 跑了半小时的修复脚本... for row in range(2, 500): ws.Cells(row, col).Value = fix_value …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -398,7 +435,8 @@ Windows 环境 …</p>
   <article class="pitfall-card">
     <a href="/pitfalls/pit-cloudreve-upload-timeout-cloudflare/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>Cloudreve 上传大文件超时：Cloudflare 免费版 100 秒限制</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -408,8 +446,10 @@ Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的
 请求链路：
 浏览器 → …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
@@ -417,7 +457,8 @@ Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的
   <article class="pitfall-card">
     <a href="/pitfalls/pit-astrbot-xml-double-wrap/" class="card-link">
       <div class="card-symptom">
-        <span class="card-icon">🕳️</span>
+        <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
+
         <h2>AstrBot 公众号被动回复 XML 二次包装导致微信无法解析</h2>
       </div>
       <p class="card-excerpt">症状 你看到什么？
@@ -425,8 +466,10 @@ AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示
 根因 到底为什么出问题？
 callback 函数把 AI 结 …</p>
       <div class="card-footer">
-        <span class="card-date">2026-06-13</span>
-        <span class="card-read">阅读 →</span>
+        <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
+2026-06-13</span>
+        <span class="card-read">阅读 <span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+</span>
       </div>
     </a>
   </article>
