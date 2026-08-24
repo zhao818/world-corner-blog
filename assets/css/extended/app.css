@@ -42,10 +42,10 @@
   padding: 8px 0 24px;
 }
 
-/* --- 小程序码 + 打开方式(不对称双栏) --- */
+/* --- 小程序码 + 打开方式(不对称双栏,码可并列多张) --- */
 .app-qr-block {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: auto 1fr;
   gap: clamp(22px, 4vw, 40px);
   align-items: center;
   padding: clamp(22px, 4vw, 34px);
@@ -53,31 +53,42 @@
   border: 1px solid var(--border);
   border-radius: 14px;
 }
-.app-qr-frame {
-  width: 200px;
+.app-qr-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+}
+.app-qr-card {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+.app-qr-card img {
+  width: 170px;
   aspect-ratio: 1;
   border-radius: 12px;
   border: 1px solid rgba(200, 160, 60, 0.5);
-  background: radial-gradient(circle at 30% 25%, #26263f, var(--brand-night) 72%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #fff;
   box-shadow: 0 12px 34px rgba(16, 16, 28, 0.4);
-  overflow: hidden;
 }
-.app-qr-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.app-qr-card figcaption {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  text-align: center;
 }
-.qr-empty-tag {
-  font-size: 0.78rem;
-  font-family: var(--mono-stack);
-  letter-spacing: 0.12em;
+.app-qr-card figcaption strong {
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+.app-qr-card figcaption em {
+  font-style: normal;
+  font-size: 0.76rem;
   color: var(--secondary);
-  border: 1px dashed var(--border);
-  border-radius: 999px;
-  padding: 6px 16px;
+  font-family: var(--mono-stack);
+  letter-spacing: 0.06em;
 }
 .app-find h2 {
   margin: 0 0 16px;

@@ -12,15 +12,17 @@
 <div class="app-stage">
   {{- /* 小程序码 × 打开方式 */ -}}
   <div class="app-qr-block">
-    {{- if $d.app.qr }}
-    <div class="app-qr-frame">
-      <img src="{{ $d.app.qr }}" alt="《灵魂之觅》小程序码" loading="lazy">
+    <div class="app-qr-row">
+      {{- range $d.app.qrs }}
+      <figure class="app-qr-card">
+        <img src="{{ .qr }}" alt="{{ .name }}小程序码" loading="lazy">
+        <figcaption>
+          <strong>{{ .name }}</strong>
+          <em>{{ .tag }}</em>
+        </figcaption>
+      </figure>
+      {{- end }}
     </div>
-    {{- else }}
-    <div class="app-qr-frame is-empty">
-      <span class="qr-empty-tag">小程序码 · 待补充</span>
-    </div>
-    {{- end }}
     <div class="app-find">
       <h2>怎么找到它</h2>
       <ol class="find-steps">

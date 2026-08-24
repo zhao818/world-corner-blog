@@ -3,8 +3,14 @@ app:
   name: 灵魂之觅
   slogan: 36 个问题,遇见对的人
   intro: 我们把哲学里的「柏拉图式爱情实验」搬进微信——两个人隔着屏幕,依序回答 36 个由浅入深的问题,答案成对出现,像两把钥匙对锁孔。
-  # 小程序码图片(static/qr/)
-  qr: /qr/linghunzhimi-code.jpg
+  # 小程序码并排展示
+  qrs:
+    - name: 灵魂之觅
+      tag: 36问 · 深度情感连接
+      qr: /qr/linghunzhimi-code.jpg
+    - name: 世界一隅
+      tag: 认知与写作 · 角落书房
+      qr: /qr/weiyu-code.jpg
   features:
     - icon: heart
       title: 36 问实验
