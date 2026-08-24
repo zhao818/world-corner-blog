@@ -67,10 +67,39 @@
   </div>
 </div>
 
-{{- /* 社交 */ -}}
+{{- /* GIS 数据工作室 */ -}}
+{{- $g := site.Data.gis -}}
 <div class="shelf">
   <div class="shelf-head">
     <span class="shelf-index">03</span>
+    <h2>GIS 数据工作室</h2>
+    <span class="shelf-count">{{ len $g.maps }} 张项目地图</span>
+  </div>
+  <p class="gis-note">{{ $g.note }}</p>
+  <div class="map-grid">
+    {{- range $g.maps }}
+    <a class="map-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+      <div class="map-thumb"><img src="{{ .thumb }}" alt="{{ .title }}地图缩略图" loading="lazy"></div>
+      <div class="map-body">
+        <h3>{{ .title }}</h3>
+        <em class="map-scope">{{ .scope }}</em>
+        <p>{{ .desc }}</p>
+        <span class="map-enter">进入地图 {{ partial "icon.html" (dict "name" "arrow" "class" "mini-icon" ) }}</span>
+      </div>
+    </a>
+    {{- end }}
+  </div>
+  <a class="gis-group-link" href="{{ $g.group.url }}" target="_blank" rel="noopener noreferrer">
+    {{ partial "icon.html" (dict "name" "map" "class" "mini-icon" ) }}
+    {{ $g.group.title }} · 更多地图与数据集
+    <em>→</em>
+  </a>
+</div>
+
+{{- /* 社交 */ -}}
+<div class="shelf">
+  <div class="shelf-head">
+    <span class="shelf-index">04</span>
     <h2>社交账户</h2>
   </div>
   <div class="social-row">
