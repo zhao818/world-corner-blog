@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>世界一隅 · 技能总表</title>
+<style>
+  :root { --bg:#0f1420; --panel:#161c2b; --line:#26314a; --fg:#dfe6f3; --dim:#8b97ad;
+          --accent:#c9a55c; --link:#7fb3ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; padding:36px 24px 60px; }
+  h1 { font-size:24px; color:var(--accent); letter-spacing:1px; }
+  .meta { font-size:12px; color:var(--dim); margin:8px 0 20px; }
+  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
+  #q { flex:1; min-width:220px; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+        background:#0e1424; color:var(--fg); font-size:13px; outline:none; }
+  #q:focus { border-color:var(--accent); }
+  #g { padding:9px 12px; border-radius:8px; border:1px solid var(--line); background:#0e1424;
+        color:var(--fg); font-size:13px; outline:none; }
+  .count { font-size:12px; color:var(--dim); margin-bottom:12px; }
+  .cards { display:grid; grid-template-columns:1fr; gap:10px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .card:hover { border-color:var(--accent); }
+  .card .nm { display:flex; align-items:center; gap:8px; }
+  .card .nm code { font-family:Consolas,monospace; font-size:13px; color:var(--accent); }
+  .card .tag { font-size:10px; color:var(--dim); border:1px solid var(--line); border-radius:999px;
+                padding:2px 8px; }
+  .card .ds { font-size:12px; color:var(--dim); line-height:1.7; margin-top:6px; }
+  .card.hide { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛠 技能总表</h1>
+  <p class="meta">Claude Code / GitHub App / 项目内技能清单 · 共 62 项 · 生成于 2026-08-25</p>
+  <div class="filters">
+    <input id="q" type="search" placeholder="搜索技能名或用途…" autocomplete="off">
+    <select id="g">
+      <option value="all">全部分组</option>
+      <option value="claude">Claude 全局技能</option><option value="githubapp">GitHub App 捆绑技能</option><option value="project">项目内技能(codebuddy + codex)</option>
+    </select>
+  </div>
+  <p class="count" id="count">共 62 项</p>
+  <div class="cards" id="cards"></div>
+</div>
+<script>
+var DATA = [{g:"claude",gn:"Claude 全局技能",n:"arkcli-agent",d:"arkcli agent：管理 ARK Managed Agents，包括 Agent / Skill / Env / Session / File / Memory Store / Vault / MCP OAuth。控制面优先走 ForTop/OpenTOP，Session 运行时和 Files 走数据面直联。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-api-explorer",d:"arkcli Raw API Explorer：调用已注册的 Action 作为产品命令的兜底能力。当现有 `arkcli &lt;domain&gt; &lt;verb&gt;` 无法覆盖需求，或需要验证底层 Action 契约时使用。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-auth",d:"arkcli 认证管理：交互式登录、Volc SSO 登录、查看状态、退出登录、生成 ARK API Key (apikey)、以及云开发机/CI 用 `arkcli init-volc` 从 VOLC_INIT_* 环境变量无交互引导 platform profile。0.1.16 起 SSO 登录走 Gate 1+2 自动绑定 Profile 切面 (type/region/project/owner_trn)；AK/SK login 通道暂关。当用户需要初始化凭证、排查鉴权问题、切换认证方式、生成或重选 ARK API Key、或在已注入凭证的环境无交互引导时使用。反触发：用户问 TTS/ASR/语音模型能力、接入或调用时，不要引导 `auth apikey`，只转 models search 说明 arkcli 当前仅支持广场发现。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-billing",d:"查询火山引擎 ARK 拆分账单明细（结算金额、Token 用量计费），支持按账期月、月范围、Endpoint、API Key、产品编码等维度过滤。当用户问账单、花了多少钱、对账、账期、按 EP / API Key 拆账、按产品拆账、月度账单、出账明细时使用。注意 billing 跟 usage stats 不同：stats 出推理量（近实时），billing 出结算金额（T+1 出账，财务口径）。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-chat",d:"arkcli +chat：通过数据面 Responses API 快速对话/推理，支持多模态、流式、多轮、临时 API Key/Base URL/Endpoint 执行与无副作用 dry-run。当用户给出 Endpoint 但未说明工作流时，先用 resources resolve 识别候选；有明确产出形态的多模态理解走 arkcli-understand。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-code-example",d:"arkcli +code-example：为指定基础模型生成多语言（Python / Go / Java / Node / curl）调用示例代码并写入本地文件。数据源是火山方舟 OpenTOP OpenGetSampleCode。当用户需要拿某个基础模型的 SDK / curl 调用示例、保存为本地接入模板时使用。反触发：TTS/ASR/语音模型没有 arkcli 示例代码路径，不能靠补版本解决，只能转 models search 说明当前不支持。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-config",d:"arkcli 本地配置管理。0.1.16 起 profile 类操作请优先使用 `arkcli profile &lt;subcmd&gt;`（init/list/show/switch/delete 已 deprecated）；本 skill 仍可处理 `arkcli config reset` 与历史 yaml 排障。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-connect",d:"arkcli +connect：将 arkcli 内嵌的 AI skills 安装到本机检测到的所有 AI Agent 中，支持安装、列出已支持 agent、卸载。当用户需要将 arkcli 能力同步到 Claude Code 等本地 agent 时使用。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-custommodel",d:"arkcli 自定义模型仓库管理：从 TOS 导入自定义模型、查询/筛选自定义模型、查看详情、改名、删除、查询可用量化模式、量化已就绪的模型。任何提到自定义模型 ID（`cm-*`）的管理、部署准备，或要求用 `cm-*` 直接对话/推理/试效果的边界判断，都必须使用本 skill。注意：查询火山**公共基础模型**（doubao 等 foundation models）走 arkcli-models；本 skill 只管账号下的自定义模型仓库。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-deploy",d:"arkcli +deploy：创建推理接入点（Endpoint）的统一首选入口 —— **用户说『创建/新建/create 一个 endpoint/接入点』或『部署/上线/deploy 某模型』，只要意图是新建一个接入点，一律优先走这里，不要走 arkcli-infer-endpoint 的 create**。当用户需要把模型部署成在线推理接入点时使用。注意：要对**已有** Endpoint 做获取/列表/启停/更新等全生命周期管理，才走 arkcli-infer-endpoint；本 skill 只负责一键创建（创建外的增删改查不在此）。创建成功后会自动把多语言调用示例渲染到 ./ark-examples/&lt;ep-id&gt;/。反触发：TTS/ASR/语音模型不能 +deploy，只能转 models search 说明广场可搜但 arkcli 不支持 Endpoint 创建。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-doctor",d:"arkcli doctor 统一入口，覆盖 CLI 健康、account、error、infer-endpoint、model、metrics、report 与 Ark 图片/视频来源特征验证。用户给 1-20 个媒体 URL 并问是否由 Ark/Seedance/Seedream 生成时，走 doctor +verify-origin：整批只披露并确认一次费用，确认前不发 Create/Get 业务请求，最终完整转交服务端 JSON，禁止解释 IsOfficial。其余错误码、模型名、ep-xxx、失败/慢/超时/限流、健康度、P99/Cache、内容审核、DNS/TCP/TLS/时钟等按正文诊断路由。来源验证不判断内容真假、版权归属、法律认证或内容安全。安装/登录/profile/API Key 归 arkcli-shared/auth；纯用量明细归 arkcli-usage；部署、Endpoint CRUD、模型元信息归对应 skill。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-gen",d:"火山方舟 Ark 图片/视频生成入口：支持 profile 默认资源与临时 API Key/Base URL/Endpoint；显式 Endpoint 不受当前 plan profile 误导。图片同步返回，视频异步轮询。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-guide",d:"火山方舟 Ark CLI 官方命令行工具使用指南。Use when the user asks about 火山方舟 / Ark CLI / arkcli / 豆包 doubao / seedream / seed / 推理接入点 Endpoint / 模型部署 / 用量统计 / 账单费用 / Agent Plan / Coding Plan 套餐席位 / API Key 管理 / 图片视频生成 / 多模态理解 / 模型精调 / 验证图片来源 / 清理资源 / 模型调用示例代码，or wants to call Volcengine Ark models from the terminal with natural language."},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-helper",d:"arkcli helper：为 Claude Code / Codex / OpenCode / OpenClaw / Hermes 配置火山方舟 Plan 或 Platform Endpoint 的 model/provider，或给支持的 Agent（含 MCP-only Trae）注入 MCP。真人 TTY 运行 `arkcli helper` 可选择模型和 Harness 能力；只注入豆包搜索、DataPro、OpenViking 用 `helper mcp`，连 model/provider 一起配置用 `helper configure`，查状态用 `helper list`，移除用 `helper reset`。Agent Plan / Team 还支持专业数据集、豆包搜索、Agent 记忆、AI Native 应用开发底座、Agent 进化与 routing.v1 强制检索路由；上下文出现 ARKCLI ROUTING ENFORCEMENT / routing.v1，或用户要求在豆包搜索、DataPro、OpenViking、Supabase 之间强制分流时也使用本 Skill：调用这四类受管 Provider 前先提交 Route Plan，再调用唯一授权 Provider；原生 WebSearch/WebFetch/WebExtract 位于路由管理范围之外。Platform 只允许本人创建、Running、已验证为文本输出的 Endpoint，不配置 MCP、Supabase 或强制路由。豆包搜索配置成功后默认关闭目标客户端原生 WebSearch；传 `--keep-native-websearch` 可保留，并可用 `helper reset` 完整恢复 ArkCLI 配置。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-infer-endpoint",d:"arkcli 推理接入点**管理**能力：对**已有** Endpoint 做获取、列表、启动、停止、删除、更新（生命周期管理 + 启停 + 销毁）。优先使用产品命令 `arkcli infer endpoint ...`，而不是直接调用 Raw API。**反触发（重要）：用户说『创建/新建/create/部署/deploy 一个 endpoint/接入点』这类新建接入点的意图，一律走 arkcli-deploy（`+deploy`），不要用本 skill 的 `infer endpoint create`**；本 skill 的 `create` 仅用于脚本化 / CI / 需要无护栏的可预测 raw CRUD 行为（不做复用检查、不渲染示例）、且明确要绕过 +deploy 工作流护栏的场景。TTS/ASR/语音模型连 raw create 也不要引导，只能转 models search 说明 arkcli 不支持 Endpoint 创建。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-models",d:"arkcli 模型查询能力：列出、搜索、获取火山**公共基础模型**（foundation models）详情。优先使用产品命令 `arkcli models ...`，而不是直接调用 Raw API。注意：查询/管理账号下**自传或精调的自定义模型**（`cm-xxx`）走 arkcli-custommodel；本 skill 只覆盖公共基础模型目录。语音/TTS/ASR/播客/音色/实时语音交互模型只支持广场检索和选型说明，不要引导 +chat/+gen/+deploy/+code-example/usage/pricing/onboard/auth apikey。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-onboard",d:"arkcli 接入向导(workflow):把某个模型接入到自己的应用/服务的端到端引导 —— 从'我想用某模型'到拿到可调用的 Endpoint(+ 可选示例代码)。当用户说'我想在我的 app/服务里用豆包/某模型''怎么把方舟模型接进来''帮我接入 XX 模型''想正式用上某模型'这类**不含 deploy/部署关键词、但本质是正式接入**的意图时触发。已明确说'部署/创建 endpoint'的直接走 arkcli-deploy;只想试效果/问一句的走 +chat/+gen。反触发：TTS/ASR/语音模型接入不走本向导，只能转 models search 说明 arkcli 当前不支持调用/部署/示例/用量/费用/接入。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-plans",d:"ARK 套餐管理(Agent Plan / Coding Plan,个人版 + 企业版):查询持有 / 购买 / 续费 / 模型清单 / 轮换 APIKey,**以及企业版席位的全部管理操作**:列出席位(`plans team seat-list`)、给员工分配席位(`plans team seat-assign`)、查谁绑了哪个 seat、轮换席位 APIKey(`plans team rotate-apikey`)。命中关键词:套餐 / 买 / 续费 / 列席位 / 看 seat 绑定 / 谁绑了哪个 seat / 给员工分席位 / 解绑 / 团队席位 admin 视图 / 轮换 APIKey。**用量类问题(还剩多少额度 / 用了几成 / 每个 seat 用了多少)走 [arkcli-usage](../arkcli-usage/SKILL.md)。**动词路由:**列 / 绑 / 分 / 轮换 / 解绑** → 这里;**用 / 消耗 / 多少** → arkcli-usage。另含 harness-status:只读查看本机 AI Agent(claude-code/codex/opencode/openclaw/trae)上 Agent Plan 内置 MCP(豆包搜索/dataPro/OpenViking)装没装、key 就没就绪;命中:我的 MCP 装好了吗 / 查 MCP 安装状态 / 看 agent 上的 MCP / harness 状态。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-pricing",d:"查询火山引擎 ARK 基础模型结算单价（含当前账号折扣）以及 AgentPlan / CodingPlan 套餐订阅价格。Price 字段就是后端按账号合同 / 活动 / 套餐折后的最终单价，OriginalPrice 是公示原价。当用户问模型多少钱、定价、单价、价格、Agent Plan 多少钱、Coding Plan 多少钱、套餐价格、折扣价、按 token 收费、不同模态价格对比、模型免费额度时使用。反触发：TTS/ASR/语音模型费用不支持查询，不要用 Audio pricing，只能转 models search 说明广场发现边界。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-profile",d:"arkcli profile 切面管理：列出、查看、新建、切换、删除、重命名 profile；管理 profile 内 API Key 列表；管理五类 profile 的默认资源与持久身份切面。临时 API Key/Base URL/Endpoint 调用不写回 profile，按 arkcli-shared 的 execution-context 契约执行。旧 config 子命令已 deprecated。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-resources",d:"arkcli resources 实时控制面查询：列出当前/指定 profile 可见资源及其调用兼容性；把 Endpoint 解析为权威模型、模态与候选工作流。read-only，不写 profile.yaml。用户临时给出 ep-... 但未说明该走 Chat、Understand 还是 Gen 时优先使用。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-shared",d:"arkcli 共享执行协议：首次配置入口、业务命令执行前的认证闸门、命令路由与选择顺序、输出/安全/二次确认规则。深度细节（身份解析、AK-SK 边界、API Key 恢复、实名闸门、profile 默认与漂移、临时数据面执行上下文、全局 flags、故障分流）按需在 references/ 加载。当用户第一次使用 arkcli、遇到未登录/鉴权失败、需要判断该走产品命令还是 raw api、或任何 arkcli-* skill 需要公共上下文时触发。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-train-finetune",d:"使用 ArkCLI 创建、查询和管理模型精调训练任务，并从训练指标选择最佳 step、导出训练产物为 custom model、衔接模型仓库与推理部署。任何包含精调任务 ID（`mcj-*`）的查询、查不到原因诊断、日志、trajectory、状态或生命周期操作都应使用本 skill；也适用于选择训练方法、查询精调价格和超参数、创建任务及导出部署。本 skill 不负责数据集管理。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-understand",d:"arkcli +understand：基于 Responses API 的 12 个多模态专项理解配方，支持临时 API Key/Base URL/Endpoint 执行与无副作用 dry-run。用户只给 Endpoint 时先用 resources resolve；转写、抽取、字幕、定位等明确产出走本 skill，开放式对话走 +chat，生成走 +gen。"},
+{g:"claude",gn:"Claude 全局技能",n:"arkcli-usage",d:"ARK 用量查询:`usage stats`(Token / 请求数,5-30 分钟延迟)、`usage plan` / `usage balance --type plan`(套餐额度快照)、`usage plan-details`(按模型时间序列,套餐内/外拆分)、`usage balance`(余额:免费额度 / 媒资库 / 套餐)、`usage seats --with-usage`(团队席位用量 by seat)。命中关键词:用量 / 用了多少 / 还剩多少额度 / 套餐用了几成 / 套餐内套餐外 / 每个 seat 消耗。**席位的列表 / 绑定 / 分配 / 轮换 APIKey 属管理范畴,走 arkcli-plans;本 skill 只回答用量。**动词路由:**用 / 消耗 / 多少** → 这里;**列 / 绑 / 分 / 轮换** → arkcli-plans。反触发：TTS/ASR/语音模型用量不支持查询，只能转 models search 说明广场发现边界。"},
+{g:"claude",gn:"Claude 全局技能",n:"bailian-cli",d:""},
+{g:"claude",gn:"Claude 全局技能",n:"bailian-finetune",d:""},
+{g:"claude",gn:"Claude 全局技能",n:"bailian-gen",d:""},
+{g:"claude",gn:"Claude 全局技能",n:"bailian-managed-agent",d:""},
+{g:"claude",gn:"Claude 全局技能",n:"bailian-protocol",d:""},
+{g:"claude",gn:"Claude 全局技能",n:"copilot-zh",d:"维护/扩展 GitHub Copilot 桌面版中文汉化（copilot-desktop-zh）—— 编辑翻译字典、验证界面翻译、CDP 调试、抓取界面文案、发布更新；也适用于「给 Tauri/WebView2 应用做运行时汉化」的通用方法。触发词：汉化、copilot-zh、翻译字典、界面汉化、补充翻译、WebView2 注入。"},
+{g:"claude",gn:"Claude 全局技能",n:"impeccable",d:"Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding, and empty states. Handles UX review, visual hierarchy, information architecture, cognitive load, accessibility, performance, responsive behavior, theming, anti-patterns, typography, fonts, spacing, layout, alignment, color, motion, micro-interactions, UX copy, error states, edge cases, i18n, and reusable design systems or tokens. Also use for bland designs that need to become bolder or more delightful, loud designs that should become quieter, live browser iteration on UI elements, or ambitious visual effects that should feel technically extraordinary. Not for backend-only or non-UI tasks. — impeccable by Paul Bakaus (https://impeccable.style), bundled under Apache-2.0."},
+{g:"claude",gn:"Claude 全局技能",n:"mp-audio-upload",d:"微信公众号音频库上传与查询技能(gh_bd189357a403)。触发词:上传音频、传有声书、公众号音频库、添加音频素材、音频分片上传。已含《幸福的内在》31 条 + 《内心的修炼》11 条清单常识。"},
+{g:"claude",gn:"Claude 全局技能",n:"nvidia-vision",d:"看图 / 图片识别入口。本会话视觉不可用(Read 图片返回 [Unsupported Image])是常态,用户发图或需要看图时,用本地 NVIDIA NIM 视觉模型识别。触发词:看图片、识别图片、识图、这张图、截图、图片理解、描述图片、封面。用户已授权直接读取本地 key。"},
+{g:"claude",gn:"Claude 全局技能",n:"send-email",d:"QQ邮箱/Gmail 发信+查信 — SMTP (smtp.qq.com:465) + gog CLI (Gmail API)。关键词：发邮件、发信、查邮件、收邮件、send email、gmail、smtp、gog"},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"af",d:"Shorthand for agentfinder. Discover installable MCP servers, tools, skills, and agents for a task by searching an ARD Agent Finder."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"agent-merge",d:"How-to reference for automated pull request lifecycle check-ins — addressing review comments, fixing CI failures, and resolving conflicts. Use when the &quot;agent merge&quot; feature is enabled on a workspace. Triggers on automated agent merge ticks."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"agentfinder",d:"Discover installable MCP servers, tools, skills, and agents for a task by searching an ARD Agent Finder. Use whenever the user wants to find or install a tool, MCP server, skill, agent, or integration for something they are trying to do — email, calendars, databases, payments, cloud platforms, CI/CD, messaging, monitoring, file storage, and similar services."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"create-canvas",d:"Author, validate, and debug canvas extensions that the agent can open in the GitHub Copilot app's side panel. Use when creating, reviewing, or troubleshooting a canvas extension — including its actions, inputs, rendered content, and the surrounding extension wiring (tools, hooks, lifecycle)."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"impeccable",d:"Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding, and empty states. Handles UX review, visual hierarchy, information architecture, cognitive load, accessibility, performance, responsive behavior, theming, anti-patterns, typography, fonts, spacing, layout, alignment, color, motion, micro-interactions, UX copy, error states, edge cases, i18n, and reusable design systems or tokens. Also use for bland designs that need to become bolder or more delightful, loud designs that should become quieter, live browser iteration on UI elements, or ambitious visual effects that should feel technically extraordinary. Not for backend-only or non-UI tasks. — impeccable by Paul Bakaus (https://impeccable.style), bundled under Apache-2.0."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"orchestrate",d:"Coordinate work across multiple sessions and repositories by spawning and steering child sessions. Use for multi-repo changes, cross-repo research, breaking a large change into a stack of dependent PRs (one session each), running independent workstreams in parallel, or forking the current session to explore an alternative direction. Sessions nest under their creator for visual grouping and can message each other."},
+{g:"githubapp",gn:"GitHub App 捆绑技能",n:"pr-stack",d:"Create, split, extend, or restack dependent pull requests, with one app-native child session per layer and native GitHub Stack linking."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"auth-nodejs",d:"Complete guide for CloudBase Auth using the CloudBase Node SDK – caller identity, user lookup, custom login tickets, and server-side best practices."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"auth-tool",d:"Use CloudBase Auth tool to configure and manage authentication providers for web applications - enable/disable login methods (SMS, Email, WeChat Open Platform, Google, Anonymous, Username/password, OAuth, SAML, CAS, Dingding, etc.) and configure provider settings via MCP tools."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"auth-web",d:"Complete guide for CloudBase Auth v2 using Web SDK (@cloudbase/js-sdk@2.x) - all login flows, user management, captcha handling, and best practices in one file."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"auth-wechat",d:"Complete guide for WeChat Mini Program authentication with CloudBase - native login, user identity, and cloud function integration."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"cloud-functions",d:"Complete guide for CloudBase cloud functions development - runtime selection, deployment, logging, invocation, and HTTP access configuration."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"cloud-storage-web",d:"Complete guide for CloudBase cloud storage using Web SDK (@cloudbase/js-sdk) - upload, download, temporary URLs, file management, and best practices."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"cloudbase-platform",d:"CloudBase platform knowledge and best practices. Use this skill for general CloudBase platform understanding, including storage, hosting, authentication, cloud functions, database permissions, and data models."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"cloudrun-development",d:"CloudBase Run backend development rules (Function mode/Container mode). Use this skill when deploying backend services that require long connections, multi-language support, custom environments, or AI agent development."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"data-model-creation",d:"Optional advanced tool for complex data modeling. For simple table creation, use relational-database-tool directly with SQL statements."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"http-api",d:"Use CloudBase HTTP API to access CloudBase platform features (database, authentication, cloud functions, cloud hosting, cloud storage, AI) via HTTP protocol from backends or scripts that are not using SDKs."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"miniprogram-development",d:"WeChat Mini Program development rules. Use this skill when developing WeChat mini programs, integrating CloudBase capabilities, and deploying mini program projects."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"no-sql-web-sdk",d:"Use CloudBase document database Web SDK to query, create, update, and delete data. Supports complex queries, pagination, aggregation, and geolocation queries."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"no-sql-wx-mp-sdk",d:"Use CloudBase document database WeChat MiniProgram SDK to query, create, update, and delete data. Supports complex queries, pagination, aggregation, and geolocation queries."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"relational-database-tool",d:"This is the required documentation for agents operating on the CloudBase Relational Database. It lists the only four supported tools for running SQL and managing security rules. Read the full content to understand why you must NOT use standard Application SDKs and how to safely execute INSERT, UPDATE, or DELETE operations without corrupting production data."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"relational-database-web",d:"Use when building frontend Web apps that talk to CloudBase Relational Database via @cloudbase/js-sdk – provides the canonical init pattern so you can then use Supabase-style queries from the browser."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"spec-workflow",d:"Standard software engineering workflow for requirement analysis, technical design, and task planning. Use this skill when developing new features, complex architecture designs, multi-module integrations, or projects involving database/UI design."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"ui-design",d:"Professional UI design and frontend interface guidelines. Use this skill when creating web pages, mini-program interfaces, prototypes, or any frontend UI components that require distinctive, production-grade design with exceptional aesthetic quality."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"web-development",d:"Web frontend project development rules. Use this skill when developing web frontend pages, deploying static hosting, and integrating CloudBase Web SDK."},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"wechat-publish",d:"微信公众号「草稿箱」一键快捷推送/发布技能——触发词：推草稿、发草稿箱、发公众号、推送草稿、发文、发布、写一篇、写文章、写涨粉短文、公众号推广文、公众号文章。把文章/短文推送到公众号「美好需要创造」草稿箱时使用：一键脚本 scripts/quick-publish.js 自动完成「套 v2 卡片式版式 → 生成品牌封面 → 推送草稿箱」；读取/同步草稿用 scripts/fetch_drafts.js。"},
+{g:"project",gn:"项目内技能(codebuddy + codex)",n:"wechat-publish",d:"微信公众号草稿箱推送/发布技能。触发词: 发送公众号、推公众号、发草稿箱、发文、发布、写一篇、写文章、写涨粉短文、公众号推广文、推送草稿、公众号文章。把文章/短文推送到公众号「美好需要创造」草稿箱,或按品牌规范写公众号内容时,必须使用本技能:生成品牌封面 → node scripts/publish-draft.js 推送;读取/同步草稿用 scripts/fetch_drafts.js。"}];
+var cardsEl = document.getElementById('cards');
+var countEl = document.getElementById('count');
+var qEl = document.getElementById('q');
+var gEl = document.getElementById('g');
+function render() {
+  var q = qEl.value.trim().toLowerCase();
+  var g = gEl.value;
+  var html = '', shown = 0;
+  DATA.forEach(function (it) {
+    if (g !== 'all' && it.g !== g) return;
+    if (q && (it.n.toLowerCase().indexOf(q) < 0) && (it.d.toLowerCase().indexOf(q) < 0)) return;
+    shown++;
+    html += '<div class="card"><div class="nm"><code>' + it.n + '</code>' +
+            '<span class="tag">' + it.gn + '</span></div>' +
+            (it.d ? '<p class="ds">' + it.d + '</p>' : '') + '</div>';
+  });
+  cardsEl.innerHTML = html;
+  countEl.textContent = '共 ' + shown + ' 项' + (g !== 'all' || q ? '' : '');
+}
+qEl.addEventListener('input', render);
+gEl.addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
