@@ -35,7 +35,7 @@ jobs:
           submodules: recursive
       - name: 构建 Hugo 到 docs/
         run: |
-          hugo -d docs
+          hugo -d docs --cleanDestinationDir
       - name: 提交并推送 docs/
         run: |
           git config user.name "github-actions"
