@@ -50,10 +50,10 @@ enableRobotsTXT = true
   identifier = "menu-app"
 
 [[menu.main]]
-  name = "知识库"
-  url = "/kb/"
+  name = "资产"
+  url = "/assets/"
   weight = 80
-  identifier = "menu-knowledge"
+  identifier = "menu-assets"
 
 [[menu.main]]
   name = "技能"
