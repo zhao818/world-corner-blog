@@ -17,22 +17,6 @@
   var panels = Array.prototype.slice.call(document.querySelectorAll('.bp-shell'));
   if (!panels.length) return;
 
-  var floatPlayer = document.getElementById('floatPlayer');
-  var fpJump = document.getElementById('fpJump');
-  var fpCover = document.getElementById('fpCover');
-  var fpTitle = document.getElementById('fpTitle');
-  var fpTimes = document.getElementById('fpTimes');
-  var fpPlay = document.getElementById('fpPlay');
-  var fpPrev = document.getElementById('fpPrev');
-  var fpNext = document.getElementById('fpNext');
-  var fpSeek = document.getElementById('fpSeek');
-  var fpFill = document.getElementById('fpFill');
-  var fpKnob = document.getElementById('fpKnob');
-  var hasFloat = !!(floatPlayer && fpPlay && fpSeek);
-
-  var active = null;   // 悬浮条当前关联的 audio
-  var fpPaint = null;  // 浮条进度线绘制函数
-
   /* ---------- 工具 ---------- */
   function read(key, fallback) {
     try {
@@ -141,51 +125,6 @@
     sleepIdx = 0;
   }
 
-  /* ---------- 悬浮条 ---------- */
-  function paintFloat(a) {
-    if (!hasFloat || !a) return;
-    active = a;
-    var panel = a.closest('.bp-shell');
-    fpCover.src = panel.dataset.cover;
-    fpTitle.textContent = panel.dataset.title;
-    fpTimes.textContent = fmt(a.currentTime) + ' / ' + fmt(a.duration || 0);
-    fpPlay.classList.toggle('is-playing', !a.paused);
-    var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
-    fpPrev.hidden = fpNext.hidden = chs.length < 2;
-    if (fpPaint) fpPaint(a.currentTime, a.duration);
-    floatPlayer.hidden = false;
-  }
-
-  function bindFloat() {
-    fpJump.addEventListener('click', function () {
-      if (active) {
-        var card = active.closest('.book-card');
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-    fpPlay.addEventListener('click', function () {
-      if (!active) return;
-      if (active.paused) active.play(); else active.pause();
-    });
-    fpPrev.addEventListener('click', function () {
-      if (!active) return;
-      var panel = active.closest('.bp-shell');
-      var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
-      var i = chapterIndex(chs, active.currentTime);
-      if (i > 0) { active.currentTime = chs[i - 1]; active.play(); }
-    });
-    fpNext.addEventListener('click', function () {
-      if (!active) return;
-      var panel = active.closest('.bp-shell');
-      var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
-      var i = chapterIndex(chs, active.currentTime);
-      if (i < chs.length - 1) { active.currentTime = chs[i + 1]; active.play(); }
-    });
-    fpPaint = bindSeekline(fpSeek, fpFill, fpKnob, function () { return active; }, function (t) {
-      if (active) active.currentTime = t;
-    });
-  }
-
   /* ---------- 面板初始化 ---------- */
   panels.forEach(function (p) {
     var a = p.querySelector('.bp-audio');
@@ -270,7 +209,6 @@
             clearSleep();
             panels.forEach(function (o) { o.querySelector('.bp-audio').pause(); });
             syncButtons();
-            paintFloat(active);
             toast(p, '睡眠定时到,已暂停 ☾');
             return;
           }
@@ -294,7 +232,6 @@
       cur.textContent = fmt(a.currentTime);
       paintChap(a.currentTime);
       paintLine(a.currentTime, a.duration);
-      if (hasFloat && active === a) paintFloat(a);
     });
 
     a.addEventListener('play', function () {
@@ -303,9 +240,8 @@
         if (oa !== a && !oa.paused) oa.pause();
       });
       syncButtons();
-      paintFloat(a);
     });
-    a.addEventListener('pause', function () { syncButtons(); paintFloat(a); });
+    a.addEventListener('pause', function () { syncButtons(); });
 
     a.addEventListener('ended', function () {
       delete store[a.src];
@@ -327,6 +263,5 @@
     window.addEventListener('pagehide', saveNow);
   });
 
-  if (hasFloat) bindFloat();
   applyRate();
 })();

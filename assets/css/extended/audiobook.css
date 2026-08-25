@@ -48,9 +48,6 @@
 .book-card:hover {
   border-color: var(--brand-gold);
 }
-.book-card.is-flip .book-cover {
-  order: 2;
-}
 .book-cover {
   position: relative;
   justify-self: center;
@@ -120,9 +117,6 @@
   .book-card {
     grid-template-columns: 1fr;
     gap: 18px;
-  }
-  .book-card.is-flip .book-cover {
-    order: 0;
   }
   .book-cover {
     max-width: 170px;

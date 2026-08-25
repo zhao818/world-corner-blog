@@ -10,7 +10,7 @@
 
 <div class="audio-room">
   {{- range $d.books }}
-  <section class="book-card {{- if eq .id "neixin" }} is-flip{{ end }}" id="book-{{ .id }}">
+  <section class="book-card" id="book-{{ .id }}">
     <div class="book-cover">
       <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
       <span class="book-glow" aria-hidden="true"></span>
@@ -98,29 +98,5 @@
   {{- end }}
 </div>
 
-{{- /* 全局悬浮播放条:滚动页面不打断;由 player-core.js 驱动 */ -}}
-<div class="float-player" id="floatPlayer" hidden>
-  <div class="fp-row1">
-    <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
-      <img class="fp-cover" id="fpCover" src="" alt="">
-      <span class="fp-meta">
-        <strong id="fpTitle"></strong>
-        <span class="fp-times" id="fpTimes">00:00 / 00:00</span>
-      </span>
-    </button>
-    <div class="fp-btns">
-      <button class="fp-prev" id="fpPrev" type="button" aria-label="上一集" hidden>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>
-      </button>
-      <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
-      <button class="fp-next" id="fpNext" type="button" aria-label="下一集" hidden>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
-      </button>
-    </div>
-  </div>
-  <div class="fp-seekline" id="fpSeek" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
-    <div class="fp-track"><i class="fp-fill" id="fpFill"></i><i class="fp-knob" id="fpKnob"></i></div>
-  </div>
-</div>
 <script src="/js/player-core.js" defer></script>
 {{ end }}
