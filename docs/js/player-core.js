@@ -10,7 +10,6 @@
   var KEY_PROGRESS = 'wc.audio.progress.v1';
   var KEY_RATE = 'wc.audio.rate.v1';
   var RATES = [1, 1.25, 1.5, 2];
-  var SLEEP_MIN = [0, 15, 30, 45, 60];
   var SAVE_INTERVAL = 5000;
   var SKIP_SEC = 15;
 
@@ -40,6 +39,9 @@
     return i;
   }
 
+  /* ---------- 章节定位 ----------
+   * chs: [{ t, ... }] 对象数组,按 t 递增;找最后一个 t <= 时刻的下标
+   */
   /* ---------- 自定义进度线 ----------
    * getAudio: () => audio 或 null  —— 拖动/键盘时取当前真 audio
    */
@@ -84,7 +86,7 @@
   /* ---------- 全局状态 ---------- */
   var store = read(KEY_PROGRESS, {});
   var rate = read(KEY_RATE, 1);
-  var sleepIdx = 0;
+  var sleepMin = 0;            /* 0 = 未定时;>0 = 定时分钟数 */
   var sleepDeadline = 0;
   var sleepTimer = null;
   var toastTimer = null;
@@ -109,20 +111,38 @@
     });
   }
   function paintSleepBtn(p) {
+    var b = p.querySelector('.bp-sleep');
     var label = p.querySelector('.bp-sleep-label');
-    if (sleepIdx > 0) {
+    if (sleepMin > 0) {
       var remain = Math.max(0, Math.ceil((sleepDeadline - Date.now()) / 1000));
       label.textContent = remain >= 3600
         ? (Math.floor(remain / 3600) + 'h' + pad(Math.floor((remain % 3600) / 60)))
         : pad(Math.floor(remain / 60)) + ':' + pad(remain % 60);
+      b.classList.add('is-on');
     } else {
       label.textContent = '☾';
+      b.classList.remove('is-on');
     }
   }
   function clearSleep() {
     clearInterval(sleepTimer);
     sleepTimer = null;
-    sleepIdx = 0;
+    sleepMin = 0;
+  }
+  function setSleep(p, minutes) {
+    clearSleep();
+    sleepMin = minutes;
+    sleepDeadline = Date.now() + minutes * 60000;
+    sleepTimer = setInterval(function () {
+      if (sleepDeadline - Date.now() <= 0) {
+        clearSleep();
+        panels.forEach(function (o) { o.querySelector('.bp-audio').pause(); });
+        syncButtons();
+        toast(p, '睡眠定时到,已暂停 ☾');
+      }
+      panels.forEach(function (o) { paintSleepBtn(o); });
+    }, 1000);
+    panels.forEach(function (o) { paintSleepBtn(o); });
   }
 
   /* ---------- 面板初始化 ---------- */
@@ -147,7 +167,7 @@
 
     function paintChap(t) {
       if (!chapters.length) { chapEl.textContent = ''; return; }
-      var i = chapterIndex(chapters.map(function (c) { return c.t; }), t);
+      var i = chapterIndex(chapters, t);
       chapEl.textContent = '第 ' + (i + 1) + ' 集 · ' + chapters[i].name;
       chapters.forEach(function (c, k) { c.el.classList.toggle('is-current', k === i); });
     }
@@ -164,13 +184,21 @@
     });
     p.querySelector('.bp-prev').addEventListener('click', function () {
       if (!chapters.length) return;
-      var i = chapterIndex(chapters.map(function (c) { return c.t; }), a.currentTime);
-      if (i > 0) { a.currentTime = chapters[i - 1].t; a.play(); }
+      var i = chapterIndex(chapters, a.currentTime);
+      if (i > 0) {
+        a.currentTime = chapters[i - 1].t;
+        paintChap(a.currentTime);
+        a.play();
+      }
     });
     p.querySelector('.bp-next').addEventListener('click', function () {
       if (!chapters.length) return;
-      var i = chapterIndex(chapters.map(function (c) { return c.t; }), a.currentTime);
-      if (i < chapters.length - 1) { a.currentTime = chapters[i + 1].t; a.play(); }
+      var i = chapterIndex(chapters, a.currentTime);
+      if (i < chapters.length - 1) {
+        a.currentTime = chapters[i + 1].t;
+        paintChap(a.currentTime);
+        a.play();
+      }
     });
 
     if (listBtn && drawer) {
@@ -186,6 +214,7 @@
       chapters.forEach(function (c) {
         c.el.addEventListener('click', function () {
           a.currentTime = c.t + 0.05;
+          paintChap(a.currentTime);
           a.play();
           drawer.hidden = true;
         });
@@ -199,24 +228,48 @@
       applyRate();
     });
 
-    p.querySelector('.bp-sleep').addEventListener('click', function () {
-      clearSleep();
-      sleepIdx = (sleepIdx + 1) % SLEEP_MIN.length;
-      if (sleepIdx > 0) {
-        sleepDeadline = Date.now() + SLEEP_MIN[sleepIdx] * 60000;
-        sleepTimer = setInterval(function () {
-          if (sleepDeadline - Date.now() <= 0) {
-            clearSleep();
-            panels.forEach(function (o) { o.querySelector('.bp-audio').pause(); });
-            syncButtons();
-            toast(p, '睡眠定时到,已暂停 ☾');
-            return;
-          }
-          panels.forEach(function (o) { paintSleepBtn(o); });
-        }, 1000);
-      }
-      panels.forEach(function (o) { paintSleepBtn(o); });
-    });
+    var sleepBtn = p.querySelector('.bp-sleep');
+    var sleepPop = p.querySelector('.bp-sleep-pop');
+    if (sleepBtn && sleepPop) {
+      sleepBtn.addEventListener('click', function () {
+        sleepPop.hidden = !sleepPop.hidden;
+        if (!sleepPop.hidden) {
+          var inp = sleepPop.querySelector('.bp-sleep-input');
+          if (inp) { inp.value = ''; inp.focus(); }
+        }
+      });
+      sleepPop.querySelector('.bp-sleep-close').addEventListener('click', function () {
+        sleepPop.hidden = true;
+      });
+      var applySleep = function (minutes) {
+        setSleep(p, minutes);
+        sleepPop.hidden = true;
+        toast(p, '睡眠定时 ' + minutes + ' 分钟,到点自动暂停');
+      };
+      sleepPop.querySelectorAll('.bp-sleep-quicks button').forEach(function (b) {
+        b.addEventListener('click', function () { applySleep(Number(b.dataset.min)); });
+      });
+      var sleepInput = sleepPop.querySelector('.bp-sleep-input');
+      var sleepSet = sleepPop.querySelector('.bp-sleep-set');
+      var sleepCustom = function () {
+        var v = Math.round(Number(sleepInput.value));
+        if (!isFinite(v) || v < 1 || v > 240) { toast(p, '请输入 1-240 分钟'); return; }
+        applySleep(v);
+      };
+      sleepSet.addEventListener('click', sleepCustom);
+      sleepInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') sleepCustom(); });
+      sleepPop.querySelector('.bp-sleep-off').addEventListener('click', function () {
+        clearSleep();
+        panels.forEach(function (o) { paintSleepBtn(o); });
+        sleepPop.hidden = true;
+        toast(p, '睡眠定时已取消');
+      });
+      document.addEventListener('click', function (e) {
+        if (!sleepPop.hidden && !sleepPop.contains(e.target) && !sleepBtn.contains(e.target)) {
+          sleepPop.hidden = true;
+        }
+      });
+    }
 
     a.addEventListener('loadedmetadata', function () {
       durEl.textContent = fmt(a.duration);
