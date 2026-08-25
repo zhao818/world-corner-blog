@@ -23,18 +23,70 @@
       <h2>{{ .title }}</h2>
       <p class="book-desc">{{ .desc }}</p>
 
+      {{- $id := .id -}}
       <div class="bp-shell" data-src="{{ .src }}" data-title="{{ .title }}" data-cover="{{ .cover }}">
         <audio class="bp-audio" preload="metadata" src="{{ .src }}"></audio>
-        <div class="bp-row">
-          <button class="bp-play" type="button" aria-label="播放"></button>
-          <div class="bp-scrub">
-            <input class="bp-bar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
-            <span class="bp-times"><span class="bp-cur">00:00</span><i class="bp-sep">/</i><span class="bp-dur">00:00</span></span>
+
+        <div class="bp-panel">
+          <div class="bp-main">
+            <button class="bp-btn bp-rev" type="button" aria-label="快退15秒">−15s</button>
+            <button class="bp-play" type="button" aria-label="播放">
+              <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.6v14.8L19.5 12z"/></svg>
+              <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 4.5h3.7v15H6.6zM13.7 4.5h3.7v15h-3.7z"/></svg>
+            </button>
+            <button class="bp-btn bp-fwd" type="button" aria-label="快进15秒">+15s</button>
           </div>
-          <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
-          <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">☾</button>
+
+          <div class="bp-seekline" tabindex="0" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+            <div class="bp-track"><i class="bp-fill"></i><i class="bp-knob"></i></div>
+          </div>
+
+          <div class="bp-times">
+            <span class="bp-cur">00:00</span>
+            <span class="bp-chap">第 1 集</span>
+            <span class="bp-dur">00:00</span>
+          </div>
+
+          <div class="bp-tools">
+            <button class="bp-prev" type="button" aria-label="上一集">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>上一集
+            </button>
+            <button class="bp-listbtn" type="button" aria-label="章节目录">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.2 6h.02M3.2 12h.02M3.2 18h.02"/></svg>目录
+              <span class="bp-count">{{ .tracks }}</span>
+              <svg class="bp-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="bp-next" type="button" aria-label="下一集">
+              下一集<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
+            </button>
+            <span class="bp-spacer"></span>
+            <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
+            <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.2A8.6 8.6 0 1 1 10.8 3.4a7 7 0 0 0 9.8 9.8z"/></svg><span class="bp-sleep-label">☾</span>
+            </button>
+          </div>
+
+          <p class="bp-toast" hidden></p>
         </div>
-        <p class="bp-toast" hidden></p>
+
+        <div class="bp-drawer" hidden>
+          <div class="bp-drawer-head">
+            <strong>目录 · {{ .tracks }}</strong>
+            <button class="bp-drawer-close" type="button" aria-label="关闭目录">×</button>
+          </div>
+          <ol class="bp-marks">
+            {{- range .chapters }}
+            {{- $parts := split .name "-" }}
+            <li>
+              <button type="button" data-t="{{ .t }}">
+                <span class="m-idx">{{ index $parts 0 }}</span>
+                <span class="m-name">{{ if gt (len $parts) 1 }}{{ index $parts 1 | default .name }}{{ else }}{{ .name }}{{ end }}</span>
+                <span class="m-len">{{ .len }}</span>
+              </button>
+            </li>
+            {{- end }}
+          </ol>
+        </div>
       </div>
 
       <p class="book-note">
@@ -48,14 +100,27 @@
 
 {{- /* 全局悬浮播放条:滚动页面不打断;由 player-core.js 驱动 */ -}}
 <div class="float-player" id="floatPlayer" hidden>
-  <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
-    <img class="fp-cover" id="fpCover" src="" alt="">
-    <span class="fp-meta"><strong id="fpTitle"></strong><span class="fp-times" id="fpTimes">00:00 / 00:00</span></span>
-  </button>
-  <div class="fp-controls">
-    <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
+  <div class="fp-row1">
+    <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
+      <img class="fp-cover" id="fpCover" src="" alt="">
+      <span class="fp-meta">
+        <strong id="fpTitle"></strong>
+        <span class="fp-times" id="fpTimes">00:00 / 00:00</span>
+      </span>
+    </button>
+    <div class="fp-btns">
+      <button class="fp-prev" id="fpPrev" type="button" aria-label="上一集" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>
+      </button>
+      <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
+      <button class="fp-next" id="fpNext" type="button" aria-label="下一集" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
+      </button>
+    </div>
   </div>
-  <input class="fp-bar" id="fpBar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
+  <div class="fp-seekline" id="fpSeek" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+    <div class="fp-track"><i class="fp-fill" id="fpFill"></i><i class="fp-knob" id="fpKnob"></i></div>
+  </div>
 </div>
 <script src="/js/player-core.js" defer></script>
 {{ end }}
