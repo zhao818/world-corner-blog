@@ -10,7 +10,7 @@
 
 <div class="audio-room">
   {{- range $d.books }}
-  <section class="book-card {{- if eq .id "neixin" }} is-flip{{ end }}">
+  <section class="book-card {{- if eq .id "neixin" }} is-flip{{ end }}" id="book-{{ .id }}">
     <div class="book-cover">
       <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
       <span class="book-glow" aria-hidden="true"></span>
@@ -22,13 +22,40 @@
       </div>
       <h2>{{ .title }}</h2>
       <p class="book-desc">{{ .desc }}</p>
-      <audio class="book-player" controls preload="metadata" src="{{ .src }}"></audio>
+
+      <div class="bp-shell" data-src="{{ .src }}" data-title="{{ .title }}" data-cover="{{ .cover }}">
+        <audio class="bp-audio" preload="metadata" src="{{ .src }}"></audio>
+        <div class="bp-row">
+          <button class="bp-play" type="button" aria-label="播放"></button>
+          <div class="bp-scrub">
+            <input class="bp-bar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
+            <span class="bp-times"><span class="bp-cur">00:00</span><i class="bp-sep">/</i><span class="bp-dur">00:00</span></span>
+          </div>
+          <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
+          <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">☾</button>
+        </div>
+        <p class="bp-toast" hidden></p>
+      </div>
+
       <p class="book-note">
         {{- partial "icon.html" (dict "name" "sparkle" "class" "mini-icon" ) }}
-        听到哪儿算哪儿——放下也走不了多远,下次打开接着来。
+        听到哪儿算哪儿——进度自动记住,下次打开接着来;点 ☾ 定个睡眠闹钟,睡着它也自己停。
       </p>
     </div>
   </section>
   {{- end }}
 </div>
+
+{{- /* 全局悬浮播放条:滚动页面不打断;由 player-core.js 驱动 */ -}}
+<div class="float-player" id="floatPlayer" hidden>
+  <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
+    <img class="fp-cover" id="fpCover" src="" alt="">
+    <span class="fp-meta"><strong id="fpTitle"></strong><span class="fp-times" id="fpTimes">00:00 / 00:00</span></span>
+  </button>
+  <div class="fp-controls">
+    <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
+  </div>
+  <input class="fp-bar" id="fpBar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
+</div>
+<script src="/js/player-core.js" defer></script>
 {{ end }}

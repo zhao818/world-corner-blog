@@ -1,0 +1,251 @@
+/* ========== 听书播放器(自制控件 + 全局悬浮条) ========== */
+
+.bp-shell {
+  margin: 0 0 14px;
+}
+
+.bp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--entry2, var(--entry));
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.bp-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(200, 160, 60, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.bp-shell:hover .bp-row,
+.bp-shell.is-playing .bp-row {
+  border-color: var(--brand-gold);
+}
+.bp-shell.is-playing .bp-row::before {
+  opacity: 1;
+}
+
+/* --- 播放/暂停圆钮 --- */
+.bp-play {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 160, 60, 0.55);
+  background: rgba(200, 160, 60, 0.12);
+  color: var(--brand-gold);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.bp-play:hover {
+  background: rgba(200, 160, 60, 0.25);
+  transform: scale(1.05);
+}
+
+/* --- 进度时间 --- */
+.bp-scrub {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bp-times {
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  color: var(--secondary);
+  letter-spacing: 0.04em;
+}
+.bp-sep {
+  opacity: 0.5;
+  font-style: normal;
+  margin: 0 4px;
+}
+
+/* --- 进度条(卡内 & 悬浮条共用) --- */
+input[type="range"].bp-bar,
+input[type="range"].fp-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--border) 60%, transparent);
+  cursor: pointer;
+  margin: 0;
+}
+input[type="range"].bp-bar::-webkit-slider-thumb,
+input[type="range"].fp-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brand-gold);
+  border: 2px solid var(--entry2, var(--entry));
+  box-shadow: 0 2px 8px rgba(16, 16, 28, 0.5);
+}
+input[type="range"].bp-bar::-moz-range-thumb,
+input[type="range"].fp-bar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--brand-gold);
+  border: 2px solid var(--entry2, var(--entry));
+}
+
+/* --- 倍速 / 睡眠定时 --- */
+.bp-rate,
+.bp-sleep {
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--secondary);
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.bp-rate:hover,
+.bp-sleep:hover {
+  color: var(--brand-gold);
+  background: rgba(200, 160, 60, 0.1);
+}
+.bp-sleep {
+  font-size: 0.92rem;
+  min-width: 52px;
+  text-align: center;
+}
+
+.bp-toast {
+  margin: 6px 2px 0;
+  font-size: 0.8rem;
+  color: var(--brand-gold);
+  font-family: var(--mono-stack);
+  letter-spacing: 0.03em;
+  animation: bp-toast-in 0.25s ease;
+}
+@keyframes bp-toast-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- 全局悬浮条 --- */
+.float-player {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 14px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(560px, calc(100vw - 28px));
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--entry) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(12, 12, 24, 0.45);
+  animation: fp-in 0.3s ease;
+}
+@keyframes fp-in {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.fp-jump {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.fp-cover {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+  flex-shrink: 0;
+}
+.fp-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+.fp-meta strong {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fp-times {
+  font-family: var(--mono-stack);
+  font-size: 0.7rem;
+  color: var(--secondary);
+}
+
+.fp-controls {
+  flex-shrink: 0;
+}
+.fp-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 160, 60, 0.55);
+  background: rgba(200, 160, 60, 0.12);
+  color: var(--brand-gold);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.fp-play:hover {
+  background: rgba(200, 160, 60, 0.25);
+  transform: scale(1.05);
+}
+
+.fp-bar {
+  width: 92px;
+  flex-shrink: 0;
+}
+
+/* --- 响应式 --- */
+@media (max-width: 640px) {
+  .float-player {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .fp-bar {
+    width: 60px;
+  }
+}
+@media (max-width: 420px) {
+  .fp-bar {
+    display: none;
+  }
+}

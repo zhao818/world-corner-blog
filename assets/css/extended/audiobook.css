@@ -98,19 +98,6 @@
   color: var(--secondary);
   line-height: 1.85;
 }
-.book-player {
-  width: 100%;
-  margin: 0 0 14px;
-  filter: drop-shadow(0 6px 18px rgba(16, 16, 28, 0.25));
-}
-audio.book-player {
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--entry2, var(--entry));
-}
-audio.book-player:hover {
-  border-color: var(--brand-gold);
-}
 .book-note {
   margin: 0;
   display: flex;
