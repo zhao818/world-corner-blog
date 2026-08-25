@@ -4,33 +4,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>世界一隅 | 认知能量工程</title>
+<title>我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 | 世界一隅 | 认知能量工程</title>
 <meta name="keywords" content="">
-<meta name="description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
-
-踩过坑、修好坑、记住坑——同一个坑不踩第二次。
-
-写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
-于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
-
-🩺 症状：你看到什么？
-🔬 根因：到底为什么出问题？
-🔧 修复：怎么做？
-🛡️ 怎么避免：下次怎么不踩？
-
-攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
-
-举三条最有共鸣的
-1. Git push SSL 握手失败
-症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
-根因：Git 没走系统代理，直连被墙
-修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
-教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
-2. Python 缩进导致 140 行代码静默跳过
-症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
-根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
-修复：代码提到 if 外面，和 if 同级缩进
-教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进">
+<meta name="description" content="踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f0396b5d19e046772ae2de2cd988f90121bd3118d4eeff97b73ab13b985097b7.css" integrity="sha256-8DlrXRngRncq4t4s2Yj5ASG9MRjU7v&#43;XtzqxO5hQl7c=" rel="preload stylesheet" as="style">
@@ -52,7 +28,10 @@
         }
 
     </style>
-</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><script type="application/ld+json">
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" /><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -73,64 +52,16 @@
   }
 }
 </script>
-<meta property="og:title" content="" />
-<meta property="og:description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
-
-踩过坑、修好坑、记住坑——同一个坑不踩第二次。
-
-写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
-于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
-
-🩺 症状：你看到什么？
-🔬 根因：到底为什么出问题？
-🔧 修复：怎么做？
-🛡️ 怎么避免：下次怎么不踩？
-
-攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
-
-举三条最有共鸣的
-1. Git push SSL 握手失败
-症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
-根因：Git 没走系统代理，直连被墙
-修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
-教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
-2. Python 缩进导致 140 行代码静默跳过
-症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
-根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
-修复：代码提到 if 外面，和 if 同级缩进
-教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进" />
+<meta property="og:title" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免" />
+<meta property="og:description" content="踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/" /><meta property="article:section" content="posts" />
-
-<meta property="og:site_name" content="世界一隅" />
+<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
-
-踩过坑、修好坑、记住坑——同一个坑不踩第二次。
-
-写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
-于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
-
-🩺 症状：你看到什么？
-🔬 根因：到底为什么出问题？
-🔧 修复：怎么做？
-🛡️ 怎么避免：下次怎么不踩？
-
-攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
-
-举三条最有共鸣的
-1. Git push SSL 握手失败
-症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
-根因：Git 没走系统代理，直连被墙
-修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
-教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
-2. Python 缩进导致 140 行代码静默跳过
-症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
-根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
-修复：代码提到 if 外面，和 if 同级缩进
-教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进"/>
+<meta name="twitter:title" content="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免"/>
+<meta name="twitter:description" content="踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。"/>
 
 
 <script type="application/ld+json">
@@ -153,7 +84,7 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "",
+      "name": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免",
       "item": "https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"
     }
   ]
@@ -163,17 +94,17 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
-  "description": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 踩过坑、修好坑、记住坑——同一个坑不踩第二次。\n写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。\n于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：\n🩺 症状：你看到什么？ 🔬 根因：到底为什么出问题？ 🔧 修复：怎么做？ 🛡️ 怎么避免：下次怎么不踩？ 攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。\n举三条最有共鸣的 1. Git push SSL 握手失败 症状：git push 到 GitHub 每次报 SSL\/TLS handshake 失败\n根因：Git 没走系统代理，直连被墙\n修复：一行命令 —— git config --global http.proxy http:\/\/127.0.0.1:7897\n教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设\n2. Python 缩进导致 140 行代码静默跳过 症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错\n根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过\n修复：代码提到 if 外面，和 if 同级缩进\n教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进\n",
+  "headline": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免",
+  "name": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免",
+  "description": "踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。",
   "keywords": [
     
   ],
   "articleBody": "我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 踩过坑、修好坑、记住坑——同一个坑不踩第二次。\n写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。\n于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：\n🩺 症状：你看到什么？ 🔬 根因：到底为什么出问题？ 🔧 修复：怎么做？ 🛡️ 怎么避免：下次怎么不踩？ 攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。\n举三条最有共鸣的 1. Git push SSL 握手失败 症状：git push 到 GitHub 每次报 SSL\/TLS handshake 失败\n根因：Git 没走系统代理，直连被墙\n修复：一行命令 —— git config --global http.proxy http:\/\/127.0.0.1:7897\n教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设\n2. Python 缩进导致 140 行代码静默跳过 症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错\n根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过\n修复：代码提到 if 外面，和 if 同级缩进\n教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进\n3. 公众号明文模式下回复被错误加密 症状：微信后台设为明文模式，AI 正常生成回复，日志无报错——但用户永远看不到\n根因：_maybe_encrypt() 函数用 nonce 和 timestamp 是否存在来判断要不要加密。但微信在明文模式的 POST URL 里也携带这两个参数（用于 URL 签名验证，不是加密开关）→ 条件为真 → 加密了 → 微信明文模式解密不了 → 静默丢弃\n修复：明文分支中 nonce = None; timestamp = None，同时增加类级别 _is_encrypted 标志做双重防护\n教训：加密函数不能靠 nonce\/timestamp 是否存在来判断模式——它们在明文模式下也存在\n全部 16 条踩坑 # 踩坑 核心教训 1 Git Push SSL 握手失败 新机先设 --global http.proxy 2 Python UTF-8 BOM 编码陷阱 encoding=\u0027utf-8\u0027 → \u0027utf-8-sig\u0027 3 公众号中文乱码 requests json= → data=json.dumps(ensure_ascii=False) 4 规划写完忘记 commit 规划完成立刻 commit，不等会话结束 5 docx 表格跨页断开 cantSplit=True 防止断表 6 Excel COM Save 静默失败 wb.Save() 静默失败必须用 SaveAs 7 Gitee 重复建仓库 建仓库前先查已有列表 8 TRIGGERS 多场景匹配漏读 多路由命中要 AND 合并全量加载 9 Cloudreve\/Cloudflare 上传超时 免费版 100s 超时，调小分块 10 Python 缩进导致代码静默跳过 检查控制流缩进 11 Gitee 镜像已配还手动 push 镜像自动同步，删冗余 remote 12 AstrBot XML 二次包装 完整 XML 被又包一层 → 嵌套 XML 13 公众号明文模式误加密 nonce\/timestamp 别当加密开关 14 Hugo 手写单篇跳全量构建 必须 hugo -d docs\/ -F（已犯 3 次\u002b） 15 sed 假阳性验证 grep -q 验证通过 ≠ 代码写对了 16 WSL Write 工具路径不一致 写完不验证 = 写了等于没写 链接 🌐 网站：https:\/\/worldcorner.xyz\/pitfalls\/ 📂 GitHub：https:\/\/github.com\/zhao818\/claude-memory\/tree\/master\/pitfalls 每条踩坑都是真实踩过的——不是因为聪明才写，是因为踩疼了才记住。欢迎补充你踩过的坑，一起把仓库养大。\n",
   "wordCount" : "220",
   "inLanguage": "en",
-  "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
-  "dateModified": "0001-01-01 00:00:00 \u002b0000 UTC",
+  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
   "author":{
     "@type": "Person",
     "name": "Tianbing Zhao"
@@ -286,9 +217,12 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      
+      我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
     </h1>
-    <div class="post-meta">Tianbing Zhao
+    <div class="post-description">
+      踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。
+    </div>
+    <div class="post-meta">&lt;span title=&#39;2026-06-13 00:00:00 &#43;0000 UTC&#39;&gt;2026年6月13日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao
 
 </div>
   </header> 
@@ -479,6 +413,13 @@
       </div>
       <ul class="series-sidebar-list">
         <li>
+          <a href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"
+             class="series-capsule series-tooling active"
+             title="我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免">
+            我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
+          </a>
+        </li>
+        <li>
           <a href="https://worldcorner.xyz/posts/tooling/ai-audit-ai/"
              class="series-capsule series-tooling"
              title="AI审AI">
@@ -518,13 +459,6 @@
              class="series-capsule series-tooling"
              title="别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？">
             别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？
-          </a>
-        </li>
-        <li>
-          <a href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"
-             class="series-capsule series-tooling active"
-             title="">
-            
           </a>
         </li>
       </ul>

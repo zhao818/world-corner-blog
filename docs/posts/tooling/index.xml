@@ -6,7 +6,16 @@
     <description>Recent content in 效率工具 on 世界一隅 | 认知能量工程</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 10 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/posts/tooling/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/posts/tooling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免</title>
+      <link>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</link>
+      <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</guid>
+      <description>踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。</description>
+    </item>
+    
     <item>
       <title>AI审AI</title>
       <link>https://worldcorner.xyz/posts/tooling/ai-audit-ai/</link>
@@ -49,13 +58,7 @@
       <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
       
       <guid>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</guid>
-      <description>&lt;p&gt;你每天打开多少次信息应用？&lt;/p&gt;
-&lt;p&gt;Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的频道。每一枚红点都是一次认知打断。每一次滑动刷新都是一次注意力税。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我统计过自己的数字行为：平均每天在不同信息源之间切换 &lt;strong&gt;87 次&lt;/strong&gt;。87 次上下文重建。87 次「我刚刚在想什么」。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;这不是信息过载。这是&lt;strong&gt;信息碎尸&lt;/strong&gt;——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。&lt;/p&gt;
-&lt;p&gt;所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。&lt;/p&gt;
-&lt;p&gt;于是有了 &lt;strong&gt;内容缓冲池（Content Buffer Pool）&lt;/strong&gt;。&lt;/p&gt;</description>
+      <description>你每天打开多少次信息应用？</description>
     </item>
     
     <item>
@@ -64,45 +67,7 @@
       <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
       
       <guid>https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/</guid>
-      <description>&lt;p&gt;凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。&lt;/p&gt;
-&lt;p&gt;这个号称&amp;quot;低代码自动化神器&amp;quot;的工具，为了把一个 Markdown 文件从 A 点搬到 B 点，消耗了我三个晚上的耐心。安装依赖冲突、Docker 镜像拉不下来、某个 node 莫名其妙 timeout。每一次点击&amp;quot;测试 workflow&amp;quot;，都在用我的认知带宽去喂养一个本不该存在的抽象层。&lt;/p&gt;
-&lt;p&gt;我把 n8n 的容器停了。然后写了一行 Python。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;shutil&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;copy(src, dst)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;三行代码。零依赖。零配置。零心理负担。&lt;/p&gt;
-&lt;p&gt;这不是一个关于技术选型的故事。这是一个关于&lt;strong&gt;认知能量&lt;/strong&gt;的故事。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</guid>
-      <description>&lt;h1 id=&#34;我整理了-16-条程序员真实踩坑每条四步拆解症状根因修复避免&#34;&gt;我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;踩过坑、修好坑、记住坑——同一个坑不踩第二次。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;p&gt;写了几年代码，发现自己踩过的坑有一个共同特点：&lt;strong&gt;修的时候花了好几个小时，但根因往往就一行代码的事&lt;/strong&gt;。更气人的是，过几个月又踩一遍。&lt;/p&gt;
-&lt;p&gt;于是我做了一件事：把踩过的坑按统一格式整理出来——&lt;strong&gt;每条固定四个段落&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;🩺 &lt;strong&gt;症状&lt;/strong&gt;：你看到什么？&lt;/li&gt;
-&lt;li&gt;🔬 &lt;strong&gt;根因&lt;/strong&gt;：到底为什么出问题？&lt;/li&gt;
-&lt;li&gt;🔧 &lt;strong&gt;修复&lt;/strong&gt;：怎么做？&lt;/li&gt;
-&lt;li&gt;🛡️ &lt;strong&gt;怎么避免&lt;/strong&gt;：下次怎么不踩？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;举三条最有共鸣的&#34;&gt;举三条最有共鸣的&lt;/h2&gt;
-&lt;h3 id=&#34;1-git-push-ssl-握手失败&#34;&gt;1. Git push SSL 握手失败&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;症状&lt;/strong&gt;：&lt;code&gt;git push&lt;/code&gt; 到 GitHub 每次报 SSL/TLS handshake 失败&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;根因&lt;/strong&gt;：Git 没走系统代理，直连被墙&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修复&lt;/strong&gt;：一行命令 —— &lt;code&gt;git config --global http.proxy http://127.0.0.1:7897&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;教训&lt;/strong&gt;：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设&lt;/p&gt;
-&lt;h3 id=&#34;2-python-缩进导致-140-行代码静默跳过&#34;&gt;2. Python 缩进导致 140 行代码静默跳过&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;症状&lt;/strong&gt;：AstrBot 微信公众号被动回复永远不执行，日志无任何报错&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;根因&lt;/strong&gt;：140 行被动回复代码缩进在了 &lt;code&gt;if active_send_mode:&lt;/code&gt; 块内部（12 空格对齐），当 &lt;code&gt;active_send_mode=False&lt;/code&gt; 时整个 if 块被跳过&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;修复&lt;/strong&gt;：代码提到 if 外面，和 if 同级缩进&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;教训&lt;/strong&gt;：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进&lt;/p&gt;</description>
+      <description>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。</description>
     </item>
     
   </channel>

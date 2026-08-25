@@ -27,7 +27,10 @@
         }
 
     </style>
-</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><script type="application/ld+json">
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" /><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -173,6 +176,18 @@
     用代码和方法论把生活从轮询升级为事件驱动
   </div>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>踩过坑、修好坑、记住坑——同一个坑不踩第二次。</p>
+  </div>
+  <footer class="entry-footer">&lt;span title=&#39;2026-06-13 00:00:00 &#43;0000 UTC&#39;&gt;2026年6月13日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to 我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免" href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -336,30 +351,6 @@ shutil.copy(src, dst) 三行代码。零依赖。零配置。零心理负担。
   </div>
   <footer class="entry-footer">&lt;span title=&#39;2026-05-01 12:30:00 &#43;0800 &#43;0800&#39;&gt;2026年5月1日&lt;/span&gt;&amp;nbsp;·&amp;nbsp;Tianbing Zhao</footer>
   <a class="entry-link" aria-label="post link to 别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？" href="https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免 踩过坑、修好坑、记住坑——同一个坑不踩第二次。
-写了几年代码，发现自己踩过的坑有一个共同特点：修的时候花了好几个小时，但根因往往就一行代码的事。更气人的是，过几个月又踩一遍。
-于是我做了一件事：把踩过的坑按统一格式整理出来——每条固定四个段落：
-🩺 症状：你看到什么？ 🔬 根因：到底为什么出问题？ 🔧 修复：怎么做？ 🛡️ 怎么避免：下次怎么不踩？ 攒了 16 条，放在 GitHub 开源仓库里，也搭了个简单的展示站。
-举三条最有共鸣的 1. Git push SSL 握手失败 症状：git push 到 GitHub 每次报 SSL/TLS handshake 失败
-根因：Git 没走系统代理，直连被墙
-修复：一行命令 —— git config --global http.proxy http://127.0.0.1:7897
-教训：新机器第一件事就是设全局 Git 代理，不要只给单个仓库设
-2. Python 缩进导致 140 行代码静默跳过 症状：AstrBot 微信公众号被动回复永远不执行，日志无任何报错
-根因：140 行被动回复代码缩进在了 if active_send_mode: 块内部（12 空格对齐），当 active_send_mode=False 时整个 if 块被跳过
-修复：代码提到 if 外面，和 if 同级缩进
-教训：Python 缩进错误在特定条件下才暴露——代码在，逻辑在，就是进不去。排查时先怀疑控制流缩进
-...</p>
-  </div>
-  <footer class="entry-footer">Tianbing Zhao</footer>
-  <a class="entry-link" aria-label="post link to " href="https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/"></a>
 </article>
     </main>
     
