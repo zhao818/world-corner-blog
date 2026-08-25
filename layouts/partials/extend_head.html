@@ -4,6 +4,11 @@
 {{- end }}
 {{- /* 字体已自托管于 static/fonts(见 assets/css/extended/webfonts.css),不再外链 Google Fonts */ -}}
 <meta name="baidu-site-verification" content="codeva-NYTSXhST0l" />
+{{- /* 社交分享卡:微信/微博/TG 等抓取使用的统一品牌封面 */ -}}
+<meta property="og:image" content="{{ site.BaseURL }}images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
 {{- /* WebSite 结构化数据:钉死中文站点名,供 Google/百度搜索标题与站点名展示 */ -}}
 <script type="application/ld+json">
 {
