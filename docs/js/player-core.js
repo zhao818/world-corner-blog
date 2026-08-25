@@ -1,5 +1,5 @@
-/* 世界一隅 · 听书播放器核心
- * 断点续播(localStorage 静默恢复)/ 倍速 / 睡眠定时 / 全局悬浮条
+/* 世界一隅 · 听书播放器核心 v2
+ * 断点续播(localStorage 静默恢复)/ 倍速 / 睡眠定时 / 章节跳转 / ±15s / 自定义进度线 / 全局悬浮条
  * 依赖:听书页 .bp-shell 结构 + #floatPlayer
  */
 (function () {
@@ -11,7 +11,8 @@
   var KEY_RATE = 'wc.audio.rate.v1';
   var RATES = [1, 1.25, 1.5, 2];
   var SLEEP_MIN = [0, 15, 30, 45, 60];
-  var SAVE_INTERVAL = 5000;   // 进度写盘节流
+  var SAVE_INTERVAL = 5000;
+  var SKIP_SEC = 15;
 
   var panels = Array.prototype.slice.call(document.querySelectorAll('.bp-shell'));
   if (!panels.length) return;
@@ -22,8 +23,15 @@
   var fpTitle = document.getElementById('fpTitle');
   var fpTimes = document.getElementById('fpTimes');
   var fpPlay = document.getElementById('fpPlay');
-  var fpBar = document.getElementById('fpBar');
-  var hasFloat = !!(floatPlayer && fpPlay && fpBar);
+  var fpPrev = document.getElementById('fpPrev');
+  var fpNext = document.getElementById('fpNext');
+  var fpSeek = document.getElementById('fpSeek');
+  var fpFill = document.getElementById('fpFill');
+  var fpKnob = document.getElementById('fpKnob');
+  var hasFloat = !!(floatPlayer && fpPlay && fpSeek);
+
+  var active = null;   // 悬浮条当前关联的 audio
+  var fpPaint = null;  // 浮条进度线绘制函数
 
   /* ---------- 工具 ---------- */
   function read(key, fallback) {
@@ -42,12 +50,57 @@
     var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
     return (h ? h + ':' + pad(m) : pad(m)) + ':' + pad(ss);
   }
-  function iconPlay(state) { return state ? '❚❚' : '▶'; }
+  function chapterIndex(chs, t) {
+    var i = 0;
+    for (var k = 0; k < chs.length; k++) { if (chs[k].t <= t) i = k; else break; }
+    return i;
+  }
 
-  /* ---------- 每个书卡面板 ---------- */
-  var store = read(KEY_PROGRESS, {});       // { src: {t,d} }
+  /* ---------- 自定义进度线 ----------
+   * getAudio: () => audio 或 null  —— 拖动/键盘时取当前真 audio
+   */
+  function bindSeekline(lineEl, fillEl, knobEl, getAudio, onSeek) {
+    var max = Number(lineEl.getAttribute('aria-valuemax') || 1000);
+    var paint = function (t, d) {
+      var pct = d && t >= 0 ? Math.min(1, t / d) : 0;
+      fillEl.style.width = (pct * 100) + '%';
+      knobEl.style.left = (pct * 100) + '%';
+      lineEl.setAttribute('aria-valuenow', String(Math.round(pct * max)));
+    };
+    var seekFromEvent = function (e) {
+      var au = getAudio();
+      if (!au) return;
+      var rect = lineEl.getBoundingClientRect();
+      var ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      var t = ratio * (au.duration || 0);
+      if (onSeek) onSeek(t);
+      paint(t, au.duration);
+    };
+    var dragging = false;
+    lineEl.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      if (lineEl.setPointerCapture) lineEl.setPointerCapture(e.pointerId);
+      seekFromEvent(e);
+    });
+    lineEl.addEventListener('pointermove', function (e) { if (dragging) seekFromEvent(e); });
+    lineEl.addEventListener('pointerup', function (e) { if (dragging) { dragging = false; seekFromEvent(e); } });
+    lineEl.addEventListener('pointercancel', function () { dragging = false; });
+    lineEl.addEventListener('keydown', function (e) {
+      var au = getAudio();
+      if (!au || !au.duration) return;
+      var step = au.duration / 20;
+      if (e.key === 'ArrowRight') { au.currentTime = Math.min(au.duration, au.currentTime + step); }
+      else if (e.key === 'ArrowLeft') { au.currentTime = Math.max(0, au.currentTime - step); }
+      else return;
+      e.preventDefault();
+    });
+    return paint;
+  }
+
+  /* ---------- 全局状态 ---------- */
+  var store = read(KEY_PROGRESS, {});
   var rate = read(KEY_RATE, 1);
-  var sleepIdx = 0;                          // SLEEP_MIN 下标,0=关
+  var sleepIdx = 0;
   var sleepDeadline = 0;
   var sleepTimer = null;
   var toastTimer = null;
@@ -59,32 +112,29 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.hidden = true; }, 3200);
   }
-
   function syncButtons() {
     panels.forEach(function (p) {
       var a = p.querySelector('.bp-audio');
-      p.querySelector('.bp-play').textContent = iconPlay(a.paused);
       p.classList.toggle('is-playing', !a.paused);
     });
   }
-
   function applyRate() {
     panels.forEach(function (p) {
       p.querySelector('.bp-audio').playbackRate = rate;
       p.querySelector('.bp-rate').textContent = rate + 'x';
     });
   }
-
   function paintSleepBtn(p) {
-    var btn = p.querySelector('.bp-sleep');
+    var label = p.querySelector('.bp-sleep-label');
     if (sleepIdx > 0) {
       var remain = Math.max(0, Math.ceil((sleepDeadline - Date.now()) / 1000));
-      btn.textContent = '☾ ' + (remain >= 3600 ? Math.floor(remain / 3600) + 'h' + pad(Math.floor((remain % 3600) / 60)) : pad(Math.floor(remain / 60)) + ':' + pad(remain % 60));
+      label.textContent = remain >= 3600
+        ? (Math.floor(remain / 3600) + 'h' + pad(Math.floor((remain % 3600) / 60)))
+        : pad(Math.floor(remain / 60)) + ':' + pad(remain % 60);
     } else {
-      btn.textContent = '☾';
+      label.textContent = '☾';
     }
   }
-
   function clearSleep() {
     clearInterval(sleepTimer);
     sleepTimer = null;
@@ -92,26 +142,21 @@
   }
 
   /* ---------- 悬浮条 ---------- */
-  var active = null; // 当前挂的 audio
-
   function paintFloat(a) {
     if (!hasFloat || !a) return;
     active = a;
     var panel = a.closest('.bp-shell');
     fpCover.src = panel.dataset.cover;
     fpTitle.textContent = panel.dataset.title;
-    fpPlay.textContent = iconPlay(a.paused);
     fpTimes.textContent = fmt(a.currentTime) + ' / ' + fmt(a.duration || 0);
-    var max = fpBar.max;
-    var ratio = a.duration ? a.currentTime / a.duration : 0;
-    fpBar.value = String(Math.round(ratio * max));
+    fpPlay.classList.toggle('is-playing', !a.paused);
+    var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
+    fpPrev.hidden = fpNext.hidden = chs.length < 2;
+    if (fpPaint) fpPaint(a.currentTime, a.duration);
     floatPlayer.hidden = false;
   }
 
   function bindFloat() {
-    floatPlayer.addEventListener('click', function (e) {
-      // 悬浮条内部按钮、进度条之外点击 = 面板反而不是打开;只有"回到播放器"按钮做滚动
-    });
     fpJump.addEventListener('click', function () {
       if (active) {
         var card = active.closest('.book-card');
@@ -122,29 +167,92 @@
       if (!active) return;
       if (active.paused) active.play(); else active.pause();
     });
-    fpBar.addEventListener('input', function () {
-      if (!active || !active.duration) return;
-      active.currentTime = (Number(fpBar.value) / Number(fpBar.max)) * active.duration;
-      paintFloat(active);
+    fpPrev.addEventListener('click', function () {
+      if (!active) return;
+      var panel = active.closest('.bp-shell');
+      var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
+      var i = chapterIndex(chs, active.currentTime);
+      if (i > 0) { active.currentTime = chs[i - 1]; active.play(); }
+    });
+    fpNext.addEventListener('click', function () {
+      if (!active) return;
+      var panel = active.closest('.bp-shell');
+      var chs = Array.prototype.slice.call(panel.querySelectorAll('.bp-marks li button')).map(function (b) { return Number(b.dataset.t); });
+      var i = chapterIndex(chs, active.currentTime);
+      if (i < chs.length - 1) { active.currentTime = chs[i + 1]; active.play(); }
+    });
+    fpPaint = bindSeekline(fpSeek, fpFill, fpKnob, function () { return active; }, function (t) {
+      if (active) active.currentTime = t;
     });
   }
 
-  /* ---------- 面板事件 ---------- */
+  /* ---------- 面板初始化 ---------- */
   panels.forEach(function (p) {
     var a = p.querySelector('.bp-audio');
-    var bar = p.querySelector('.bp-bar');
+    var seekline = p.querySelector('.bp-seekline');
     var cur = p.querySelector('.bp-cur');
+    var durEl = p.querySelector('.bp-dur');
+    var chapEl = p.querySelector('.bp-chap');
+    var drawer = p.querySelector('.bp-drawer');
+    var listBtn = p.querySelector('.bp-listbtn');
+    var chapters = Array.prototype.slice.call(p.querySelectorAll('.bp-marks li button')).map(function (b) {
+      return {
+        t: Number(b.dataset.t),
+        el: b,
+        name: b.querySelector('.m-name') ? b.querySelector('.m-name').textContent : ''
+      };
+    });
+    var paintLine = bindSeekline(seekline, p.querySelector('.bp-fill'), p.querySelector('.bp-knob'), function () { return a; }, function (t) {
+      a.currentTime = t;
+    });
+
+    function paintChap(t) {
+      if (!chapters.length) { chapEl.textContent = ''; return; }
+      var i = chapterIndex(chapters.map(function (c) { return c.t; }), t);
+      chapEl.textContent = '第 ' + (i + 1) + ' 集 · ' + chapters[i].name;
+      chapters.forEach(function (c, k) { c.el.classList.toggle('is-current', k === i); });
+    }
 
     p.querySelector('.bp-play').addEventListener('click', function () {
-      if (a.paused) a.play().catch(function () { toast(p, '播放失败,请检查网络后重试'); });
+      if (a.paused) { a.play().catch(function () { toast(p, '播放失败,请检查网络后重试'); }); }
       else a.pause();
     });
-
-    bar.addEventListener('input', function () {
-      if (a.duration) a.currentTime = (Number(bar.value) / Number(bar.max)) * a.duration;
+    p.querySelector('.bp-rev').addEventListener('click', function () {
+      a.currentTime = Math.max(0, a.currentTime - SKIP_SEC);
+    });
+    p.querySelector('.bp-fwd').addEventListener('click', function () {
+      a.currentTime = Math.min((a.duration || 0) || Number.MAX_SAFE_INTEGER, a.currentTime + SKIP_SEC);
+    });
+    p.querySelector('.bp-prev').addEventListener('click', function () {
+      if (!chapters.length) return;
+      var i = chapterIndex(chapters.map(function (c) { return c.t; }), a.currentTime);
+      if (i > 0) { a.currentTime = chapters[i - 1].t; a.play(); }
+    });
+    p.querySelector('.bp-next').addEventListener('click', function () {
+      if (!chapters.length) return;
+      var i = chapterIndex(chapters.map(function (c) { return c.t; }), a.currentTime);
+      if (i < chapters.length - 1) { a.currentTime = chapters[i + 1].t; a.play(); }
     });
 
-    /* 倍速:循环 1 → 1.25 → 1.5 → 2 */
+    if (listBtn && drawer) {
+      listBtn.setAttribute('aria-expanded', 'false');
+      listBtn.addEventListener('click', function () {
+        drawer.hidden = !drawer.hidden;
+        listBtn.setAttribute('aria-expanded', drawer.hidden ? 'false' : 'true');
+      });
+      p.querySelector('.bp-drawer-close').addEventListener('click', function () { drawer.hidden = true; });
+      document.addEventListener('click', function (e) {
+        if (!drawer.hidden && !drawer.contains(e.target) && !listBtn.contains(e.target)) drawer.hidden = true;
+      });
+      chapters.forEach(function (c) {
+        c.el.addEventListener('click', function () {
+          a.currentTime = c.t + 0.05;
+          a.play();
+          drawer.hidden = true;
+        });
+      });
+    }
+
     p.querySelector('.bp-rate').addEventListener('click', function () {
       var i = RATES.indexOf(rate);
       rate = RATES[(i + 1) % RATES.length];
@@ -152,15 +260,13 @@
       applyRate();
     });
 
-    /* 睡眠定时:0 → 15 → 30 → 45 → 60 → 0 */
     p.querySelector('.bp-sleep').addEventListener('click', function () {
       clearSleep();
       sleepIdx = (sleepIdx + 1) % SLEEP_MIN.length;
       if (sleepIdx > 0) {
         sleepDeadline = Date.now() + SLEEP_MIN[sleepIdx] * 60000;
         sleepTimer = setInterval(function () {
-          var remain = sleepDeadline - Date.now();
-          if (remain <= 0) {
+          if (sleepDeadline - Date.now() <= 0) {
             clearSleep();
             panels.forEach(function (o) { o.querySelector('.bp-audio').pause(); });
             syncButtons();
@@ -168,39 +274,36 @@
             toast(p, '睡眠定时到,已暂停 ☾');
             return;
           }
-          paintSleepBtn(p);
-          if (hasFloat) paintFloat(active);
+          panels.forEach(function (o) { paintSleepBtn(o); });
         }, 1000);
       }
-      paintSleepBtn(p);
+      panels.forEach(function (o) { paintSleepBtn(o); });
     });
 
     a.addEventListener('loadedmetadata', function () {
-      cur.textContent = fmt(a.currentTime);
-      p.querySelector('.bp-dur').textContent = fmt(a.duration);
+      durEl.textContent = fmt(a.duration);
       a.playbackRate = rate;
-
-      /* 断点续播:记录在且没听完 → 静默恢复 + 一条轻提示 */
       var rec = store[a.src];
       if (rec && rec.t && rec.t > 5 && rec.t < rec.d - 10) {
         a.currentTime = rec.t;
         toast(p, '已续播 ' + fmt(rec.t));
       }
+      paintChap(a.currentTime);
     });
-
     a.addEventListener('timeupdate', function () {
       cur.textContent = fmt(a.currentTime);
-      bar.value = String(a.duration ? Math.round((a.currentTime / a.duration) * Number(bar.max)) : 0);
+      paintChap(a.currentTime);
+      paintLine(a.currentTime, a.duration);
       if (hasFloat && active === a) paintFloat(a);
     });
 
     a.addEventListener('play', function () {
-      /* 同时只播一本:播放新书时暂停其他面板 */
       panels.forEach(function (o) {
         var oa = o.querySelector('.bp-audio');
         if (oa !== a && !oa.paused) oa.pause();
       });
-      syncButtons(); paintFloat(a);
+      syncButtons();
+      paintFloat(a);
     });
     a.addEventListener('pause', function () { syncButtons(); paintFloat(a); });
 
@@ -210,15 +313,12 @@
       toast(p, '播放完成,进度已清零');
     });
 
-    /* 定时写进度(播放中才值得写) */
     setInterval(function () {
       if (!a.paused && a.duration) {
         store[a.src] = { t: a.currentTime, d: a.duration };
         write(KEY_PROGRESS, store);
       }
     }, SAVE_INTERVAL);
-
-    /* 暂停/切换页面时也写一次 */
     function saveNow() {
       if (a.duration) store[a.src] = { t: a.currentTime, d: a.duration };
       write(KEY_PROGRESS, store);

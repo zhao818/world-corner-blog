@@ -9,7 +9,7 @@
 <meta name="description" content="完整连播的有声书:幸福的内在 · 内心的修炼">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/audiobook/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4a758f575ba54c49269ed847e4d78fdd703dec67e1a4529fe85d746616c718a4.css" integrity="sha256-SnWPV1ulTEkmnthH5NeP3XA97GfhpFKf6F10ZhbHGKQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.499d9e30f8729e8291b60bcc65989cea787a7d97f8e2ed09bee9e0f09fe666bb.css" integrity="sha256-SZ2eMPhynoKRtgvMZZic6nh6fZf44u0Jvung8J/mZrs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -181,20 +181,276 @@
         <span>连播 2小时05分</span>
       </div>
       <h2>幸福的内在</h2>
-      <p class="book-desc">从「思想之光」到「升维」,31 篇散文小辑。适合睡前一刷、走路骑行、专注间隙给自己留一口气——它不催你,只陪你。</p>
-
-      <div class="bp-shell" data-src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/happiness.mp3" data-title="幸福的内在" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-happiness.jpg">
+      <p class="book-desc">从「思想之光」到「升维」,31 篇散文小辑。适合睡前一刷、走路骑行、专注间隙给自己留一口气——它不催你,只陪你。</p><div class="bp-shell" data-src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/happiness.mp3" data-title="幸福的内在" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-happiness.jpg">
         <audio class="bp-audio" preload="metadata" src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/happiness.mp3"></audio>
-        <div class="bp-row">
-          <button class="bp-play" type="button" aria-label="播放"></button>
-          <div class="bp-scrub">
-            <input class="bp-bar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
-            <span class="bp-times"><span class="bp-cur">00:00</span><i class="bp-sep">/</i><span class="bp-dur">00:00</span></span>
+
+        <div class="bp-panel">
+          <div class="bp-main">
+            <button class="bp-btn bp-rev" type="button" aria-label="快退15秒">−15s</button>
+            <button class="bp-play" type="button" aria-label="播放">
+              <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.6v14.8L19.5 12z"/></svg>
+              <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 4.5h3.7v15H6.6zM13.7 4.5h3.7v15h-3.7z"/></svg>
+            </button>
+            <button class="bp-btn bp-fwd" type="button" aria-label="快进15秒">+15s</button>
           </div>
-          <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
-          <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">☾</button>
+
+          <div class="bp-seekline" tabindex="0" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+            <div class="bp-track"><i class="bp-fill"></i><i class="bp-knob"></i></div>
+          </div>
+
+          <div class="bp-times">
+            <span class="bp-cur">00:00</span>
+            <span class="bp-chap">第 1 集</span>
+            <span class="bp-dur">00:00</span>
+          </div>
+
+          <div class="bp-tools">
+            <button class="bp-prev" type="button" aria-label="上一集">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>上一集
+            </button>
+            <button class="bp-listbtn" type="button" aria-label="章节目录">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.2 6h.02M3.2 12h.02M3.2 18h.02"/></svg>目录
+              <span class="bp-count">31 篇</span>
+              <svg class="bp-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="bp-next" type="button" aria-label="下一集">
+              下一集<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
+            </button>
+            <span class="bp-spacer"></span>
+            <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
+            <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.2A8.6 8.6 0 1 1 10.8 3.4a7 7 0 0 0 9.8 9.8z"/></svg><span class="bp-sleep-label">☾</span>
+            </button>
+          </div>
+
+          <p class="bp-toast" hidden></p>
         </div>
-        <p class="bp-toast" hidden></p>
+
+        <div class="bp-drawer" hidden>
+          <div class="bp-drawer-head">
+            <strong>目录 · 31 篇</strong>
+            <button class="bp-drawer-close" type="button" aria-label="关闭目录">×</button>
+          </div>
+          <ol class="bp-marks">
+            <li>
+              <button type="button" data-t="0">
+                <span class="m-idx">01</span>
+                <span class="m-name">思想之光</span>
+                <span class="m-len">04:07</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="247">
+                <span class="m-idx">02</span>
+                <span class="m-name">真知之路</span>
+                <span class="m-len">03:28</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="455.5">
+                <span class="m-idx">03</span>
+                <span class="m-name">文明的阶梯</span>
+                <span class="m-len">03:50</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="685.9">
+                <span class="m-idx">04</span>
+                <span class="m-name">精神之争</span>
+                <span class="m-len">02:41</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="847.1">
+                <span class="m-idx">05</span>
+                <span class="m-name">摆擂</span>
+                <span class="m-len">02:31</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="998.3">
+                <span class="m-idx">06</span>
+                <span class="m-name">三座山</span>
+                <span class="m-len">02:57</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="1174.8">
+                <span class="m-idx">07</span>
+                <span class="m-name">脱节时代</span>
+                <span class="m-len">03:05</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="1359.8">
+                <span class="m-idx">08</span>
+                <span class="m-name">大逃离</span>
+                <span class="m-len">03:34</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="1573.8">
+                <span class="m-idx">09</span>
+                <span class="m-name">集体觉醒</span>
+                <span class="m-len">04:06</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="1819.4">
+                <span class="m-idx">10</span>
+                <span class="m-name">历史夹缝</span>
+                <span class="m-len">04:30</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="2089.7">
+                <span class="m-idx">11</span>
+                <span class="m-name">我们的哥伦布</span>
+                <span class="m-len">03:22</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="2291.9">
+                <span class="m-idx">12</span>
+                <span class="m-name">内心基建</span>
+                <span class="m-len">04:04</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="2535.6">
+                <span class="m-idx">13</span>
+                <span class="m-name">第四维度</span>
+                <span class="m-len">04:04</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="2779.3">
+                <span class="m-idx">14</span>
+                <span class="m-name">极好的一生</span>
+                <span class="m-len">04:06</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3025.6">
+                <span class="m-idx">15</span>
+                <span class="m-name">精神主食</span>
+                <span class="m-len">04:38</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3303.4">
+                <span class="m-idx">16</span>
+                <span class="m-name">与自然对话·上</span>
+                <span class="m-len">03:20</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3503.9">
+                <span class="m-idx">17</span>
+                <span class="m-name">与自然对话·中</span>
+                <span class="m-len">03:16</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3699.6">
+                <span class="m-idx">18</span>
+                <span class="m-name">与自然对话·下</span>
+                <span class="m-len">03:30</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3909.8">
+                <span class="m-idx">19</span>
+                <span class="m-name">纯真之眼</span>
+                <span class="m-len">04:59</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="4209.2">
+                <span class="m-idx">20</span>
+                <span class="m-name">夏洛的网</span>
+                <span class="m-len">03:35</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="4424.4">
+                <span class="m-idx">21</span>
+                <span class="m-name">天堂地狱</span>
+                <span class="m-len">04:02</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="4666">
+                <span class="m-idx">22</span>
+                <span class="m-name">小毛驴</span>
+                <span class="m-len">04:54</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="4960.4">
+                <span class="m-idx">23</span>
+                <span class="m-name">太阳下山</span>
+                <span class="m-len">04:14</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="5214.7">
+                <span class="m-idx">24</span>
+                <span class="m-name">北国三章</span>
+                <span class="m-len">03:47</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="5441.4">
+                <span class="m-idx">25</span>
+                <span class="m-name">整把火柴</span>
+                <span class="m-len">05:21</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="5762.3">
+                <span class="m-idx">26</span>
+                <span class="m-name">爱的四季</span>
+                <span class="m-len">04:47</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="6049.5">
+                <span class="m-idx">27</span>
+                <span class="m-name">误读</span>
+                <span class="m-len">04:57</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="6346.7">
+                <span class="m-idx">28</span>
+                <span class="m-name">观察台</span>
+                <span class="m-len">05:05</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="6651.2">
+                <span class="m-idx">29</span>
+                <span class="m-name">成为自己</span>
+                <span class="m-len">05:17</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="6968.6">
+                <span class="m-idx">30</span>
+                <span class="m-name">两种悲痛</span>
+                <span class="m-len">04:03</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="7211.6">
+                <span class="m-idx">31</span>
+                <span class="m-name">升维</span>
+                <span class="m-len">04:43</span>
+              </button>
+            </li>
+          </ol>
+        </div>
       </div>
 
       <p class="book-note"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.7L19.6 10l-5.7 1.9L12 17.6l-1.9-5.7L4.4 10l5.7-1.9L12 3z"></path><path d="M19 16l0.9 2.6 2.6 0.9-2.6 0.9L19 23l-0.9-2.6-2.6-0.9 2.6-0.9L19 16z"></path></svg></span>
@@ -214,20 +470,136 @@
         <span>连播 8小时</span>
       </div>
       <h2>内心的修炼</h2>
-      <p class="book-desc">九关修炼体系——断舍离、立根本、炼心术、破执念、养身体、结善缘、明规则、明经济、立财基。每一关借一本书当拐杖:《沉思录》《传习录》《人生的智慧》…… 从序言听到完结篇,8 小时读完一门人生通识课。</p>
-
-      <div class="bp-shell" data-src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/mind-practice.mp3" data-title="内心的修炼" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice.jpg">
+      <p class="book-desc">九关修炼体系——断舍离、立根本、炼心术、破执念、养身体、结善缘、明规则、明经济、立财基。每一关借一本书当拐杖:《沉思录》《传习录》《人生的智慧》…… 从序言听到完结篇,8 小时读完一门人生通识课。</p><div class="bp-shell" data-src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/mind-practice.mp3" data-title="内心的修炼" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice.jpg">
         <audio class="bp-audio" preload="metadata" src="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/mind-practice.mp3"></audio>
-        <div class="bp-row">
-          <button class="bp-play" type="button" aria-label="播放"></button>
-          <div class="bp-scrub">
-            <input class="bp-bar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
-            <span class="bp-times"><span class="bp-cur">00:00</span><i class="bp-sep">/</i><span class="bp-dur">00:00</span></span>
+
+        <div class="bp-panel">
+          <div class="bp-main">
+            <button class="bp-btn bp-rev" type="button" aria-label="快退15秒">−15s</button>
+            <button class="bp-play" type="button" aria-label="播放">
+              <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.6v14.8L19.5 12z"/></svg>
+              <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 4.5h3.7v15H6.6zM13.7 4.5h3.7v15h-3.7z"/></svg>
+            </button>
+            <button class="bp-btn bp-fwd" type="button" aria-label="快进15秒">+15s</button>
           </div>
-          <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
-          <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">☾</button>
+
+          <div class="bp-seekline" tabindex="0" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+            <div class="bp-track"><i class="bp-fill"></i><i class="bp-knob"></i></div>
+          </div>
+
+          <div class="bp-times">
+            <span class="bp-cur">00:00</span>
+            <span class="bp-chap">第 1 集</span>
+            <span class="bp-dur">00:00</span>
+          </div>
+
+          <div class="bp-tools">
+            <button class="bp-prev" type="button" aria-label="上一集">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>上一集
+            </button>
+            <button class="bp-listbtn" type="button" aria-label="章节目录">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.2 6h.02M3.2 12h.02M3.2 18h.02"/></svg>目录
+              <span class="bp-count">11 篇</span>
+              <svg class="bp-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <button class="bp-next" type="button" aria-label="下一集">
+              下一集<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
+            </button>
+            <span class="bp-spacer"></span>
+            <button class="bp-rate" type="button" aria-label="播放倍速">1.0x</button>
+            <button class="bp-sleep" type="button" aria-label="睡眠定时" title="睡眠定时">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.2A8.6 8.6 0 1 1 10.8 3.4a7 7 0 0 0 9.8 9.8z"/></svg><span class="bp-sleep-label">☾</span>
+            </button>
+          </div>
+
+          <p class="bp-toast" hidden></p>
         </div>
-        <p class="bp-toast" hidden></p>
+
+        <div class="bp-drawer" hidden>
+          <div class="bp-drawer-head">
+            <strong>目录 · 11 篇</strong>
+            <button class="bp-drawer-close" type="button" aria-label="关闭目录">×</button>
+          </div>
+          <ol class="bp-marks">
+            <li>
+              <button type="button" data-t="0">
+                <span class="m-idx">01</span>
+                <span class="m-name">序言</span>
+                <span class="m-len">03:19</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="199">
+                <span class="m-idx">02</span>
+                <span class="m-name">第一篇 断舍离</span>
+                <span class="m-len">57:29</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="3647.9">
+                <span class="m-idx">03</span>
+                <span class="m-name">第二篇 立根本</span>
+                <span class="m-len">2h17m</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="11909.7">
+                <span class="m-idx">04</span>
+                <span class="m-name">第三篇 炼心术</span>
+                <span class="m-len">45:13</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="14622.9">
+                <span class="m-idx">05</span>
+                <span class="m-name">第四篇 破执念</span>
+                <span class="m-len">36:43</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="16825.5">
+                <span class="m-idx">06</span>
+                <span class="m-name">第五篇 养身体</span>
+                <span class="m-len">47:48</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="19693">
+                <span class="m-idx">07</span>
+                <span class="m-name">第六篇 结善缘</span>
+                <span class="m-len">35:05</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="21797.9">
+                <span class="m-idx">08</span>
+                <span class="m-name">第七篇 明规则</span>
+                <span class="m-len">44:25</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="24462.7">
+                <span class="m-idx">09</span>
+                <span class="m-name">第八篇 明经济</span>
+                <span class="m-len">35:15</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="26577.3">
+                <span class="m-idx">10</span>
+                <span class="m-name">第九篇 立财基</span>
+                <span class="m-len">35:25</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" data-t="28701.9">
+                <span class="m-idx">11</span>
+                <span class="m-name">完结篇</span>
+                <span class="m-len">02:10</span>
+              </button>
+            </li>
+          </ol>
+        </div>
       </div>
 
       <p class="book-note"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.7L19.6 10l-5.7 1.9L12 17.6l-1.9-5.7L4.4 10l5.7-1.9L12 3z"></path><path d="M19 16l0.9 2.6 2.6 0.9-2.6 0.9L19 23l-0.9-2.6-2.6-0.9 2.6-0.9L19 16z"></path></svg></span>
@@ -237,14 +609,27 @@
     </div>
   </section>
 </div><div class="float-player" id="floatPlayer" hidden>
-  <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
-    <img class="fp-cover" id="fpCover" src="" alt="">
-    <span class="fp-meta"><strong id="fpTitle"></strong><span class="fp-times" id="fpTimes">00:00 / 00:00</span></span>
-  </button>
-  <div class="fp-controls">
-    <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
+  <div class="fp-row1">
+    <button class="fp-jump" id="fpJump" type="button" aria-label="回到播放器">
+      <img class="fp-cover" id="fpCover" src="" alt="">
+      <span class="fp-meta">
+        <strong id="fpTitle"></strong>
+        <span class="fp-times" id="fpTimes">00:00 / 00:00</span>
+      </span>
+    </button>
+    <div class="fp-btns">
+      <button class="fp-prev" id="fpPrev" type="button" aria-label="上一集" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 5h2.4v14H5.5zM15.5 5v14l-8-7z"/></svg>
+      </button>
+      <button class="fp-play" id="fpPlay" type="button" aria-label="播放/暂停"></button>
+      <button class="fp-next" id="fpNext" type="button" aria-label="下一集" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 5h2.4v14h-2.4zM8.5 5v14l8-7z"/></svg>
+      </button>
+    </div>
   </div>
-  <input class="fp-bar" id="fpBar" type="range" min="0" max="1000" step="1" value="0" aria-label="播放进度">
+  <div class="fp-seekline" id="fpSeek" role="slider" tabindex="0" aria-label="播放进度" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0">
+    <div class="fp-track"><i class="fp-fill" id="fpFill"></i><i class="fp-knob" id="fpKnob"></i></div>
+  </div>
 </div>
 <script src="/js/player-core.js" defer></script>
 
