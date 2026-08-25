@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>世界一隅 · 项目资产</title>
+<style>
+  :root { --bg:#0f1420; --panel:#161c2b; --line:#26314a; --fg:#dfe6f3; --dim:#8b97ad;
+          --accent:#c9a55c; --link:#7fb3ff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; padding:36px 24px 60px; }
+  h1 { font-size:24px; color:var(--accent); letter-spacing:1px; }
+  .meta { font-size:12px; color:var(--dim); margin:8px 0 20px; }
+  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
+  #q { flex:1; min-width:220px; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+        background:#0e1424; color:var(--fg); font-size:13px; outline:none; }
+  #q:focus { border-color:var(--accent); }
+  #c, #t { padding:9px 12px; border-radius:8px; border:1px solid var(--line); background:#0e1424;
+        color:var(--fg); font-size:13px; outline:none; }
+  .count { font-size:12px; color:var(--dim); margin-bottom:12px; }
+  .cards { display:grid; grid-template-columns:1fr; gap:10px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .card:hover { border-color:var(--accent); }
+  .card .nm { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .card .ic { font-size:15px; }
+  .card .nm code { font-family:Consolas,monospace; font-size:13px; color:var(--accent); }
+  .card .type { font-size:10px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); }
+  .card .tag { font-size:10px; color:var(--dim); border:1px solid var(--line); border-radius:999px;
+                padding:2px 8px; }
+  .card .ds { font-size:12px; color:var(--dim); line-height:1.7; margin-top:6px; }
+  .card.hide { display:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📦 项目资产</h1>
+  <p class="meta">自研项目 / Agent / 脚本 / 技能目录 · 共 80 项 · 8 个分类 · 生成于 2026-08-25</p>
+  <div class="filters">
+    <input id="q" type="search" placeholder="搜索资产名或描述…" autocomplete="off">
+    <select id="c">
+      <option value="all">全部分类</option>
+      <option value="ai">AI 开发工具(13)</option><option value="scripts">脚本超市(37)</option><option value="office">办公文档方案(6)</option><option value="content">内容创作工具(7)</option><option value="tools">系统工具(7)</option><option value="hardware">桌面 & 应用工具(4)</option><option value="knowledge">知识资产(1)</option><option value="agents">Agent 配置教程(5)</option>
+    </select>
+    <select id="t">
+      <option value="all">全部类型</option>
+      <option value="project">项目</option><option value="agent">Agent</option><option value="script">脚本</option><option value="skill">技能</option><option value="bundle">合集</option><option value="tool">工具</option><option value="other">其他</option>
+    </select>
+  </div>
+  <p class="count" id="count">共 80 项</p>
+  <div class="cards" id="cards"></div>
+</div>
+<script>
+var DATA = [{c:"ai",n:"Deepseek 工具集",t:"project",d:"字幕翻译 / 视频处理 / 图片生成等自研脚本合集",g:"AI,自研",i:""},
+{c:"ai",n:"AI 记忆助手",t:"project",d:"上下文记忆管理工具，解决长对话记忆丢失问题",g:"记忆,AI",i:""},
+{c:"ai",n:"Claude-Memory 共享库",t:"project",d:"多 Agent 共享记忆仓库方案",g:"记忆,同步",i:""},
+{c:"ai",n:"Table-Parser",t:"project",d:"表格解析工具",g:"表格,解析",i:""},
+{c:"ai",n:"Hermes Agent 配置",t:"agent",d:"全能网关 · 477技能",g:"网关,多平台",i:""},
+{c:"ai",n:"Reasonix Code 配置",t:"agent",d:"主力编程 Agent",g:"DeepSeek,MCP",i:""},
+{c:"ai",n:"Claude Code 配置",t:"agent",d:"Anthropic 官方",g:"Claude,Hooks",i:""},
+{c:"ai",n:"MiMo Code 配置",t:"agent",d:"小米 AI 编程",g:"小米,WSL",i:""},
+{c:"ai",n:"GitHub Copilot 配置",t:"agent",d:"微软 AI 助手",g:"GitHub,AI",i:""},
+{c:"ai",n:"OpenClaw 配置",t:"agent",d:"企微/钉钉/微信",g:"企微,网关",i:""},
+{c:"ai",n:"Continue 配置",t:"agent",d:"VS Code 本地 AI",g:"Ollama,本地",i:""},
+{c:"ai",n:"Kimi 配置",t:"agent",d:"月之暗面",g:"长文本,搜索",i:""},
+{c:"ai",n:"OpenCode 配置",t:"agent",d:"开源多模型",g:"开源,多模型",i:""},
+{c:"scripts",n:"DeepSeek 搜索",t:"script",d:"AI 搜索脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"豆包搜索",t:"script",d:"AI 搜索脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"Gemini 搜索",t:"script",d:"AI 搜索脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"GPT 搜索",t:"script",d:"AI 搜索脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"知乎答案搜索",t:"script",d:"AI 搜索脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"闲鱼探查 v3",t:"script",d:"数据探查脚本",g:"🔍 搜索类",i:""},
+{c:"scripts",n:"内容发布",t:"script",d:"多平台内容发布",g:"📢 发布类",i:""},
+{c:"scripts",n:"多平台发布",t:"script",d:"一键多平台分发",g:"📢 发布类",i:""},
+{c:"scripts",n:"OfficeCLI 发布",t:"script",d:"文档内容发布",g:"📢 发布类",i:""},
+{c:"scripts",n:"小微发布",t:"script",d:"平台内容发布",g:"📢 发布类",i:""},
+{c:"scripts",n:"小红书发布测试",t:"script",d:"平台发布测试",g:"📢 发布类",i:""},
+{c:"scripts",n:"Anthropic 代理",t:"script",d:"API 代理脚本",g:"🔌 代理类",i:""},
+{c:"scripts",n:"NVIDIA 代理",t:"script",d:"API 代理脚本",g:"🔌 代理类",i:""},
+{c:"scripts",n:"Reasonix 代理",t:"script",d:"API 代理脚本",g:"🔌 代理类",i:""},
+{c:"scripts",n:"MCP 路由",t:"script",d:"MCP 路由调度",g:"🔌 代理类",i:""},
+{c:"scripts",n:"启动代理集合",t:"script",d:"代理一键启动",g:"🔌 代理类",i:""},
+{c:"scripts",n:"启动 NVIDIA 代理",t:"script",d:"代理一键启动",g:"🔌 代理类",i:""},
+{c:"scripts",n:"API 监控",t:"script",d:"接口状态监控",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"引擎健康检查",t:"script",d:"服务健康巡检",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"系统维护",t:"script",d:"自动化维护",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"Excel 分析",t:"script",d:"表格数据分析",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"数据采集",t:"script",d:"数据采集脚本",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"资产目录系统",t:"script",d:"资产扫描编目",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"记忆索引",t:"script",d:"记忆检索索引",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"资产合并",t:"script",d:"数据合并工具",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"Token 计量",t:"script",d:"Token 用量统计",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"模型验证",t:"script",d:"模型可用性验证",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"性能测试",t:"script",d:"性能基准测试",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"Windows 优化",t:"script",d:"系统优化脚本",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"LLM 生成",t:"script",d:"大模型内容生成",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"多 LLM 客户端",t:"script",d:"多模型统一调用",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"流水线执行器",t:"script",d:"任务流水线",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"流水线追踪",t:"script",d:"任务状态追踪",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"流式测试",t:"script",d:"流式接口测试",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"视频流水线",t:"script",d:"视频处理流水线",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"内容仪表盘",t:"script",d:"内容数据看板",g:"📊 监控 &amp; 工具类",i:""},
+{c:"scripts",n:"内容编排",t:"script",d:"内容生产编排",g:"📊 监控 &amp; 工具类",i:""},
+{c:"office",n:"VBA 文档工具集",t:"project",d:"Office 文档批量处理工具",g:"VBA,批量",i:""},
+{c:"office",n:"思维导图工具集",t:"project",d:"Docker 容器化思维导图工具",g:"思维导图,工具",i:""},
+{c:"office",n:"docx 批量生成技能",t:"skill",d:"Word 文档批量生成",g:"Word,批量",i:""},
+{c:"office",n:"docx 批量填表技能",t:"skill",d:"Excel 数据批量填 Word",g:"填表,Excel",i:""},
+{c:"office",n:"PDF 处理技能",t:"skill",d:"PDF 转换处理",g:"PDF,转换",i:""},
+{c:"office",n:"EPC 知识库",t:"project",d:"建筑行业资料整理库",g:"EPC,知识库",i:""},
+{c:"content",n:"爱发电发布技能",t:"skill",d:"爱发电平台发文自动化",g:"爱发电,发布",i:""},
+{c:"content",n:"微信公众号发布技能",t:"skill",d:"公众号文章发布自动化",g:"微信,发布",i:""},
+{c:"content",n:"Canvas 设计技能",t:"skill",d:"画布设计工作流",g:"设计,Canvas",i:""},
+{c:"content",n:"品牌指南技能",t:"skill",d:"品牌视觉规范",g:"品牌,指南",i:""},
+{c:"content",n:"算法艺术技能",t:"skill",d:"程序化艺术生成",g:"算法,艺术",i:""},
+{c:"content",n:"封面生成脚本",t:"script",d:"AI 智能封面生成",g:"封面,AI",i:""},
+{c:"content",n:"视频流水线脚本",t:"script",d:"视频批量处理",g:"视频,流水线",i:""},
+{c:"tools",n:"Windows 优化脚本",t:"script",d:"系统性能优化",g:"优化,系统",i:""},
+{c:"tools",n:"代理管理集合",t:"script",d:"多代理统一管理",g:"",i:""},
+{c:"tools",n:"MCP 路由脚本",t:"script",d:"MCP 服务路由",g:"MCP,路由",i:""},
+{c:"tools",n:"Token 计量脚本",t:"script",d:"Token 用量统计",g:"Token,统计",i:""},
+{c:"tools",n:"性能测试脚本",t:"script",d:"系统性能测试",g:"性能,测试",i:""},
+{c:"tools",n:"Reasonix-Code 启动脚本",t:"script",d:"一键启动配置",g:"启动,快捷",i:""},
+{c:"tools",n:"爬虫工具集",t:"project",d:"自研数据采集脚本集",g:"爬虫,采集",i:""},
+{c:"hardware",n:"Revit 清理工具",t:"project",d:"Revit 模型清理插件",g:"Revit,BIM",i:""},
+{c:"hardware",n:"管理桌面应用",t:"project",d:"程序监控关机工具",g:"桌面,管理",i:""},
+{c:"hardware",n:"扫描文件应用",t:"project",d:"磁盘扫描 + AI 分析",g:"扫描,AI",i:""},
+{c:"hardware",n:"CAD 半自动画图",t:"project",d:"CAD 命令行生成器",g:"CAD,自动化",i:""},
+{c:"knowledge",n:"灵魂之觅项目",t:"project",d:"探索类应用",g:"应用,探索",i:""},
+{c:"agents",n:"Agent 配置教程合集",t:"bundle",d:"Hermes + Reasonix + Claude + MiMo + Copilot + OpenClaw + Continue + Kimi + OpenCode 配置教程",g:"教程,Agent",i:""},
+{c:"agents",n:"Hermes Agent 配置教程",t:"agent",d:"477技能/7平台网关",g:"网关,多平台",i:""},
+{c:"agents",n:"Reasonix Code 配置教程",t:"agent",d:"DeepSeek驱动/MCP/Plan",g:"DeepSeek,MCP",i:""},
+{c:"agents",n:"Claude Code 配置教程",t:"agent",d:"Anthropic/Hooks/插件",g:"Claude,Hooks",i:""},
+{c:"agents",n:"MiMo Code 配置教程",t:"agent",d:"小米AI/WSL",g:"小米,WSL",i:""}];
+var TC = {"project": "项目", "agent": "Agent", "script": "脚本", "skill": "技能", "bundle": "合集", "tool": "工具", "other": "其他"};
+var TP = {"project": "#7fb3ff", "agent": "#c9a55c", "script": "#6ee7a8", "skill": "#f0a35c", "bundle": "#e28bb4", "tool": "#8b97ad", "other": "#8b97ad"};
+var cardsEl = document.getElementById('cards');
+var countEl = document.getElementById('count');
+var qEl = document.getElementById('q');
+var cEl = document.getElementById('c');
+var tEl = document.getElementById('t');
+function render() {
+  var q = qEl.value.trim().toLowerCase();
+  var c = cEl.value, t = tEl.value;
+  var html = '', shown = 0;
+  DATA.forEach(function (it) {
+    if (c !== 'all' && it.c !== c) return;
+    if (t !== 'all' && it.t !== t) return;
+    if (q && it.n.toLowerCase().indexOf(q) < 0 && it.d.toLowerCase().indexOf(q) < 0
+        && it.g.toLowerCase().indexOf(q) < 0) return;
+    shown++;
+    var tags = it.g ? it.g.split(',').filter(Boolean).map(function (x) {
+      return '<span class="tag">' + x + '</span>'; }).join('') : '';
+    html += '<div class="card"><div class="nm">' +
+      (it.i ? '<span class="ic">' + it.i + '</span>' : '') +
+      '<code>' + it.n + '</code>' +
+      '<span class="type" style="color:' + (TP[it.t] || '') + ';border-color:' + (TP[it.t] || '') + '40;">' + (TC[it.t] || it.t) + '</span>' +
+      tags + '</div>' +
+      (it.d ? '<p class="ds">' + it.d + '</p>' : '') + '</div>';
+  });
+  cardsEl.innerHTML = html;
+  countEl.textContent = '共 ' + shown + ' 项';
+}
+qEl.addEventListener('input', render);
+cEl.addEventListener('change', render);
+tEl.addEventListener('change', render);
+render();
+</script>
+</body>
+</html>
