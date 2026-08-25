@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <!-- 世界一隅 mark:世界的角落,亮起一颗星 -->
+  <circle cx="48" cy="48" r="40" fill="#1E1B4B" stroke="#C8A03C" stroke-width="4"/>
+  <path d="M58 26 L62.2 33.8 L70 38 L62.2 42.2 L58 50 L53.8 42.2 L46 38 L53.8 33.8 Z" fill="#DDA15E"/>
+  <path d="M20 64 A34 34 0 0 0 44 76" fill="none" stroke="#C8A03C" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+</svg>

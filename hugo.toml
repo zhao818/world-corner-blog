@@ -56,3 +56,7 @@ enableRobotsTXT = true
   DateFormat = '2006年1月2日'
   author = 'Tianbing Zhao'
   defaultTheme = 'dark'
+  [params.label]
+    text = '世界一隅'
+    icon = '/images/mark.svg'
+    iconHeight = 32
