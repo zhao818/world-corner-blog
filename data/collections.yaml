@@ -120,8 +120,8 @@ mainLinks:
     url: "https://worldcorner.xyz/resume/"
     icon: "doc"
   - title: "联系邮箱"
-    desc: "邮件给你回复(待补充)"
-    url: ""
+    desc: "tianbingzhao1@gmail.com"
+    url: "mailto:tianbingzhao1@gmail.com"
     icon: "mail"
 
 socials:
