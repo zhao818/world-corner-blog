@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
+  gap: clamp(14px, 5vw, 26px);
   margin-bottom: 12px;
 }
 .bp-btn.bp-rev,
@@ -154,7 +154,9 @@
 .bp-tools {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;   /* 窄屏放不下时换行,绝不横向溢出 */
   gap: 6px;
+  row-gap: 8px;
 }
 .bp-tools button {
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);

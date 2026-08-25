@@ -87,6 +87,9 @@
   border-radius: 999px;
   padding: 4px 12px;
 }
+.book-meta {
+  min-width: 0;   /* grid 列内防子元素撑爆(播放器工具行等 nowrap 内容) */
+}
 .book-meta h2 {
   margin: 0 0 10px;
   font-size: clamp(1.3rem, 3vw, 1.7rem);
@@ -115,7 +118,7 @@
 }
 
 /* --- 响应式 --- */
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .book-card {
     grid-template-columns: 1fr;
     gap: 18px;
