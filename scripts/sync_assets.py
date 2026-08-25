@@ -86,15 +86,32 @@ def main():
     print(out or "· commit 完成")
 
     # push 前先拉远端(Actions 会自动 commit docs/,不拉会 non-fast-forward)
+    # 有 tracked 未暂存改动时先 stash,避免 rebase 被拒(untracked 不阻塞,不用管)
+    code, dirty = sh([GIT, "-C", BLOG, "status", "--porcelain", "--untracked-files=no"])
+    stashed = bool(dirty.strip())
+    if stashed:
+        code, out = sh([GIT, "-C", BLOG, "stash", "push", "-m", "sync-assets-tmp"])
+        if code != 0:
+            print("✗ git stash 失败:", out)
+            return 1
     code, out = sh([GIT, "-C", BLOG, "pull", "--rebase", "origin", BRANCH])
     if code != 0:
         print("✗ git pull --rebase 失败:", out)
+        if stashed:
+            sh([GIT, "-C", BLOG, "stash", "pop"])
         return 1
     code, out = sh([GIT, "-C", BLOG, "push", "origin", BRANCH])
     print(out or "· push 完成")
     if code != 0:
         print("✗ git push 失败")
+        if stashed:
+            sh([GIT, "-C", BLOG, "stash", "pop"])
         return 1
+    if stashed:
+        code, out = sh([GIT, "-C", BLOG, "stash", "pop"])
+        if code != 0:
+            print("⚠ stash pop 冲突,请手动 git stash list 处理:", out)
+            return 1
     print("✓ 已推送,GitHub Actions 自动构建,约 2 分钟后上线")
     return 0
 
