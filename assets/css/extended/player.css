@@ -306,3 +306,113 @@
   letter-spacing: 0.03em;
   animation: bp-drawer-in 0.25s ease;
 }
+
+/* --- 睡眠定时:定时中按钮金色高亮 --- */
+.bp-sleep.is-on {
+  color: var(--brand-gold);
+  border-color: rgba(200, 160, 60, 0.6);
+  background: rgba(200, 160, 60, 0.1);
+}
+
+/* --- 睡眠定时弹层 --- */
+.bp-sleep-pop {
+  margin-top: 10px;
+  border: 1px solid rgba(200, 160, 60, 0.3);
+  border-radius: 14px;
+  padding: 12px;
+  animation: bp-drawer-in 0.2s ease;
+}
+.bp-sleep-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.bp-sleep-head strong {
+  font-size: 0.82rem;
+  color: var(--brand-gold);
+  letter-spacing: 0.1em;
+}
+.bp-sleep-head button {
+  border: none;
+  background: none;
+  color: var(--secondary);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.bp-sleep-head button:hover {
+  color: var(--brand-gold);
+}
+.bp-sleep-quicks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.bp-sleep-quicks button {
+  padding: 8px 4px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: none;
+  color: var(--secondary);
+  font-family: var(--mono-stack);
+  font-size: 0.76rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+.bp-sleep-quicks button:hover {
+  color: var(--brand-gold);
+  border-color: rgba(200, 160, 60, 0.55);
+  background: rgba(200, 160, 60, 0.08);
+}
+.bp-sleep-custom {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.bp-sleep-input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: 999px;
+  background: none;
+  color: var(--primary);
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+}
+.bp-sleep-input:focus {
+  outline: none;
+  border-color: rgba(200, 160, 60, 0.6);
+}
+.bp-sleep-set {
+  padding: 7px 14px;
+  border: 1px solid rgba(200, 160, 60, 0.55);
+  background: rgba(200, 160, 60, 0.12);
+  color: var(--brand-gold);
+  font-size: 0.78rem;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.bp-sleep-set:hover {
+  background: rgba(200, 160, 60, 0.2);
+}
+.bp-sleep-off {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  background: none;
+  color: var(--secondary);
+  font-size: 0.76rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.bp-sleep-off:hover {
+  color: var(--brand-gold);
+}

@@ -57,6 +57,8 @@
 .book-cover img {
   display: block;
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 12px;
   border: 1px solid rgba(200, 160, 60, 0.5);
   box-shadow: 0 14px 40px rgba(16, 16, 28, 0.4);

@@ -66,6 +66,27 @@
             </button>
           </div>
 
+          <div class="bp-sleep-pop" hidden>
+            <div class="bp-sleep-head">
+              <strong>睡眠定时</strong>
+              <button class="bp-sleep-close" type="button" aria-label="关闭">×</button>
+            </div>
+            <div class="bp-sleep-quicks">
+              <button type="button" data-min="15" aria-label="15 分钟">15</button>
+              <button type="button" data-min="20" aria-label="20 分钟">20</button>
+              <button type="button" data-min="30" aria-label="30 分钟">30</button>
+              <button type="button" data-min="40" aria-label="40 分钟">40</button>
+              <button type="button" data-min="45" aria-label="45 分钟">45</button>
+              <button type="button" data-min="60" aria-label="60 分钟">60</button>
+              <button type="button" data-min="90" aria-label="90 分钟">90</button>
+            </div>
+            <div class="bp-sleep-custom">
+              <input class="bp-sleep-input" type="number" min="1" max="240" placeholder="自定义分钟" enterkeyhint="done">
+              <button class="bp-sleep-set" type="button">定时</button>
+            </div>
+            <button class="bp-sleep-off" type="button">取消定时</button>
+          </div>
+
           <p class="bp-toast" hidden></p>
         </div>
 
