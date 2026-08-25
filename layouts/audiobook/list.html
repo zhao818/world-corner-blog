@@ -6,7 +6,6 @@
   <p class="audio-kicker">AUDIO · 完整连播</p>
   <h1>听书</h1>
   <p class="audio-sub">整本连播,打开就是完整的一本——不用逐集点,睡一觉它也替你播着。</p>
-  <p class="audio-sukua"><a href="/sukua/">先花 5 分钟速览这两本书,再决定从哪听起 →</a></p>
 </section>
 
 <div class="audio-room">
@@ -115,6 +114,33 @@
         {{- partial "icon.html" (dict "name" "sparkle" "class" "mini-icon" ) }}
         听到哪儿算哪儿——进度自动记住,下次打开接着来;点 ☾ 定个睡眠闹钟,睡着它也自己停。
       </p>
+
+      {{- with .sukua }}
+      <details class="sukua">
+        <summary>
+          <span class="sk-tag">速览</span>
+          <span class="sk-t">这一本讲了什么 · 5 分钟读完骨架</span>
+          <span class="sk-arrow">▾</span>
+        </summary>
+        <div class="sk-body">
+          <p class="sk-lead">{{ .lead }}</p>
+          <p class="sk-intro">{{ .intro | markdownify }}</p>
+          <ol class="sk-list">
+            {{- range .points }}
+            <li>
+              <div class="sk-row">
+                <span class="sk-no">{{ .n }}</span>
+                <div class="sk-txt">
+                  <p>{{ .t }}</p>
+                  {{- if .q }}<blockquote>〝{{ .q }}〞</blockquote>{{ end }}
+                </div>
+              </div>
+            </li>
+            {{- end }}
+          </ol>
+        </div>
+      </details>
+      {{- end }}
     </div>
   </section>
   {{- end }}
