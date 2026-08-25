@@ -33,6 +33,9 @@
 .home-feature.is-wide {
   border-color: rgba(200, 160, 60, 0.55);
 }
+.home-feature.full {
+  grid-column: 1 / -1;
+}
 .home-feature:hover {
   border-color: var(--brand-gold);
   transform: translateY(-3px);
