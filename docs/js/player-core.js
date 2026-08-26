@@ -1,5 +1,8 @@
-/* 世界一隅 · 听书播放器核心 v2
- * 断点续播(localStorage 静默恢复)/ 倍速 / 睡眠定时 / 章节跳转 / ±15s / 自定义进度线 / 全局悬浮条
+/* 世界一隅 · 听书播放器核心 v3
+ * 支持「书 = 章节列表」统一模型:
+ *   - 单文件型(幸福在内):整本一个 mp3,各章节靠 t 时间定位,章节间同文件秒切
+ *   - 多文件型(内心的修炼):每章节一个独立 mp3,靠 src 切换文件
+ * 断点续播(localStorage 按 bookId)/ 倍速 / 睡眠定时 / 章节跳转 / ±15s / 自定义进度线 / 全局悬浮条
  * 依赖:听书页 .bp-shell 结构 + #floatPlayer
  */
 (function () {
@@ -7,7 +10,7 @@
   if (window.__wcPlayer) return;
   window.__wcPlayer = true;
 
-  var KEY_PROGRESS = 'wc.audio.progress.v1';
+  var KEY_PROGRESS = 'wc.audio.progress.v2';
   var KEY_RATE = 'wc.audio.rate.v1';
   var RATES = [1, 1.25, 1.5, 2];
   var SAVE_INTERVAL = 5000;
@@ -38,12 +41,18 @@
     for (var k = 0; k < chs.length; k++) { if (chs[k].t <= t) i = k; else break; }
     return i;
   }
+  /* 归一化 src,统一成 pathname 便于比较(浏览器会把相对 src 解析成绝对 URL) */
+  function normSrc(s) {
+    if (!s) return '';
+    try { var u = new URL(s, location.origin); return u.pathname + u.search; }
+    catch (e) { return String(s); }
+  }
 
   /* ---------- 章节定位 ----------
-   * chs: [{ t, ... }] 对象数组,按 t 递增;找最后一个 t <= 时刻的下标
+   * chs: [{ t, src, el, name }] src 已归一化;分单文件(时间索引)与多文件(src 索引)
    */
   /* ---------- 自定义进度线 ----------
-   * getAudio: () => audio 或 null  —— 拖动/键盘时取当前真 audio
+   * getAudio: () => audio 或 null —— 拖动/键盘时取当前真 audio
    */
   function bindSeekline(lineEl, fillEl, knobEl, getAudio, onSeek) {
     var max = Number(lineEl.getAttribute('aria-valuemax') || 1000);
@@ -154,22 +163,87 @@
     var chapEl = p.querySelector('.bp-chap');
     var drawer = p.querySelector('.bp-drawer');
     var listBtn = p.querySelector('.bp-listbtn');
+
+    var bookId = p.dataset.book || 'book';
+    var bookSrc = normSrc(p.dataset.src);
     var chapters = Array.prototype.slice.call(p.querySelectorAll('.bp-marks li button')).map(function (b) {
       return {
-        t: Number(b.dataset.t),
+        t: Number(b.dataset.t) || 0,
+        src: normSrc(b.dataset.src) || bookSrc,
         el: b,
         name: b.querySelector('.m-name') ? b.querySelector('.m-name').textContent : ''
       };
     });
+    /* 单文件型 = 所有章节共用书本同一个 src;多文件型 = 各章节 src 不同 */
+    var singleSrc = chapters.every(function (c) { return c.src === bookSrc; });
+
     var paintLine = bindSeekline(seekline, p.querySelector('.bp-fill'), p.querySelector('.bp-knob'), function () { return a; }, function (t) {
       a.currentTime = t;
     });
 
+    function loadedIdx() {
+      var s = normSrc(a.src);
+      for (var k = 0; k < chapters.length; k++) { if (chapters[k].src === s) return k; }
+      return -1;
+    }
+    function currentIdx() {
+      if (singleSrc) return chapterIndex(chapters, a.currentTime);
+      var i = loadedIdx();
+      return i < 0 ? 0 : i;
+    }
+
+    /* 切集:跳转到第 i 集。跨文件时换 a.src,由 loadedmetadata 吃 pendingSeek;同文件直接 seek */
+    var pendingSeek = null;
+    function setChapter(i, autoplay) {
+      var c = chapters[i];
+      if (!c) return;
+      var t = c.t;
+      var needLoad = normSrc(a.src) !== c.src;
+      if (needLoad) {
+        pendingSeek = t;
+        a.src = c.src;
+      } else {
+        a.currentTime = t + 0.05;
+      }
+      if (autoplay) a.play().catch(function () { toast(p, '播放失败,请检查网络后重试'); });
+      paintChap(t);
+    }
+
     function paintChap(t) {
       if (!chapters.length) { chapEl.textContent = ''; return; }
-      var i = chapterIndex(chapters, t);
-      chapEl.textContent = '第 ' + (i + 1) + ' 集 · ' + chapters[i].name;
-      chapters.forEach(function (c, k) { c.el.classList.toggle('is-current', k === i); });
+      var i = singleSrc ? chapterIndex(chapters, t) : loadedIdx();
+      if (i < 0) i = 0;
+      var c = chapters[i];
+      chapEl.textContent = '第 ' + (i + 1) + ' 集 · ' + (c.name || '');
+      chapters.forEach(function (ch, k) { ch.el.classList.toggle('is-current', k === i); });
+    }
+
+    /* 断点续播:按 bookId 恢复。单文件直接定位;多文件先切到存档那一集 */
+    var resumed = false;
+    function resumeIfNeeded() {
+      if (resumed) return;
+      resumed = true;
+      var rec = store[bookId];
+      if (!rec) return;
+      if (singleSrc) {
+        var d = rec.d || a.duration;
+        if (rec.t > 5 && (d ? rec.t < d - 10 : true)) {
+          a.currentTime = rec.t;
+          toast(p, '已续播 ' + fmt(rec.t));
+        }
+      } else {
+        var i = (rec.idx != null && rec.idx >= 0 && rec.idx < chapters.length) ? rec.idx : 0;
+        var c = chapters[i];
+        if (normSrc(a.src) !== c.src) {
+          pendingSeek = rec.t;      /* 跨文件:换 src 后由 loadedmetadata 吃到精确位置 */
+          a.src = c.src;
+        } else {
+          var dd = rec.d || a.duration;
+          if (rec.t > 5 && (dd ? rec.t < dd - 10 : true)) a.currentTime = rec.t;
+        }
+        paintChap(rec.t);
+        toast(p, '已续播 第 ' + (i + 1) + ' 集');
+      }
     }
 
     p.querySelector('.bp-play').addEventListener('click', function () {
@@ -184,21 +258,18 @@
     });
     p.querySelector('.bp-prev').addEventListener('click', function () {
       if (!chapters.length) return;
-      var i = chapterIndex(chapters, a.currentTime);
-      if (i > 0) {
-        a.currentTime = chapters[i - 1].t;
-        paintChap(a.currentTime);
-        a.play();
+      var i = currentIdx();
+      /* 单文件型:已是第一集但听到中段,退回到开头;否则切上一集 */
+      if (singleSrc && i === 0 && a.currentTime > 4) {
+        a.currentTime = 0; paintChap(0); a.play();
+      } else if (i > 0) {
+        setChapter(i - 1, true);
       }
     });
     p.querySelector('.bp-next').addEventListener('click', function () {
       if (!chapters.length) return;
-      var i = chapterIndex(chapters, a.currentTime);
-      if (i < chapters.length - 1) {
-        a.currentTime = chapters[i + 1].t;
-        paintChap(a.currentTime);
-        a.play();
-      }
+      var i = currentIdx();
+      if (i < chapters.length - 1) setChapter(i + 1, true);
     });
 
     if (listBtn && drawer) {
@@ -213,9 +284,7 @@
       });
       chapters.forEach(function (c) {
         c.el.addEventListener('click', function () {
-          a.currentTime = c.t + 0.05;
-          paintChap(a.currentTime);
-          a.play();
+          setChapter(chapters.indexOf(c), true);
           drawer.hidden = true;
         });
       });
@@ -274,12 +343,13 @@
     a.addEventListener('loadedmetadata', function () {
       durEl.textContent = fmt(a.duration);
       a.playbackRate = rate;
-      var rec = store[a.src];
-      if (rec && rec.t && rec.t > 5 && rec.t < rec.d - 10) {
-        a.currentTime = rec.t;
-        toast(p, '已续播 ' + fmt(rec.t));
+      if (pendingSeek != null) {
+        a.currentTime = pendingSeek; pendingSeek = null;
+        paintChap(a.currentTime);
+      } else {
+        resumeIfNeeded();
       }
-      paintChap(a.currentTime);
+      paintLine(a.currentTime, a.duration);
     });
     a.addEventListener('timeupdate', function () {
       cur.textContent = fmt(a.currentTime);
@@ -296,22 +366,30 @@
     });
     a.addEventListener('pause', function () { syncButtons(); });
 
+    /* 连播:本集播完自动接下一集;最后一集播完清进度 */
     a.addEventListener('ended', function () {
-      delete store[a.src];
-      write(KEY_PROGRESS, store);
-      toast(p, '播放完成,进度已清零');
+      var i = currentIdx();
+      if (i < chapters.length - 1) {
+        setChapter(i + 1, true);
+        toast(p, '已连续播放下一集');
+      } else {
+        delete store[bookId];
+        write(KEY_PROGRESS, store);
+        toast(p, '全书播放完成,进度已清零');
+      }
     });
 
-    setInterval(function () {
-      if (!a.paused && a.duration) {
-        store[a.src] = { t: a.currentTime, d: a.duration };
-        write(KEY_PROGRESS, store);
-      }
-    }, SAVE_INTERVAL);
     function saveNow() {
-      if (a.duration) store[a.src] = { t: a.currentTime, d: a.duration };
+      var i = currentIdx();
+      if (!a.duration) { write(KEY_PROGRESS, store); return; }
+      var rec = { t: a.currentTime, d: a.duration };
+      if (!singleSrc) rec.idx = i;
+      store[bookId] = rec;
       write(KEY_PROGRESS, store);
     }
+    setInterval(function () {
+      if (!a.paused && a.duration) saveNow();
+    }, SAVE_INTERVAL);
     document.addEventListener('visibilitychange', function () { if (document.hidden) saveNow(); });
     window.addEventListener('pagehide', saveNow);
   });
