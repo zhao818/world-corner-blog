@@ -11,7 +11,7 @@
 <meta property="og:image" content="{{ site.BaseURL }}images/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
+{{- /* twitter:card 已由 templates/twitter_cards.html(项目覆盖)统一输出,避免两条冲突 —— 见 layouts/partials/templates/twitter_cards.html */ -}}
 {{- /* WebSite 结构化数据:钉死中文站点名,供 Google/百度搜索标题与站点名展示 */ -}}
 <script type="application/ld+json">
 {
