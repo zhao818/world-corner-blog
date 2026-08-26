@@ -190,6 +190,15 @@ html {
   border-radius: 8px;
   overflow: hidden;
 }
+/* 宽表窄屏防顶出:1 单元格允许折行压缩适配;2 万一还有超宽的不折行内容,display:block 使表宽受容器约束、在表身内横向滚动,而非撑爆页面 */
+.post-content table:not(.highlighttable):not(.highlight table):not(.gist .highlight) {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 .post-content th {
   background: color-mix(in srgb, var(--brand-gold) 12%, var(--theme));
 }
