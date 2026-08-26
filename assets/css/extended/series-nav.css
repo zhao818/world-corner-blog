@@ -360,6 +360,26 @@
     border-color: rgba(245, 158, 11, 0.45);
 }
 
+/* 关于 — gold(品牌主色) */
+.nav-menu-about {
+    background: rgba(201, 165, 92, 0.12);
+    color: #c9a55c;
+    border: 1px solid rgba(201, 165, 92, 0.25);
+}
+.nav-menu-about:hover {
+    background: rgba(201, 165, 92, 0.22);
+    border-color: rgba(201, 165, 92, 0.45);
+}
+.dark .nav-menu-about {
+    background: rgba(231, 205, 140, 0.16);
+    color: #e7cd8c;
+    border-color: rgba(231, 205, 140, 0.30);
+}
+.dark .nav-menu-about:hover {
+    background: rgba(231, 205, 140, 0.28);
+    border-color: rgba(231, 205, 140, 0.50);
+}
+
 /* Active state for header nav buttons */
 .nav-btn.active {
     font-weight: 700;

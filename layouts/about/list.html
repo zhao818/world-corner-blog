@@ -1,0 +1,89 @@
+{{ define "main" }}
+{{- $books := site.Data.audiobook.books -}}
+{{- $st := site.GetPage "posts/systems-thinking" -}}
+{{- $ln := site.GetPage "posts/learning" -}}
+{{- $tl := site.GetPage "posts/tooling" -}}
+{{- $pt := site.GetPage "pitfalls" -}}
+
+<section class="about-hero">
+  <span class="hero-vein" aria-hidden="true"></span>
+  <p class="about-kicker">ABOUT · 关于世界一隅</p>
+  <h1>世界一隅</h1>
+  <p class="about-slogan">在算法洪流中,守护清醒的微光。</p>
+  <p class="about-intro">这里不追热点,不喊速成。它是一套关于认知能量与理性生活的实践笔记——主张慢思考、深阅读、跨学科,在信息过载与注意力碎片的时代,重新建立属于自己的一份内在秩序。</p>
+</section>
+
+<div class="about-body">
+  <div class="about-narrative">
+    <section class="about-card">
+      <h2><span class="card-no">01</span> 作者</h2>
+      <p class="signature">美好需要创造 <span class="sig-en">· Tianbing Zhao</span></p>
+      <p>写技术,也写哲学。从 DeepSeek 的商业格局拆到维特根斯坦临终的那句话,从 AI 时代的学习方法,讲到内心的九关修炼。</p>
+      <p>「美好需要创造」是这个站的署名,也是公众号与两本有声书背后的名字。作者相信:真正的进步,始于优化自己的认知操作系统——而不是无限放大外部的欲望。</p>
+    </section>
+
+    <section class="about-card">
+      <h2><span class="card-no">02</span> 认知能量工程是什么</h2>
+      <p>站点的副标题,来自一场针对现代人心智状态的系统实验——「内在文明:认知能量工程」。</p>
+      <p>外部世界已经进化到信息时代,内在操作系统却仍运行在古老版本上:专注力破碎、情绪被消耗、刷着刷着就空虚。这场实验想做的,是把认知当成可以被理解、被优化的系统,在算法洪流中守护并壮大属于自己的内在秩序。</p>
+      <p>系统的思维、真实的方法、亲手踩过的坑——这就是本站的全部内容。</p>
+    </section>
+  </div>
+
+  <aside class="about-rail">
+    <div class="rail-card">
+      <h3>站点地图</h3>
+      <ul class="rail-map">
+        <li><a href="/posts/systems-thinking/">系统思维</a><em>{{ len $st.RegularPages }} 篇</em></li>
+        <li><a href="/posts/learning/">学习方法</a><em>{{ len $ln.RegularPages }} 篇</em></li>
+        <li><a href="/posts/tooling/">效率工具</a><em>{{ len $tl.RegularPages }} 篇</em></li>
+        <li><a href="/pitfalls/">踩坑宝典</a><em>{{ len $pt.RegularPages }} 篇</em></li>
+        <li><a href="/collections/">合集</a><em>公众号</em></li>
+        <li><a href="/audiobook/">听书</a><em>2 本</em></li>
+        <li><a href="/app/">小程序</a><em>灵魂之觅</em></li>
+        <li><a href="/assets/">资产</a><em>80 项</em></li>
+        <li><a href="/skills/">技能</a><em>62 项</em></li>
+      </ul>
+    </div>
+    <div class="rail-card">
+      <h3>联系</h3>
+      <p>tianbingzhao1@gmail.com</p>
+      <p><a href="/collections/">公众号专辑与全部账号 →</a></p>
+    </div>
+  </aside>
+</div>
+
+<section class="about-books">
+  <div class="books-head">
+    <span class="books-tag">两本书</span>
+    <h2>先看到,再去修</h2>
+    <p class="books-lead">两本书是一对思想的落笔——《幸福的内在》负责「看到」,《内心的修炼》负责「去修」。也都有声书,也都能在线阅读。</p>
+  </div>
+  <div class="books-grid">
+    {{- range $books }}
+    <a class="book-tile" href="{{ .read_href }}">
+      <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
+      <div class="book-tile-txt">
+        <h3>{{ .title }}</h3>
+        <p class="book-tile-sub">{{ if eq .id "xingfu" }}现象诊断书 · 讲「看到」{{ else }}修行操作书 · 讲「去修」{{ end }}</p>
+        <p class="book-tile-desc">{{ .desc }}</p>
+        <span class="book-tile-go">在线阅读 →</span>
+      </div>
+    </a>
+    {{- end }}
+  </div>
+</section>
+
+<section class="about-app">
+  <div class="app-tile">
+    <div class="app-tile-txt">
+      <span class="app-tag">小程序</span>
+      <h2>灵魂之觅</h2>
+      <p class="app-tile-slogan">36 个问题,遇见对的人。</p>
+      <p class="app-tile-desc">把柏拉图式爱情实验搬进微信——两个人隔着屏幕,依序回答 36 个由浅入深的问题,答案成对出现,像两把钥匙对锁孔。</p>
+      <a class="app-tile-go" href="/app/">看看怎么用 →</a>
+    </div>
+    <img class="app-tile-qr" src="/qr/linghunzhimi-code.jpg" alt="灵魂之觅小程序码" loading="lazy">
+  </div>
+</section>
+{{ end }}
