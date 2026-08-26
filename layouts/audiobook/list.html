@@ -60,7 +60,7 @@
       {{- end }}
 
       {{- $id := .id -}}
-      <div class="bp-shell" data-src="{{ .src }}" data-title="{{ .title }}" data-cover="{{ .cover }}">
+      <div class="bp-shell" data-src="{{ .src }}" data-book="{{ .id }}" data-title="{{ .title }}" data-cover="{{ .cover }}">
         <audio class="bp-audio" preload="metadata" src="{{ .src }}"></audio>
 
         <div class="bp-panel">
@@ -135,7 +135,7 @@
             {{- range .chapters }}
             {{- $parts := split .name "-" }}
             <li>
-              <button type="button" data-t="{{ .t }}">
+              <button type="button" data-t="{{ .t }}" data-src="{{ .src }}">
                 <span class="m-idx">{{ index $parts 0 }}</span>
                 <span class="m-name">{{ if gt (len $parts) 1 }}{{ index $parts 1 | default .name }}{{ else }}{{ .name }}{{ end }}</span>
                 <span class="m-len">{{ .len }}</span>

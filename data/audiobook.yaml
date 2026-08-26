@@ -107,7 +107,7 @@ books:
     tracks: "11 篇"
     vol: "连播 8小时"
     cover: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice-v2.jpg
-    src: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/mind-practice.mp3
+    src: /audio/neixin/01.mp3
     read_href: "/read/neixin/"
     desc: 九关修炼体系——断舍离、立根本、炼心术、破执念、养身体、结善缘、明规则、明经济、立财基。每一关借一本书当拐杖:《沉思录》《传习录》《人生的智慧》…… 从序言听到完结篇,8 小时读完一门人生通识课。
     sukua:
@@ -132,14 +132,14 @@ books:
         - {n: "立财基", t: "《富爸爸穷爸爸》:资产往兜里放钱,负债从兜里掏钱;现金流思维,让钱为你工作。", q: "先有现金流的自由,才有选择的自由。"}
         - {n: "完结篇", t: "九关走完,身心社财闭环——一个能安顿自己的完整的人立起来。", q: "这套体系不是让你变成圣人,是让你在真实世界里站得住。"}
     chapters:
-    - {t: 0.0, name: "01-序言", len: "03:19"}
-    - {t: 199.0, name: "02-第一篇 断舍离", len: "57:29"}
-    - {t: 3647.9, name: "03-第二篇 立根本", len: "2h17m"}
-    - {t: 11909.7, name: "04-第三篇 炼心术", len: "45:13"}
-    - {t: 14622.9, name: "05-第四篇 破执念", len: "36:43"}
-    - {t: 16825.5, name: "06-第五篇 养身体", len: "47:48"}
-    - {t: 19693.0, name: "07-第六篇 结善缘", len: "35:05"}
-    - {t: 21797.9, name: "08-第七篇 明规则", len: "44:25"}
-    - {t: 24462.7, name: "09-第八篇 明经济", len: "35:15"}
-    - {t: 26577.3, name: "10-第九篇 立财基", len: "35:25"}
-    - {t: 28701.9, name: "11-完结篇", len: "02:10"}
+    - {t: 0, name: "01-序言", len: "03:19", src: "/audio/neixin/01.mp3"}
+    - {t: 0, name: "02-第一篇 断舍离", len: "57:29", src: "/audio/neixin/02.mp3"}
+    - {t: 0, name: "03-第二篇 立根本", len: "2h17m", src: "/audio/neixin/03.mp3"}
+    - {t: 0, name: "04-第三篇 炼心术", len: "45:13", src: "/audio/neixin/04.mp3"}
+    - {t: 0, name: "05-第四篇 破执念", len: "36:43", src: "/audio/neixin/05.mp3"}
+    - {t: 0, name: "06-第五篇 养身体", len: "47:48", src: "/audio/neixin/06.mp3"}
+    - {t: 0, name: "07-第六篇 结善缘", len: "35:05", src: "/audio/neixin/07.mp3"}
+    - {t: 0, name: "08-第七篇 明规则", len: "44:25", src: "/audio/neixin/08.mp3"}
+    - {t: 0, name: "09-第八篇 明经济", len: "35:15", src: "/audio/neixin/09.mp3"}
+    - {t: 0, name: "10-第九篇 立财基", len: "35:25", src: "/audio/neixin/10.mp3"}
+    - {t: 0, name: "11-完结篇", len: "02:10", src: "/audio/neixin/11.mp3"}
