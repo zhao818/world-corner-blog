@@ -182,5 +182,11 @@
   {{- end }}
 </div>
 
+{{- /* 听书赞赏:借 tip-box 组件,code 沿用全局,lead/note 换成更贴合「听书」的口吻 */ -}}
+{{ partial "tip-box.html" (dict
+  "lead" "喜欢听这几本书?"
+  "note" "如果这些声音陪你走过一段路,欢迎请作者喝杯茶。一两块也是心意,够这盏灯多亮一会儿。"
+) }}
+
 <script src="/js/player-core.js" defer></script>
 {{ end }}

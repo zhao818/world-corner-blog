@@ -1,0 +1,42 @@
+{{- /* 全站赞赏组件(single / audiobook / about 通用)。数据驱动,无图时整体隐藏。
+   用法①: {{ partial "tip-box.html" . }}             → 读 data/tip.yaml(lead/note/codes 全默认)
+   用法②: {{ partial "tip-box.html" (dict "lead" "..." "note" "..." "codes" (slice (dict "img" "wechat.jpg" "alt" "微信赞赏"))) }}
+          传入 dict 时覆盖对应字段,未传字段回落 site.Data.tip。
+   注意:入参若是 Page(如 single 传 .),则不当作 dict,全部走 tip.yaml。
+*/ -}}
+{{- $p := . -}}
+{{- $tip := site.Data.tip -}}
+{{- $lead := $tip.lead -}}
+{{- $note := $tip.note -}}
+{{- $fine := $tip.fine -}}
+{{- $codes := $tip.codes -}}
+{{- if reflect.IsMap $p -}}
+  {{- $lead = $p.lead | default $tip.lead -}}
+  {{- $note = $p.note | default $tip.note -}}
+  {{- $fine = $p.fine | default $tip.fine -}}
+  {{- $codes = $p.codes | default $tip.codes -}}
+{{- end -}}
+{{- $shown := 0 -}}
+{{- range $codes -}}{{ if fileExists (printf "static/tip/%s" .img) }}{{ $shown = add $shown 1 }}{{ end }}{{- end -}}
+{{- if gt $shown 0 }}
+<section class="tipbox" aria-label="赞赏支持">
+  <div class="tip-lead">
+    <span class="tip-badge">{{ partial "icon.html" (dict "name" "coffee" "class" "tip-badge-ico") }}</span>
+    <div class="tip-lead-txt">
+      <h3>{{ $lead }}</h3>
+      <p>{{ $note | markdownify }}</p>
+    </div>
+  </div>
+  <div class="tip-codes">
+    {{- range $codes }}
+      {{- if fileExists (printf "static/tip/%s" .img) }}
+      <figure class="tip-code">
+        <img src="{{ printf "/tip/%s" .img }}" alt="{{ .alt }}" loading="lazy" width="180" height="180" />
+        <figcaption>{{ .alt }}</figcaption>
+      </figure>
+      {{- end }}
+    {{- end }}
+  </div>
+  <p class="tip-fine">{{ $fine }}</p>
+</section>
+{{- end }}
