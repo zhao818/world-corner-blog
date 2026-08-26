@@ -10,6 +10,49 @@
   if (window.__wcPlayer) return;
   window.__wcPlayer = true;
 
+  /* ---------- 一次性旧进度迁移 ----------
+   * v1 按音频 src(绝对 URL)记录;v2 改按 bookId 记录(单文件/多文件均支持)。
+   * 《幸福的内在》仍为单文件,t 全局有效,直接保留;《内心的修炼》旧为单文件、
+   * 按全局秒存,需按旧章节起始时间折成新章节文件的 {idx, t_local}。
+   * 仅当 v2 尚无该书记录时写入,避免覆盖新数据;迁移失败静默,不影响播放。
+   */
+  (function migrateProgress() {
+    try {
+      var oldKey = 'wc.audio.progress.v1';
+      var newKey = 'wc.audio.progress.v2';
+      var oldRaw = window.localStorage.getItem(oldKey);
+      if (!oldRaw) return;
+      var oldStore = JSON.parse(oldRaw);
+      var next;
+      try { var n = window.localStorage.getItem(newKey); next = n ? JSON.parse(n) : {}; }
+      catch (e) { next = {}; }
+      /* 旧《内心的修炼》整本单文件:各章节全局起始秒(与切分前 yaml 的 t 一致) */
+      var NEIXIN_STARTS = [0, 199, 3647.9, 11909.7, 14622.9, 16825.5, 19693, 21797.9, 24462.7, 26577.3, 28701.9];
+      var changed = false;
+      Object.keys(oldStore).forEach(function (key) {
+        var rec = oldStore[key];
+        if (!rec || typeof rec.t !== 'number') return;
+        var path;
+        try { path = new URL(key, location.origin).pathname; } catch (e) { path = String(key); }
+        var bookId = null, val = null;
+        if (/happiness/i.test(path)) {
+          bookId = 'xingfu';
+          val = { t: rec.t, d: rec.d };
+        } else if (/mind-practice/i.test(path)) {
+          var gt = rec.t, idx = 0;
+          for (var k = 0; k < NEIXIN_STARTS.length; k++) { if (NEIXIN_STARTS[k] <= gt) idx = k; else break; }
+          bookId = 'neixin';
+          val = { idx: idx, t: Math.max(0, gt - NEIXIN_STARTS[idx]) };
+        }
+        if (bookId && !next[bookId]) { next[bookId] = val; changed = true; }
+      });
+      if (changed) {
+        window.localStorage.setItem(newKey, JSON.stringify(next));
+        window.localStorage.removeItem(oldKey);
+      }
+    } catch (e) { /* 忽略 */ }
+  })();
+
   var KEY_PROGRESS = 'wc.audio.progress.v2';
   var KEY_RATE = 'wc.audio.rate.v1';
   var RATES = [1, 1.25, 1.5, 2];
