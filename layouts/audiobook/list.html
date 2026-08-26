@@ -8,6 +8,34 @@
   <p class="audio-sub">整本连播,打开就是完整的一本——不用逐集点,睡一觉它也替你播着。</p>
 </section>
 
+{{- with $d.guide }}
+<section class="guide">
+  <div class="guide-head">
+    <span class="guide-tag">双书导读</span>
+    <h2>{{ .lead }}</h2>
+    <p class="guide-intro">{{ .intro | markdownify }}</p>
+  </div>
+  <div class="guide-grid">
+    <div class="guide-cell">
+      <h3>一 · 为什么有这两本书?</h3>
+      <div class="guide-body">{{ .why | markdownify }}</div>
+    </div>
+    <div class="guide-cell">
+      <h3>二 · 各讲的是什么?</h3>
+      <div class="guide-body">{{ .what | markdownify }}</div>
+    </div>
+    <div class="guide-cell">
+      <h3>三 · 适合什么样的人?</h3>
+      <div class="guide-body">{{ .who | markdownify }}</div>
+    </div>
+    <div class="guide-cell">
+      <h3>四 · 先看哪本?</h3>
+      <div class="guide-body">{{ .order | markdownify }}</div>
+    </div>
+  </div>
+</section>
+{{- end }}
+
 <div class="audio-room">
   {{- range $d.books }}
   <section class="book-card" id="book-{{ .id }}">
@@ -22,6 +50,14 @@
       </div>
       <h2>{{ .title }}</h2>
       <p class="book-desc">{{ .desc }}</p>
+
+      {{- $bt := .title }}
+      {{- with .read_href }}
+      <a class="book-read" href="{{ . }}" aria-label="在线阅读《{{ $bt }}》">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+        在线阅读
+      </a>
+      {{- end }}
 
       {{- $id := .id -}}
       <div class="bp-shell" data-src="{{ .src }}" data-title="{{ .title }}" data-cover="{{ .cover }}">

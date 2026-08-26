@@ -26,6 +26,64 @@
   color: var(--secondary);
   line-height: 1.8;
 }
+/* --- 双书导读(总纲) --- */
+.guide {
+  max-width: 940px;
+  margin: 0 0 30px;
+  padding: clamp(20px, 4vw, 32px);
+  background: linear-gradient(160deg, var(--entry), color-mix(in srgb, var(--entry) 88%, var(--brand-gold) 12%));
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  border-radius: 14px;
+}
+.guide-tag {
+  display: inline-block;
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--brand-gold);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  border-radius: 999px;
+  padding: 3px 12px;
+  margin-bottom: 12px;
+}
+.guide-head h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+.guide-intro {
+  margin: 0;
+  color: var(--secondary);
+  line-height: 1.9;
+  max-width: 46em;
+}
+.guide-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 22px;
+}
+.guide-cell {
+  border-top: 1px dashed rgba(200, 160, 60, 0.3);
+  padding-top: 18px;
+}
+.guide-cell h3 {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  color: var(--brand-gold);
+  letter-spacing: 0.12em;
+  font-family: var(--mono-stack);
+}
+.guide-body {
+  color: var(--secondary);
+  line-height: 1.9;
+  font-size: 0.95rem;
+}
+.guide-body strong {
+  color: var(--brand-gold-light);
+  font-weight: 600;
+}
+
 /* --- 速览折叠(内嵌于每本书卡片) --- */
 .sukua { margin-top: 18px; }
 .sukua summary {
@@ -166,6 +224,32 @@
   margin: 0 0 16px;
   color: var(--secondary);
   line-height: 1.85;
+}
+.book-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 8px 18px;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+  border-radius: 999px;
+  color: var(--brand-gold);
+  font-size: 0.84rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.book-read:hover {
+  background: rgba(200, 160, 60, 0.1);
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-light);
+}
+.book-read svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
 }
 .book-note {
   margin: 0;
