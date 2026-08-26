@@ -11,7 +11,20 @@
   body { background:var(--bg); color:var(--fg); font-family:"Microsoft YaHei","PingFang SC",sans-serif; }
   .wrap { max-width:980px; margin:0 auto; padding:36px 24px 60px; }
   h1 { font-size:24px; color:var(--accent); letter-spacing:1px; }
-  .meta { font-size:12px; color:var(--dim); margin:8px 0 20px; }
+  .meta { font-size:12px; color:var(--dim); margin:8px 0 18px; line-height:1.7; }
+  .meta b { color:var(--fg); }
+
+  /* 顶部联系栏 */
+  .actbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px 14px;
+            border:1px solid var(--line); border-radius:10px; background:var(--panel); margin-bottom:20px; }
+  .actbar .hint { font-size:13px; color:var(--fg); }
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:8px;
+          font-size:13px; color:var(--fg); border:1px solid var(--line); background:#0e1424;
+          cursor:pointer; text-decoration:none; transition:all .15s; }
+  .btn:hover { border-color:var(--accent); color:var(--accent); }
+  .btn-gold { background:var(--accent); color:#0f1420; border-color:var(--accent); font-weight:600; }
+  .btn-gold:hover { opacity:.9; color:#0f1420; }
+
   .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:18px; }
   #q { flex:1; min-width:220px; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
         background:#0e1424; color:var(--fg); font-size:13px; outline:none; }
@@ -20,22 +33,65 @@
         color:var(--fg); font-size:13px; outline:none; }
   .count { font-size:12px; color:var(--dim); margin-bottom:12px; }
   .cards { display:grid; grid-template-columns:1fr; gap:10px; }
-  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
-  .card:hover { border-color:var(--accent); }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+          cursor:pointer; transition:border-color .15s, transform .1s, box-shadow .15s; }
+  .card:hover { border-color:var(--accent); transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.28); }
   .card .nm { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .card .ic { font-size:15px; }
   .card .nm code { font-family:Consolas,monospace; font-size:13px; color:var(--accent); }
   .card .type { font-size:10px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); }
   .card .tag { font-size:10px; color:var(--dim); border:1px solid var(--line); border-radius:999px;
                 padding:2px 8px; }
+  .card .flag { font-size:10px; padding:2px 8px; border-radius:999px; margin-left:auto; flex:none; }
+  .card .flag.get { color:#0f1420; background:var(--accent); font-weight:600; }
+  .card .flag.cus { color:var(--dim); border:1px solid var(--line); }
   .card .ds { font-size:12px; color:var(--dim); line-height:1.7; margin-top:6px; }
+  .card .hint { font-size:11px; color:var(--dim); margin-top:8px; }
   .card.hide { display:none; }
+
+  /* 弹窗 */
+  .mask { position:fixed; inset:0; background:rgba(5,8,14,.72); z-index:50; display:flex;
+          align-items:center; justify-content:center; padding:20px; }
+  .mask[hidden] { display:none; }
+  .modal { width:100%; max-width:520px; background:var(--panel); border:1px solid var(--line);
+           border-radius:14px; padding:20px; position:relative; max-height:82vh; overflow:auto; }
+  .m-head { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-right:32px; }
+  .m-head code { font-family:Consolas,monospace; font-size:17px; color:var(--accent); }
+  .m-head .type { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); }
+  .m-head .flag { font-size:10px; padding:2px 8px; border-radius:999px; }
+  .m-head .flag.get { background:var(--accent); color:#0f1420; font-weight:600; }
+  .m-head .flag.cus { border:1px solid var(--line); color:var(--dim); }
+  .m-close { position:absolute; top:14px; right:14px; width:28px; height:28px; border-radius:50%;
+             border:1px solid var(--line); background:transparent; color:var(--dim); font-size:16px;
+             line-height:1; cursor:pointer; }
+  .m-close:hover { color:var(--fg); border-color:var(--accent); }
+  .m-ds { font-size:14px; line-height:1.8; color:var(--fg); margin:14px 0 8px; }
+  .m-tags { display:flex; flex-wrap:wrap; gap:8px; list-style:none; margin-bottom:16px; }
+  .m-tags li { font-size:11px; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:2px 8px; }
+  .m-note { font-size:12px; color:var(--dim); line-height:1.7; margin-bottom:16px; padding:10px 12px;
+            border-left:2px solid var(--line); background:rgba(0,0,0,.18); border-radius:0 8px 8px 0; }
+  .m-act { display:flex; flex-wrap:wrap; gap:10px; }
+
+  /* toast */
+  .toast { position:fixed; left:50%; bottom:34px; transform:translateX(-50%); z-index:60;
+           padding:10px 18px; border-radius:10px; background:var(--accent); color:#0f1420;
+           font-size:13px; font-weight:600; box-shadow:0 6px 20px rgba(0,0,0,.4); }
+  .toast[hidden] { display:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>📦 项目资产</h1>
-  <p class="meta">自研项目 / Agent / 脚本 / 技能目录 · 共 80 项 · 8 个分类 · 生成于 2026-08-25</p>
+  <p class="meta">自研项目 / Agent / 脚本 / 技能目录 · 共 80 项 · 8 个分类 · 生成于 2026-08-25<br>
+    <b>点每张卡片看详情</b>。标「可获取」的是能打包分享的技能/工具;<b>「按需定制」</b>是自用配置,有需要就联系我。</p>
+
+  <div class="actbar">
+    <span class="hint">想要哪一项?</span>
+    <a class="btn btn-gold" href="https://github.com/zhao818" target="_blank" rel="noopener">GitHub 主页</a>
+    <a class="btn" href="mailto:tianbingzhao1@gmail.com">✒️ 写邮件</a>
+    <button class="btn" type="button" onclick="copyEmail()">📮 复制邮箱</button>
+  </div>
+
   <div class="filters">
     <input id="q" type="search" placeholder="搜索资产名或描述…" autocomplete="off">
     <select id="c">
@@ -50,6 +106,29 @@
   <p class="count" id="count">共 80 项</p>
   <div class="cards" id="cards"></div>
 </div>
+
+<div class="mask" id="mask" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="m-close" type="button" onclick="closeModal()" aria-label="关闭">×</button>
+    <div class="m-head">
+      <code id="m-n">—</code>
+      <span class="type" id="m-type"></span>
+      <span class="flag" id="m-flag"></span>
+    </div>
+    <p class="m-ds" id="m-d"></p>
+    <ul class="m-tags" id="m-tags"></ul>
+    <p class="m-note" id="m-note"></p>
+    <div class="m-act">
+      <button class="btn" type="button" onclick="copyEmail()">📮 复制邮箱</button>
+      <a class="btn" href="mailto:tianbingzhao1@gmail.com">✒️ 写邮件联系</a>
+      <a class="btn" href="https://github.com/zhao818" target="_blank" rel="noopener">🐙 GitHub 主页</a>
+      <button class="btn btn-gold" type="button" id="m-get" onclick="requestGet()">📦 获取这份技能包</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
 <script>
 var DATA = [{c:"ai",n:"Deepseek 工具集",t:"project",d:"字幕翻译 / 视频处理 / 图片生成等自研脚本合集",g:"AI,自研",i:""},
 {c:"ai",n:"AI 记忆助手",t:"project",d:"上下文记忆管理工具，解决长对话记忆丢失问题",g:"记忆,AI",i:""},
@@ -131,6 +210,18 @@ var DATA = [{c:"ai",n:"Deepseek 工具集",t:"project",d:"字幕翻译 / 视频�
 {c:"agents",n:"Reasonix Code 配置教程",t:"agent",d:"DeepSeek驱动/MCP/Plan",g:"DeepSeek,MCP",i:""},
 {c:"agents",n:"Claude Code 配置教程",t:"agent",d:"Anthropic/Hooks/插件",g:"Claude,Hooks",i:""},
 {c:"agents",n:"MiMo Code 配置教程",t:"agent",d:"小米AI/WSL",g:"小米,WSL",i:""}];
+
+/* 可打包公开分享的项(数字/工具/技能)。其余为自用配置,仅提供「按需定制·联系作者」。
+   想调整:加一项就往 SHARE 数组加该名称,删一项就移走即可。 */
+var SHARE = ["Deepseek 工具集","AI 记忆助手","Claude-Memory 共享库","Table-Parser",
+  "DeepSeek 搜索","豆包搜索","Gemini 搜索","GPT 搜索","知乎答案搜索",
+  "Excel 分析","数据采集","内容编排","封面生成脚本","视频流水线脚本",
+  "VBA 文档工具集","思维导图工具集","爬虫工具集","Revit 清理工具","管理桌面应用","扫描文件应用","CAD 半自动画图",
+  "docx 批量生成技能","docx 批量填表技能","PDF 处理技能",
+  "爱发电发布技能","微信公众号发布技能","Canvas 设计技能","品牌指南技能","算法艺术技能",
+  "Agent 配置教程合集"];
+
+var EMAIL = "tianbingzhao1@gmail.com";
 var TC = {"project": "项目", "agent": "Agent", "script": "脚本", "skill": "技能", "bundle": "合集", "tool": "工具", "other": "其他"};
 var TP = {"project": "#7fb3ff", "agent": "#c9a55c", "script": "#6ee7a8", "skill": "#f0a35c", "bundle": "#e28bb4", "tool": "#8b97ad", "other": "#8b97ad"};
 var cardsEl = document.getElementById('cards');
@@ -138,11 +229,18 @@ var countEl = document.getElementById('count');
 var qEl = document.getElementById('q');
 var cEl = document.getElementById('c');
 var tEl = document.getElementById('t');
+var maskEl = document.getElementById('mask');
+var toastEl = document.getElementById('toast');
+var toastTimer = null;
+var current = null;
+
+function isShare(n){ return SHARE.indexOf(n) >= 0; }
+
 function render() {
   var q = qEl.value.trim().toLowerCase();
   var c = cEl.value, t = tEl.value;
   var html = '', shown = 0;
-  DATA.forEach(function (it) {
+  DATA.forEach(function (it, idx) {
     if (c !== 'all' && it.c !== c) return;
     if (t !== 'all' && it.t !== t) return;
     if (q && it.n.toLowerCase().indexOf(q) < 0 && it.d.toLowerCase().indexOf(q) < 0
@@ -150,16 +248,82 @@ function render() {
     shown++;
     var tags = it.g ? it.g.split(',').filter(Boolean).map(function (x) {
       return '<span class="tag">' + x + '</span>'; }).join('') : '';
-    html += '<div class="card"><div class="nm">' +
+    var share = isShare(it.n);
+    var flag = share
+      ? '<span class="flag get">可获取</span>'
+      : '<span class="flag cus">按需定制</span>';
+    var hint = share ? '点我获取这份技能包' : '点我查看 · 联系作者按需定制';
+    html += '<div class="card" onclick="openAt(' + idx + ')">' +
+      '<div class="nm">' +
       (it.i ? '<span class="ic">' + it.i + '</span>' : '') +
       '<code>' + it.n + '</code>' +
       '<span class="type" style="color:' + (TP[it.t] || '') + ';border-color:' + (TP[it.t] || '') + '40;">' + (TC[it.t] || it.t) + '</span>' +
-      tags + '</div>' +
-      (it.d ? '<p class="ds">' + it.d + '</p>' : '') + '</div>';
+      tags + flag + '</div>' +
+      (it.d ? '<p class="ds">' + it.d + '</p>' : '') +
+      '<p class="hint">' + hint + '</p>' +
+      '</div>';
   });
   cardsEl.innerHTML = html;
   countEl.textContent = '共 ' + shown + ' 项';
 }
+
+function openAt(idx) {
+  current = DATA[idx];
+  var share = isShare(current.n);
+  document.getElementById('m-n').textContent = current.n;
+  var tb = document.getElementById('m-type');
+  tb.textContent = TC[current.t] || current.t;
+  tb.style.color = TP[current.t] || '';
+  tb.style.borderColor = (TP[current.t] || '') + '40';
+  var fl = document.getElementById('m-flag');
+  fl.className = 'flag ' + (share ? 'get' : 'cus');
+  fl.textContent = share ? '可获取' : '按需定制';
+  document.getElementById('m-d').textContent = current.d || '';
+  document.getElementById('m-tags').innerHTML = current.g
+    ? current.g.split(',').filter(Boolean).map(function (x) { return '<li>' + x + '</li>'; }).join('')
+    : '';
+  document.getElementById('m-note').textContent = share
+    ? '这份是能打包分享的技能/工具。点击下方「获取这份技能包」,会生成一封申请邮件发到我邮箱,我再把包发给你;也可以直接写邮件说明需求。'
+    : '这一项是自用配置(含本机路径/密钥),不适合直接打包外发。需要的话写邮件联系我,说明你的场景,我按需提供或帮你定制。';
+  document.getElementById('m-get').hidden = !share;
+  maskEl.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { maskEl.hidden = true; current = null; document.body.style.overflow = ''; }
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.hidden = false;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { toastEl.hidden = true; }, 2200);
+}
+
+function copyText(t, ok) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(function(){ showToast(ok); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast(ok); } catch(e){}
+    document.body.removeChild(ta);
+  }
+}
+
+function copyEmail() { copyText(EMAIL, '已复制邮箱: ' + EMAIL); }
+
+function requestGet() {
+  if (!current) return;
+  var msg = '你好,我想获取《' + current.n + '》,请发我一份技能包/源码。\n我的联系方式:' +
+    '\n  邮箱: ____\n  (可以的话留个说明,好按你的场景给最合适的版本。)';
+  copyText(msg, '已复制申请消息,发邮件给我即可');
+  setTimeout(function(){ window.location.href = 'mailto:' + EMAIL + '?subject=' +
+    encodeURIComponent('获取《' + current.n + '》') + '&body=' + encodeURIComponent(msg); }, 300);
+}
+
+maskEl.addEventListener('click', function (e) { if (e.target === maskEl) closeModal(); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
 qEl.addEventListener('input', render);
 cEl.addEventListener('change', render);
 tEl.addEventListener('change', render);
