@@ -25,8 +25,8 @@ books:
     title: 幸福的内在
     tracks: "31 篇"
     vol: "连播 2小时05分"
-    cover: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-happiness.jpg
-    src: https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/happiness.mp3
+    cover: /audio/cover-happiness.jpg
+    src: /audio/happiness.mp3
     read_href: "/read/happiness/"
     desc: 从「思想之光」到「升维」,31 篇散文小辑。适合睡前一刷、走路骑行、专注间隙给自己留一口气——它不催你,只陪你。
     sukua:
