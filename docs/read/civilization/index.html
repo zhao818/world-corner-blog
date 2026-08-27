@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>文明的阶梯 · 在线阅读 · 世界一隅</title>
+<style>
+:root {
+  --bg: #0b1017; --panel: #121a28; --panel2: #0e1520;
+  --ink: #e9e4d8; --ink-2: #a79e8c; --gold: #c9a55c; --gold-l: #e7cd8c;
+  --border: #223047; --thin: rgba(201,165,92,.28);
+}
+[data-theme="day"] {
+  --bg: #faf9f4; --panel: #ffffff; --panel2: #f3f0e6;
+  --ink: #2b2b2b; --ink-2: #6b6350; --gold: #9a7a3a; --gold-l: #0b1017;
+  --border: #e2dcc8; --thin: rgba(154,122,58,.35);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", serif;
+  line-height: 1.95; font-size: 17px;
+  transition: background .25s, color .25s;
+}
+body[data-font="s"] { font-size: 15px; }
+body[data-font="m"] { font-size: 17px; }
+body[data-font="l"] { font-size: 19px; }
+body[data-font="xl"] { font-size: 21px; }
+
+/* 顶部工具条 */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 18px;
+  background: var(--panel); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+}
+.tb-title { font-size: .92rem; font-weight: 600; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tb-title .tb-sub { display: block; font-size: .66rem; font-weight: 400; color: var(--ink-2); letter-spacing: .02em; }
+.tb-spacer { flex: 1; }
+.tb-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--ink-2);
+  font-family: inherit; font-size: .76rem; letter-spacing: .08em;
+  padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: all .2s;
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+}
+.tb-btn:hover { color: var(--gold); border-color: var(--thin); }
+.tb-btn.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.08); }
+.tb-font span { display: inline-block; min-width: 22px; text-align: center; }
+.tb-back { text-decoration: none; }
+
+/* 阅读进度条 */
+.progress {
+  position: fixed; top: 52px; left: 0; z-index: 49; height: 2px; width: 100%;
+  background: transparent;
+}
+.progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-l)); }
+
+/* 目录抽屉 */
+.drawer {
+  position: fixed; inset: 52px auto 0 0; z-index: 45;
+  width: 300px; max-width: 84vw;
+  background: var(--panel2); border-right: 1px solid var(--border);
+  transform: translateX(-102%); transition: transform .28s ease;
+  overflow-y: auto; padding: 18px 8px 40px;
+}
+.drawer.open { transform: translateX(0); }
+.drawer::-webkit-scrollbar { width: 5px; }
+.drawer::-webkit-scrollbar-thumb { background: var(--thin); border-radius: 3px; }
+.dw-group { margin: 4px 0; }
+.dw-vol {
+  font-size: .7rem; letter-spacing: .2em; color: var(--gold);
+  padding: 10px 14px 4px; font-weight: 600;
+}
+.dw-item {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 6px 14px 6px 18px; cursor: pointer;
+  font-size: .84rem; color: var(--ink-2); border-radius: 8px; transition: background .15s;
+}
+.dw-item:hover { background: rgba(201,165,92,.07); color: var(--ink); }
+.dw-item.active { color: var(--gold-l); background: rgba(201,165,92,.1); }
+.dw-no { font-family: "Segoe UI", "Roboto Mono", monospace; font-size: .7rem; color: var(--gold); min-width: 34px; text-align: right; }
+.scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.scrim.open { opacity: 1; pointer-events: auto; }
+
+/* 阅读区 */
+.wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
+.chapter {
+  margin-bottom: 64px; scroll-margin-top: 72px;
+  border-bottom: 1px dashed var(--border); padding-bottom: 48px;
+}
+.chapter:last-child { border-bottom: none; }
+.ch-tag { font-size: .68rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
+.chapter h2 { font-size: 1.35rem; color: var(--ink); margin-bottom: 22px; letter-spacing: .04em; line-height: 1.5; }
+.chapter h3 {
+  font-size: 1.02rem; color: var(--gold-l);
+  margin: 1.6em 0 .8em; letter-spacing: .06em; line-height: 1.6;
+}
+.chapter h4 { font-size: .95rem; color: var(--ink); margin: 1.3em 0 .6em; }
+.chapter p { margin: .65em 0; text-align: justify; }
+.chapter blockquote {
+  border-left: 3px solid var(--gold); background: rgba(201,165,92,.06);
+  padding: .5em 1em; margin: 1em 0; color: var(--ink-2); border-radius: 0 8px 8px 0;
+}
+.chapter strong { color: var(--gold-l); }
+.chapter hr { border: none; border-top: 1px dashed var(--border); margin: 1.6em 0; }
+
+/* 书尾 */
+.footer { text-align: center; padding: 40px 0 80px; color: var(--ink-2); font-size: .8rem; }
+.footer .back {
+  display: inline-block; margin-top: 18px; padding: 9px 22px;
+  border: 1px solid var(--thin); border-radius: 999px; color: var(--gold);
+  text-decoration: none; letter-spacing: .1em; font-size: .82rem; transition: all .2s;
+}
+.footer .back:hover { background: rgba(201,165,92,.1); color: var(--gold-l); }
+
+@media (max-width: 640px) {
+  .wrap { padding: 96px 18px 100px; }
+  .tb-title { max-width: 130px; }
+}
+</style>
+</head>
+<body data-theme="night" data-font="m">
+
+<header class="topbar">
+  <a class="tb-btn tb-back" href="/audiobook/#book-wenming">← 返回听书</a>
+  <div class="tb-title">文明的阶梯<span class="tb-sub">序言 + 五篇论证 + 每日必修 + 跋</span></div>
+  <span class="tb-spacer"></span>
+  <span class="tb-font">
+    <button class="tb-btn" data-fs="s" type="button">A−</button>
+    <button class="tb-btn" data-fs="m" type="button"><span>A</span></button>
+    <button class="tb-btn" data-fs="l" type="button"><span>a</span></button>
+  </span>
+  <button class="tb-btn" id="th-toggle" type="button">白昼</button>
+  <button class="tb-btn active" id="dw-toggle" type="button">目录</button>
+</header>
+<div class="progress"><i></i></div>
+
+<aside class="drawer" id="drawer">
+  <div class="dw-item" data-t="c00"><span class="dw-no">·</span><span>序言 我们为什么要爬一座看不见的阶梯</span></div>
+<div class="dw-item" data-t="c01"><span class="dw-no">1</span><span>第一篇 喂饱,文明的第一级阶梯</span></div>
+<div class="dw-item" data-t="c02"><span class="dw-no">2</span><span>第二篇 人不止一层饿</span></div>
+<div class="dw-item" data-t="c03"><span class="dw-no">3</span><span>第三篇 幸福就是升级</span></div>
+<div class="dw-item" data-t="c04"><span class="dw-no">4</span><span>第四篇 灯塔,我们唯一能做的事</span></div>
+<div class="dw-item" data-t="c05"><span class="dw-no">5</span><span>第五篇 每日必修与总纲</span></div>
+<div class="dw-item" data-t="c06"><span class="dw-no">·</span><span>跋 一群人亮起来</span></div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<main class="wrap">
+<section class="chapter" id="c00"><p class="ch-tag">序</p><h2>序言 我们为什么要爬一座看不见的阶梯</h2><p>先做一个小实验。放下手机,不看屏幕,就这样坐着,什么都不干,五分钟。</p>
+<p>现在,试着把手伸向屏幕。大多数人——包括过去的我——会在这个实验里输。不是输给意志力,是输给一种说不清的难受:刚安静下来,心里就涌起一阵烦躁,像有一只手,非要把你重新按回屏幕里。</p>
+<p>你有过这样的晚上吗?本来只想刷十分钟,等再抬头,两小时过去了。屏幕还亮着,人却空了。你记不清刚才看了什么,只觉得脑子和身体都是钝的。你明明很累,却停不下来;你明明什么都有,却总觉得自己还缺点什么。</p>
+<p>这不是矫情。这是一个时代,几乎所有人都在过的日子。</p>
+<p><strong>我们习惯把这种状态怪到自己头上</strong>——是我意志力差,是我太浮躁,是我不会安排时间。</p>
+<p>可是你退一步看:一个时代的人,同时感到空、同时停不下来、同时焦虑——这真的还是某一个人的毛病吗?更像是一种气候。就像春天会下雨、夏天会闷热,这个时代,刚好刮起了一阵让人发慌的风。你被吹着走,不是因为你站得不够稳,是因为风本身就很大。</p>
+<p>那么,风是从哪来的?要回答这个问题,我们得往回看,看人类是怎么一步步走到今天的。</p>
+<p><strong>人类的文明,不是一条平缓的线,而是一级一级的台阶。</strong> 每一次真正跨上台阶,人类都完成了一场大解放。</p>
+<p>最早的、也最根本的一次,是食物。</p>
+<p>在很长很长的时间里,人的全部生活就是一件事:找吃的。天亮去找,天黑找回来;找到了,才有力气做别的;找不到,连活着都是问题。人被绑在"吃"这件事上,几千年。</p>
+<p>后来,人学会了种地。再后来,食物被大规模地生产。看起来只是"吃得更好了",但真正的变化在别处——人终于从"找吃的"里,被解放出了大量的时间和精力。</p>
+<p>这些精力去了哪?去了思考。去了创造。去了建城市、造文字、写诗、做学问。我们今天引以为傲的一切文明——科学、艺术、思想——的起点,都不是某一位天才的灵感,而是<strong>人第一次不用整天为食物奔忙</strong>。</p>
+<p>所以文明的阶梯,第一级是"喂饱"。</p>
+<p>你看,人类后来所有的进步,走的都是同一条路:从某一种重负里,把人多解放出一点。工具让人省力,机器让人省力,医疗让人少生病,教育让人多懂一点。每一级台阶,都是一次解放。</p>
+<p><strong>但请注意一件事:过去这几百年,人类爬得最快的,是"外部"的阶梯。</strong></p>
+<p>我们征服了物质世界。我们有了电、有了网、有了医疗、有了几千年祖先想都不敢想的一切。可我们的<strong>内心</strong>,爬了多少级?</p>
+<p>试一试就知道:你拥有的东西,比一百年前的任何一个皇帝都多。但你的安心程度,真的比得上一个一百年前能好好睡一觉的普通人吗?</p>
+<p>人类在短短几十年里,把注意力交给了一台台精心设计的机器。你刷到的每一条内容,都是算法算过的;你停留的每一秒,都被收集起来,用来算怎么让你多停一秒。这不是阴谋,这是商业——而商业的代价,是无数人的注意力被整段整段地收割,喂给了机器自己的引擎。</p>
+<p>我们的内心,因此长期挨饿。</p>
+<p>这不是危言耸听。回到开头的实验:为什么你连安静坐五分钟都难受?因为你的内心已经习惯了被填满。你太久没有给它喂过真正的东西——没有静静想过一个问题,没有认真读过一页书,没有和自己说过一句实话。它饿得太久,饿到一安静下来,就发出饥荒的警报。</p>
+<p>而人是会饿的——不是身体,是那种不满足。</p>
+<p><strong>这本书,就是为这个"饿"而写。</strong></p>
+<p>我们想和你一起弄明白三件事:第一,这个"空"到底从哪里来——它不是你的错,它是一个文明进程走到某个台阶的必然。第二,文明正站在哪一级台阶的门口——外部已经被喂饱了,下一个没有被喂饱的,是人的内心。第三,如果这是真的,那明天早上醒来,你可以做什么。</p>
+<p>我们不做三件事:不喊口号,不贩卖焦虑,不劝你"利他"。我们只做一件事:<strong>把灯塔点亮。</strong></p>
+<p>灯塔不负责替你开船。灯塔只负责亮着,让你知道海上有方向。你一旦看见方向,自己就会开始划桨——这是人的天性:人不怕苦,只怕没有方向。</p>
+<p>我们相信,只要一个人开始认真思考"我的时间去哪了?我为什么停不下来?我内心丰盈吗?"——他就已经站在阶梯的第一级上了。剩下的路,他自己会走。</p>
+<p>所以这本书,不打算向你推销一套复杂的理论体系。它只打算做到两件事:<strong>第一,说服你——文明正站在内心这级阶梯的门口,而你的"空",就是它到来的信号。第二,告诉你——从明天起,每天可以做的那些很小、很具体的事。</strong></p>
+<p>就这两件。够了。</p>
+<p><strong>最后说一句题外话。</strong></p>
+<p>文明的阶梯,有一个残酷又温柔的地方:它从来不是一个人能爬完的。</p>
+<p>一盏灯,照不亮整片海。但每个看见灯的人,都会自己开始航行;而航行的人越多,海就越亮。</p>
+<p>我们写这本书,是点亮一盏灯。你读完,若能对自己说一句"这说的是我"——那么你已经亮起来了。</p>
+<p>剩下的,交给时间和同路人。</p>
+<p>我们,台阶上见。</p>
+<hr /></section>
+<section class="chapter" id="c01"><p class="ch-tag">篇</p><h2>第一篇 喂饱,文明的第一级阶梯</h2><p>如果有人问你:人类的文明,是靠什么一步步走到今天的?</p>
+<p>你会说:靠天才。靠技术。靠战争与贸易。靠一次次伟大的发明。</p>
+<p>都对。但这些都不是起点。就像一栋楼,你说它靠钢筋、靠混凝土、靠设计师——都对,但先要有地基。文明的每一次大跃迁,都有一个"地基"级别的动作,它不显眼,却决定了一切。</p>
+<p>这个动作,叫<strong>解放</strong>。</p>
+<p><strong>人是从哪里被解放出来的?——先从"找吃的"里。</strong></p>
+<p>你可以做一个粗糙但有效的估算:在人类历史的绝大部分时间里,一个普通人一天的时间,有多少花在"吃"上?</p>
+<p>狩猎采集时代,答案是几乎全部。天亮出发,寻找、追踪、采集、躲避,天黑之前,人才有资格喘一口气。能不能活到明天,取决于今天有没有找到吃的。在那样的日子里,人没有"思考"这回事——不是不想,是没力气想。脑子再好,饿着肚子,也只剩一个念头:吃的。</p>
+<p>后来,人学会了一件事,这件事改变了整个物种的命运:种地。</p>
+<p>种地看起来只是"多了一种找食物的方式"。但它的意义远不止此。地里的收成,是<strong>可以预支的、可以储存的、可以计算的</strong>。人第一次不用把全部力气押在"今天"上——他种下去,等待,然后收获一批远超过他今天需要的食物。</p>
+<p>于是,一件破天荒的事情发生了:<strong>时间。</strong> 一个种地的人,每天只需要用一部分时间照料庄稼,剩下的时间,第一次属于他自己。</p>
+<p>这些多出来的时间,人类用来做了什么?</p>
+<p>用来<strong>不找吃的</strong>。然后,用来思考。</p>
+<p>第一批学会种地的人,在收成之后,对着夜空发呆。他们开始琢磨一些"没用"的问题:为什么有昼夜?天为什么下雨?人死了会怎样?——这些问题,在饿着肚子的时代,是奢侈品。但现在,人付得起这个奢侈了。</p>
+<p>于是有了分工:有人种地,有人打铁,有人记账。于是有了剩余:有人存粮,有人积累,有了贫富,有了交换。于是有了文字:账记不清了,于是把符号刻在泥板上——文字,最初是给粮食记账的。</p>
+<p>你看,一条因果链就这样立起来了:</p>
+<p><strong>食物 → 剩余 → 时间 → 思考 → 分工 → 文字 → 城市 → 文明。</strong></p>
+<p>这条链上,食物的解放是第一环。它不负责产生天才,但它负责把天才从"必须找吃的"里解放出来。没有这一环,后面的一切都不存在。</p>
+<p>这就是为什么我说:<strong>文明的阶梯,第一级是喂饱。</strong></p>
+<p><strong>后来的每一次跃迁,走的都是同一条路。</strong></p>
+<p>你可能会说:那工业革命呢?那不是靠蒸汽机、靠煤、靠资本吗?</p>
+<p>请再往深看一层。工业革命真正的意义,是把人从<strong>体力的重负</strong>里解放出来。机器接手了人的肌肉,人第一次可以不用自己的力气去犁地、纺纱、搬石头。而这一切,最后又回到了"吃"上——化肥让粮食产量翻了几倍,机械让一个人能种以前十个人都种不完的地。人类用一场工业革命,再次把自己从"找吃的"的旧循环里,又解放了一整圈。</p>
+<p>所以你看,工具、技术、资本——它们都是<strong>延伸</strong>,不是<strong>发动机</strong>。真正的发动机,永远是那一场场"解放":把人体力上的、时间上的、精力上的重负,一层一层剥下来。</p>
+<p>医疗解放了人不必时刻面对死亡的恐惧,教育解放了人不必愚昧,避孕解放了女性不必被生育绑死,互联网解放了人不必为信息翻山越岭。每一件你习以为常的现代生活,往回追,都是一次解放。</p>
+<p>而每一次解放,都有一个共同点:<strong>它先让你吃饱,再让你抬起头。</strong></p>
+<p><strong>但这里有一个被所有人忽略的转折。</strong></p>
+<p>请你数一数,人类所有的这些解放——食物、工具、机器、医疗、教育——它们解放的都是什么?</p>
+<p>是<strong>身体</strong>。是人的体力、时间、精力、寿命、信息。它们把"活着"这件事本身,变得越来越不费力。</p>
+<p>可你有没有发现:人类爬了这么多级阶梯,<strong>"内心"那一级,几乎没动过。</strong></p>
+<p>我们现在的外部世界,先进到几千年前的祖先会以为是神迹。电、网络、飞机、无痛手术、指尖上的图书馆。但我们的<strong>内心</strong>,和两千年前坐在篝火边的人相比,真的更安定、更幸福、更知道自己为什么活着吗?</p>
+<p>这个问题,请你先带回去。它正是下一章要打开的那扇门。</p>
+<p>今天这篇,我们只立一件事,也是全书的地基:</p>
+<p><strong>文明的阶梯,是一级一级"喂饱"出来的。</strong> 每一级真正意义上的跃迁,都是把人类从某一种生存的重负里解放出来,先喂饱,再抬头。工具是延伸,喂养才是发动机。</p>
+<p>那么问题来了——如果人类真的还想再往前跨一大步,下一级台阶,会是什么?</p>
+<p>历史给出的暗示是:它不会在"外部"了。外部已经被喂得很饱。下一场饥饿,在别的地方。</p>
+<p>下一章,我们就讲那个地方。</p>
+<hr />
+<p><strong>· 每日必修 · 喂身体</strong></p>
+<p>这一篇落到生活里,只有一句话:<strong>先把自己喂饱,再谈别的。</strong></p>
+<p>你读到这里,能思考,能烦恼,能空——这本身,就是几百代人替你攒下来的、被喂饱的资格。别浪费它。</p>
+<p>今天,好好吃一顿饭,不配着手机吃;好好睡一觉,不熬夜到两三点。你的身体是文明的硬件,是你爬下一级阶梯的底盘。祖先喂饱了它,把它交到你手上;从今天起,轮到你来喂它了。</p>
+<hr /></section>
+<section class="chapter" id="c02"><p class="ch-tag">篇</p><h2>第二篇 人不止一层饿</h2><p>上一章,我们立下了全书的地基:文明的阶梯,是一级一级"喂饱"出来的。人类靠一场又一场的"解放",从体力的、时间的、信息的重负里,一层一层把自己喂饱。</p>
+<p>然后我们留下了一个问题:人类若还想再往前跨一大步,下一级台阶在哪?</p>
+<p>今天这篇,就是回答这个问题。而答案,要先从"饿"本身讲起。</p>
+<p><strong>饿,是有共同症状的。</strong></p>
+<p>你饿过肚子吧?饿的感觉,不只是胃里的收缩。它是整体性的:空虚,烦躁,坐立不安,渴求——你吃不下别的东西,只想找到吃的。吃完,短暂地满足了,但很快又空了,又去找。</p>
+<p>现在,请你回想你"刷手机"的状态:躺在床上,一条一条往下滑。你其实不知道自己想看什么,但你停不下来。你越刷越烦躁,越刷越空,但手指就是不停。你把手机放下,不到三分钟,又拿起来——像饿疯了的人,在翻一个已经空了的锅。</p>
+<p>有没有可能——你根本不是在"休闲",你是在<strong>饿</strong>?</p>
+<p>不只是你。是这个时代,几亿人,同时饿着。</p>
+<p><strong>身体的饥饿,被喂饱了。但人不止一层饿。</strong></p>
+<p>我们习惯把"饥饿"想成身体的专利。但人这个物种,饥饿从来不止一层。</p>
+<p>身体会饿,会渴,会困——这些是低层的饿,是生存的饿。它们有明确的信号,有明确的解决方案:吃,喝,睡。</p>
+<p>但在这之上,还有更高层的饿。它们是<strong>心智的饿、联结的饿、意义的饿</strong>:</p>
+<p>被理解。被看见。做出点什么。知道自己为什么活着。觉得自己的人生值得一过。</p>
+<p>这些"饿",和身体饿一样真实,一样难受,一样会让人坐立不安。它们的信号,和身体饿几乎一模一样:<strong>空虚,渴求,烦躁,停不下来。</strong> 唯一不同的是——人们不知道自己在饿什么,于是乱找东西填。</p>
+<p>于是,这个时代最魔幻的一幕出现了:</p>
+<p>人的身体被喂得前所未有的饱——食物过剩,肥胖成了病。但人的内心,被饿得前所未有的慌。我们把所有能抓的东西都抓来喂它:短视频、综艺、游戏、购物、热搜、八卦。我们喂了这么多,却越喂越饿。</p>
+<p>为什么?因为<strong>我们喂错东西了。</strong></p>
+<p><strong>算法喂的是"假食物",没有营养。</strong></p>
+<p>短视频为什么让人停不下来?因为它是被精心设计来"解渴"的:三秒钟一个刺激,五秒钟一个反转,信息密度高到让你的大脑不停分泌多巴胺。</p>
+<p>但解渴,不等于解饿。多巴胺是<strong>渴</strong>的信号,不是<strong>饱</strong>的信号。</p>
+<p>你刷两个小时短视频,就像喝了两小时盐水——更渴了。你得到了大量的刺激,却没有得到一点营养:你没有想明白任何一个问题,没有被打动任何一次,没有和任何人建立真实的联结。你只是被喂了一肚子"水",然后更饿了。</p>
+<p>这不是你的错。这是一整套产业,雇了最聪明的人,用最先进的技术,专门研究"怎么让你停不下来"。你不是在和你的意志力战斗,你是在和几万人的团队战斗。输了不丢人。</p>
+<p>但"这不是你的错"不能成为答案。因为<strong>饿,还是要吃饭的。</strong> 你知道了这是饿,就要去找真正的食物。</p>
+<p><strong>真正的"精神食物",长什么样?</strong></p>
+<p>我们试着给这一层饥饿,开一份食谱:</p>
+<p><strong>思想的食粮</strong>——认真地读完一本书,想通一个问题,写下自己的想法。不是"看过",是"消化过"。</p>
+<p><strong>创造的食粮</strong>——做出一件属于你的东西:一道菜,一篇文章,一个木工活,一次真诚的谈话。创造让人感到"我在"。</p>
+<p><strong>联结的食粮</strong>——和一个人,真正地、不带目的地聊一次天。被理解,是最被低估的营养。</p>
+<p><strong>意义的食粮</strong>——问自己:我做的这件事,除了糊口,有没有一点点"值得"?哪怕只有一点点。</p>
+<p>你看,这一层饥饿的食物,都<strong>不贵,但都要花"认真"</strong>。而"认真",恰恰是这个时代最稀缺的东西——因为认真需要时间,时间被算法收割走了。</p>
+<p><strong>所以,下一场跃迁的答案浮出来了。</strong></p>
+<p>人类已经用了几千年的时间,把"身体"这一层的饿喂得很饱。我们发明了农业、工业、医疗、教育,把生存的重负一层层卸下来——做的所有事,本质上都是同一件:<strong>喂饱身体,好让人抬起头来。</strong></p>
+<p>但现在,身体已经喂饱了。<strong>被解放出来的那颗心,开始饿了。</strong></p>
+<p>历史一次一次地重复同一个规律:哪里"饿",哪里就是下一级台阶。几千年前,人饿肚子,于是有了农业革命。几百年前,人饿力气,于是有了工业革命。今天,人饿<strong>内心</strong>——饿到几亿人同时空虚、焦虑、停不下来——那么下一场真正意义上的文明跃迁,就必然发生在这里。</p>
+<p>它不是一次技术的升级。它是一次<strong>喂养方式的升级</strong>:把思想、意义、联结,变成像今天的粮食一样——可靠、普及、人人能得的东西。</p>
+<p>这不是什么高深的理论。你只需要做一个小实验就能看见它:</p>
+<p>把手机放下,认真读十分钟真正的好东西,或者安静地想一个问题。你会发现,那种"被喂饱"的感觉,和刷两个小时的短视频,完全不同。一个是满足,一个是更饿。</p>
+<p>文明的下一个发动机,就藏在这个区别里。</p>
+<p><strong>而我们今天能做的,是先认出:我饿了。</strong></p>
+<p>不是累了,不是无聊,不是矫情。是<strong>饿</strong>——一种真实的、长期被饿着的高层饥饿。</p>
+<p>认出它,是治愈它的第一步。因为你不会给一个不觉得饿的人做饭。</p>
+<p>下一章,我们要回答一个更关键的问题:这种饿,到底通向什么?为什么我说——<strong>喂饱它,就是幸福;而幸福,就是文明的升级?</strong> </p>
+<hr />
+<p><strong>· 每日必修 · 喂思想</strong></p>
+<p>今天,给自己安排一顿"精神正餐":找一个真正的问题(不是刷到一个问题),认真想十分钟;或者读一页真正的好书,不是"划过去",是"咽下去"。</p>
+<p>然后,记住那个感觉:满足,而不是更饿。</p>
+<p>从今天起,每天给自己这一顿。像吃饭一样,定时,定量,不可省。你的心饿了很多年,它配得上一顿好饭。</p>
+<hr /></section>
+<section class="chapter" id="c03"><p class="ch-tag">篇</p><h2>第三篇 幸福就是升级</h2><p>上一章,我们说:人饿着——不是身体,是内心。而饿,是要找东西喂饱的。喂饱它,会得到什么?</p>
+<p>很多人会脱口而出:幸福。</p>
+<p>对。但"幸福"这个词,被用得太多、太轻、太玄了。它像一层雾,人人都说往那里走,却没人说得清那里是哪里。今天,我想把这片雾拨开一点,给它一个尽量清楚的定义。因为这个定义,是全书逻辑的关键一环。</p>
+<p><strong>幸福,是需求被满足的体验。</strong></p>
+<p>先别急着说"太简单"或"太功利"。请跟着我,把这个定义掰开来看。</p>
+<p>你饿了一天,吃上一碗热饭——那一刻的满足,是幸福。
+你讲了半天,终于有一个人说"我懂你"——那一刻的触动,是幸福。
+你做成了一件你以为自己做不成的事——那一刻的踏实,是幸福。</p>
+<p>这三件事,差别很大:一碗饭、一句话、一件事。但它们有一个共同的结构:<strong>一个需求,被满足了。</strong> 饥饿被满足,是幸福;被理解的渴望被满足,是幸福;实现感的渴望被满足,是幸福。</p>
+<p>所以幸福不是一个虚无的状态,它是一件件<strong>具体的事</strong>:需求被满足的那一刻。缺粮的人,吃饱是幸福;缺爱的人,被懂是幸福;缺意义的人,找到值得是幸福。</p>
+<p><strong>那么,需求是什么?它从哪里来?</strong></p>
+<p>需求不是凭空出现的。一个人会饿,是因为他活着;一个人会渴望被理解,是因为他是人——人天生需要和他人联结;一个人会追问意义,是因为他有自我意识,会问"我为什么活着"。</p>
+<p>你看,需求是一层一层长出来的:</p>
+<p>先有<strong>生存的层</strong>:饿、渴、困、怕。这一层,人在觅食,在求安全。
+再有<strong>联结的层</strong>:被爱、被理解、被看见。这一层,人在找"我们"。
+再有<strong>意义的层</strong>:创造、成就、值得。这一层,人在找"我为什么在这里"。</p>
+<p>这三层,不是并列的,是一层压着一层长出来的。你喂饱了生存,联结的需求就浮上来;你喂饱了联结,意义的需求就浮上来。就像一个孩子,先要学会走,才跑得起来。</p>
+<p>而幸福的全部秘密,就藏在这句话里:<strong>你的人生有多幸福,取决于你当前的需求,有没有被恰当地满足。</strong> 一个饿着肚子的人,你再给他讲人生意义,他听不进去——因为他饿的是生存那层。一个被深深爱着的人,你只给他吃饱,他会感到空——因为他已经长到了更高的层。</p>
+<p><strong>现在,请允许我做一个可能让你惊讶的替换。</strong></p>
+<p>我们刚说:幸福,是需求被满足的体验。</p>
+<p>那么,一个社会的幸福水平,是什么?是<strong>这个社会里,多少人、多少层次的需求,被满足到了什么程度。</strong></p>
+<p>一个所有人都能吃饱的社会,比一个有人饿死的饥荒社会,幸福得多。一个普通人也能读书、被尊重、有尊严的社会,比一个只有少数人活得好的社会,幸福得多。这个"满足的程度",就是我们常说的——<strong>文明的水平</strong>。</p>
+<p>这就是关键的一步。请把它看清楚:</p>
+<p><strong>幸福 = 需求被满足。</strong>
+<strong>升级 = 让更大范围的人、更高层的需求,被满足。</strong></p>
+<p>它们不是两件事。它们是同一个东西——"需求被满足的水平"——分别站在<strong>个人</strong>和<strong>群体</strong>这两个尺度上,被叫出的两个名字。</p>
+<p>一个人吃饱了,是个人幸福。
+一个社会让所有人吃饱,是文明升级。
+一个人被理解了,是个人幸福。
+一个社会让每个人都能被尊重、被看见,是文明升级。</p>
+<p>你个人的幸福曲线,沿着"生存→联结→意义"一层层往上爬;人类文明的曲线,沿着"饥荒→温饱→教育→尊严→意义"一步步往上爬。<strong>它们是同一条曲线——一条画在个体上,一条画在全体上。</strong></p>
+<p>所以,我们前面说"修炼 = 追求幸福",这句话没有错,但它只说了一半。另一半是:<strong>当你一层一层把自己喂饱、向上攀登的时候,你同时在做的,是推动整个文明,往它对应的那层台阶上,再走一步。</strong></p>
+<p>个人的幸福,和文明的升级,不是两件可以分开的事。它们是同一股向上的力量——这股力量,把一个人从饥饿推向满足,把一群人从匮乏推向丰盈。<strong>一群人的幸福,就是文明的升级;而文明的升级,是每一个人的幸福,加在一起的形状。</strong></p>
+<p><strong>这也能解释一个很普遍的困惑。</strong></p>
+<p>为什么有人越有钱越空虚?</p>
+<p>因为钱,只喂饱了"生存"这一层,甚至只喂饱了"生存之上一点点的欲望"。而那个人的需求,早就不在那一层了。他用财富去填饥饿,填的却是联结的饿、意义的饿——钱填不了这两层。于是越喂越空,越空越喂。</p>
+<p>这不是"有钱人的矫情",这是需求层次的错位:拿低层的食物,去喂高层的饥饿。就像拿十碗米饭,去解一个人对"被理解"的渴——胃满了,心还空着。</p>
+<p>看清这一点,你就同时看清了两件事:<strong>为什么你的幸福,藏在你需求的那一层里;为什么整个时代的空虚,藏在文明没跟上需求的那一级上。</strong></p>
+<p><strong>那么,怎么开始?</strong></p>
+<p>下一章,我们要面对一个让人不太舒服的问题:如果你的幸福,真的和"一群人"绑在一起——那么,一个人的修炼,到底够不够?</p>
+<p>先留一个念头给你,下一章接上。</p>
+<p>而今天这一篇,只立一个判断,也是全书的枢纽:</p>
+<p><strong>幸福就是升级。</strong> 它们不是原因和结果,是同一个东西的两个面向。你往自己心里多走一步,就是往文明的高处走一步。反过来,也一样。</p>
+<hr />
+<p><strong>· 每日必修 · 觉察需求</strong></p>
+<p>今天,花五分钟问自己一个问题:<strong>此刻,我饿在哪一层?</strong></p>
+<p>是身体的饿(困了、累了、没吃好)?是联结的饿(好久没被理解,好久没真诚地和人说过话)?还是意义的饿(做着事,却觉得没意思、不知道为了什么)?</p>
+<p>看清它,然后——用对的那一层食物去喂它。别拿米饭去解"被理解"的渴,也别空谈境界,忘了身体真的需要好好休息。</p>
+<p><strong>看清自己饿在哪一层,就是幸福的起点。</strong> 因为幸福的全部秘密,是喂对的那一口。</p>
+<hr /></section>
+<section class="chapter" id="c04"><p class="ch-tag">篇</p><h2>第四篇 灯塔,我们唯一能做的事</h2><p>上一章,我们立下了全书最重要的一个判断:幸福就是升级——它们是同一个东西,站在个人和群体两个尺度上的两个名字。</p>
+<p>但这个判断,立刻逼出一个让人不太舒服的问题:</p>
+<p>如果我的幸福,真的和"一群人"绑在一起——那么,我一个人闷头修炼,到底够不够?</p>
+<p>答案可能让你意外:<strong>不够。而且,一个人越认真修炼,就越会撞上这个'不够'。</strong></p>
+<p><strong>先讲一个有点残酷的道理:幸福是锁在人群里的。</strong></p>
+<p>你可以做一个思想实验。想象一个人,把自己修得很好:内心安定,欲望清明,知道自己为什么活着。放在任何衡量标准下,他都是一个"境界很高"的人。</p>
+<p>现在,把他放进一个混乱的世界:身边的人都在互相消耗,都在焦虑,都在被收割着、伤害着彼此。每天一睁眼,听到的是争吵,看到的是困顿,感觉到的是人与人之间的提防和冷漠。</p>
+<p>你觉得,这个境界很高的人,还能幸福吗?</p>
+<p>不能。不是因为他的修行是假的,而是因为——<strong>幸福不是一个人的事。</strong> 人是关系的动物,他的幸福里,天生装着别人。你无法在身边的人都在受苦时,独善其身地"过得好"。那个"好",会因为你看见了他们的痛苦,而被整个抽走。</p>
+<p>这甚至不用上升到"境界"的高度。你回想一下自己:你是不是也会因为身边的人过得不好,而感到揪心?你是不是也会因为一句"我懂你",而感到温暖?<strong>你从来不是一个孤岛——你的喜怒哀乐里,一直有别人。</strong> 这不是缺点,这是人的天性。</p>
+<p>所以,一个残酷又温柔的结论浮现了:</p>
+<p><strong>个人的修炼,永远抵达不了完整的幸福。</strong> 因为幸福是一座桥,不是一间房。你把自己修得再坚固,如果桥的那一端是空的,这桥就没有意义。</p>
+<p>这就是为什么,很多认真修炼的人,最后会走向一种孤独。他们自己走得越来越远,回头一看,身边的人还在原地,于是既放不下,又回不去。这不是"个人英雄主义"吗?——一个人把自己修成灯塔,却在照亮一片没有航船的海。</p>
+<p><strong>那么,该怎么办?</strong></p>
+<p>你可能会脱口而出:那就去"利他"啊,去帮助别人啊。</p>
+<p>请允许我在这里停下来,说一句可能不受欢迎的话:<strong>"利他"这个词,已经坏了。</strong></p>
+<p>你打开手机,满屏都是"利他思维""极致利他""利他,才能利己"。这些话,出自谁的口?出自想卖你课的人,想让你转发的人,想割你韭菜的人。他们用"利他"造了一个又一个概念,再把概念卖给焦虑的人。到头来,"利他"成了一个口号,一个工具,一个标榜自己的装饰——它不再指向善意,它指向流量。</p>
+<p>而且,就算"利他"没被污染,它也不是答案。因为道理太浅了:谁不知道要对人好?<strong>你缺的从来不是"知道该做好人",你缺的是"知道往哪走"。</strong> 你告诉一个在海上迷失方向的人"你应该善良",他只会更绝望——他需要的不是道德,是一盏灯。</p>
+<p><strong>这就是我们全部想法的核心。请看清它:</strong></p>
+<p>当代人真正缺的,不是善,是<strong>方向</strong>。</p>
+<p>不是道德感消失了,是时间被收割了、内心被填满了、注意力被引走了——人不是在"作恶",人是<strong>没有焦点</strong>。他停不下来,不是因为他选择堕落,是因为没有一盏灯告诉他:海上有方向。</p>
+<p>所以我们唯一能做的,不是劝人向善,不是教育谁,更不是拯救谁。我们只做一件事:</p>
+<p><strong>把灯塔点亮。</strong></p>
+<p>灯塔是什么?灯塔不是船,不是导航,不是替你想好航线的目的地。灯塔只是<strong>亮着</strong>——让每一个在海上飘着的人,远远地看见:哦,那里有方向。</p>
+<p>而方向,不需要你替他想清楚。你只需要让他看见一个问题就够了:</p>
+<p>"你的时间去哪了?你为什么停不下来?你的内心,丰盈吗?"</p>
+<p>——只要他开始思考这个问题,他就已经被点亮了。因为<strong>思考本身,就是第一级阶梯。</strong> 剩下的路,他自己会走。你见过几个人,一旦开始问"我为什么这么空",还会无动于衷地继续空下去?不会的。人会自己去找答案,这是天性。</p>
+<p>我们做的所有事——写文章,做音频,建这个网站,也包括你此刻在读的这本书——本质上,都是同一件事:</p>
+<p><strong>亮着。</strong> 让看见的人,知道海上有个方向。</p>
+<p><strong>那么,你呢?</strong></p>
+<p>这是我们这本书,问你的最后一个问题。</p>
+<p>如果你认同前面的路,如果你也想往前走——那么,你不需要成为一个圣人,不需要"利他",不需要做任何惊天动地的事。你只需要做一件事:</p>
+<p><strong>传灯。</strong></p>
+<p>把你正在思考的,正在读的,正在写的,正在认真过的——分享给身边一个人。不是劝,不是教,不是"你应该"。"你应该"会把灯吹灭。你只需要让他看见:<strong>你在这条路上。</strong> 你在认真吃饭,你在认真读书,你在安静地想问题,你活得专注、丰盈、有方向。</p>
+<p>看见,就是焦点。焦点,就是灯塔。</p>
+<p>你不需要照亮整片海。你只需要成为一盏灯,让身边的人知道——哦,有人亮着,那我也许也能亮起来。</p>
+<p><strong>一个人的幸福,锁在人群里;一群人的幸福,才是文明。</strong> 这句话的完整意思是:</p>
+<p>你修得再好,孤灯一盏,照不亮自己,也照不亮海。但如果你身边,足够多的人,也一个接一个地亮起来——灯多了,海就亮了,而每一盏灯,也都不再孤独。</p>
+<p>这才是"个人英雄主义"真正的解药:不是靠一个人成圣去感化世界,是<strong>每个人都做一束光,让身边的人也看见光。</strong></p>
+<p>文明的阶梯,从来不是一个人爬上去的。是一群人,你拉我一把,我托你一下,一级一级,一起站上去的。</p>
+<p>而今天,你只需要做那一件很小的事:<strong>把你正在看见的光,分给身边一个人。</strong></p>
+<hr />
+<p><strong>· 每日必修 · 传灯</strong></p>
+<p>今天,把你正在思考的一个问题,或者正在读的一段话,分享给一个人。</p>
+<p>不是"教育"他,不是"劝"他。就是自然地,让你正在做的那件事,被他看见。比如,吃饭的时候放下手机,说一句:"我今天读到一段话,很有意思……"</p>
+<p>不解释,不追问,不求回应。让光自己说话。</p>
+<p><strong>你不需要说服任何人。你只需要亮着。</strong> 看见的人,自会看见;亮起来的灯,自会一盏接一盏。</p>
+<hr /></section>
+<section class="chapter" id="c05"><p class="ch-tag">篇</p><h2>第五篇 每日必修与总纲</h2><p>理论讲完了。这本书的前四篇,立起了四件事:</p>
+<p>一,文明是阶梯,而每一级,是"喂饱"出来的。
+二,身体喂饱了,人饿的是内心,下一场跃迁在这里。
+三,幸福就是升级,是同一个东西的两个面向。
+四,一个人的幸福锁在人群里,我们唯一能做的是传灯。</p>
+<p>你可能已经发现:这四件事,每一件,都通向一个"每天能做的动作"。这不是巧合——<strong>它们本来就是为"行"准备的。</strong></p>
+<p>因为知道而做不到,等于不知道。文明的口号我们已经喊够了,现在,该把它过成日子。</p>
+<p>所以这一篇,是全书的总纲:把四篇的论证,收拢成一天里的四件事。<strong>不宏大,不玄,不鸡汤——每一件,都是今天就能开始做的。</strong></p>
+<p><strong>这是你的"一天":</strong></p>
+<hr />
+<p><strong>第一件事 · 喂身体(晨)</strong></p>
+<p>早晨,给自己一顿像样的早饭,不配着手机吃。晚上,给自己一个像样的睡眠,不熬夜到两三点。</p>
+<p>这听起来太平凡了,平凡到不像修行。但请你记得第一篇的话:文明的第一级阶梯,是喂饱。你今天的头脑、情绪、专注力,全都建在这副身体上。<strong>身体是文明的硬件,是爬阶梯的底盘。</strong> 你连底盘都不喂,后面的一切都是空谈。</p>
+<p>所以每天的第一件必修,是先把自己喂饱——像祖先第一次学会种地那样,认真对待"吃"这件事。这不是敷衍,这是文明。</p>
+<p><strong>第二件事 · 喂思想(定)</strong></p>
+<p>每天,留出十五分钟到半小时,给自己的心喂一顿"正餐"。</p>
+<p>不是刷,不是听个响,是<strong>认真</strong>:认真读一页真正的好书,想通一个真正的问题,写几行真正属于自己的话。像第二篇说的:你刷两个小时是喝盐水,越喝越渴;你认真读十分钟,才是吃饭。</p>
+<p>这十分钟,是你和这个时代最重要的一场谈判——<strong>从算法手里,把一段属于你自己的时间,要回来。</strong> 你要得回来,你才喂得饱自己。</p>
+<p><strong>第三件事 · 觉察心(中)</strong></p>
+<p>一天之中,找个时刻,问自己一句:<strong>此刻,我饿在哪一层?</strong></p>
+<p>是身体的饿(累了,没睡好)?是联结的饿(好久没和人好好说话了)?还是意义的饿(做着事,却不知道为了什么)?</p>
+<p>像第三篇说的:别拿米饭去解"被理解"的渴,也别空谈境界,忘了身体真的需要休息。<strong>看清自己饿在哪一层,用对的那一层食物去喂。</strong> 这一问,十秒钟,却是一天里最重要的一次自我校准。</p>
+<p><strong>第四件事 · 传灯(晚)</strong></p>
+<p>晚上,把你今天想到的、读到的、感受到的,自然地分享给一个人。</p>
+<p>不是教育,不是劝,就是让你在做的那件事,被他看见。你可以在饭桌上说一句"我今天读到一段话很有意思",也可以把一篇文章转给一个朋友,什么也不说。</p>
+<p>像第四篇说的:<strong>你不需要说服任何人,你只需要亮着。</strong> 看见的人,自会看见。而文明,就是这样一个一个亮起来的。</p>
+<hr />
+<p><strong>把四件事连起来看,你会发现一个完整的圆:</strong></p>
+<p>早晨,喂身体——照顾好文明的硬件。
+白天,喂思想——给内心真正的营养。
+随时,觉察心——校准自己饿在哪一层。
+夜晚,传灯——让看见的人也知道方向。</p>
+<p><strong>身、脑、心、缘——四喂,一圈,一天。</strong> 这就是文明的阶梯,在一个人身上的形状:每天喂饱一点,每天亮一点,每天往高处走一步。</p>
+<p>你可能觉得这太简单了。对,它就是简单。因为真正改变人的,从来不是宏大的道理,而是<strong>每天重复的小事</strong>。你不可能靠读一本书就登上文明的阶梯,你只能靠一天一天的"喂"和"亮",一级一级地走上去。</p>
+<p><strong>最后,请允许我把这本书的全部,收拢成一句话。</strong></p>
+<p>我们讲了文明的阶梯,讲了饥饿的升层,讲了幸福就是升级,讲了灯塔和传灯。剥开所有的论证,这本书其实只说了三件事:</p>
+<p><strong>第一,你要看见:</strong> 你内心的空,不是你的错,是文明走到这一级的信号。
+<strong>第二,你要认出饿:</strong> 你需要的不是更多刺激,是真正的喂养。
+<strong>第三,你要做一束光:</strong> 先喂饱自己,再让身边的人,也看见方向。</p>
+<p>看见,认出,点亮。然后——重复。明天,再重复。</p>
+<p>文明的阶梯,就是这么一级一级爬上去的。不是靠一次顿悟,是靠一天一天,一群人,一起。</p>
+<p>从今天的一顿饭,一页书,一次分享开始。</p>
+<p><strong>我们,台阶上见。</strong></p>
+<hr />
+<p><strong>· 今日总纲 ·</strong></p>
+<blockquote>
+<p>晨起,喂身体。
+定刻,喂思想。
+随时,觉察心。
+夜来,传灯。</p>
+</blockquote>
+<p>四喂一日,日日不休。
+一灯照己,万灯照海。</p>
+<hr /></section>
+<section class="chapter" id="c06"><p class="ch-tag">终</p><h2>跋 一群人亮起来</h2><p>这本书,是从一顿饭讲起的。</p>
+<p>从人终于不必整天找吃的,讲到饥饿一层一层升上来,讲到身体喂饱了、心开始饿,讲到幸福和升级原来是同一个东西,讲到我们唯一能做的,是把灯塔点亮。</p>
+<p>绕了这么大一圈,其实只说了一件很小的事:</p>
+<p><strong>你心里那点空,不是你的错,也不是无解的。它有一个方向。</strong></p>
+<p>而这本书能给你的,也只有这个方向。剩下的事,属于你自己。</p>
+<p>曾经有一个很古老的比喻:天堂和地狱,都有一口锅,锅里是同样的汤,每人手里是同样的长勺。区别只有一个——地狱里的人,拿长勺喂自己;天堂里的人,拿长勺喂对方。</p>
+<p>勺子没有变,汤没有变。变的只是:一个人,还是一群人。</p>
+<p>文明的阶梯,也是这样。</p>
+<p>它可以是一个人的修行——一个人把自己修得很好,很安定,很有境界。但那样的光,再亮,也只是一盏灯。灯下的阴影,反而更长。</p>
+<p>它也可以是一群人的攀登——你喂我一口,我扶你一级,每个人亮一点,灯连成了片,海就不再黑。</p>
+<p>我们不是想让你成为圣人。我们只是想让更多的灯,亮起来。</p>
+<p>因为文明的阶梯,从来不是一个人爬的。每一级,都是一群人,一起站上去的。</p>
+<p>你不需要现在就变成一座灯塔。你只需要先亮起来——从一顿好好吃的饭,一页认真读的书,一次真诚的分享开始。</p>
+<p>然后,你身边的人,会看见。</p>
+<p>看见,就是开始。</p>
+<p><strong>一灯照己,万灯照海。我们,台阶上见。</strong></p></section>
+  <div class="footer">
+    <p>读到这里,故事就讲完了。也欢迎回去听有声书——</p>
+    <a class="back" href="/audiobook/#book-wenming">回到听书页继续听 →</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  var store = localStorage;
+  var KEY = 'readbk:' + (location.pathname.split('/')[2] || 'x');
+  var drawer = document.getElementById('drawer');
+  var scrim = document.getElementById('scrim');
+  var progress = document.getElementById('progress');
+  var chapters = document.querySelectorAll('.chapter');
+  var items = document.querySelectorAll('.dw-item');
+  var toc = document.getElementById('toc');
+
+  // 主题
+  var theme = store.getItem(KEY + ':theme') || 'night';
+  document.body.dataset.theme = theme;
+  document.getElementById('th-toggle').textContent = theme === 'day' ? '夜间' : '白昼';
+
+  // 字号
+  var fs = store.getItem(KEY + ':fs') || 'm';
+  document.body.dataset.font = fs;
+  var fbtns = document.querySelectorAll('.tb-font button');
+  fbtns.forEach(function (b) {
+    if (b.dataset.fs === fs) b.classList.add('active');
+  });
+
+  // 目录
+  document.getElementById('dw-toggle').addEventListener('click', function () {
+    drawer.classList.toggle('open'); scrim.classList.toggle('open');
+  });
+  scrim.addEventListener('click', close);
+  function close() { drawer.classList.remove('open'); scrim.classList.remove('open'); }
+
+  items.forEach(function (it) {
+    it.addEventListener('click', function () {
+      close();
+      var t = it.getAttribute('data-t');
+      var el = document.getElementById(t);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // 字号
+  fbtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.dataset.fs;
+      document.body.dataset.font = v;
+      store.setItem(KEY + ':fs', v);
+      fbtns.forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+    });
+  });
+
+  // 主题
+  document.getElementById('th-toggle').addEventListener('click', function () {
+    var next = document.body.dataset.theme === 'day' ? 'night' : 'day';
+    document.body.dataset.theme = next;
+    store.setItem(KEY + ':theme', next);
+    this.textContent = next === 'day' ? '夜间' : '白昼';
+  });
+
+  // 滚动:进度条 + 当前章节高亮 + 记忆
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      var pct = max > 0 ? (h.scrollTop / max * 100) : 0;
+      progress.firstChild.style.width = pct + '%';
+      // 高亮当前章
+      var cur = null;
+      for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].getBoundingClientRect().top <= 120) cur = chapters[i].id;
+      }
+      items.forEach(function (it) {
+        it.classList.toggle('active', it.getAttribute('data-t') === cur);
+      });
+      store.setItem(KEY + ':pos', String(h.scrollTop));
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // 恢复进度
+  var pos = parseInt(store.getItem(KEY + ':pos') || '0', 10);
+  if (pos > 0) window.scrollTo(0, pos);
+  onScroll();
+})();
+</script>
+</body>
+</html>
