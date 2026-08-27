@@ -122,6 +122,18 @@ a { color:var(--gold); text-decoration:none; }
 .trio .bk { font-size:.98rem; color:var(--ink); font-weight:600; letter-spacing:.04em; }
 .trio .role { font-size:.68rem; letter-spacing:.14em; color:var(--gold); }
 
+/* 测试入口 */
+.test-entry {
+  display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+  margin:-6px 0 30px; padding:16px 22px;
+  border:1px solid var(--thin); border-radius:12px;
+  background:linear-gradient(160deg, rgba(201,165,92,.12), rgba(201,165,92,.03));
+  transition:all .2s;
+}
+.test-entry:hover { border-color:var(--gold); transform:translateY(-2px); }
+.te-tag { font-size:.64rem; letter-spacing:.18em; color:var(--gold); border:1px solid var(--thin); border-radius:999px; padding:3px 12px; }
+.te-txt { font-size:1.02rem; color:var(--gold-l); font-weight:600; letter-spacing:.05em; }
+
 .foot { margin-top:40px; text-align:center; font-size:.74rem; color:var(--ink-2); }
 .foot a { color:var(--gold); }
 
@@ -158,6 +170,11 @@ a { color:var(--gold); text-decoration:none; }
     <p>文明不断把人从<b>低层次的生存负担</b>中解放出来;<br>而人的下一场任务,是学会<b>如何使用被释放出来的认知与生命能量</b>。</p>
     <span class="from">—— 整个体系的统摄概念</span>
   </section>
+
+  <a class="test-entry" href="/energy-test/">
+    <span class="te-tag">试试它</span>
+    <span class="te-txt">测一测你的认知能量,正在被什么消耗 →</span>
+  </a>
 
   <section class="ladder">
     <div class="step">
