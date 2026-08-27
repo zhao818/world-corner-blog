@@ -120,6 +120,32 @@ body[data-font="xl"] { font-size: 21px; }
   .wrap { padding: 96px 18px 100px; }
   .tb-title { max-width: 130px; }
 }
+
+/* 延伸阅读(三书互链) */
+.ext { margin-top: 72px; padding-top: 44px; border-top: 1px dashed var(--border); }
+.ext-title { font-size: 1.12rem; color: var(--gold); letter-spacing: .1em; margin-bottom: 14px; }
+.ext-guide { color: var(--ink-2); line-height: 1.9; margin-bottom: 26px; }
+.ext-card {
+  background: var(--panel); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0;
+  padding: 20px 22px; margin-bottom: 16px;
+}
+.ext-pos { font-size: .72rem; letter-spacing: .16em; color: var(--gold); }
+.ext-name { font-size: 1.16rem; color: var(--ink); margin: 6px 0 10px; letter-spacing: .04em; }
+.ext-core { color: var(--ink-2); line-height: 1.9; }
+.ext-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.ext-btn, .ext-listen {
+  display: inline-block; padding: 7px 18px; border-radius: 999px;
+  font-size: .8rem; text-decoration: none; letter-spacing: .08em; transition: all .2s;
+}
+.ext-btn { background: var(--gold); color: #0b1017; font-weight: 600; }
+.ext-btn:hover { background: var(--gold-l); }
+.ext-listen { border: 1px solid var(--thin); color: var(--gold); background: transparent; }
+.ext-listen:hover { background: rgba(201,165,92,.1); }
+.ext-order { margin-top: 28px; padding-top: 20px; border-top: 1px dashed var(--border); }
+.ext-order-title { font-size: .7rem; letter-spacing: .2em; color: var(--ink-2); margin-bottom: 12px; text-transform: uppercase; }
+.ext-order p { font-size: .88rem; color: var(--ink-2); margin: 6px 0; }
+.ext-order .done::before { content: "✓ "; color: var(--gold); }
+.ext-order .next::before { content: "→ "; color: var(--gold); }
 </style>
 </head>
 <body data-theme="night" data-font="m">
@@ -441,7 +467,7 @@ body[data-font="xl"] { font-size: 21px; }
 <p>你不需要现在就变成一座灯塔。你只需要先亮起来——从一顿好好吃的饭,一页认真读的书,一次真诚的分享开始。</p>
 <p>然后,你身边的人,会看见。</p>
 <p>看见,就是开始。</p>
-<p><strong>一灯照己,万灯照海。我们,台阶上见。</strong></p></section>
+<p><strong>一灯照己,万灯照海。我们,台阶上见。</strong></p></section><section class="ext"><h3 class="ext-title">看清了方向,回到起点重新出发</h3><p class="ext-guide">现在你有了这张地图。带着它重读前两本,会有完全不一样的感受——这一次,你看到的不是迷茫,而是文明阶梯上的每一个断面。</p><div class="ext-card"><p class="ext-pos">现象诊断书 · 读了它才看得见「空」</p><h4 class="ext-name">幸福的内在</h4><p class="ext-core">有了总纲后,你会看到每一个「空」的背后,都是文明阶梯的一个断面。</p><div class="ext-row"><a class="ext-btn" href="/read/happiness/">重读 →</a><a class="ext-listen" href="/audiobook/#book-xingfu">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">修行操作书 · 读了它才动得了手</p><h4 class="ext-name">内心的修炼</h4><p class="ext-core">有了地图后,你会明白每一次修炼,都是在为文明跃迁积蓄力量。</p><div class="ext-row"><a class="ext-btn" href="/read/neixin/">重读 →</a><a class="ext-listen" href="/audiobook/#book-neixin">去听书 →</a></div></div><div class="ext-order"><p class="ext-order-title">三本书 · 阅读顺序</p><p class="done">《文明的阶梯》 · 已读 · 看清方向</p><p class="next">《幸福的内在》 → 重读:带着总纲看现象</p><p class="next">《内心的修炼》 → 重读:带着方向去行动</p></div></section>
   <div class="footer">
     <p>读到这里,故事就讲完了。也欢迎回去听有声书——</p>
     <a class="back" href="/audiobook/#book-wenming">回到听书页继续听 →</a>
