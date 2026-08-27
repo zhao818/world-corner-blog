@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="15 个问题,约 3 分钟,看清你的认知能量正在被什么消耗——再决定把第一步放在哪。">
+<title>你的认知能量,正在被什么消耗?| 世界一隅</title>
+<style>
+:root {
+  --bg:#0b1017; --panel:#121a28; --panel2:#0e1520;
+  --ink:#e9e4d8; --ink-2:#a79e8c; --gold:#c9a55c; --gold-l:#e7cd8c;
+  --line:#223047; --thin:rgba(201,165,92,.28);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--ink);
+  font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong",serif;
+  line-height:1.9; font-size:17px;
+}
+a { color:var(--gold); text-decoration:none; }
+
+/* 顶部工具条 */
+.topbar {
+  position:sticky; top:0; z-index:50; height:52px;
+  display:flex; align-items:center; gap:12px; padding:0 18px;
+  background:rgba(11,16,23,.9); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.tb-back { font-size:.8rem; color:var(--ink-2); letter-spacing:.08em; }
+.tb-back:hover { color:var(--gold); }
+.tb-title { font-size:.92rem; font-weight:600; letter-spacing:.08em; }
+.tb-spacer { flex:1; }
+
+.wrap { max-width:760px; margin:0 auto; padding:56px 22px 80px; }
+
+/* 题头 */
+.hero { text-align:center; margin-bottom:34px; }
+.kicker { font-size:.68rem; letter-spacing:.34em; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+.hero h1 { font-size:1.9rem; letter-spacing:.04em; color:var(--ink); font-weight:700; line-height:1.5; }
+.hero .sub { margin-top:14px; font-size:.92rem; color:var(--ink-2); letter-spacing:.04em; line-height:2; }
+.hero .sub b { color:var(--gold-l); font-weight:600; }
+
+/* 问卷 */
+.qcard {
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:22px 24px; margin-bottom:16px;
+  transition:border-color .2s;
+}
+.qcard:hover { border-color:var(--thin); }
+.qno {
+  font-size:.66rem; letter-spacing:.22em; color:var(--gold);
+  margin-bottom:8px;
+}
+.qtext { font-size:1.05rem; color:var(--ink); margin-bottom:16px; line-height:1.7; }
+.opts { display:flex; gap:10px; flex-wrap:wrap; }
+.opt {
+  flex:1 1 120px; cursor:pointer; user-select:none;
+  border:1px solid var(--line); border-radius:999px;
+  padding:9px 10px; text-align:center; font-size:.84rem; color:var(--ink-2);
+  transition:all .18s;
+}
+.opt:hover { border-color:var(--thin); color:var(--ink); }
+.opt input { position:absolute; opacity:0; pointer-events:none; }
+.opt.sel { background:var(--gold); color:#0b1017; border-color:var(--gold); font-weight:600; }
+
+/* 提交 */
+.submit-row { text-align:center; margin-top:28px; }
+.btn-go {
+  display:inline-block; cursor:pointer; border:none;
+  background:var(--gold); color:#0b1017; font-weight:700;
+  font-family:inherit; font-size:1rem; letter-spacing:.1em;
+  padding:14px 44px; border-radius:999px;
+  transition:background .2s, transform .2s;
+}
+.btn-go:hover { background:var(--gold-l); transform:translateY(-2px); }
+.btn-go:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+.hint { margin-top:10px; font-size:.76rem; color:var(--ink-2); letter-spacing:.05em; }
+
+/* 结果 */
+.result { display:none; margin-top:36px; }
+.result.show { display:block; }
+.res-head { text-align:center; margin-bottom:22px; }
+.res-kicker { font-size:.66rem; letter-spacing:.3em; color:var(--gold); margin-bottom:10px; }
+.res-head h2 { font-size:1.5rem; color:var(--ink); letter-spacing:.05em; }
+
+.res-card {
+  background:linear-gradient(160deg, var(--panel), var(--panel2));
+  border:1px solid var(--thin); border-radius:16px; padding:28px 30px;
+}
+.rc-tag { display:inline-block; font-size:.7rem; letter-spacing:.2em; color:var(--gold); border:1px solid var(--thin); border-radius:999px; padding:4px 14px; margin-bottom:14px; }
+.rc-name { font-size:1.35rem; color:var(--gold-l); font-weight:700; margin-bottom:10px; }
+.rc-diag { font-size:.98rem; color:var(--ink); line-height:1.95; margin-bottom:12px; }
+.rc-quote {
+  border-left:3px solid var(--gold); background:rgba(201,165,92,.07);
+  padding:12px 16px; margin-bottom:18px; font-size:.9rem; color:var(--gold-l); line-height:1.85; border-radius:0 10px 10px 0;
+}
+.rc-book, .rc-step { font-size:.9rem; color:var(--ink-2); line-height:1.9; margin-bottom:8px; }
+.rc-book b, .rc-step b { color:var(--ink); font-weight:600; }
+.rc-actions { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+.rc-btn, .rc-listen {
+  display:inline-block; padding:8px 20px; border-radius:999px; font-size:.84rem; letter-spacing:.06em; transition:all .2s;
+}
+.rc-btn { background:var(--gold); color:#0b1017; font-weight:700; }
+.rc-btn:hover { background:var(--gold-l); }
+.rc-listen { border:1px solid var(--thin); color:var(--gold); }
+.rc-listen:hover { background:rgba(201,165,92,.1); color:var(--gold-l); }
+
+/* 次画像 */
+.sub-type { margin-top:14px; text-align:center; font-size:.86rem; color:var(--ink-2); }
+.sub-type b { color:var(--gold); }
+
+.res-actions { text-align:center; margin-top:24px; }
+.btn-again {
+  cursor:pointer; border:1px solid var(--thin); background:transparent; color:var(--gold);
+  font-family:inherit; font-size:.88rem; letter-spacing:.1em;
+  padding:10px 28px; border-radius:999px; transition:all .2s;
+}
+.btn-again:hover { background:rgba(201,165,92,.1); color:var(--gold-l); }
+
+/* 免责/底色 */
+.note { margin-top:26px; font-size:.82rem; color:var(--ink-2); text-align:center; line-height:1.9; }
+.note b { color:var(--gold); }
+
+/* 底部入口 */
+.foot { margin-top:44px; text-align:center; }
+.foot .nudge { font-size:.84rem; color:var(--ink-2); letter-spacing:.08em; margin-bottom:14px; }
+.foot-links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.foot-links a {
+  padding:8px 22px; border:1px solid var(--thin); border-radius:999px;
+  font-size:.84rem; color:var(--gold); letter-spacing:.06em; transition:all .2s;
+}
+.foot-links a:hover { background:rgba(201,165,92,.1); color:var(--gold-l); }
+.foot-meta { margin-top:24px; font-size:.72rem; color:var(--ink-2); letter-spacing:.04em; }
+
+@media (max-width:640px) {
+  .hero h1 { font-size:1.5rem; }
+  .qcard { padding:18px; }
+  .res-card { padding:22px 20px; }
+  .opt { flex:1 1 100%; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="tb-back" href="/theory-map/">← 总理论地图</a>
+  <span class="tb-title">认知能量测试</span>
+  <span class="tb-spacer"></span>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="kicker">ENERGY CHECK · 3 分钟</p>
+    <h1>你的认知能量,<br>正在被什么消耗?</h1>
+    <p class="sub">15 个问题,约 3 分钟。不是考试,是一次<b>照见</b>——<br>看清你的能量去了哪里,再决定把第一步放在哪。</p>
+  </section>
+
+  <section id="quiz">
+
+    <div class="qcard">
+      <p class="qno">01 / 15</p>
+      <p class="qtext">我打开手机,常常忘了原本要干什么,一刷就是很久。</p>
+      <div class="opts" data-q="1">
+        <label class="opt"><input type="radio" name="q1" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q1" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q1" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q1" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">02 / 15</p>
+      <p class="qtext">我很容易被推送、通知、短视频打断,放下后很难回到正事。</p>
+      <div class="opts" data-q="2">
+        <label class="opt"><input type="radio" name="q2" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q2" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q2" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q2" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">03 / 15</p>
+      <p class="qtext">每天的大多数精力,都用在了应付生存必需上(工作、账单、家务),几乎没有余力。</p>
+      <div class="opts" data-q="3">
+        <label class="opt"><input type="radio" name="q3" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q3" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q3" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q3" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">04 / 15</p>
+      <p class="qtext">一想到钱和生存压力,我就很难安心想别的事。</p>
+      <div class="opts" data-q="4">
+        <label class="opt"><input type="radio" name="q4" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q4" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q4" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q4" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">05 / 15</p>
+      <p class="qtext">有些关系让我经常内耗,想离开却走不开。</p>
+      <div class="opts" data-q="5">
+        <label class="opt"><input type="radio" name="q5" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q5" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q5" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q5" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">06 / 15</p>
+      <p class="qtext">我很难拒绝别人,常常把别人的事背在自己身上。</p>
+      <div class="opts" data-q="6">
+        <label class="opt"><input type="radio" name="q6" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q6" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q6" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q6" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">07 / 15</p>
+      <p class="qtext">我总觉得心里空空的,却说不清到底缺什么。</p>
+      <div class="opts" data-q="7">
+        <label class="opt"><input type="radio" name="q7" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q7" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q7" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q7" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">08 / 15</p>
+      <p class="qtext">我按部就班地过着日子,但很少觉得"这是我想要的"。</p>
+      <div class="opts" data-q="8">
+        <label class="opt"><input type="radio" name="q8" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q8" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q8" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q8" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">09 / 15</p>
+      <p class="qtext">我收藏、保存了很多东西,真正消化运用的却很少。</p>
+      <div class="opts" data-q="9">
+        <label class="opt"><input type="radio" name="q9" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q9" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q9" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q9" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">10 / 15</p>
+      <p class="qtext">我总在追新信息(新闻、干货、工具),停下来却觉得什么都没留下。</p>
+      <div class="opts" data-q="10">
+        <label class="opt"><input type="radio" name="q10" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q10" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q10" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q10" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">11 / 15</p>
+      <p class="qtext">我知道该怎么做,但总是迈不出第一步。</p>
+      <div class="opts" data-q="11">
+        <label class="opt"><input type="radio" name="q11" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q11" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q11" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q11" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">12 / 15</p>
+      <p class="qtext">我有很多想法和计划,真正落到每天行动的很少。</p>
+      <div class="opts" data-q="12">
+        <label class="opt"><input type="radio" name="q12" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q12" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q12" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q12" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">13 / 15</p>
+      <p class="qtext">我很难坚持一个对自己好的习惯超过几天。</p>
+      <div class="opts" data-q="13">
+        <label class="opt"><input type="radio" name="q13" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q13" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q13" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q13" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">14 / 15</p>
+      <p class="qtext">我清楚自己真正想要什么,有自己的生活尺度。</p>
+      <div class="opts" data-q="14">
+        <label class="opt"><input type="radio" name="q14" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q14" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q14" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q14" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <p class="qno">15 / 15</p>
+      <p class="qtext">我每天有一部分时间,真正属于我自己,用来投入重要的事。</p>
+      <div class="opts" data-q="15">
+        <label class="opt"><input type="radio" name="q15" value="3"><span>几乎总是</span></label>
+        <label class="opt"><input type="radio" name="q15" value="2"><span>经常</span></label>
+        <label class="opt"><input type="radio" name="q15" value="1"><span>有时</span></label>
+        <label class="opt"><input type="radio" name="q15" value="0"><span>很少</span></label>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button class="btn-go" id="btnGo" disabled onclick="calc()">看看我的能量去哪了</button>
+      <p class="hint">全部答完,才算一次完整的照见</p>
+    </div>
+  </section>
+
+  <section class="result" id="result">
+    <div class="res-head">
+      <p class="res-kicker">YOUR ENERGY CHECK</p>
+      <h2>你的能量,主要消耗在这里</h2>
+    </div>
+    <div class="res-card" id="resMain"></div>
+    <p class="sub-type" id="resSub"></p>
+    <div class="res-actions">
+      <button class="btn-again" onclick="resetAll()">再测一次</button>
+    </div>
+    <p class="note">这不是判决,是一次<b>照见</b>——<br>「这真的不是矫情,是时代给整整一代人的考题。」<br>看见消耗在哪,第一步就有了方向。</p>
+  </section>
+
+  <section class="foot">
+    <p class="nudge">沿着这条路继续走</p>
+    <div class="foot-links">
+      <a href="/theory-map/">总理论地图</a>
+      <a href="/audiobook/">三本有声书</a>
+    </div>
+    <p class="foot-meta">世界一隅 · worldcorner.xyz —— 在算法洪流中,守护清醒的微光。</p>
+  </section>
+
+</main>
+
+<script>
+/* 画像数据:名字、诊断、金句、对应书、第一步、读/听入口 */
+var TYPES = {
+  leak: {
+    tag: "注意力泄漏型", name: "你的认知能量,正被碎片化消费",
+    diag: "不是你没有自控力——是有人设计了几十亿人的注意力,而你在正面迎战。身体没坏,是思想在饿:刷视频像喝盐水,越喝越渴。",
+    quote: "「你刷两个小时,是喝盐水;认真读十分钟,才是吃饭。」——《文明的阶梯》",
+    book: "对应《文明的阶梯》第二篇「人不止一层饿」",
+    step: "第一步不是学更多,是减少泄漏:每天定一个无通知的时段,喂思想一餐。",
+    url: "/read/civilization/", audio: "#book-wenming", bname: "文明的阶梯"
+  },
+  stress: {
+    tag: "生存压力型", name: "你的能量,大多被生存占满",
+    diag: "这不是你懒——是生存还在时刻抓着你。一个还饿着肚子的人,很难有余力去想意义。先立住现实,才有资格谈别的。",
+    quote: "「先有现金流的自由,才有选择的自由。」——《内心的修炼》",
+    book: "对应《内心的修炼》第八篇「明经济」、第九篇「立财基」",
+    step: "第一步是立一个小财基:算清每月现金流,让生存从「时刻抓你」变成「站在你身后」。",
+    url: "/read/neixin/", audio: "#book-neixin", bname: "内心的修炼"
+  },
+  relation: {
+    tag: "关系消耗型", name: "你的能量,正在被关系悄悄抽走",
+    diag: "你太重情,也把自己背得太重。关系本该是能量的来源,却成了最大的消耗——不是你不该投入,是你还没学会分清滋养与消耗。",
+    quote: "「好人缘不是讨好,是成为值得信任的人。」——《内心的修炼》",
+    book: "对应《内心的修炼》第六篇「结善缘」",
+    step: "第一步:把关系分成两类——滋养的、消耗的;练习一次把别人的事,轻轻还给他们。",
+    url: "/read/neixin/", audio: "#book-neixin", bname: "内心的修炼"
+  },
+  meaning: {
+    tag: "意义缺失型", name: "你的能量还在,是方向在缺",
+    diag: "你不是矫情,是真的空——旧的地图用不了了,你被迫成为自己的哥伦布。空不是坏消息,它意味着你已经在找那条还没被写下的路。",
+    quote: "「这真的不是矫情。这是时代,给整整一代人出的考题。」——《幸福的内在》",
+    book: "对应《幸福的内在》卷一「历史夹缝」「我们的哥伦布」",
+    step: "第一步:先承认空,再找一件微小创造——每天做一点点真正属于你的事,哪怕很小。",
+    url: "/read/happiness/", audio: "#book-xingfu", bname: "幸福的内在"
+  },
+  info: {
+    tag: "信息过载型", name: "你的输入太多,消化太少",
+    diag: "你收藏了一整座图书馆,却没真正吃过一餐。信息不是营养,被消化的才算。追得越勤,停得越空——是时候给信息做减法了。",
+    quote: "「思想,是要被说出来的;幸福,是要与人分享的。」——《幸福的内在》",
+    book: "对应《幸福的内在》17「与自然对话·中」",
+    step: "第一步:一顿「正餐」代替十次「零食」——把收藏夹里最想读的一件,真正读完并说给别人听。",
+    url: "/read/happiness/", audio: "#book-xingfu", bname: "幸福的内在"
+  },
+  action: {
+    tag: "行动断裂型", name: "你的能量,卡在「知」和「行」之间",
+    diag: "你想得很远,脚下却没动。知而不行,只是未知——道理不是用来懂的,是用来上手的。你的能量不缺,缺的是一个每天重复的小动作。",
+    quote: "「最高级的修行,不在深山,在事上。」——《内心的修炼》",
+    book: "对应《内心的修炼》第三篇「炼心术」、《文明的阶梯》第五篇「每日必修」",
+    step: "第一步:从明天四件事开始——晨起喂身体,定刻喂思想,随时觉察心,夜来传灯。",
+    url: "/read/neixin/", audio: "#book-neixin", bname: "内心的修炼"
+  },
+  stable: {
+    tag: "能量尚稳型", name: "你的能量流向,大体是稳的",
+    diag: "说明你已经有一副自己的尺子,没有被时代的洪流冲散。稳,不是停在原地——是把多出来的能量,投给更重要的地方。",
+    quote: "「一灯照己,万灯照海。我们,台阶上见。」——《文明的阶梯》跋",
+    book: "对应:三本书,一条完整的路",
+    step: "第一步:把多出来的能量,投给一件你一直想做、却一直没开始的事。",
+    url: "/read/civilization/", audio: "#book-wenming", bname: "文明的阶梯"
+  }
+};
+
+/* 维度 → 题号映射 */
+var DIMS = {
+  leak:     ["q1", "q2", "q15"],   // q15 反向
+  stress:   ["q3", "q4"],
+  relation: ["q5", "q6"],
+  meaning:  ["q7", "q8", "q14"],   // q14 反向
+  info:     ["q9", "q10"],
+  action:   ["q11", "q12", "q13"]
+};
+var REV = { q14: true, q15: true };
+
+function getV(name) {
+  var els = document.getElementsByName(name);
+  for (var i = 0; i < els.length; i++) {
+    if (els[i].checked) return parseInt(els[i].value, 10);
+  }
+  return null;
+}
+
+function calc() {
+  var scores = {};
+  var done = 0;
+  for (var d in DIMS) {
+    var sum = 0, n = DIMS[d].length;
+    var all = true;
+    for (var j = 0; j < n; j++) {
+      var v = getV(DIMS[d][j]);
+      if (v === null) { all = false; break; }
+      if (REV[DIMS[d][j]]) v = 3 - v;
+      sum += v;
+    }
+    if (all) { scores[d] = sum / n; done++; }
+  }
+  if (done < 6) return;  // 未全部完成,不应触发(按钮已禁)
+
+  /* 排序取主/次 */
+  var order = Object.keys(scores).sort(function(a, b) { return scores[b] - scores[a]; });
+  var primary = order[0];
+
+  /* 全局偏低 → 能量尚稳 */
+  if (scores[primary] < 1.0) primary = "stable";
+  var secondary = null;
+  for (var i = 0; i < order.length; i++) {
+    if (order[i] !== primary) { secondary = order[i]; break; }
+  }
+
+  var t = TYPES[primary];
+  var html = "";
+  html += '<span class="rc-tag">' + t.tag + '</span>';
+  html += '<p class="rc-name">' + t.name + '</p>';
+  html += '<p class="rc-diag">' + t.diag + '</p>';
+  html += '<p class="rc-quote">' + t.quote + '</p>';
+  html += '<p class="rc-book"><b>读这一本</b> · ' + t.book + '</p>';
+  html += '<p class="rc-step"><b>第一步</b> · ' + t.step + '</p>';
+  html += '<div class="rc-actions">';
+  html += '<a class="rc-btn" href="' + t.url + '">读《' + t.bname + '》 →</a>';
+  html += '<a class="rc-listen" href="/audiobook/' + t.audio + '">去听书 →</a>';
+  html += '</div>';
+  document.getElementById("resMain").innerHTML = html;
+
+  if (primary !== "stable" && secondary) {
+    var s = TYPES[secondary];
+    document.getElementById("resSub").innerHTML =
+      '次要去向:<b>' + s.tag + '</b> —— 可在对应篇目顺带补一补。';
+  } else {
+    document.getElementById("resSub").innerHTML = '';
+  }
+
+  var res = document.getElementById("result");
+  res.classList.add("show");
+  res.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function resetAll() {
+  var res = document.getElementById("result");
+  res.classList.remove("show");
+  var radios = document.querySelectorAll('input[type="radio"]');
+  for (var i = 0; i < radios.length; i++) radios[i].checked = false;
+  var opts = document.querySelectorAll(".opt");
+  for (var j = 0; j < opts.length; j++) opts[j].classList.remove("sel");
+  document.getElementById("btnGo").disabled = true;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* 选项选中样式 + 全部答完解锁提交 */
+(function() {
+  var btn = document.getElementById("btnGo");
+  var opts = document.querySelectorAll(".opt");
+  var qcount = 15;
+
+  function refresh() {
+    for (var i = 0; i < opts.length; i++) {
+      var inp = opts[i].querySelector("input");
+      if (inp && inp.checked) opts[i].classList.add("sel");
+      else if (opts[i]) opts[i].classList.remove("sel");
+    }
+    var all = true;
+    for (var q = 1; q <= qcount; q++) {
+      var els = document.getElementsByName("q" + q);
+      var any = false;
+      for (var j = 0; j < els.length; j++) if (els[j].checked) any = true;
+      if (!any) { all = false; break; }
+    }
+    btn.disabled = !all;
+  }
+
+  for (var i = 0; i < opts.length; i++) {
+    opts[i].addEventListener("click", function() {
+      var inp = this.querySelector("input");
+      if (inp) inp.checked = true;
+      refresh();
+    });
+  }
+})();
+</script>
+</body>
+</html>
