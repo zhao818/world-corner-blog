@@ -283,3 +283,52 @@
     margin-left: 0;
   }
 }
+
+/* --- 延伸阅读(三书互荐,在每本书卡片内) --- */
+.book-next {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid rgba(200, 160, 60, 0.4);
+  border-radius: 12px;
+  background: rgba(200, 160, 60, 0.05);
+}
+.bn-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brand-gold-light);
+  margin-bottom: 8px;
+}
+.bn-guide { font-size: 0.84rem; color: var(--secondary); line-height: 1.7; margin-bottom: 14px; }
+.bn-card {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: rgba(200, 160, 60, 0.03);
+  border-radius: 10px;
+  border-left: 3px solid var(--brand-gold);
+}
+.bn-pos { font-size: 0.66rem; letter-spacing: 0.14em; color: var(--brand-gold); }
+.bn-name { font-size: 1.02rem; color: var(--primary); letter-spacing: 0.04em; }
+.bn-actions { margin-left: auto; display: flex; gap: 8px; }
+.bn-btn, .bn-listen {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+}
+.bn-btn { background: var(--brand-gold); color: #17130a; font-weight: 700; }
+.bn-btn:hover { background: var(--brand-gold-light); }
+.bn-listen { border: 1px solid rgba(200, 160, 60, 0.5); color: var(--brand-gold); }
+.bn-listen:hover { background: rgba(200, 160, 60, 0.1); color: var(--brand-gold-light); }
+.bn-order { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.bn-order p { font-size: 0.8rem; color: var(--secondary); margin: 4px 0; }
+@media (max-width: 640px) {
+  .bn-actions { margin-left: 0; width: 100%; }
+}

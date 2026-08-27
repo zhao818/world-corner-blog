@@ -177,6 +177,24 @@
         </div>
       </details>
       {{- end }}
+
+      {{- with .extension }}
+      <div class="book-next">
+        <p class="bn-title">{{ .title }}</p>
+        <p class="bn-guide">{{ .guide }}</p>
+        {{ range .items }}
+        <div class="bn-card">
+          <span class="bn-pos">{{ .pos }}</span>
+          <strong class="bn-name">{{ .name }}</strong>
+          <div class="bn-actions">
+            <a class="bn-btn" href="{{ .url }}">{{ .btn }} →</a>
+            <a class="bn-listen" href="/audiobook/#{{ .audio }}">去听书 →</a>
+          </div>
+        </div>
+        {{ end }}
+        <div class="bn-order">{{ range .order }}<p>{{ . }}</p>{{ end }}</div>
+      </div>
+      {{- end }}
     </div>
   </section>
   {{- end }}

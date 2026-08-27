@@ -103,6 +103,12 @@ books:
     - {t: 6651.2, name: "29-成为自己", len: "05:17"}
     - {t: 6968.6, name: "30-两种悲痛", len: "04:03"}
     - {t: 7211.6, name: "31-升维", len: "04:43"}
+    extension:
+      title: "读完这一本,接下来读什么?"
+      guide: '《幸福的内在》让我们看见了「人为什么空」。接下来这道题——怎么站上去?'
+      items:
+        - {name: "内心的修炼", pos: "修行操作书", url: "/read/neixin/", audio: "book-neixin", btn: "接着读"}
+      order: ["《幸福的内在》·已读·看到问题", "《内心的修炼》→ 接下来·学方法", "《文明的阶梯》→ 最后·看清方向"]
   - id: neixin
     title: 内心的修炼
     tracks: "11 篇"
@@ -144,6 +150,12 @@ books:
     - {t: 0, name: "09-第八篇 明经济", len: "35:15", src: "/audio/neixin/09.mp3"}
     - {t: 0, name: "10-第九篇 立财基", len: "35:25", src: "/audio/neixin/10.mp3"}
     - {t: 0, name: "11-完结篇", len: "02:10", src: "/audio/neixin/11.mp3"}
+    extension:
+      title: "学会了方法,接下来往哪走?"
+      guide: '《内心的修炼》把可上手的方法递到了你手上。但你可能还在问:我们到底要往哪儿去?'
+      items:
+        - {name: "文明的阶梯", pos: "总纲", url: "/read/civilization/", audio: "book-wenming", btn: "接着读"}
+      order: ["《幸福的内在》·已读·看到问题", "《内心的修炼》·已读·学会方法", "《文明的阶梯》→ 接下来·看清方向"]
   - id: wenming
     title: 文明的阶梯
     tracks: "7 篇"
@@ -175,3 +187,10 @@ books:
     - {t: 1605.5, name: "05-第四篇 灯塔", len: "07:13"}
     - {t: 2039.1, name: "06-第五篇 每日必修与总纲", len: "03:24"}
     - {t: 2244.4, name: "07-跋", len: "01:50"}
+    extension:
+      title: "看清了方向,回到起点重新出发"
+      guide: '带着这张地图重读前两本,你会看到不一样的断面——不是迷茫,而是文明阶梯上的一道道印。'
+      items:
+        - {name: "幸福的内在", pos: "现象诊断书", url: "/read/happiness/", audio: "book-xingfu", btn: "重读"}
+        - {name: "内心的修炼", pos: "修行操作书", url: "/read/neixin/", audio: "book-neixin", btn: "重读"}
+      order: ["《文明的阶梯》·已读·看清方向", "《幸福的内在》→ 重读·看现象", "《内心的修炼》→ 重读·去行动"]
