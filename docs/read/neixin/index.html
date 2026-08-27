@@ -120,6 +120,32 @@ body[data-font="xl"] { font-size: 21px; }
   .wrap { padding: 96px 18px 100px; }
   .tb-title { max-width: 130px; }
 }
+
+/* 延伸阅读(三书互链) */
+.ext { margin-top: 72px; padding-top: 44px; border-top: 1px dashed var(--border); }
+.ext-title { font-size: 1.12rem; color: var(--gold); letter-spacing: .1em; margin-bottom: 14px; }
+.ext-guide { color: var(--ink-2); line-height: 1.9; margin-bottom: 26px; }
+.ext-card {
+  background: var(--panel); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0;
+  padding: 20px 22px; margin-bottom: 16px;
+}
+.ext-pos { font-size: .72rem; letter-spacing: .16em; color: var(--gold); }
+.ext-name { font-size: 1.16rem; color: var(--ink); margin: 6px 0 10px; letter-spacing: .04em; }
+.ext-core { color: var(--ink-2); line-height: 1.9; }
+.ext-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.ext-btn, .ext-listen {
+  display: inline-block; padding: 7px 18px; border-radius: 999px;
+  font-size: .8rem; text-decoration: none; letter-spacing: .08em; transition: all .2s;
+}
+.ext-btn { background: var(--gold); color: #0b1017; font-weight: 600; }
+.ext-btn:hover { background: var(--gold-l); }
+.ext-listen { border: 1px solid var(--thin); color: var(--gold); background: transparent; }
+.ext-listen:hover { background: rgba(201,165,92,.1); }
+.ext-order { margin-top: 28px; padding-top: 20px; border-top: 1px dashed var(--border); }
+.ext-order-title { font-size: .7rem; letter-spacing: .2em; color: var(--ink-2); margin-bottom: 12px; text-transform: uppercase; }
+.ext-order p { font-size: .88rem; color: var(--ink-2); margin: 6px 0; }
+.ext-order .done::before { content: "✓ "; color: var(--gold); }
+.ext-order .next::before { content: "→ "; color: var(--gold); }
 </style>
 </head>
 <body data-theme="night" data-font="m">
@@ -3624,7 +3650,7 @@ English :<br />
 - 那些曾经"以为只能这样"的关系，现在有了新的可能。</p>
 <p>书里的修炼，最终要回到关系里去验证。你不再是那个"等待被理解"的人，而是"愿意先给出理解"的人——这才是九篇修炼的终极闭环。</p>
 <p><strong>去吧，带着书里的自己，回到小程序里，重新认识一次你的配对好友。</strong></p>
-<p>——「灵魂之觅」×《内心的修炼》，四层闭环，到此圆满。</p></section>
+<p>——「灵魂之觅」×《内心的修炼》，四层闭环，到此圆满。</p></section><section class="ext"><h3 class="ext-title">学会了方法,接下来往哪走?</h3><p class="ext-guide">《内心的修炼》把可上手的方法递到了你手上。但你可能还在问:我们到底在做什么、要往哪儿去?</p><div class="ext-card"><p class="ext-pos">总纲 · 从「喂饱」讲起的文明观</p><h4 class="ext-name">文明的阶梯</h4><p class="ext-core">文明的每一次跃迁,都是一场「喂饱」的革命——先喂饱身体,再喂饱思想;而一群人亮起来,才是文明真正站上的那一级阶梯。</p><div class="ext-row"><a class="ext-btn" href="/read/civilization/">接着读 →</a><a class="ext-listen" href="/audiobook/#book-wenming">去听书 →</a></div></div><div class="ext-order"><p class="ext-order-title">三本书 · 阅读顺序</p><p class="done">《幸福的内在》 · 已读 · 看到问题</p><p class="done">《内心的修炼》 · 已读 · 学会方法</p><p class="next">《文明的阶梯》 → 接下来:看清方向</p></div></section>
   <div class="footer">
     <p>读到这里,故事就讲完了。也欢迎回去听有声书——</p>
     <a class="back" href="/audiobook/#book-neixin">回到听书页继续听 →</a>
