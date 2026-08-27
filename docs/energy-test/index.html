@@ -110,6 +110,19 @@ a { color:var(--gold); text-decoration:none; }
 .sub-type { margin-top:14px; text-align:center; font-size:.86rem; color:var(--ink-2); }
 .sub-type b { color:var(--gold); }
 
+/* 30天入口 */
+.p30 {
+  margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+  background:var(--panel2); border:1px dashed var(--thin); border-radius:12px; padding:16px 20px;
+}
+.p30 .p30-txt b { color:var(--gold-l); font-size:.98rem; display:block; letter-spacing:.05em; }
+.p30 .p30-txt span { font-size:.8rem; color:var(--ink-2); line-height:1.7; }
+.p30 a {
+  flex:0 0 auto; padding:9px 22px; border-radius:999px; font-size:.85rem; font-weight:700; letter-spacing:.08em;
+  background:var(--gold); color:#0b1017; transition:background .2s, transform .2s;
+}
+.p30 a:hover { background:var(--gold-l); transform:translateY(-2px); }
+
 .res-actions { text-align:center; margin-top:24px; }
 .btn-again {
   cursor:pointer; border:1px solid var(--thin); background:transparent; color:var(--gold);
@@ -337,6 +350,13 @@ a { color:var(--gold); text-decoration:none; }
     </div>
     <div class="res-card" id="resMain"></div>
     <p class="sub-type" id="resSub"></p>
+    <div class="p30">
+      <div class="p30-txt">
+        <b>按这张画像,开始你的 30 天</b>
+        <span>每天读一小段,做一个动作。第 30 天,回来照见变化。</span>
+      </div>
+      <a href="/practice30/">开始 30 天实践 →</a>
+    </div>
     <div class="res-actions">
       <button class="btn-again" onclick="resetAll()">再测一次</button>
     </div>

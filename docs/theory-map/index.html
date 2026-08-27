@@ -122,10 +122,14 @@ a { color:var(--gold); text-decoration:none; }
 .trio .bk { font-size:.98rem; color:var(--ink); font-weight:600; letter-spacing:.04em; }
 .trio .role { font-size:.68rem; letter-spacing:.14em; color:var(--gold); }
 
-/* 测试入口 */
+/* 测试入口 + 30天入口 */
+.entry-row {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  margin:-6px 0 30px;
+}
 .test-entry {
   display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
-  margin:-6px 0 30px; padding:16px 22px;
+  padding:16px 22px;
   border:1px solid var(--thin); border-radius:12px;
   background:linear-gradient(160deg, rgba(201,165,92,.12), rgba(201,165,92,.03));
   transition:all .2s;
@@ -139,6 +143,7 @@ a { color:var(--gold); text-decoration:none; }
 
 @media (max-width:720px) {
   .edges { grid-template-columns:1fr; }
+  .entry-row { grid-template-columns:1fr; }
   .masthead h1 { font-size:1.6rem; }
   .wrap { padding:44px 16px 70px; }
   .step { gap:14px; }
@@ -171,10 +176,16 @@ a { color:var(--gold); text-decoration:none; }
     <span class="from">—— 整个体系的统摄概念</span>
   </section>
 
-  <a class="test-entry" href="/energy-test/">
-    <span class="te-tag">试试它</span>
-    <span class="te-txt">测一测你的认知能量,正在被什么消耗 →</span>
-  </a>
+  <div class="entry-row">
+    <a class="test-entry" href="/energy-test/">
+      <span class="te-tag">试试它</span>
+      <span class="te-txt">测一测你的认知能量 →</span>
+    </a>
+    <a class="test-entry" href="/practice30/">
+      <span class="te-tag">上路</span>
+      <span class="te-txt">30 天实践 · 一条路 →</span>
+    </a>
+  </div>
 
   <section class="ladder">
     <div class="step">
