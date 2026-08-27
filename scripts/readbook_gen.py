@@ -64,7 +64,7 @@ BOOKS = [
         "id": "civilization",
         "file": "文明的阶梯-灵魂之觅版.md",
         "title": "文明的阶梯",
-        "subtitle": "序言 + 五篇论证 + 每日必修 + 跋",
+        "subtitle": "序言 + 五篇论证 + 每日必修 + 跋 + 续篇",
         "listen_href": "/audiobook/#book-wenming",
         "mode": "flat",
         "rec": {
