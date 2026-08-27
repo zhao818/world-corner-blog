@@ -284,6 +284,25 @@
   }
 }
 
+/* 三书总理论地图入口 */
+.hero-map {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 20px;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+  border-radius: 999px;
+  color: var(--brand-gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.hero-map:hover {
+  background: rgba(200, 160, 60, 0.1);
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-light);
+}
+
 /* --- 延伸阅读(三书互荐,在每本书卡片内) --- */
 .book-next {
   margin-top: 22px;
