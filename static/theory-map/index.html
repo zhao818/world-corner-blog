@@ -89,6 +89,7 @@ a { color:var(--gold); text-decoration:none; }
 
 /* 两条边:模型声明 + 自由边界(默认收起,点击展开,保持界面紧凑) */
 .edges { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:6px 0 40px; }
+.edge-wide { grid-column:1 / -1; }
 .edge { background:var(--panel2); border-radius:12px; border:1px solid var(--line); overflow:hidden; }
 .edge summary {
   list-style:none; cursor:pointer; user-select:none;
@@ -250,6 +251,16 @@ a { color:var(--gold); text-decoration:none; }
       </summary>
       <div class="edge-body">
         <p>一个人知道自己的需求,不等于能满足——<b>受现实制约</b>:经济、规则、财富、技术、社会结构。它通向《内心的修炼》后半:明规则 → 明经济 → 立财基;也让「认知能量工程」在个人成长与真实土壤之间<b>真正闭环</b>。</p>
+      </div>
+    </details>
+    <details class="edge edge-wide">
+      <summary>
+        <span class="edge-tag">文明的双刃剑 · 死结</span>
+        <span class="edge-h">战争不是文明的结果,是思想没跟上文明的结果</span>
+        <span class="edge-arrow">▸</span>
+      </summary>
+      <div class="edge-body">
+        <p>文明是一把双刃剑:战争不文明的时代也有,文明放大的是<b>伤害的规模</b>。真正危险的信号,是<b>科技跑在了思想前面</b>——身体还活在旧脚本,科技却冲进了新纪元。战争由此而起:人手里握着新工具,心里还装着旧思想。所以「文明在进步,战争却不断发生」的死结,不在「进步」,在<b>思想滞后</b>。我们做的,不是宣称解决它,是<b>把思想补到科技前面</b>——给这个死结一个聚焦点。</p>
       </div>
     </details>
   </section>
