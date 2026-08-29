@@ -85,6 +85,17 @@ body[data-font="xl"] { font-size: 21px; }
 .scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .scrim.open { opacity: 1; pointer-events: auto; }
 
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
+
 /* 阅读区 */
 .wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
 .chapter {
@@ -177,7 +188,16 @@ body[data-font="xl"] { font-size: 21px; }
 <div class="scrim" id="scrim"></div>
 
 <main class="wrap">
-<section class="chapter" id="c00"><p class="ch-tag">序</p><h2>序言 我们为什么要爬一座看不见的阶梯</h2><p>先做一个小实验。放下手机,不看屏幕,就这样坐着,什么都不干,五分钟。</p>
+<nav class="inline-toc" aria-label="章节目录"><h3 class="inline-toc-title">章节目录</h3><div class="inline-toc-list">
+<div class="dw-item toc-link" data-t="c00"><span class="dw-no">·</span><span>序言 我们为什么要爬一座看不见的阶梯</span></div>
+<div class="dw-item toc-link" data-t="c01"><span class="dw-no">1</span><span>第一篇 喂饱,文明的第一级阶梯</span></div>
+<div class="dw-item toc-link" data-t="c02"><span class="dw-no">2</span><span>第二篇 人不止一层饿</span></div>
+<div class="dw-item toc-link" data-t="c03"><span class="dw-no">3</span><span>第三篇 幸福就是升级</span></div>
+<div class="dw-item toc-link" data-t="c04"><span class="dw-no">4</span><span>第四篇 灯塔,我们唯一能做的事</span></div>
+<div class="dw-item toc-link" data-t="c05"><span class="dw-no">5</span><span>第五篇 每日必修与总纲</span></div>
+<div class="dw-item toc-link" data-t="c06"><span class="dw-no">·</span><span>跋 一群人亮起来</span></div>
+<div class="dw-item toc-link" data-t="c07"><span class="dw-no">·</span><span>续篇 心里那片地,不种庄稼,就会长野草</span></div>
+</div></nav><section class="chapter" id="c00"><p class="ch-tag">序</p><h2>序言 我们为什么要爬一座看不见的阶梯</h2><p>先做一个小实验。放下手机,不看屏幕,就这样坐着,什么都不干,五分钟。</p>
 <p>现在,试着把手伸向屏幕。大多数人——包括过去的我——会在这个实验里输。不是输给意志力,是输给一种说不清的难受:刚安静下来,心里就涌起一阵烦躁,像有一只手,非要把你重新按回屏幕里。</p>
 <p>你有过这样的晚上吗?本来只想刷十分钟,等再抬头,两小时过去了。屏幕还亮着,人却空了。你记不清刚才看了什么,只觉得脑子和身体都是钝的。你明明很累,却停不下来;你明明什么都有,却总觉得自己还缺点什么。</p>
 <p>这不是矫情。这是一个时代,几乎所有人都在过的日子。</p>
