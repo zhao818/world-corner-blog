@@ -87,7 +87,7 @@ BOOKS = [
         "listen_href": "/audiobook/#book-xiangjian",
         "mode": "flat",
         "rec": {
-            "title": "看完了器,回到人重新出发",
+            "title": "看完了田,回到人重新出发",
             "guide": "前三本立起了「人」——看清方向、看见问题、学会方法。《走向田间》接着问:技术时代,该把力量引向哪?带着这面镜子重读前三本,你会看到同一片土地上的不同断面。",
             "items": [
                 {"bid": "civilization", "name": "文明的阶梯", "pos": "总纲 · 读了它才看得清方向",
@@ -97,7 +97,7 @@ BOOKS = [
                 {"bid": "neixin", "name": "内心的修炼", "pos": "修行操作书 · 读了它才动得了手",
                  "core": "把目光从手机上移开、把心里那片地重新种起来,需要一架天天可爬的梯子。", "btn": "重读", "anchor": "neixin"},
             ],
-            "order": ["《走向田间》 · 已读 · 转向土地", "《文明的阶梯》 → 重读:看总纲", "《幸福的内在》 → 重读:看现象", "《内心的修炼》 → 重读:去行动"],
+            "order": ["《走向田间》 · 读完 · 转向土地", "《文明的阶梯》 → 重读:看总纲", "《幸福的内在》 → 重读:看现象", "《内心的修炼》 → 重读:去行动"],
         },
     },
 ]
@@ -181,6 +181,17 @@ body[data-font="xl"] { font-size: 21px; }
 .dw-no { font-family: "Segoe UI", "Roboto Mono", monospace; font-size: .7rem; color: var(--gold); min-width: 34px; text-align: right; }
 .scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .scrim.open { opacity: 1; pointer-events: auto; }
+
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
 
 /* 阅读区 */
 .wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
@@ -431,6 +442,27 @@ def build_toc_html(toc):
     return "\n".join(parts)
 
 
+def build_inline_toc(toc):
+    """正文前的可见章目录:胶囊横排,点击平滑滚动到章。
+    复用 .dw-item 结构,JS 的目录点击与当前章高亮自动对其生效。
+    章数过多(如 31 章的幸福内在)由调用方决定是否生成。"""
+    parts = ['<nav class="inline-toc" aria-label="章节目录"><h3 class="inline-toc-title">章节目录</h3><div class="inline-toc-list">']
+    in_group = False
+    for it in toc:
+        if it["tag"] == "卷":
+            if in_group:
+                parts.append("</div></div>")
+            in_group = True
+            parts.append('<div class="inline-vol">%s<div class="inline-vol-c">' % it["title"])
+            continue
+        parts.append('<div class="dw-item toc-link" data-t="%s"><span class="dw-no">%s</span><span>%s</span></div>'
+                     % (it["id"], it["no"] or "·", it["title"]))
+    if in_group:
+        parts.append("</div></div>")
+    parts.append("</div></nav>")
+    return "\n".join(parts)
+
+
 def build_page(book, content_html, toc_html):
     return """<!DOCTYPE html>
 <html lang="zh">
@@ -481,7 +513,7 @@ def build_page(book, content_html, toc_html):
 def render_extension(rec):
     """延伸阅读区块:读完这本书,引导去读/重读另外两本(三书互链成闭环)"""
     order = "".join(
-        '<p class="done">%s</p>' % o if "已读" in o else '<p class="next">%s</p>' % o
+        '<p class="done">%s</p>' % o if ("已读" in o or "读完" in o) else '<p class="next">%s</p>' % o
         for o in rec["order"]
     )
     cards = []
@@ -497,12 +529,13 @@ def render_extension(rec):
             "</div></div>" % (it["pos"], it["name"], it["core"],
                               it["bid"], it["btn"], it.get("anchor", it["bid"]))
         )
+    n_str = "四本书" if len(rec["order"]) > 3 else "三本书"
     return ('<section class="ext">'
             '<h3 class="ext-title">%s</h3>'
             '<p class="ext-guide">%s</p>'
             "%s"
-            '<div class="ext-order"><p class="ext-order-title">三本书 · 阅读顺序</p>%s</div>'
-            "</section>" % (rec["title"], rec["guide"], "".join(cards), order))
+            '<div class="ext-order"><p class="ext-order-title">%s · 阅读顺序</p>%s</div>'
+            "</section>" % (rec["title"], rec["guide"], "".join(cards), n_str, order))
 
 
 def main():
@@ -514,7 +547,9 @@ def main():
         if book.get("rec"):
             content_html += render_extension(book["rec"])
         toc_html = build_toc_html(toc)
-        page = build_page(book, content_html, toc_html)
+        # 章数不多时正文前放可见目录;超过 16 章(幸福内在)保持抽屉
+        inline_toc = build_inline_toc(toc) if len(toc) <= 16 else ""
+        page = build_page(book, inline_toc + content_html, toc_html)
         out_dir = os.path.join(OUT_ROOT, book["id"])
         os.makedirs(out_dir, exist_ok=True)
         out = os.path.join(out_dir, "index.html")

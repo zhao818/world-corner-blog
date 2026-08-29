@@ -85,6 +85,17 @@ body[data-font="xl"] { font-size: 21px; }
 .scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .scrim.open { opacity: 1; pointer-events: auto; }
 
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
+
 /* 阅读区 */
 .wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
 .chapter {

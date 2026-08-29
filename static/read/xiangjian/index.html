@@ -85,6 +85,17 @@ body[data-font="xl"] { font-size: 21px; }
 .scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .scrim.open { opacity: 1; pointer-events: auto; }
 
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
+
 /* 阅读区 */
 .wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
 .chapter {
@@ -183,7 +194,22 @@ body[data-font="xl"] { font-size: 21px; }
 <div class="scrim" id="scrim"></div>
 
 <main class="wrap">
-<section class="chapter" id="c00"><p class="ch-tag">篇</p><h2>开卷的话</h2><blockquote>
+<nav class="inline-toc" aria-label="章节目录"><h3 class="inline-toc-title">章节目录</h3><div class="inline-toc-list">
+<div class="dw-item toc-link" data-t="c00"><span class="dw-no">·</span><span>开卷的话</span></div>
+<div class="dw-item toc-link" data-t="c01"><span class="dw-no">·</span><span>序言 · 我们为什么爱上了"烂"</span></div>
+<div class="dw-item toc-link" data-t="c02"><span class="dw-no">·</span><span>壹 · 二律背反：每个时代的光明都有代价</span></div>
+<div class="dw-item toc-link" data-t="c03"><span class="dw-no">·</span><span>贰 · 从土地到城市：五幕的衰败弧</span></div>
+<div class="dw-item toc-link" data-t="c04"><span class="dw-no">·</span><span>叁 · 丰盈的年代：英雄、爱情与梦想</span></div>
+<div class="dw-item toc-link" data-t="c05"><span class="dw-no">·</span><span>肆 · 离开土地：空心与虚无</span></div>
+<div class="dw-item toc-link" data-t="c06"><span class="dw-no">·</span><span>伍 · 房子成土地：权力意志的强撑</span></div>
+<div class="dw-item toc-link" data-t="c07"><span class="dw-no">·</span><span>陆 · 全荒：慈善崩塌于见证，相声崩塌于笑声</span></div>
+<div class="dw-item toc-link" data-t="c08"><span class="dw-no">·</span><span>柒 · 不安全感：内心的疾病与战争的种子</span></div>
+<div class="dw-item toc-link" data-t="c09"><span class="dw-no">·</span><span>捌 · 扬弃：取好、定边界、定方向</span></div>
+<div class="dw-item toc-link" data-t="c10"><span class="dw-no">·</span><span>玖 · 判断的尺子：去乡村看看</span></div>
+<div class="dw-item toc-link" data-t="c11"><span class="dw-no">·</span><span>拾 · 好问题，活着的学问</span></div>
+<div class="dw-item toc-link" data-t="c12"><span class="dw-no">·</span><span>拾壹 · 科技服务农业：回到原点</span></div>
+<div class="dw-item toc-link" data-t="c13"><span class="dw-no">·</span><span>跋 · 把牛放进田里</span></div>
+</div></nav><section class="chapter" id="c00"><p class="ch-tag">篇</p><h2>开卷的话</h2><blockquote>
 <p>灵魂之觅内容体系第四本 · 从金钱权力，转向真正的土地</p>
 </blockquote>
 <hr />
@@ -622,7 +648,7 @@ body[data-font="xl"] { font-size: 21px; }
 <p>这就是我们这一代人的事。它不需要谁伟大，它只需要足够多的人，把目光放对地方。</p>
 <p>这本书，负责把方向指给你看。至于每一天具体怎么把目光从手机上移开、怎么把心里那片地重新种起来——那是另一本书的事，它叫《内心的修炼》，里面有一架可以天天爬的梯子。</p>
 <p>走吧。走向田间。</p>
-<p>田，还等着我们。</p></section><section class="ext"><h3 class="ext-title">看完了器,回到人重新出发</h3><p class="ext-guide">前三本立起了「人」——看清方向、看见问题、学会方法。《走向田间》接着问:技术时代,该把力量引向哪?带着这面镜子重读前三本,你会看到同一片土地上的不同断面。</p><div class="ext-card"><p class="ext-pos">总纲 · 读了它才看得清方向</p><h4 class="ext-name">文明的阶梯</h4><p class="ext-core">从「喂饱」立起的文明观——走向田间的落点,正是它埋下的那个方向。</p><div class="ext-row"><a class="ext-btn" href="/read/civilization/">重读 →</a><a class="ext-listen" href="/audiobook/#book-wenming">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">现象诊断书 · 读了它才看得见「空」</p><h4 class="ext-name">幸福的内在</h4><p class="ext-core">地荒的根源在心里——每个「空」的背后,都是同一片荒了的地。</p><div class="ext-row"><a class="ext-btn" href="/read/happiness/">重读 →</a><a class="ext-listen" href="/audiobook/#book-xingfu">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">修行操作书 · 读了它才动得了手</p><h4 class="ext-name">内心的修炼</h4><p class="ext-core">把目光从手机上移开、把心里那片地重新种起来,需要一架天天可爬的梯子。</p><div class="ext-row"><a class="ext-btn" href="/read/neixin/">重读 →</a><a class="ext-listen" href="/audiobook/#book-neixin">去听书 →</a></div></div><div class="ext-order"><p class="ext-order-title">三本书 · 阅读顺序</p><p class="done">《走向田间》 · 已读 · 转向土地</p><p class="next">《文明的阶梯》 → 重读:看总纲</p><p class="next">《幸福的内在》 → 重读:看现象</p><p class="next">《内心的修炼》 → 重读:去行动</p></div></section>
+<p>田，还等着我们。</p></section><section class="ext"><h3 class="ext-title">看完了田,回到人重新出发</h3><p class="ext-guide">前三本立起了「人」——看清方向、看见问题、学会方法。《走向田间》接着问:技术时代,该把力量引向哪?带着这面镜子重读前三本,你会看到同一片土地上的不同断面。</p><div class="ext-card"><p class="ext-pos">总纲 · 读了它才看得清方向</p><h4 class="ext-name">文明的阶梯</h4><p class="ext-core">从「喂饱」立起的文明观——走向田间的落点,正是它埋下的那个方向。</p><div class="ext-row"><a class="ext-btn" href="/read/civilization/">重读 →</a><a class="ext-listen" href="/audiobook/#book-wenming">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">现象诊断书 · 读了它才看得见「空」</p><h4 class="ext-name">幸福的内在</h4><p class="ext-core">地荒的根源在心里——每个「空」的背后,都是同一片荒了的地。</p><div class="ext-row"><a class="ext-btn" href="/read/happiness/">重读 →</a><a class="ext-listen" href="/audiobook/#book-xingfu">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">修行操作书 · 读了它才动得了手</p><h4 class="ext-name">内心的修炼</h4><p class="ext-core">把目光从手机上移开、把心里那片地重新种起来,需要一架天天可爬的梯子。</p><div class="ext-row"><a class="ext-btn" href="/read/neixin/">重读 →</a><a class="ext-listen" href="/audiobook/#book-neixin">去听书 →</a></div></div><div class="ext-order"><p class="ext-order-title">四本书 · 阅读顺序</p><p class="done">《走向田间》 · 读完 · 转向土地</p><p class="next">《文明的阶梯》 → 重读:看总纲</p><p class="next">《幸福的内在》 → 重读:看现象</p><p class="next">《内心的修炼》 → 重读:去行动</p></div></section>
   <div class="footer">
     <p>读到这里,故事就讲完了。也欢迎回去听有声书——</p>
     <a class="back" href="/audiobook/#book-xiangjian">回到听书页继续听 →</a>

@@ -85,6 +85,17 @@ body[data-font="xl"] { font-size: 21px; }
 .scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
 .scrim.open { opacity: 1; pointer-events: auto; }
 
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
+
 /* 阅读区 */
 .wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
 .chapter {
@@ -180,7 +191,19 @@ body[data-font="xl"] { font-size: 21px; }
 <div class="scrim" id="scrim"></div>
 
 <main class="wrap">
-<section class="chapter" id="c00"><p class="ch-tag">序</p><h2>序言：这套合集要做什么</h2><p>如果你是通过「灵魂之觅」小程序来到这里的——欢迎回家。你在小程序里做完的那 36 道题，不是一次性的娱乐，而是一把钥匙。它打开的不是答案，而是问题：你是谁？你在害怕什么？你真正想要的关系是什么？</p>
+<nav class="inline-toc" aria-label="章节目录"><h3 class="inline-toc-title">章节目录</h3><div class="inline-toc-list">
+<div class="dw-item toc-link" data-t="c00"><span class="dw-no">·</span><span>序言：这套合集要做什么</span></div>
+<div class="dw-item toc-link" data-t="c01"><span class="dw-no">1</span><span>第一篇 断舍离 🍃</span></div>
+<div class="dw-item toc-link" data-t="c02"><span class="dw-no">2</span><span>第二篇 立根本 🏰</span></div>
+<div class="dw-item toc-link" data-t="c03"><span class="dw-no">3</span><span>第三篇 炼心术 🔥</span></div>
+<div class="dw-item toc-link" data-t="c04"><span class="dw-no">4</span><span>第四篇 破执念 ⚔️</span></div>
+<div class="dw-item toc-link" data-t="c05"><span class="dw-no">5</span><span>第五篇 养身体 💪</span></div>
+<div class="dw-item toc-link" data-t="c06"><span class="dw-no">6</span><span>第六篇 结善缘 🤝</span></div>
+<div class="dw-item toc-link" data-t="c07"><span class="dw-no">7</span><span>第七篇 明规则 🔍</span></div>
+<div class="dw-item toc-link" data-t="c08"><span class="dw-no">8</span><span>第八篇 明经济 📈</span></div>
+<div class="dw-item toc-link" data-t="c09"><span class="dw-no">9</span><span>第九篇 立财基 💰</span></div>
+<div class="dw-item toc-link" data-t="c10"><span class="dw-no">·</span><span>完结篇：身心社财闭环</span></div>
+</div></nav><section class="chapter" id="c00"><p class="ch-tag">序</p><h2>序言：这套合集要做什么</h2><p>如果你是通过「灵魂之觅」小程序来到这里的——欢迎回家。你在小程序里做完的那 36 道题，不是一次性的娱乐，而是一把钥匙。它打开的不是答案，而是问题：你是谁？你在害怕什么？你真正想要的关系是什么？</p>
 <p>这本书，就是那把钥匙的延伸。</p>
 <p>「灵魂之觅」在 36 问之后，会给你一份情感 DNA 报告。它把你的情感底色分成五种类型，每一种，都对应着这本书里的一篇修炼：</p>
 <table>
