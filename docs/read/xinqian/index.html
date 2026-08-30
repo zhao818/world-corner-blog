@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>信任危机·前置条件论 · 在线阅读 · 世界一隅</title>
+<style>
+:root {
+  --bg: #0b1017; --panel: #121a28; --panel2: #0e1520;
+  --ink: #e9e4d8; --ink-2: #a79e8c; --gold: #c9a55c; --gold-l: #e7cd8c;
+  --border: #223047; --thin: rgba(201,165,92,.28);
+}
+[data-theme="day"] {
+  --bg: #faf9f4; --panel: #ffffff; --panel2: #f3f0e6;
+  --ink: #2b2b2b; --ink-2: #6b6350; --gold: #9a7a3a; --gold-l: #0b1017;
+  --border: #e2dcc8; --thin: rgba(154,122,58,.35);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", serif;
+  line-height: 1.95; font-size: 17px;
+  transition: background .25s, color .25s;
+}
+body[data-font="s"] { font-size: 15px; }
+body[data-font="m"] { font-size: 17px; }
+body[data-font="l"] { font-size: 19px; }
+body[data-font="xl"] { font-size: 21px; }
+
+/* 顶部工具条 */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 18px;
+  background: var(--panel); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+}
+.tb-title { font-size: .92rem; font-weight: 600; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tb-title .tb-sub { display: block; font-size: .66rem; font-weight: 400; color: var(--ink-2); letter-spacing: .02em; }
+.tb-spacer { flex: 1; }
+.tb-btn {
+  background: transparent; border: 1px solid var(--border); color: var(--ink-2);
+  font-family: inherit; font-size: .76rem; letter-spacing: .08em;
+  padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: all .2s;
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+}
+.tb-btn:hover { color: var(--gold); border-color: var(--thin); }
+.tb-btn.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.08); }
+.tb-font span { display: inline-block; min-width: 22px; text-align: center; }
+.tb-back { text-decoration: none; }
+
+/* 阅读进度条 */
+.progress {
+  position: fixed; top: 52px; left: 0; z-index: 49; height: 2px; width: 100%;
+  background: transparent;
+}
+.progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-l)); }
+
+/* 目录抽屉 */
+.drawer {
+  position: fixed; inset: 52px auto 0 0; z-index: 45;
+  width: 300px; max-width: 84vw;
+  background: var(--panel2); border-right: 1px solid var(--border);
+  transform: translateX(-102%); transition: transform .28s ease;
+  overflow-y: auto; padding: 18px 8px 40px;
+}
+.drawer.open { transform: translateX(0); }
+.drawer::-webkit-scrollbar { width: 5px; }
+.drawer::-webkit-scrollbar-thumb { background: var(--thin); border-radius: 3px; }
+.dw-group { margin: 4px 0; }
+.dw-vol {
+  font-size: .7rem; letter-spacing: .2em; color: var(--gold);
+  padding: 10px 14px 4px; font-weight: 600;
+}
+.dw-item {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 6px 14px 6px 18px; cursor: pointer;
+  font-size: .84rem; color: var(--ink-2); border-radius: 8px; transition: background .15s;
+}
+.dw-item:hover { background: rgba(201,165,92,.07); color: var(--ink); }
+.dw-item.active { color: var(--gold-l); background: rgba(201,165,92,.1); }
+.dw-no { font-family: "Segoe UI", "Roboto Mono", monospace; font-size: .7rem; color: var(--gold); min-width: 34px; text-align: right; }
+.scrim { position: fixed; inset: 52px 0 0 0; z-index: 44; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.scrim.open { opacity: 1; pointer-events: auto; }
+
+/* 正文前章目录(胶囊横排,复用 .dw-item 平滑滚动与当前章高亮) */
+.inline-toc { background: var(--panel2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 48px; }
+.inline-toc-title { font-size: .7rem; letter-spacing: .26em; color: var(--gold); margin: 0 0 14px; text-transform: uppercase; font-weight: 600; }
+.inline-toc-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.inline-vol { color: var(--gold); font-size: .76rem; letter-spacing: .12em; margin: 10px 0 2px; font-weight: 600; }
+.inline-vol-c { display: flex; flex-wrap: wrap; gap: 6px; }
+.toc-link { display: inline-flex; align-items: baseline; gap: 6px; padding: 6px 13px; border-radius: 999px; cursor: pointer; font-size: .86rem; color: var(--ink-2); border: 1px solid var(--border); transition: color .15s, border-color .15s, background .15s; }
+.toc-link:hover { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.07); }
+.toc-link.active { color: var(--gold-l); border-color: var(--thin); background: rgba(201,165,92,.1); }
+.toc-link .dw-no { font-size: .72rem; color: var(--gold); min-width: auto; text-align: left; }
+
+/* 阅读区 */
+.wrap { max-width: 720px; margin: 0 auto; padding: 108px 26px 120px; }
+.chapter {
+  margin-bottom: 64px; scroll-margin-top: 72px;
+  border-bottom: 1px dashed var(--border); padding-bottom: 48px;
+}
+.chapter:last-child { border-bottom: none; }
+.ch-tag { font-size: .68rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
+.chapter h2 { font-size: 1.35rem; color: var(--ink); margin-bottom: 22px; letter-spacing: .04em; line-height: 1.5; }
+.chapter h3 {
+  font-size: 1.02rem; color: var(--gold-l);
+  margin: 1.6em 0 .8em; letter-spacing: .06em; line-height: 1.6;
+}
+.chapter h4 { font-size: .95rem; color: var(--ink); margin: 1.3em 0 .6em; }
+.chapter p { margin: .65em 0; text-align: justify; }
+.chapter blockquote {
+  border-left: 3px solid var(--gold); background: rgba(201,165,92,.06);
+  padding: .5em 1em; margin: 1em 0; color: var(--ink-2); border-radius: 0 8px 8px 0;
+}
+.chapter strong { color: var(--gold-l); }
+.chapter hr { border: none; border-top: 1px dashed var(--border); margin: 1.6em 0; }
+
+/* 书尾 */
+.footer { text-align: center; padding: 40px 0 80px; color: var(--ink-2); font-size: .8rem; }
+.footer .back {
+  display: inline-block; margin-top: 18px; padding: 9px 22px;
+  border: 1px solid var(--thin); border-radius: 999px; color: var(--gold);
+  text-decoration: none; letter-spacing: .1em; font-size: .82rem; transition: all .2s;
+}
+.footer .back:hover { background: rgba(201,165,92,.1); color: var(--gold-l); }
+
+@media (max-width: 640px) {
+  .wrap { padding: 96px 18px 100px; }
+  .tb-title { max-width: 130px; }
+}
+
+/* 延伸阅读(三书互链) */
+.ext { margin-top: 72px; padding-top: 44px; border-top: 1px dashed var(--border); }
+.ext-title { font-size: 1.12rem; color: var(--gold); letter-spacing: .1em; margin-bottom: 14px; }
+.ext-guide { color: var(--ink-2); line-height: 1.9; margin-bottom: 26px; }
+.ext-card {
+  background: var(--panel); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0;
+  padding: 20px 22px; margin-bottom: 16px;
+}
+.ext-pos { font-size: .72rem; letter-spacing: .16em; color: var(--gold); }
+.ext-name { font-size: 1.16rem; color: var(--ink); margin: 6px 0 10px; letter-spacing: .04em; }
+.ext-core { color: var(--ink-2); line-height: 1.9; }
+.ext-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.ext-btn, .ext-listen {
+  display: inline-block; padding: 7px 18px; border-radius: 999px;
+  font-size: .8rem; text-decoration: none; letter-spacing: .08em; transition: all .2s;
+}
+.ext-btn { background: var(--gold); color: #0b1017; font-weight: 600; }
+.ext-btn:hover { background: var(--gold-l); }
+.ext-listen { border: 1px solid var(--thin); color: var(--gold); background: transparent; }
+.ext-listen:hover { background: rgba(201,165,92,.1); }
+.ext-order { margin-top: 28px; padding-top: 20px; border-top: 1px dashed var(--border); }
+.ext-order-title { font-size: .7rem; letter-spacing: .2em; color: var(--ink-2); margin-bottom: 12px; text-transform: uppercase; }
+.ext-order p { font-size: .88rem; color: var(--ink-2); margin: 6px 0; }
+.ext-order .done::before { content: "✓ "; color: var(--gold); }
+.ext-order .next::before { content: "→ "; color: var(--gold); }
+</style>
+</head>
+<body data-theme="night" data-font="m">
+
+<header class="topbar">
+  <a class="tb-btn tb-back" href="/audiobook/#book-xinqian">← 返回听书</a>
+  <div class="tb-title">信任危机·前置条件论<span class="tb-sub">〇开卷声明 + 一~十 + 尾声(时代观察 · 方法论)</span></div>
+  <span class="tb-spacer"></span>
+  <span class="tb-font">
+    <button class="tb-btn" data-fs="s" type="button">A−</button>
+    <button class="tb-btn" data-fs="m" type="button"><span>A</span></button>
+    <button class="tb-btn" data-fs="l" type="button"><span>a</span></button>
+  </span>
+  <button class="tb-btn" id="th-toggle" type="button">白昼</button>
+  <button class="tb-btn active" id="dw-toggle" type="button">目录</button>
+</header>
+<div class="progress"><i></i></div>
+
+<aside class="drawer" id="drawer">
+  <div class="dw-item" data-t="c00"><span class="dw-no">·</span><span>〇、开卷声明:这篇文章讲的是"你怎么活过这个时代"</span></div>
+<div class="dw-item" data-t="c01"><span class="dw-no">·</span><span>一、哲学的四级天梯:四个问题,一条链</span></div>
+<div class="dw-item" data-t="c02"><span class="dw-no">·</span><span>二、前置条件论(全文的方法)</span></div>
+<div class="dw-item" data-t="c03"><span class="dw-no">·</span><span>三、反躬:前置条件论对信任危机的重新审视</span></div>
+<div class="dw-item" data-t="c04"><span class="dw-no">·</span><span>四、时代坐标:信任危机的地形图</span></div>
+<div class="dw-item" data-t="c05"><span class="dw-no">·</span><span>五、时代的利弊:同一场危机的两面(核心一)</span></div>
+<div class="dw-item" data-t="c06"><span class="dw-no">·</span><span>六、避坑:撞枪口地图(核心二)</span></div>
+<div class="dw-item" data-t="c07"><span class="dw-no">·</span><span>七、借势:空窗期的红利(核心三)</span></div>
+<div class="dw-item" data-t="c08"><span class="dw-no">·</span><span>八、未来推演:修复的途径与崩溃的可能</span></div>
+<div class="dw-item" data-t="c09"><span class="dw-no">·</span><span>九、落点:空窗期的个体立场</span></div>
+<div class="dw-item" data-t="c10"><span class="dw-no">·</span><span>十、被我们抛弃的学术误区(去虚向实清单)</span></div>
+<div class="dw-item" data-t="c11"><span class="dw-no">·</span><span>尾声:好的一面,留给观众拼完(开放性入口)</span></div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<main class="wrap">
+<nav class="inline-toc" aria-label="章节目录"><h3 class="inline-toc-title">章节目录</h3><div class="inline-toc-list">
+<div class="dw-item toc-link" data-t="c00"><span class="dw-no">·</span><span>〇、开卷声明:这篇文章讲的是"你怎么活过这个时代"</span></div>
+<div class="dw-item toc-link" data-t="c01"><span class="dw-no">·</span><span>一、哲学的四级天梯:四个问题,一条链</span></div>
+<div class="dw-item toc-link" data-t="c02"><span class="dw-no">·</span><span>二、前置条件论(全文的方法)</span></div>
+<div class="dw-item toc-link" data-t="c03"><span class="dw-no">·</span><span>三、反躬:前置条件论对信任危机的重新审视</span></div>
+<div class="dw-item toc-link" data-t="c04"><span class="dw-no">·</span><span>四、时代坐标:信任危机的地形图</span></div>
+<div class="dw-item toc-link" data-t="c05"><span class="dw-no">·</span><span>五、时代的利弊:同一场危机的两面(核心一)</span></div>
+<div class="dw-item toc-link" data-t="c06"><span class="dw-no">·</span><span>六、避坑:撞枪口地图(核心二)</span></div>
+<div class="dw-item toc-link" data-t="c07"><span class="dw-no">·</span><span>七、借势:空窗期的红利(核心三)</span></div>
+<div class="dw-item toc-link" data-t="c08"><span class="dw-no">·</span><span>八、未来推演:修复的途径与崩溃的可能</span></div>
+<div class="dw-item toc-link" data-t="c09"><span class="dw-no">·</span><span>九、落点:空窗期的个体立场</span></div>
+<div class="dw-item toc-link" data-t="c10"><span class="dw-no">·</span><span>十、被我们抛弃的学术误区(去虚向实清单)</span></div>
+<div class="dw-item toc-link" data-t="c11"><span class="dw-no">·</span><span>尾声:好的一面,留给观众拼完(开放性入口)</span></div>
+</div></nav><section class="chapter" id="c00"><p class="ch-tag">篇</p><h2>〇、开卷声明:这篇文章讲的是"你怎么活过这个时代"</h2><p>我们活在一个信任被持续冲刷的时代。打开手机,今天一个"大师"塌了,明天一个"良心企业"爆雷,后天一篇小作文让谁百口莫辩。每个人心里都有同一个没说出口的问题:<strong>这个世界怎么了?我还能信谁?</strong></p>
+<p>市面上回应这个问题的,通常只有两种东西。一种是新闻,告诉你又发生了什么;一种是鸡汤,告诉你"要相信美好"。新闻给事实不给方向,鸡汤给情绪不给依据。这篇不打算做这两种——它想做的事是,把这个时代讲清楚,然后告诉你<strong>往哪站</strong>。</p>
+<p>只把时代走向预测出来,对读者意义不大——预测对了,人还是不知道往哪站。所以这篇文章做三件事,做完就收:</p>
+<ol>
+<li><strong>辨利弊</strong>:这个时代好的地方在哪,坏的地方在哪。</li>
+<li><strong>避坑</strong>:哪些境地、哪些做法、哪些地位,最容易受冲击、最容易身败名裂——最容易撞枪口。你要知道枪口在哪。</li>
+<li><strong>借势</strong>:这个时代好的地方,你能拿来做什么事。</li>
+</ol>
+<p><strong>第一,正反两面都要有现实的替身。</strong> 说"谁挨打",要指得出名字(韩红、郭德纲、许家印、余承东、孙宇晨);说"谁活得好",也要指得出名字(胖东来、罗永浩、老爸评测、浙江宣传、小米)——都取<strong>传播得多、大家都知道</strong>的大样本。没有替身的道理,是对不上号的道理。</p>
+<p><strong>第二,替身只作对照,不作背书。</strong> "好"的一面是表面、目前看起来好——信息有限,未来走向未知,信任危机同样会冲击他们。谁都没有免死金牌。</p>
+<p><strong>第三,好的一面,我们不全答。</strong> 太小、太个体、没被传播的,没有代表意义,不拿出来当替身。这个问题,留给正在生活其中的人——见文末尾声。</p>
+<p><strong>第四,文中的模型都只是理解工具。</strong> 四级天梯、前置条件论、镜像结构、洪水台风模型、六坑五势——它们不是对客观历史的描述,不是科学结论,是帮你把时代看清楚的叙事模型。模型有用就留着,没用就扔掉——它们不是信仰对象,本文也不替任何模型背书。</p>
+<p>哲学和时代背景的论证,都是为了把这三件事讲清楚。讲不清这三件事,哲学就是自言自语。</p>
+<h3>〇.1 本文在四本书里的位置</h3>
+<p>这篇不是从天上掉下来的。它从我们已有的书里长出来,也和它们保持距离:</p>
+<ul>
+<li><strong>承接《走向田间》</strong>:它陆篇用萨特"他人即地狱"照"全荒幕"的三场崩塌(牛来/慈善/相声),序言立下许家印这道"金钱之门"——本文把这三场崩塌背后的东西,从叙事升维成方法论:信任危机为什么发生、个体该往哪站。</li>
+<li><strong>区别于《走向田间》</strong>:它用哲学解时代,落到"文明的走向"(科技服务农业);本文用哲学审哲学,落到"个体的站位"(避坑与借势)。一本是望远镜看文明,一本是显微镜看人。</li>
+<li><strong>与《算法争夺》互为镜</strong>:那篇讲注意力被收割,这篇讲信任被消费——是同一片荒地(时代真空期)上长的两种野草。放在一起看,荒地的轮廓才完整。</li>
+</ul>
+<p>所以本文<strong>独立成篇,但站在已有的地基上</strong>——不另起炉灶,也不重复劳动。</p>
+<p>最后,把出发点说清楚:写这篇,不是要显得我们懂多少哲学,不是要读者崇拜我们。我们只想让读者理解这个社会、理解我们所处的时代,然后从中刨根问底找到原因,找到自己在这个时代该走的方向。<strong>凡是无助于读者理解的东西,我们都不写。</strong></p>
+<hr /></section>
+<section class="chapter" id="c01"><p class="ch-tag">篇</p><h2>一、哲学的四级天梯:四个问题,一条链</h2><p>我们谈哲学的分级,不是为了给哲学家排座次,也不是显摆读过多少书。谈它,是因为要回答三个连在一起的问题:</p>
+<ol>
+<li>我们站在的这个时代,<strong>适合用哪个哲学来讲?</strong></li>
+<li>为什么<strong>反驳它的那些哲学,反而不适合现在?</strong></li>
+<li>"适合"和"不适合",到底<strong>由什么决定?</strong></li>
+</ol>
+<p>答案不在哲学史里,藏在四级天梯里。但注意——四级不是四座孤岛,是<strong>一环扣一环的链</strong>。我们一级一级往上走,每一级,回答一个"为什么"。</p>
+<p>因为"能建立一套完整哲学体系",被公认为哲学这一行的天花板——这是大家默认的最高一级。</p>
+<p>但我们从另一面看:再完整的体系,在他<strong>早期著作里就能看到全部观点的痕迹</strong>——起点早就埋着终点。体系不是凭空造的,是种子的生长:你翻一个思想家最初的书,再看最后封笔的作品,会发现他说的其实是同一个东西,只是越说越深、越说越完整。</p>
+<p>这一级告诉我们什么?<strong>哪怕最高级的哲学,也带着出生时刻的印记。</strong> 它只是把前置条件揉进了骨骼里,揉到外人看不出——看不出,不等于没有。</p>
+<h3>第二级:为什么有人热衷于"重构和断句"</h3>
+<p>因为有人要把别人的著作,拿过来结合当下的环境重新翻译,让它符合这个时代。看起来是再创造,实际只是<strong>重新翻译</strong>——把旧的哲学语言,翻译成今天能懂的表述。</p>
+<p>需要被翻译,恰恰泄露了一个秘密:<strong>旧哲学的前置条件变了,才需要翻译。</strong> 如果那套哲学还活在它的时代里,根本不需要人翻译——是时代先动了,才逼着人去翻译。</p>
+<p>这一级告诉我们:<strong>翻译这个动作本身,就是前置条件变更的证据。</strong></p>
+<h3>第三级:为什么有些哲学,有些时候管用、有些时候不管用</h3>
+<p>这是最贴近生活的一级。一个哲学家,昨天还被人奉为圭臬,今天就被批得体无完肤——是他错了吗?不,多数时候,是<strong>环境和它不合了</strong>。</p>
+<p>被扬弃的哲学不会死。它有循环周期,有生命周期——环境是循环的,危机→重建→危机→重建,等环境回到它生长的土壤,它就自动复活。<strong>扬弃不是驳倒,是暂时雪藏。</strong> 今天被当成"过时"的,十年后可能又变成"先知"。变的不是理论,是时代。</p>
+<p>这一级告诉我们:<strong>哲学管不管用,不取决于它讲得对不对,取决于当下的环境配不配合。</strong></p>
+<h3>第四级:为什么说"任何哲学都需要前提"</h3>
+<p>任何哲学都需要前提。把前提抽掉,任何哲学——不管当年多辉煌——都是过时的、自言自语。</p>
+<p>这一级是前三级的总账:条件在,哲学就在;条件不在,再漂亮也是空谈。</p>
+<h3>链:四级合起来,回答开头的三个问题</h3>
+<p>四级不是四个独立的发现,是同一件事的四次逼近:</p>
+<ul>
+<li>第一级:连最高级的哲学,都带着条件的印记(藏得最深);</li>
+<li>第二级:需要被翻译,就是条件变了的证据(摆在台面);</li>
+<li>第三级:管不管用,由条件决定(明说);</li>
+<li>第四级:抽掉条件,就是空谈(暴露)。</li>
+</ul>
+<p>四句话说的是同一件事——<strong>前置条件,决定一切。</strong> 这就是那根把四级串起来的链。</p>
+<p>现在,用这根链回答开头的三个问题,拿信任危机当例子:</p>
+<p><strong>问题一:我们站在的这个时代,适合用哪个哲学来讲?</strong></p>
+<p>萨特。"他人即地狱"——当信任危机在场,他人的注视、评价、伪装,会把我变成客体、风险、被算计对象。在这个时代,这不是悲观主义,是<strong>对当下经验的可信刻画</strong>——它刻画的是风险与猜忌那一半现实。萨特不是"重新流行"了,是<strong>他的前置条件回来了</strong>。</p>
+<p><strong>问题二:为什么反驳它的那些哲学,反而不适合现在?</strong></p>
+<p>战后有一批思想家——列维纳斯、卢格斯特普、维特根斯坦、阿伦特、利科、霍耐特、埃里克森、吉登斯、哈丁……用不同方式"推翻了"萨特,共同把信任从"策略"提升为"前提":信任不是被验证挣得的结论,而是<strong>使验证成为可能的条件</strong>;不信任是寄生的,它必须踩在信任之上才能站立。一句话形容他们:<strong>萨特从怀疑出发,走向地狱;这批人从信任出发,走回了人间。</strong></p>
+<p>这套话讲得漂亮,道理也圆。但用第四级一问就漏:<strong>它的前置条件是什么?</strong> 是信任危机已经解除、社会已经重建。而当下,这个条件还没成立。所以它们不是错,是<strong>还没轮到它们讲</strong>。</p>
+<p><strong>这里必须单独澄清一个人:列维纳斯。</strong></p>
+<p>他常被算作"反驳萨特"的一派,但用第三级重新归位,他不是。列维纳斯是从人类历史上最彻底的信任崩塌里长出来的(二战、大屠杀)——他和萨特一样站在废墟上,只是走了相反的方向:萨特从崩塌推出"他人即地狱";列维纳斯从更深的崩塌推出"即便如此,责任仍在先"。</p>
+<p><strong>他不是萨特的反驳者,是萨特的同代人难友。</strong> 同一个危机,孕育了两种相反的哲学——取决于当事人抽到的是哪一面:是"我被人背叛了",还是"被背叛的人依然在我面前"。这恰恰是第三级的最好例证:扬弃不是驳倒,是同一片废墟上,两种方向各自成立。</p>
+<p><strong>问题三:"适合"和"不适合",由什么决定?</strong></p>
+<p>由前置条件决定。萨特不是被驳倒后卷土重来,是<strong>他的条件回来了</strong>;战后那批反驳,不是被证明错,是<strong>它们的条件还没到</strong>。</p>
+<p>所以评价一个思想,别问"哪个论证更漂亮",要问:<strong>哪个哲学的前置条件和这个时代咬合。</strong></p>
+<h3>一句诚实的自我交代</h3>
+<p>按照第四级,"一切哲学依赖前置条件"这句话,自己也有前置条件——它是一个危机时代才需要的哲学观。在信任充裕的太平年代,它会显得多余,甚至会被扬弃。</p>
+<p>但它诚实:它把自己也纳入了规则。<strong>等时代变了,它自己也会被扬弃——这正是它的成立方式。</strong> 说这句话的我们,和这句话一起,站在同一个时代里。</p>
+<hr /></section>
+<section class="chapter" id="c02"><p class="ch-tag">篇</p><h2>二、前置条件论(全文的方法)</h2><blockquote>
+<p>哲学没有绝对对错,只有时代前置条件是否匹配。</p>
+<p>前置条件成立 → 它就是事实描述。
+前置条件消失 → 它就是自言自语。</p>
+</blockquote>
+<p>这套判断,就是全文的方法。往下它会被用来拆解信任危机,但它的适用范围远不止信任危机——任何时代、任何思想、任何你听来的道理,都能用这一句话过一遍:<strong>它的前置条件是什么?现在还成立吗?</strong></p>
+<p>这里替"事实描述"做一个限定:所谓事实描述,是指它成为对当下经验的<strong>可信刻画</strong>——而任何一套哲学,都只刻画它看得见的那一半现实。萨特刻画风险与猜忌那一半,列维纳斯刻画责任与底线那一半——在同一个时代,两半都是真的。这是推论三的伏笔:本文不会把任何一套哲学抬成"唯一事实"。</p>
+<h3>三条推论</h3>
+<p><strong>推论一:更迭不是被驳倒,是范式失效。</strong> 任何思想脱离时代前置条件,都是过时理论。它没有错,只是不再成立。历史上几乎没有哪个哲学是被"论证打败"的——都是被"时代换掉"的。例外不是没有(逻辑实证主义的验证原则,很大程度上就是被论证打掉的),但即便是这种"论证胜利",也往往赶在它的时代土壤松动之后——论证补的,往往是最后一刀。</p>
+<p><strong>推论二:复归是等来的,不是争来的。</strong> 因为环境是循环的,被扬弃的哲学有严格的循环周期。等环境回到那个周期,它自动复活。所以不必急着证明一个"过时"理论的错,也不必急着捧杀一个"新潮"理论的对——两个都在等时代,只是方向不同。</p>
+<p><strong>推论三:同一时代可以长出互相矛盾的真理。</strong> 同一个危机时代,可以同时长出两种完全自洽的生存视角(康德式二律背反,正反皆成立):</p>
+<ul>
+<li><strong>萨特:看见风险、猜忌、博弈</strong>(现实层)——他人即地狱,是危机时代的真实生存体验。</li>
+<li><strong>列维纳斯:看见责任、伦理、底线</strong>(本源层)——在评估可否信任之前,你已经先被他者的脆弱性叫住、约束、要求。</li>
+</ul>
+<p>二者不互斥,是当代社会的<strong>双重真相</strong>。同一套时代条件,同时支撑两个自洽的模型——它们各对一半现实,合起来才是全部。很多人争论"萨特对还是列维纳斯对",其实两个都对着呢,他们争的是同一个硬币的两面。</p>
+<h3>落地的三把尺</h3>
+<p>彻底放弃抽象思辨——不讨论"会不会必然变好、会不会必然循环、物极是不是必反"。这类问题没有答案,讨论它只会消耗你。真正有价值的只有三件事:</p>
+<ol>
+<li><strong>覆盖广度</strong>:这个现象波及多少人、多少层?</li>
+<li><strong>破坏烈度</strong>:它摧毁的是个别坏人,还是无差别冲刷土壤?</li>
+<li><strong>周期长短</strong>:它要多久才走到下一态,由什么决定?</li>
+</ol>
+<p>这三把尺,是全文衡量一切的标准。后面的利弊、避坑、借势,全是拿这三把尺量出来的。</p>
+<h3>现实喂养哲学(前置条件论怎么运作)</h3>
+<p>前置条件论是静态判断——条件匹配与否。但现实不是静止的,哲学也不是死物,两者之间有一条动态机制,叫<strong>现实喂养哲学</strong>:</p>
+<blockquote>
+<p>我们通过哲学去探讨现实时,会发现<strong>有些哲学完全不能覆盖现实的所有东西</strong>——现实比任何一套哲学都大。于是现实反过来喂养我们理解的哲学:哲学不是被背下来的死物,是被现实一次次检验、补充、修正的活体。<strong>现实是哲学的饲料,不是哲学的对象。</strong></p>
+</blockquote>
+<p>三个现实的喂法:</p>
+<ul>
+<li><strong>现实给哲学出题</strong>:用萨特看当下的信任危机,"他人即地狱"照得见"被算计",却照不见"胖东来的透明价签下依然有人被信任"——现实把萨特没讲的部分喂给我们,我们对萨特的理解就变厚。没有这场现实,萨特在我们的脑子里只是一个概念;有了这场现实,萨特成了有厚度的人。</li>
+<li><strong>现实给哲学判刑</strong>:我们曾用休谟、哈丁给信任危机做"反驳",现实却告诉我们他们的成立条件在当下不成立——于是我们把"反驳工具"修正成"解除期理论"。哲学不是我们主动改的,是现实逼着我们改的。</li>
+<li><strong>现实给哲学归级</strong>:四级天梯本身也是被现实喂养出来的——不是凭空发明分级,是看着哲学在现实里的遭遇(被扬弃、复归、自言自语)才总结出它。</li>
+</ul>
+<p>一句话:<strong>哲学不是用来"用"的,是用来被现实"喂"的。</strong> 喂得动的哲学活着,喂不动的,就是去掉前置条件、拒绝被现实碰触的自言自语。</p>
+<p>前置条件论回答"哲学何时成立",现实喂养哲学回答"哲学如何活着"——前者是判断,后者是过程。二者合起来,才是完整的哲学观。而有了这套完整的哲学观,我们才敢用它去看这个时代——下一章,就是用它反观我们自己对信任危机的分析。</p>
+<hr /></section>
+<section class="chapter" id="c03"><p class="ch-tag">篇</p><h2>三、反躬:前置条件论对信任危机的重新审视</h2><p>这一章是最难写的一章,因为它不是审别人,是审我们自己。</p>
+<p>当下社会正在经历系统性信任危机。三条成因,是我们反复确认过的:</p>
+<ol>
+<li><strong>经济结构性不确定</strong>——就业、收入、向上流动预期收窄,个体普遍进入防御心态,对外界天然预设风险。人不是变坏了,是变怕了;怕,就先设防。</li>
+<li><strong>算法媒介的天然放大</strong>(当代独有最大加速器)——负面、反转、失信内容流量最大、传播最快;善意、稳定、守约无人关注。同样的事件,放在十年前无波澜,现在直接引爆全网、重塑集体认知。算法的第一性原理是流量,不是真相。</li>
+<li><strong>旧信任土壤瓦解、新信任土壤未建成</strong>(时代真空期)——旧信任靠人设、口碑、口头承诺、情感善意(已失效);新信任靠证据、流程、契约、第三方核验(尚未完全成型)。我们正处在新旧信任范式交替的空窗期,所以猜忌最盛——不是人心坏了,是两种土壤都没接住我们。</li>
+</ol>
+<p><strong>这就是当下的前置条件。它已经成立。</strong></p>
+<h3>3.2 前置条件成立时,萨特就是当下经验的如实刻画</h3>
+<p>既然信任危机已经产生,那么萨特所说的"他人即地狱",就是对当下经验——风险、猜忌、被算计的那一半现实——的<strong>如实刻画</strong>。它不是悲观主义,不是理论偏好。</p>
+<p>他人的注视、评价、叙事、伪装,会把我变成客体、风险、被算计对象——在这个时代,这不是哲学断言,是每天的日常经验。你发一条朋友圈会先想"会不会被人截图";你谈合作会先想"他是不是在给我画饼";你帮一个人会先想"他会不会反咬我"。这些不是多疑,是时代教给你的生存课。</p>
+<p>这是萨特看得见的那一半现实——另一半(责任、伦理、底线),在第二章推论三与第 3.3 节,由列维纳斯补上。</p>
+<h3>3.3 我们之前那套"反驳",为什么放在当下显得苍白</h3>
+<p>我们曾用四家学说给信任危机做"反驳":</p>
+<ul>
+<li><strong>休谟</strong>:世俗信任,习惯与经验之下的日常可靠。</li>
+<li><strong>哈丁</strong>:互惠信任,利益绑定下算得清的理性合作。</li>
+<li><strong>拜尔</strong>:信任的脆弱性,伤害的切口也是修复的可能。</li>
+<li><strong>列维纳斯</strong>:伦理底线,他者面容先于算计。</li>
+</ul>
+<p><strong>先单独交代列维纳斯</strong>:严格说,他不算"解除期理论"——他和萨特一样,是从信任崩塌的最深处出发的(见第一章),只是方向相反。把他放进这张表,恰恰是因为我们当年反躬时就这么用过他——而这正是我们"没有自反性"的证据:<strong>连列维纳斯,都被我们归错了位。</strong> 修正后的归位是:休谟、哈丁、拜尔,才是真正的"解除期理论";列维纳斯是"危机时代的另一面"——他和萨特同时成立,只是大众在危机现场会先拿起萨特的眼睛(先自保),列维纳斯的责任要先等安全感恢复,才被听得见。</p>
+<p>这三家讲得对吗?讲得对。在它们各自成立的时代,它们是真理。用前置条件论反躬,问题立刻浮出来:<strong>这三家成立的前置条件,是"信任危机已经解除、已经重建"的时代。</strong></p>
+<ul>
+<li>休谟的世俗信任,前提是社会常态尚未被系统性瓦解;</li>
+<li>哈丁的互惠制度,前提是利益交换还能被社会正常兑现;</li>
+<li>拜尔的脆弱性,前提是破坏还是少数事件、可以修复。</li>
+</ul>
+<p>这三样前提,在当下——都还在被侵蚀。列维纳斯不在此列——他的前提从来不是"太平",他的问题是另一个:在一个连底线都被打穿的世界里,为什么责任仍然在先。</p>
+<p>所以结论不是"反驳错了",是:</p>
+<blockquote>
+<p><strong>前置条件错位。我们用解除期的理论,去答危机期的题。</strong></p>
+</blockquote>
+<p>把一套针对"信任已重建时代"的模型,套在"信任正在崩塌时代"的当下,它的说服力当然苍白——不是它不对,是它<strong>对错了时代</strong>。这就像拿一张春季的地图,去走秋天的路——地图没错,是季节错了。</p>
+<h3>3.4 这一步的价值:承认我们之前的分析没有自反性</h3>
+<p>这一章最扎心的地方在这里:我们之前做信任危机分析时,只把"前置条件"这个概念用在别人身上——用来判断萨特、列维纳斯、哈丁们谁适用当下。<strong>我们从来没有用它照自己</strong>,没意识到自己那套"反驳"也带着前置条件。</p>
+<p>理论不能只审别人,要审自己。<strong>你的模型也站在一个时代上,那个时代是什么?</strong></p>
+<p>这一认,分析才算闭环。而这一认,正是"现实喂养哲学"的现身说法——是现实,把我们逼着改了对休谟、哈丁、拜尔的理解。如果只看书,我们永远觉得那四家是"反驳";只有看现实,才发现那是"错位"。</p>
+<hr /></section>
+<section class="chapter" id="c04"><p class="ch-tag">篇</p><h2>四、时代坐标:信任危机的地形图</h2><p>要避坑、要借势,先得看清地形。信任危机不是一个事件,是一张由五层构成的地形图——从最贴身的地方,到最公共的地方,逐层侵蚀。</p>
+<p><strong>第一层,个体亲密层。</strong> 燕冬萍事件(2024 年末北京离婚案,一篇"十年感情"的单方叙事全网反转)代表——情感、付出、婚姻契约,可以被一篇叙事全盘抹除。你付出十年,对方一篇小作文,十年变成"一场算计"。这一层的崩塌最疼,因为它发生在你最不设防的地方;而它一旦塌,人对"亲密"本身都不再敢信。</p>
+<p><strong>第二层,企业商业层。</strong> 许家印房地产崩塌(2021 年恒大债务爆雷)——万亿级机构的承诺、契约、信用失效。普通人一生的积蓄、一个家庭对"大公司"的信赖,一夜归零。这一层塌的是"契约"两个字——连白纸黑字都不可靠,那还有什么可靠?</p>
+<p><strong>第三层,公众人物与符号层。</strong> 郭德纲口碑回落(近年持续)、余承东"遥遥领先"(华为发布会口头禅)被解构——大众对高调叙事、权威话术彻底脱敏,默认打折、默认夸大。你说"第一",我当"前十";你说"最好",我当"之一"。这一层塌的是"话"——话的信用破产了。</p>
+<p><strong>第四层,社会组织层。</strong> 韩红慈善被持续质疑(2020 年疫情捐赠起)——公益、善意机构不再天然可信。连"做好事"的都要先自证清白,善意的成本被提到最高。这一层塌的是"善意"——善意本身,不再是通行证。</p>
+<p><strong>第五层,网络叙事体系。</strong> 孙宇晨(币圈人物,以长篇小作文闻名)长篇小作文——真假混杂、虚构免责、舆论构陷成为通用博弈工具。真相不再是被发现的,是被"生产"的;任何人都可以生产叙事,任何叙事都可以被怀疑。这一层塌的是"真假"——真假的地基都没了。</p>
+<p><strong>定性:已经从「个别失信事件」变成系统性、弥散性、自我强化的社会浪潮。</strong> 五层不是互相独立的,是互相喂养的:亲密层的崩塌让商业层更冷,商业层的崩塌让符号层更讽,符号层的崩塌让组织层更疑,组织层的崩塌让叙事层更乱——每一层都在给下一层递刀。</p>
+<h3>4.2 为什么近乎无解(四条硬约束)</h3>
+<ol>
+<li><strong>传播无法垄断</strong>:多平台、多渠道、私域公域打通,删不完、封不住。真相跑不过谣言,因为谣言的变体是无限的。</li>
+<li><strong>平台本质是商业利益</strong>:没有道德平台、没有公益流量机制,冲突与谎言天然高收益。算法不恨你,也不爱你,它只在乎你停不停下来。</li>
+<li><strong>大众心理确认偏误</strong>:当下社会普遍心态就是"世界不可信",所有负面内容都会被拿来印证自我认知。负面内容自带群众基础——它验证了你的怀疑,你就转发它。</li>
+<li><strong>制度永远滞后于叙事玩法</strong>:小作文、半真半假、虚构免责、AI伪造,永远跑在法律、监管前面。伤害瞬间完成,追责遥遥滞后——等到真相大白,热度已经过去,伤害已经落地。</li>
+</ol>
+<h3>4.3 破坏力层级(洪水台风模型)</h3>
+<p>信任危机的破坏,不是狙击枪,是洪水:</p>
+<ul>
+<li>它不是针对性摧毁坏人,而是<strong>无差别冲刷整个社会土壤</strong>。好人坏人一起泡在水里。</li>
+<li>底子薄的个人、企业、圈层先崩塌;底子厚的大型机构、强势组织,只是扛得更久,无法完全免疫。</li>
+<li>最终抬高全社会交易成本、沟通成本、防备成本,造成持续性社会内耗。每一次设防,都是一次损耗;损耗不是一次性,是每天都在交税。</li>
+</ul>
+<p><strong>但请注意:洪水无差别冲刷土壤,不等于洪水对每个人一样致命。</strong> 同样的浪打过来,站在沙子上的人被卷走,站在岩床上的人只湿了脚。哪些人在沙子上、哪些人在岩床上——这就是下一章要拆的利弊。</p>
+<hr /></section>
+<section class="chapter" id="c05"><p class="ch-tag">篇</p><h2>五、时代的利弊:同一场危机的两面(核心一)</h2><p>任何一个时代都有好的、有亮点的地方,也有不好的地方。信任危机时代同样如此。但关键是理解一个结构:</p>
+<blockquote>
+<p><strong>旧信任贬值的地方,正是新信任升值的地方。利与弊不是两件事,是同一场危机的两面。</strong></p>
+</blockquote>
+<ol>
+<li><strong>防御内耗</strong>:人人设防,沟通、合作、恋爱、交易都先过一遍"他是不是在骗我"。信任的传递成本,变成全社会的隐形税。你可以不算这笔账,但你的每一笔生意、每一段关系,都在替它买单。</li>
+<li><strong>善意贬值</strong>:善良、诚意、善意不再天然被信,反而被当成需要核实的东西——做好事要先自证清白。善意从"本来的样子"变成"要过安检的行李"。</li>
+<li><strong>真相稀释</strong>:真假混杂、反转反复、AI伪造,真相从"默认事实"变成"稀缺品",证明"你没做过"比"你做过什么"更贵。造谣的动动嘴,辟谣的跑断腿。</li>
+<li><strong>情绪透支</strong>:长期浸泡在负面与反转里,大众疲惫、冷漠、犬儒,"世界不可信"成为默认出厂设置。最可怕的不是被骗,是"懒得信了"。</li>
+</ol>
+<h3>5.2 这个时代的"利"(四个新资产)</h3>
+<ol>
+<li><strong>可验证性升值</strong>:证据、契约、流程、可追溯的记录,成为新的信任货币。旧信任靠"你信我",新信任靠"你查我"。能查的,在这个时代反而值钱。</li>
+<li><strong>真诚稀缺</strong>:人人都在演、都在包装、都在夸大,真实反而成为稀缺品——<strong>在人人打折的时代,不打折本身就是稀缺</strong>。稀缺的东西,自然会涨价。</li>
+<li><strong>权威话术贬值,平视沟通升值</strong>:没人再吃"遥遥领先"那套,反而"你看得见的数字、做得到的事、可复现的过程"被信任。头衔的含金量在跌,过程的含金量在涨。</li>
+<li><strong>小信任圈升值</strong>:大而空的"粉丝""流量""关注"贬值,小而深的信任(少数人真的信你)反而成为最稳的资产。一万个看客,不如一百个回头客。</li>
+</ol>
+<h3>5.3 镜像结构(本文最核心的一张图)</h3>
+<table>
+<thead>
+<tr>
+<th>贬值的(旧信任货币)</th>
+<th>升值的(新信任货币)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人设、口碑、形象</td>
+<td>记录、作品、可验证的产出</td>
+</tr>
+<tr>
+<td>高调话术、权威叙事</td>
+<td>平视、实证、可复现的过程</td>
+</tr>
+<tr>
+<td>口头承诺、情感善意</td>
+<td>契约、流程、第三方核验</td>
+</tr>
+<tr>
+<td>大而空的关注、粉丝</td>
+<td>小而深的信任、关系</td>
+</tr>
+<tr>
+<td>信息不对称的"我懂你不懂"</td>
+<td>主动透明的"你随时可查"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这张表的每一行,都是一个"卖旧买新"的操作机会。</strong> 下面两节,就是具体怎么操作——先讲怎么躲(避坑),再讲怎么上(借势)。</p>
+<h3>5.4 正反两面,都要有现实的替身</h3>
+<p>光讲抽象道理,读者对不上号。这个时代挨打的人、活着的人,都在现实里站着——把替身点出来:</p>
+<p><strong>"弊"的替身(挨打的名单)</strong>——他们在不同位置撞上了同一场枪击,是下一章六坑的现实注脚:</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>替身</th>
+<th>撞了什么</th>
+<th>事件注脚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>亲密层</td>
+<td>燕冬萍案</td>
+<td>情感、付出、婚姻契约可被叙事全盘抹除</td>
+<td>2024 年末离婚案,单方叙事全网反转</td>
+</tr>
+<tr>
+<td>商业层</td>
+<td>许家印</td>
+<td>万亿级承诺崩塌,商业信任基石松动</td>
+<td>2021 年恒大债务爆雷</td>
+</tr>
+<tr>
+<td>符号层</td>
+<td>郭德纲、余承东</td>
+<td>大师口碑回落、"遥遥领先"被解构</td>
+<td>口碑近年持续回落;发布会口头禅被全网解构</td>
+</tr>
+<tr>
+<td>组织层</td>
+<td>韩红</td>
+<td>善意机构被持续质疑</td>
+<td>2020 年疫情捐赠起被反复质疑</td>
+</tr>
+<tr>
+<td>叙事层</td>
+<td>孙宇晨</td>
+<td>小作文成为通用博弈工具</td>
+<td>币圈人物,以长篇小作文闻名</td>
+</tr>
+</tbody>
+</table>
+<p><strong>"利"的替身(活得下来的人)</strong>——他们声音或大或小,但共同点只有一个:<strong>手里拿的不是上一时代的地契</strong>:</p>
+<ul>
+<li><strong>胖东来</strong>(河南许昌/新乡超市):在价签上公开标进价、无理由退货、员工待遇公开——"可验证的善"的商业标本。</li>
+<li><strong>罗永浩</strong>(锤子科技创始人,欠债六亿):靠直播一笔一笔还清,全过程公开——不靠人设,靠记录重建信任("真还传")。</li>
+<li><strong>老爸评测</strong>(前质检工程师,2016 年创立):靠独立检测消费品起家——当代"核验者",穆迪、邓白氏的现代对应物。</li>
+<li><strong>浙江宣传</strong>(2022 年上线的省级政务公众号):讲人话、平视表达,反而破圈——权威话术贬值的活证据。</li>
+<li><strong>小米 / 雷军</strong>:发布会讲参数、晒物料,靠可复现的事实说话——"平视+实证"的大公司样本。</li>
+</ul>
+<p><strong>一句提醒(三个限定)</strong>——说这些替身"好",必须带三个限定:</p>
+<ol>
+<li><strong>只是表面、目前看起来好</strong>:信息有限,我们只能找到一两个"稍微好一点的"做代表,远没有把好的东西挖掘完。</li>
+<li><strong>不能替他们背书</strong>:他们的走向还不知道——信任危机会冲击一切企业、也会冲击这些资产,没有谁能靠"现在是好的"拿到免死金牌。小米之前也被人拉去玩梗、被盯着,就是例子。</li>
+<li><strong>心机是这个时代的高风险资产</strong>:做商业的人肯定要耍一些心机,但在人人盯、传播快的时代,任何心机都容易被揪出来、被放大——好替身也不例外,他们今天没翻车,不意味着心机不会在未来被清算。</li>
+</ol>
+<p><strong>替身的价值是"对照",不是"背书"。</strong> 看他们手里拿的是什么信用货币,别把他们当圣人看。</p>
+<hr /></section>
+<section class="chapter" id="c06"><p class="ch-tag">篇</p><h2>六、避坑:撞枪口地图(核心二)</h2><p>信任危机不是平均打击,它有特定靶子。谁最容易撞枪口?——<strong>手里全是旧信任货币的人。</strong> 新范式下,他们手上拿的全是会贬值的资产,而且在危机里贬值最快。</p>
+<p>六张坑,每张给四样:现实对应、谁在坑里、为什么撞、怎么躲。</p>
+<ul>
+<li><strong>现实对应</strong>:余承东"遥遥领先"被全网解构——喊得最响的口号,成了翻车时最大的呈堂证供。</li>
+<li><strong>谁在坑里</strong>:高调喊话、放大话、立宏大flag的人——"遥遥领先""第一""最牛"。</li>
+<li><strong>为什么撞</strong>:确认偏误+算法放大。大众默认你夸大,你越喊,被解构的素材越多;喊的每一个字,都会在翻车那天变成呈堂证供。你曾经说过多少大话,翻车那天就有多少刀。</li>
+<li><strong>怎么躲</strong>:把话说小,把事做实,让结果替你喊。<strong>姿态越低,枪口越找不到你。</strong></li>
+</ul>
+<h3>坑二:人设型信用(靠形象吃饭,形象就是你的命)</h3>
+<ul>
+<li><strong>现实对应</strong>:郭德纲口碑回落;一批"大师""网红"人设崩塌——形象一翻,过去全部信用一起清零。</li>
+<li><strong>谁在坑里</strong>:值钱是因为"形象"而不是"记录"的人——靠人设的明星、网红、专家、大师。</li>
+<li><strong>为什么撞</strong>:人设是旧信任货币,新范式下"形象=负债"。因为没人能长期演,人设翻车是必然,不是偶然;而一旦翻车,你过去的全部信用一起清零——形象型信用,是一次性的。</li>
+<li><strong>怎么躲</strong>:把自己从"好看的标签"换成"可核验的资产"——作品、作品、可追溯的产出。<strong>让你的信用长在记录上,不长在形象上。</strong></li>
+</ul>
+<h3>坑三:道德高地(站在高地上的人,摔得最响)</h3>
+<ul>
+<li><strong>现实对应</strong>:韩红慈善被持续质疑——站在"善"字招牌下,被查得比谁都狠;善意不天然可信,反而因"天然可信"的预期落差摔得更响。</li>
+<li><strong>谁在坑里</strong>:站在善意、公益、道德高地上的人——慈善机构、道德楷模、以"好心"自居的人。</li>
+<li><strong>为什么撞</strong>:被期待可信的人,最容易被查。善意不天然可信,反而因为"天然可信"的预期落差,一旦有疑点,塌得比普通人更响。你自己立起"善人"的牌子,就等于主动请人来查。</li>
+<li><strong>怎么躲</strong>:不立道德人设,主动公开账目与流程,把"善意"翻译成"可核验的善"。<strong>别当道德高地,当透明的玻璃房。</strong></li>
+</ul>
+<h3>坑四:大承诺(承诺规模=违约爆炸半径)</h3>
+<ul>
+<li><strong>现实对应</strong>:许家印与恒大——万亿级的饼塌起来,是全社会的震动;承诺规模越大,违约爆炸半径越大。</li>
+<li><strong>谁在坑里</strong>:规模大、承诺多、画饼大的人与机构——扩张型企业家、拉投资讲故事的人、对公众开空头支票的组织。</li>
+<li><strong>为什么撞</strong>:承诺越大,兑现不了时的爆炸半径越大;杠杆越大的承诺越脆,一根链条断,整座楼塌。你不是被一个错误压垮的,是被一百个承诺里最小的那个裂缝压垮的。</li>
+<li><strong>怎么躲</strong>:承诺小一点,兑现快一点。<strong>别把"预期"当资产——预期是会爆的资产。</strong></li>
+</ul>
+<h3>坑五:信息不对称高位(你懂,别人查不了,就是罪)</h3>
+<ul>
+<li><strong>现实对应</strong>:P2P爆雷、各类"理财大师"、黑箱机构——你经手的钱、你懂的"内幕",恰是别人无法核验的地方,也是枪口最喜欢的位置。</li>
+<li><strong>谁在坑里</strong>:掌握别人无法核验信息的人——经手资金、内幕、黑箱操作,或"只有我懂"的技术、圈子、术语。</li>
+<li><strong>为什么撞</strong>:新范式下"无法核验"本身成罪。你不透明,别人就用最大恶意填充你的黑箱;你越说"你不懂",别人越认定你在藏。黑箱不是保护,黑箱是靶子。</li>
+<li><strong>怎么躲</strong>:主动透明,让关键环节可查、可追溯、可复现。<strong>把黑箱变成玻璃房,你就从嫌疑人变成背书人。</strong></li>
+</ul>
+<h3>坑六:单点叙事(你只有一条命,构陷者有一百种改法)</h3>
+<ul>
+<li><strong>现实对应</strong>:孙宇晨式小作文的攻防战里,受害者只有一条说法,构陷者能改出一百个版本——单点叙事的人一戳就破。</li>
+<li><strong>谁在坑里</strong>:只有一种说法、只靠一个平台、只讲一个故事的人——口头往来、无据可查、活在私域里的人。</li>
+<li><strong>为什么撞</strong>:小作文、虚构免责、舆论构陷是通用博弈工具。你只有一条说法,构陷者可以对同一件事改出一百个版本;单点叙事=一戳就破的纸灯笼。</li>
+<li><strong>怎么躲</strong>:重要的事白纸黑字留痕,建立多源证据链,公开渠道留档。<strong>让你的说法经得起"被改一百次"还立得住。</strong></li>
+</ul>
+<h3>避坑总纲</h3>
+<blockquote>
+<p><strong>信任危机时代的避坑,不是躲起来,是换货币:把你手里的旧信任货币(人设、大话、口头承诺、道德高地、信息差、单点叙事),主动换成新信任货币(记录、实证、契约、透明、多源证据)。</strong></p>
+<p>撞枪口的人,不是运气差,是手里还拿着上一时代的地契。</p>
+</blockquote>
+<p>六坑读到这里,可能有人觉得:那我不说话了、不承诺了、不做好事了,总安全了吧?不对——那不是避坑,那是退场。避坑的意思是换武器,不是缴械。下一章讲怎么换。</p>
+<hr /></section>
+<section class="chapter" id="c07"><p class="ch-tag">篇</p><h2>七、借势:空窗期的红利(核心三)</h2><p>空窗期的本质,是<strong>信用资产重新定价</strong>——旧资产暴跌,新资产还没人抢。这个时间窗口里,敢卖新资产的人,吃全时代差价。</p>
+<p>五股势,每股给四样:现实代表、时代给的利、怎么用、历史参照。</p>
+<ul>
+<li><strong>现实代表</strong>:胖东来(价签上公开标进价,查得越深越立得住);罗永浩(欠债六亿,还款过程全程公开——"真还传"成为他重建信用的全部资本)。他们证明:<strong>在空窗期,最值钱的不是"我是好人",是"我经得起查"。</strong></li>
+<li><strong>时代给的利</strong>:证据、契约、流程成为新信任货币;经得起查,就是你的信用评级。</li>
+<li><strong>怎么用</strong>:把你的工作做成"可验证资产"——公开账目、留档流程、记录产出、可复现的结果。<strong>你不需要被爱,你需要被查——查完还在,就是最大的信用。</strong></li>
+<li><strong>历史参照</strong>:穆迪评级(1909)、邓白氏企业征信,正是在19世纪那场信任废墟上,靠"替人核验"起家的。<strong>废墟上最先发财的,是卖"可信"本身的人。</strong></li>
+</ul>
+<h3>势二:真诚稀缺——在人人演戏的时代,不打折就是差异化</h3>
+<ul>
+<li><strong>现实代表</strong>:罗永浩直播(不完美但真实,认错快、退赔狠);胖东来(不玩套路,把价格和规则摊开)——在人人演戏的直播间和货架上,这两个反而是最被信任的。</li>
+<li><strong>时代给的利</strong>:人人都在包装、夸大、立人设,真实成为稀缺品。</li>
+<li><strong>怎么用</strong>:不表演、不夸大,说人话、给实数、认错快。<strong>在"默认打折"的市场里,不打折本身就是溢价。</strong></li>
+<li><strong>历史参照</strong>:信息噪声越大的市场,可信信号的价格越高——稀缺性定价,不因时代而变。</li>
+</ul>
+<h3>势三:平视沟通升值——放下权威话术,用实证说话</h3>
+<ul>
+<li><strong>现实代表</strong>:小米/雷军发布会(相对而言讲参数、晒物料,不喊口号);浙江宣传(体制内讲人话,反而破圈)——他们一个在商业、一个在体制内,<strong>相对</strong>证明了权威话术的破产与平视的红利。注意"相对"二字:小米也一直被人玩梗、被盯梢,它同样在冲击范围内——这里的好只是对照项,不是免疫牌。</li>
+<li><strong>时代给的利</strong>:权威话术贬值,"遥遥领先"被解构;平视、实证、可复现的过程被信任。</li>
+<li><strong>怎么用</strong>:少讲立场,多给数据;少讲愿景,多给过程;少讲"我很强",多讲"我做过什么、做成什么样"。<strong>越平视,越被信。</strong></li>
+<li><strong>历史参照</strong>:权威崩塌的时代,恰恰是"工匠式专业主义"升值的时代——人们不认头衔,认你手里的活。</li>
+</ul>
+<h3>势四:小信任圈升值——深耕少而深的关系</h3>
+<ul>
+<li><strong>现实代表</strong>:胖东来深耕河南本土——被验证的大样本,靠一群反复回来的人活得很好。<strong>复购,是低信任时代最硬的信任凭证。</strong> 更多"小而深的信任"的例子,我们留给评论区——欢迎提供你身边靠信任而非流量存活的个体与组织(见文末尾声)。</li>
+<li><strong>时代给的利</strong>:大而空的关注贬值,小而深的信任升值。</li>
+<li><strong>怎么用</strong>:别追虚名,深耕少数真正信你的人——一个圈层、一门手艺、一小群客户。<strong>在原子化社会里,小信任圈是唯一稳定的资源。</strong></li>
+<li><strong>历史参照</strong>:福山《信任》——低信任社会里,人们不信任陌生人,只能靠亲属、行会、社群建立局部信任。<strong>局部信任圈,是低信任时代活得最稳的组织形态。</strong></li>
+</ul>
+<h3>势五:制度重建前夜——占住"核验者"的位置</h3>
+<ul>
+<li><strong>现实代表</strong>:老爸评测(前质检工程师,靠独立检测起家)、懂车帝(汽车实测)、各类检测与认证机构——在"谁都可疑"的时代,掌握"定义什么是可信"的权力的人最先吃到红利。</li>
+<li><strong>时代给的利</strong>:新信任制度正在长出来,标准制定者、核验者、第三方背书的位置还空着。</li>
+<li><strong>怎么用</strong>:如果你有专业能力,往"核验者"的位置上站——做审查的人、做标准的人、做背书的人、做"让人查"的平台。<strong>空窗期最肥的地,是"定义什么是可信"的地。</strong></li>
+<li><strong>历史参照</strong>:镀金时代混乱之后,最先起来的是评级机构、审计机构、征信机构——<strong>每次信任重建,都先富一批"信任基础设施"的建造者。</strong></li>
+</ul>
+<h3>借势总纲</h3>
+<blockquote>
+<p><strong>借势不是投机,是在信用重新定价的窗口期,把自己摆到升值的一侧。</strong>
+六坑是"别拿旧货币",五势是"快去换新货币"——两张清单合起来,就是一句话:
+<strong>在人人被打折的时代,做一个被查完还在的人。</strong></p>
+</blockquote>
+<h3>借势的铁律:替身不是免死金牌</h3>
+<p>五势给的都是"相对更好"的位置,不是"安全区"。记住三件事:</p>
+<ol>
+<li><strong>信任危机会冲击一切,包括这些资产</strong>。小米也被人玩梗、被盯梢,胖东来也会被放大镜查——没有哪个位置能免疫,只有"早换货币"和"晚换货币"的差别。</li>
+<li><strong>心机是这个时代的高风险资产</strong>。做商业的人肯定要耍心机,但在人人盯、传播快的时代,任何心机都容易变成翻车素材——被揪、被盯、被传播是危机时代的常态,好替身也不例外。借势不是学他们的"成功",是学他们手里货币的<strong>方向</strong>。</li>
+<li><strong>我们挖掘到的"好",受信息限制</strong>。只能看到目前、表面的好,未来走向未知——所以借势要留余地,别把全部身家押在"某个现在看起来好的位置"上。</li>
+</ol>
+<p>一句话收束:<strong>看见方向,别押注个人。</strong> 拿五势当罗盘用,别拿五个替身当靠山。</p>
+<hr /></section>
+<section class="chapter" id="c08"><p class="ch-tag">篇</p><h2>八、未来推演:修复的途径与崩溃的可能</h2><p>推演不是为了预言,是为了<strong>押注和防守</strong>——知道哪些趋势可以押(借势),哪些风险要防(避坑)。</p>
+<table>
+<thead>
+<tr>
+<th>途径</th>
+<th>改掉哪个前置条件</th>
+<th>历史参照</th>
+<th>对应借势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>制度重建:证据/契约/流程制度化</td>
+<td>"新信任土壤未建成"</td>
+<td>镀金时代→进步主义(纯净食品法/美联储/穆迪/邓白氏)</td>
+<td>势一、势五</td>
+</tr>
+<tr>
+<td>共同经历重塑信任基线</td>
+<td>"防御心态"的普遍性</td>
+<td>罗马奥古斯都:和平与稳定本身重建信任</td>
+<td>势二(真诚稀缺放大)</td>
+</tr>
+<tr>
+<td>经济修复,预期松弛</td>
+<td>"经济结构性不确定"</td>
+<td>反复出现的经济周期</td>
+<td>势三、势四</td>
+</tr>
+<tr>
+<td>平台被反逼治理</td>
+<td>"平台逐利"的纯成本面</td>
+<td>2008→《多德-弗兰克法案》</td>
+<td>势五(核验权争夺)</td>
+</tr>
+</tbody>
+</table>
+<h3>8.2 崩溃的可能(对应"防什么")</h3>
+<table>
+<thead>
+<tr>
+<th>可能</th>
+<th>触发条件</th>
+<th>历史参照</th>
+<th>对应避坑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>塔西佗陷阱化:公信力归零,任何解释被反向解读</td>
+<td>信任跌破临界点,自我强化</td>
+<td>罗马帝国末期、明末</td>
+<td>坑一(越辩解越糟,不如让结果说话)</td>
+</tr>
+<tr>
+<td>全面原子化:不崩,但长期低效、高防备</td>
+<td>新信任范式长期不成型</td>
+<td>1970s美国:低信任但制度照常运转</td>
+<td>坑六(单点叙事最脆),势四(小信任圈)</td>
+</tr>
+<tr>
+<td>叙事武器化升级:AI伪造+小作文规模化</td>
+<td>制度滞后持续</td>
+<td>舆论构陷的逐级扩散</td>
+<td>坑六(多源证据链是唯一防线)</td>
+</tr>
+<tr>
+<td>危机被利用:既得利益者收割真空</td>
+<td>信任真空长期存在</td>
+<td>每次大规模失信后都有投机者</td>
+<td>坑二、坑三(人设与道德高地是收割者最爱的皮)</td>
+</tr>
+</tbody>
+</table>
+<h3>8.3 三条定论</h3>
+<ol>
+<li><strong>信任危机不会无限恶化,但不会自动好转。</strong> 它有自然生命周期,终将结束——但结束不代表迎来美好,只代表进入下一种新的社会状态。把话说明白:结束,不等于好转,只是换一种坏法或好法。</li>
+<li><strong>当下的猜忌、设防、不信任,是时代前置条件决定的真实社会事实</strong>,不是人心变坏,不是道德滑坡,是范式交替的必然阵痛。别急着骂人心,先看看时代。</li>
+<li><strong>旧的朴素信任彻底回不去,未来只会诞生证据化、契约化、流程化的新型信任。</strong> 空窗期之所以猜忌最盛,是因为旧土壤已塌、新土壤未成——而新土壤早晚要长起来,关键是长多快,以及<strong>你在它长出来之前,把自己种在哪一侧</strong>。</li>
+</ol>
+<hr /></section>
+<section class="chapter" id="c09"><p class="ch-tag">篇</p><h2>九、落点:空窗期的个体立场</h2><p>讲完了时代、利弊、避坑、借势,最后落到你自己身上。</p>
+<p>不讨论"会不会必然变好"——那是抽象思辨,没有答案。只处理一个真问题:<strong>在新信任未建成、旧信任已崩塌的空窗期,一个个体应该拿什么当行为底座?</strong></p>
+<p><strong>先说适用边界:这套落点,默认你是一个还有选择余裕的普通人。</strong> 如果你的处境是生存危机——吃饭、看病、住处都成问题;或是重度抑郁、持续崩溃;或是被极端压榨、没有选择的境地——本文不是你的解药。那样的处境里,先活下来,先求现实与专业的帮助。<strong>内心修炼是缓冲,不是解决方案;现实的问题,最终要现实的解决。</strong> 本文能做的,是你在还有余裕的时候,不白费这个余裕。</p>
+<p>别指望世界先恢复可信,再决定自己要不要可信——那就永远等不到。</p>
+<p><strong>在不可信的世界里做一个可信的人</strong>,不是道德表演,是唯一不被危机定义自身的选择:你的可信不是给世界看的筹码,是你自己的地基。它不保证你被善待,但保证你的选择不塌。</p>
+<p>这句话再往深说一层:在这个时代,"被信任"已经不由你控制,它取决于环境、算法、别人的心情。你能控制的只有一件事——<strong>你是不是一个可信的人</strong>。把注意力从"别人信不信我"挪到"我是不是可信",你就从被动等打分的人,变成了主动立标准的人。</p>
+<p><strong>但做可信的人,短期是要付代价的。</strong> 你会被骗子利用,会替别人背锅,会做别人眼里的"傻事",会拿回比别人少的"好处"。这是成本,不是漏洞——你可以把它当成换取"长期不塌"的保费。同时记住:可信不等于无防,对外仍持萨特之眼(下一节),正是把这笔保费控制在你能承担的范围内。可信是你立的标准,不是别人收割你的入口。</p>
+<h3>九.2 萨特与列维纳斯,各留一半</h3>
+<ul>
+<li><strong>对外</strong>:持萨特之眼——看见风险、默认打折、核实再做决定。这是理性,不是犬儒。用萨特的眼睛看世界,你不会被骗;但只用萨特的眼睛,你会活得又冷又累。</li>
+<li><strong>对内</strong>:持列维纳斯之心——评估利弊之前,先承认对面的人有脸、有脆弱、值得被当人对待。这是底线,不是天真。用列维纳斯的心对自己,你不会变成骗子;但只用列维纳斯的心,你会在这个时代遍体鳞伤。</li>
+</ul>
+<p><strong>对外用萨特的尺子量世界,对内用列维纳斯的线守自己。</strong> 同一个时代,两套模型,各安其位——这就是前置条件论教给个体的活法。它教你的不是"信还是不信",是"对世界严格,对自己严格"——对世界严格是保护自己,对自己严格是保护自己的人格。</p>
+<h3>九.3 收束</h3>
+<ul>
+<li>我们站在空窗期,所以猜忌最盛——这是事实,不是人心坏了。</li>
+<li>旧信任回不去,新信任在路上——这是方向,不是空谈。</li>
+<li>世界信不信我,我管不了;我信不信自己,我管得了——这是底线,不是鸡汤。</li>
+</ul>
+<p><strong>危机可以被削弱、被缓冲、被缩短,但无法被根除。不信任将长期成为新时代的常态底色之一,比例波动,永远共存。</strong></p>
+<p>我们要做的,不是在不可信的世界里自证清白,而是<strong>在不可信的世界里,把可信活成自己的默认状态</strong>——顺便,把手里贬值的旧货币,换成升值的记录、实证与透明。</p>
+<hr /></section>
+<section class="chapter" id="c10"><p class="ch-tag">篇</p><h2>十、被我们抛弃的学术误区(去虚向实清单)</h2><p>这篇文章走到最后,把我们自己都曾经掉进去的坑,一并列出来,当作路标:</p>
+<ul>
+<li>抛弃:物极必反、坏尽必好的绝对宿命论——世界不会因为你希望它好它就自动好。</li>
+<li>抛弃:抽象讨论循环、辩证转化、哲学终极对错——这些问题没有答案,讨论只会消耗你。</li>
+<li>抛弃:只做时代诊断、不给个体出路的旁观者写作——光说"时代病了"是没用的,要告诉人怎么走。</li>
+<li>抛弃:只审别人、不审自己的"无自反性分析"——你的分析,也站在一个时代上。</li>
+<li>抛弃:用书本理论硬套现实、闭门造车式思辨——哲学是被现实喂养的,不是拿来套现实的。</li>
+<li>抛弃:把"显得有学问"当写作目的——写东西是为了让人理解,不是为了让人崇拜。</li>
+</ul>
+<p>真正有价值的只有三件事:<strong>覆盖广度、破坏烈度、周期长短</strong>——以及在此基础上,<strong>人往哪站</strong>。</p>
+<hr /></section>
+<section class="chapter" id="c11"><p class="ch-tag">篇</p><h2>尾声:好的一面,留给观众拼完(开放性入口)</h2><p>我们知道的"好",止步于此——都是传播得多、大家都知道的大样本。至于那些还没被看见、正在悄悄活得好的人与组织,我们不知道,也无法穷尽。</p>
+<p><strong>这个话题,我们开放给读者。两个问题,评论区见:</strong></p>
+<blockquote>
+<p><strong>话题一:你认为,在这个人人被打折的时代,还有什么东西、什么人、什么组织,在好好活着?它们靠的是什么?</strong></p>
+<p><strong>话题二:你有没有亲历过"旧信任失效、新信任生效"的时刻?那一瞬间,是什么让你决定信或不信?</strong></p>
+</blockquote>
+<p>每一条真实的观察,都在帮我们拼出"新信任范式"更完整的地图。我们不给标准答案——我们只把这个时代的一侧摊开,把另一侧交给正在生活其中的人。<strong>答案不在一篇文章里,在成千上万条真实的生活里。</strong></p>
+<p>这篇文章不结束在一句结论上,结束在一扇打开的窗口上——<strong>读完的你,就是文章的后半篇。</strong></p>
+<hr /></section><section class="ext"><h3 class="ext-title">这本不并主线,它是时代观察的另一半</h3><p class="ext-guide">本文不并入四书主线,它是独立的方法论沉淀——「时代观察 · 方法论」。与《算法争夺》互为镜:那篇讲注意力被收割,这篇讲信任被消费——同一片荒地(时代真空期)上长的两种野草,放在一起看,荒地的轮廓才完整。</p><div class="ext-card"><p class="ext-pos">互为镜 · 《算法争夺》讲注意力被收割</p><h4 class="ext-name">文明的阶梯 · 续篇</h4><p class="ext-core">心里那片地,不种庄稼,就长野草——算法争夺的是认知能量,本文讲的是信任被消费。</p><div class="ext-row"><a class="ext-btn" href="/read/civilization/">对照读 →</a><a class="ext-listen" href="/audiobook/#book-wenming">去听书 →</a></div></div><div class="ext-card"><p class="ext-pos">承接 · 萨特透镜</p><h4 class="ext-name">走向田间</h4><p class="ext-core">陆篇用萨特「他人即地狱」照全荒幕的三场崩塌——本文把它们升维成方法论。</p><div class="ext-row"><a class="ext-btn" href="/read/xiangjian/">回看 →</a><a class="ext-listen" href="/audiobook/#book-xiangjian">去听书 →</a></div></div></section>
+  <div class="footer">
+    <p>读到这里,故事就讲完了。也欢迎回去听有声书——</p>
+    <a class="back" href="/audiobook/#book-xinqian">回到听书页继续听 →</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  var store = localStorage;
+  var KEY = 'readbk:' + (location.pathname.split('/')[2] || 'x');
+  var drawer = document.getElementById('drawer');
+  var scrim = document.getElementById('scrim');
+  var progress = document.getElementById('progress');
+  var chapters = document.querySelectorAll('.chapter');
+  var items = document.querySelectorAll('.dw-item');
+  var toc = document.getElementById('toc');
+
+  // 主题
+  var theme = store.getItem(KEY + ':theme') || 'night';
+  document.body.dataset.theme = theme;
+  document.getElementById('th-toggle').textContent = theme === 'day' ? '夜间' : '白昼';
+
+  // 字号
+  var fs = store.getItem(KEY + ':fs') || 'm';
+  document.body.dataset.font = fs;
+  var fbtns = document.querySelectorAll('.tb-font button');
+  fbtns.forEach(function (b) {
+    if (b.dataset.fs === fs) b.classList.add('active');
+  });
+
+  // 目录
+  document.getElementById('dw-toggle').addEventListener('click', function () {
+    drawer.classList.toggle('open'); scrim.classList.toggle('open');
+  });
+  scrim.addEventListener('click', close);
+  function close() { drawer.classList.remove('open'); scrim.classList.remove('open'); }
+
+  items.forEach(function (it) {
+    it.addEventListener('click', function () {
+      close();
+      var t = it.getAttribute('data-t');
+      var el = document.getElementById(t);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // 字号
+  fbtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var v = b.dataset.fs;
+      document.body.dataset.font = v;
+      store.setItem(KEY + ':fs', v);
+      fbtns.forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+    });
+  });
+
+  // 主题
+  document.getElementById('th-toggle').addEventListener('click', function () {
+    var next = document.body.dataset.theme === 'day' ? 'night' : 'day';
+    document.body.dataset.theme = next;
+    store.setItem(KEY + ':theme', next);
+    this.textContent = next === 'day' ? '夜间' : '白昼';
+  });
+
+  // 滚动:进度条 + 当前章节高亮 + 记忆
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      var pct = max > 0 ? (h.scrollTop / max * 100) : 0;
+      progress.firstChild.style.width = pct + '%';
+      // 高亮当前章
+      var cur = null;
+      for (var i = 0; i < chapters.length; i++) {
+        if (chapters[i].getBoundingClientRect().top <= 120) cur = chapters[i].id;
+      }
+      items.forEach(function (it) {
+        it.classList.toggle('active', it.getAttribute('data-t') === cur);
+      });
+      store.setItem(KEY + ':pos', String(h.scrollTop));
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // 恢复进度
+  var pos = parseInt(store.getItem(KEY + ':pos') || '0', 10);
+  if (pos > 0) window.scrollTo(0, pos);
+  onScroll();
+})();
+</script>
+</body>
+</html>
