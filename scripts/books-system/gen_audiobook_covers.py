@@ -70,15 +70,35 @@ def make_cover(title, subtitle, output):
     # 金线
     d.line([(CX - 110, 470), (CX + 110, 470)], fill=GOLD, width=3)
 
-    # 主标题(书名)
+    # 主标题(书名)——过长(>900px)时拆两行,优先在 · 处拆
     f_title = font(164)
     bb = d.textbbox((0, 0), title, font=f_title)
-    d.text((CX - (bb[2] - bb[0]) // 2, 512 - bb[1]), title, fill=TEXT, font=f_title)
+    tw = bb[2] - bb[0]
+    if tw <= 900:
+        d.text((CX - tw // 2, 512 - bb[1]), title, fill=TEXT, font=f_title)
+        sub_y = 700
+    else:
+        parts = None
+        for sep in ("·", "：", ":", " ", "、"):
+            if sep in title:
+                p = title.split(sep, 1)
+                if p[0] and p[1]:
+                    parts = p
+                    break
+        if not parts:
+            mid = len(title) // 2
+            parts = [title[:mid], title[mid:]]
+        f_t2 = font(112)
+        base_y = 500
+        for i, ln_t in enumerate(parts[:2]):
+            bb2 = d.textbbox((0, 0), ln_t, font=f_t2)
+            d.text((CX - (bb2[2] - bb2[0]) // 2, base_y + i * 140 - bb2[1]), ln_t, fill=TEXT, font=f_t2)
+        sub_y = 800
 
     # 副题
     f_sub = font(48)
     bb = d.textbbox((0, 0), subtitle, font=f_sub)
-    d.text((CX - (bb[2] - bb[0]) // 2, 700), subtitle, fill=GOLD, font=f_sub)
+    d.text((CX - (bb[2] - bb[0]) // 2, sub_y), subtitle, fill=GOLD, font=f_sub)
 
     draw_sig(d)
 

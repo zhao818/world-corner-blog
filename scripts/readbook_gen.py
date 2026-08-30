@@ -102,6 +102,25 @@ BOOKS = [
             "order": ["《走向田间》 · 读完 · 转向土地", "《文明的阶梯》 → 重读:看总纲", "《幸福的内在》 → 重读:看现象", "《内心的修炼》 → 重读:去行动"],
         },
     },
+    {
+        "id": "xinqian",
+        "file": "信任危机·前置条件论-灵魂之觅版.md",
+        "title": "信任危机·前置条件论",
+        "subtitle": "〇开卷声明 + 一~十 + 尾声(时代观察 · 方法论)",
+        "listen_href": "/audiobook/#book-xinqian",
+        "mode": "flat",
+        "rec": {
+            "title": "这本不并主线,它是时代观察的另一半",
+            "guide": "本文不并入四书主线,它是独立的方法论沉淀——「时代观察 · 方法论」。与《算法争夺》互为镜:那篇讲注意力被收割,这篇讲信任被消费——同一片荒地(时代真空期)上长的两种野草,放在一起看,荒地的轮廓才完整。",
+            "items": [
+                {"bid": "civilization", "name": "文明的阶梯 · 续篇", "pos": "互为镜 · 《算法争夺》讲注意力被收割",
+                 "core": "心里那片地,不种庄稼,就长野草——算法争夺的是认知能量,本文讲的是信任被消费。", "btn": "对照读", "anchor": "wenming"},
+                {"bid": "xiangjian", "name": "走向田间", "pos": "承接 · 萨特透镜",
+                 "core": "陆篇用萨特「他人即地狱」照全荒幕的三场崩塌——本文把它们升维成方法论。", "btn": "回看", "anchor": "xiangjian"},
+            ],
+            "order": [],
+        },
+    },
 ]
 
 CSS = """
@@ -513,11 +532,15 @@ def build_page(book, content_html, toc_html):
 
 
 def render_extension(rec):
-    """延伸阅读区块:读完这本书,引导去读/重读另外两本(三书互链成闭环)"""
-    order = "".join(
-        '<p class="done">%s</p>' % o if ("已读" in o or "读完" in o) else '<p class="next">%s</p>' % o
-        for o in rec["order"]
-    )
+    """延伸阅读区块:读完这本书,引导去读/重读另外几本"""
+    order_html = ""
+    if rec.get("order"):
+        order = "".join(
+            '<p class="done">%s</p>' % o if ("已读" in o or "读完" in o) else '<p class="next">%s</p>' % o
+            for o in rec["order"]
+        )
+        n_str = "四本书" if len(rec["order"]) > 3 else "三本书"
+        order_html = '<div class="ext-order"><p class="ext-order-title">%s · 阅读顺序</p>%s</div>' % (n_str, order)
     cards = []
     for it in rec["items"]:
         cards.append(
@@ -531,13 +554,12 @@ def render_extension(rec):
             "</div></div>" % (it["pos"], it["name"], it["core"],
                               it["bid"], it["btn"], it.get("anchor", it["bid"]))
         )
-    n_str = "四本书" if len(rec["order"]) > 3 else "三本书"
     return ('<section class="ext">'
             '<h3 class="ext-title">%s</h3>'
             '<p class="ext-guide">%s</p>'
             "%s"
-            '<div class="ext-order"><p class="ext-order-title">%s · 阅读顺序</p>%s</div>'
-            "</section>" % (rec["title"], rec["guide"], "".join(cards), n_str, order))
+            "%s"
+            "</section>" % (rec["title"], rec["guide"], "".join(cards), order_html))
 
 
 def main():

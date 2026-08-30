@@ -19,7 +19,7 @@
       <h2><span class="card-no">01</span> 作者</h2>
       <p class="signature">美好需要创造 <span class="sig-en">· Tianbing Zhao</span></p>
       <p>写技术,也写哲学。从 DeepSeek 的商业格局拆到维特根斯坦临终的那句话,从 AI 时代的学习方法,讲到内心的九关修炼。</p>
-      <p>「美好需要创造」是这个站的署名,也是公众号与四本有声书背后的名字。作者相信:真正的进步,始于优化自己的认知操作系统——而不是无限放大外部的欲望。</p>
+      <p>「美好需要创造」是这个站的署名,也是公众号与五本有声书背后的名字。作者相信:真正的进步,始于优化自己的认知操作系统——而不是无限放大外部的欲望。</p>
     </section>
 
     <section class="about-card">
@@ -39,7 +39,7 @@
         <li><a href="/posts/tooling/">效率工具</a><em>{{ len $tl.RegularPages }} 篇</em></li>
         <li><a href="/pitfalls/">踩坑宝典</a><em>{{ len $pt.RegularPages }} 篇</em></li>
         <li><a href="/collections/">合集</a><em>公众号</em></li>
-        <li><a href="/audiobook/">听书</a><em>4 本</em></li>
+        <li><a href="/audiobook/">听书</a><em>5 本</em></li>
         <li><a href="/app/">小程序</a><em>灵魂之觅</em></li>
         <li><a href="/assets/">资产</a><em>80 项</em></li>
         <li><a href="/skills/">技能</a><em>62 项</em></li>
@@ -55,9 +55,9 @@
 
 <section class="about-books">
   <div class="books-head">
-    <span class="books-tag">四本书</span>
+    <span class="books-tag">四本书 + 时代观察</span>
     <h2>先看到,再去修,走向田间</h2>
-    <p class="books-lead">四本书,是一条路上的四步——《幸福的内在》负责「看到」,《内心的修炼》负责「去修」,《文明的阶梯》负责「方向」,《走向田间》负责「喂养」。四本都各有声书,都能在线阅读。</p>
+    <p class="books-lead">四本书,是一条路上的四步——《幸福的内在》负责「看到」,《内心的修炼》负责「去修」,《文明的阶梯》负责「方向」,《走向田间》负责「喂养」。四本都各有声书,都能在线阅读。另有一篇《信任危机·前置条件论》,不在这条路上——它是独立的方法论沉淀,时代观察:辨利弊、避坑、借势。</p>
   </div>
   <div class="books-grid">
     {{- range $books }}
@@ -65,7 +65,7 @@
       <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
       <div class="book-tile-txt">
         <h3>{{ .title }}</h3>
-        <p class="book-tile-sub">{{ index (dict "xingfu" "现象诊断书 · 讲「看到」" "neixin" "修行操作书 · 讲「去修」" "wenming" "纲领与地图 · 讲「方向」") .id | default "转向 · 讲「喂养」" }}</p>
+        <p class="book-tile-sub">{{ index (dict "xingfu" "现象诊断书 · 讲「看到」" "neixin" "修行操作书 · 讲「去修」" "wenming" "纲领与地图 · 讲「方向」" "xinqian" "时代观察 · 方法论 · 不并入主线") .id | default "转向 · 讲「喂养」" }}</p>
         <p class="book-tile-desc">{{ .desc }}</p>
         <span class="book-tile-go">在线阅读 →</span>
       </div>
