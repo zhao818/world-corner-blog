@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://worldcorner.xyz/posts/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/tags/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/posts/era-observation/2026-08-31-trust-crisis-group-side/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/tags/%E4%BF%A1%E4%BB%BB%E5%8D%B1%E6%9C%BA/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/posts/era-observation/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/tags/%E6%97%B6%E4%BB%A3%E8%A7%82%E5%AF%9F/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/tags/%E7%A4%BE%E4%BC%9A%E8%A7%82%E5%AF%9F/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://worldcorner.xyz/tags/%E8%AE%A4%E7%9F%A5%E6%88%90%E9%95%BF/</loc>
+    <lastmod>2026-08-31T00:00:00+08:00</lastmod>
+  </url><url>
     <loc>https://worldcorner.xyz/tags/ai/</loc>
     <lastmod>2026-07-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -9,15 +36,6 @@
     <lastmod>2026-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://worldcorner.xyz/posts/systems-thinking/2026-07-23-deepseek-watershed/</loc>
-    <lastmod>2026-07-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://worldcorner.xyz/posts/</loc>
-    <lastmod>2026-07-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://worldcorner.xyz/tags/</loc>
-    <lastmod>2026-07-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://worldcorner.xyz/</loc>
     <lastmod>2026-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://worldcorner.xyz/tags/%E6%B7%B1%E5%BA%A6%E8%A7%82%E5%AF%9F/</loc>
@@ -384,9 +402,6 @@
     <lastmod>2026-06-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://worldcorner.xyz/tags/%E7%A4%BE%E4%BA%A4/</loc>
-    <lastmod>2026-06-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://worldcorner.xyz/tags/%E7%A4%BE%E4%BC%9A%E8%A7%82%E5%AF%9F/</loc>
     <lastmod>2026-06-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://worldcorner.xyz/tags/%E7%B3%BB%E7%BB%9F%E6%80%9D%E7%BB%B4/</loc>
