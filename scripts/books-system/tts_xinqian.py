@@ -166,6 +166,21 @@ def clean_text(text):
     return "\n".join(lines)
 
 
+# 多音字术语 → 括号拼音注音。
+# zh-CN-XiaoxiaoNeural 对"重排/降权"读错(重→zhòng、降→xiáng),无上下文消歧。
+# 实测"字(拼音)"注音可纠正读音(按拼音读、括号本身不读出),每个注音约增 0.35s。
+PHONETIC_FIX = {
+    "重排": "重(chóng)排",
+    "降权": "降(jiàng)权",
+}
+
+
+def apply_phonetic_fix(text):
+    for w, fx in PHONETIC_FIX.items():
+        text = text.replace(w, fx)
+    return text
+
+
 def split_paragraphs(text, limit):
     chunks, cur = [], ""
     for para in text.split("\n"):
@@ -264,7 +279,7 @@ def main():
     if only:
         # 冒烟:只合成第 1 章,打印清理文本供人工检查,不合并
         title, body = chapters[only - 1]
-        cleaned = clean_text(body)
+        cleaned = apply_phonetic_fix(clean_text(body))
         print("== 章%s · %s ==" % (only, title))
         print("清理后字数:", len(cleaned))
         print("---- 清理文本(前 800 字)----")
@@ -289,7 +304,7 @@ def main():
         if os.path.exists(tmp):
             print("[%02d] %s 已有章节,跳过合成" % (idx, name))
         else:
-            text = clean_text(body)
+            text = apply_phonetic_fix(clean_text(body))
             total_chars += len(text)
             chunks = split_paragraphs(text, CHUNK_CHARS)
             print("[%02d] %s: %d 字, %d 段,合成中..." % (idx, name, len(text), len(chunks)))
