@@ -7,6 +7,7 @@ tags: ["信任危机", "社会观察", "时代观察", "认知成长"]
 description: "个体侧讲完『你怎么走』,还剩一个问题:整个时代处在什么状况?七个症状、一套索引、五条边界——旧信任体系整体失灵,社会进入信用重铸期。"
 aliases:
   - /posts/era-observation/trust-crisis-group-side/
+  - /trust-crisis-group-side/
 ---
 
 # 个体在换货币,群体在等重铸:信任危机 · 群体侧观察
