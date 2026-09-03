@@ -102,6 +102,8 @@
       modal.classList.add('is-active');
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
+      // 无论自动还是手动打开,都记为“已见”,避免反复自动打扰
+      try { window.localStorage.setItem('wc_promo_seen_v1', '1'); } catch (err) { /* 忽略 */ }
       switchTab(tab || 'mp');
     }
 
@@ -255,6 +257,21 @@
         openModal('posters');
       });
     });
+
+    // 进听书页自动弹出一次宣传卡(可正常关闭);每个浏览器只弹一次
+    autoShowPromoOnce();
+
+    function autoShowPromoOnce() {
+      var KEY = 'wc_promo_seen_v1';
+      var seen = false;
+      try { seen = !!window.localStorage.getItem(KEY); } catch (err) { /* 隐私模式忽略 */ }
+      if (seen) return;
+      setTimeout(function () {
+        // 延迟期间用户若已自行打开/关闭,则不再自动弹,避免状态打架
+        if (modal.getAttribute('hidden') === null) return;
+        openModal('mp');
+      }, 800);
+    }
   }
 
   if (document.readyState === 'loading') {
