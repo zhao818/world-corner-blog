@@ -403,9 +403,10 @@ books:
     - {t: 1272.9, name: "05-工厂与厂主", len: "07:27"}
     - {t: 1720.3, name: "06-尾声", len: "03:31"}
     extension:
-      title: "水源讲完,回到需求侧的机器"
-      guide: '本文是信任系列的上游/供给篇:本源论讲「个体这台信任机器靠什么活」(需求侧·可预测性),本文讲「可预测性是谁在生产」(供给侧·伦理这条供水线)。两篇是一对——先听机器,再听水源;或先听水源,再回机器,都成立。'
+      title: "体系终章 · 灯转过来之后看见的风景"
+      guide: '正稿完成了对“可预测性供给机器”的拆解，收在“把灯转向自己”。灯转过来之后看见什么？——伦理总在迟到，社会总在重造它。'
       items:
+        - {name: "伦理篇·补遗", pos: "体系终章 · 正文阅读", url: "/posts/era-observation/2026-09-03-trust-ethics-addendum/", audio: "", btn: "阅读体系终章"}
         - {name: "信任本源论", pos: "需求侧 · 机器靠什么活", url: "/posts/era-observation/2026-09-02-trust-origin/", audio: "book-benyuan", btn: "接着听"}
         - {name: "信任危机·前置条件论", pos: "个体侧 · 怎么走", url: "/read/xinqian/", audio: "book-xinqian", btn: "接着听"}
         - {name: "信任危机·群体侧观察", pos: "群体侧 · 往哪走", url: "/posts/era-observation/2026-08-31-trust-crisis-group-side/", audio: "book-qunti", btn: "接着听"}

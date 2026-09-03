@@ -189,7 +189,9 @@
           <strong class="bn-name">{{ .name }}</strong>
           <div class="bn-actions">
             <a class="bn-btn" href="{{ .url }}">{{ .btn }} →</a>
+            {{- if .audio }}
             <a class="bn-listen" href="/audiobook/#{{ .audio }}">去听书 →</a>
+            {{- end }}
           </div>
         </div>
         {{ end }}
