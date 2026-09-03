@@ -423,16 +423,23 @@
 }
 
 /* --- 模态弹窗（深夜书房深藏青 + 典雅金） --- */
+.promo-modal-backdrop[hidden],
+#promo-modal[hidden] {
+  display: none !important;
+}
 .promo-modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9999;
   background: rgba(5, 8, 12, 0.85);
   backdrop-filter: blur(8px);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+.promo-modal-backdrop.is-active {
+  display: flex !important;
   animation: promoFadeIn 0.2s ease-out;
 }
 @keyframes promoFadeIn {
@@ -486,14 +493,21 @@
   background: none;
   border: none;
   color: #8e9aa8;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 .promo-modal-close:hover {
   color: #c8a03c;
+  background: rgba(200, 160, 60, 0.1);
 }
 .promo-modal-body {
   padding: 24px;

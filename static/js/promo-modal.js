@@ -98,13 +98,18 @@
     }
 
     function openModal(tab) {
-      modal.hidden = false;
+      modal.removeAttribute('hidden');
+      modal.classList.add('is-active');
+      modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       switchTab(tab || 'mp');
     }
 
-    function closeModal() {
-      modal.hidden = true;
+    function closeModal(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      modal.setAttribute('hidden', '');
+      modal.classList.remove('is-active');
+      modal.style.display = 'none';
       document.body.style.overflow = '';
     }
 
@@ -146,16 +151,23 @@
       });
     }
 
+    // 绑定右上角及底部所有关闭按钮（支持 click 和 touchend）
+    var closeButtons = modal.querySelectorAll('[data-close-promo]');
+    closeButtons.forEach(function (btn) {
+      btn.addEventListener('click', closeModal);
+    });
     if (btnClose) {
       btnClose.addEventListener('click', closeModal);
     }
 
     modal.addEventListener('click', function (e) {
-      if (e.target === modal) closeModal();
+      if (e.target === modal || e.target.classList.contains('promo-modal-backdrop')) {
+        closeModal(e);
+      }
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !modal.hidden) closeModal();
+      if (e.key === 'Escape') closeModal();
     });
 
     if (tabMp) {
