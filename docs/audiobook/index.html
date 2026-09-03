@@ -9,7 +9,7 @@
 <meta name="description" content="完整连播的有声书:信任危机·前置条件论 · 走向田间 · 文明的阶梯 · 幸福的内在 · 内心的修炼">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/audiobook/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.f9a8f4ed9dedb464031468a8e7beb59048a83092a4354d55992bba7114af36d0.css" integrity="sha256-&#43;aj07Z3ttGQDFGio5761kEioMJKkNU1VmSu6cRSvNtA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.280213d8a8a8c5225b11c73473bfd4c970d991a5d58a24e503d374744352522c.css" integrity="sha256-KAIT2KioxSJbEcc0c7/UyXDZkaXViiTlA9N0dENSUiw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -185,7 +185,17 @@
   <p class="audio-kicker">AUDIO · 完整连播</p>
   <h1>听书</h1>
   <p class="audio-sub">整本连播,打开就是完整的一本——不用逐集点,睡一觉它也替你播着。</p>
-  <a class="hero-map" href="/theory-map/" aria-label="查看三书总理论地图">三书 · 总理论地图 →</a>
+  <div class="hero-actions">
+    <a class="hero-map" href="/theory-map/" aria-label="查看三书总理论地图">三书 · 总理论地图 →</a>
+    <button class="hero-mp-btn" type="button" id="btn-open-mp-modal" aria-label="微信小程序锁屏听书">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      微信锁屏听书
+    </button>
+    <button class="hero-share-btn" type="button" id="btn-open-share-modal" aria-label="金句海报与文案">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      精选金句海报
+    </button>
+  </div>
 </section>
 <section class="guide">
   <div class="guide-head">
@@ -232,10 +242,17 @@
       </div>
       <h2>幸福的内在</h2>
       <p class="book-desc">从「思想之光」到「升维」,31 篇散文小辑。适合睡前一刷、走路骑行、专注间隙给自己留一口气——它不催你,只陪你。</p>
-      <a class="book-read" href="/read/happiness/" aria-label="在线阅读《幸福的内在》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/happiness.mp3" data-book="xingfu" data-title="幸福的内在" data-cover="/audio/cover-happiness.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/read/happiness/" aria-label="在线阅读《幸福的内在》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="xingfu" data-book-title="幸福的内在" aria-label="分享《幸福的内在》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/happiness.mp3" data-book="xingfu" data-title="幸福的内在" data-cover="/audio/cover-happiness.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/happiness.mp3"></audio>
 
         <div class="bp-panel">
@@ -827,10 +844,17 @@
       </div>
       <h2>内心的修炼</h2>
       <p class="book-desc">九关修炼体系——断舍离、立根本、炼心术、破执念、养身体、结善缘、明规则、明经济、立财基。每一关借一本书当拐杖:《沉思录》《传习录》《人生的智慧》…… 从序言听到完结篇,8 小时读完一门人生通识课。</p>
-      <a class="book-read" href="/read/neixin/" aria-label="在线阅读《内心的修炼》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/neixin/01.mp3" data-book="neixin" data-title="内心的修炼" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice-v2.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/read/neixin/" aria-label="在线阅读《内心的修炼》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="neixin" data-book-title="内心的修炼" aria-label="分享《内心的修炼》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/neixin/01.mp3" data-book="neixin" data-title="内心的修炼" data-cover="https://6c69-linhunzhimi-d3gjq7hn146541f08-1391973557.tcb.qcloud.la/audiobook/cover-mind-practice-v2.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/neixin/01.mp3"></audio>
 
         <div class="bp-panel">
@@ -1122,10 +1146,17 @@
       </div>
       <h2>文明的阶梯</h2>
       <p class="book-desc">从「喂饱」讲起的文明观:食物的解放带来时间,时间带来思考与文明。外部已被喂饱,内心开始饿——下一场跃迁,在精神喂养。幸福就是升级;灯塔是唯一能做的事。序言、五篇论证、每日必修、跋与续篇,一书立纲。续篇专讲算法时代:不种庄稼,就长野草。</p>
-      <a class="book-read" href="/read/civilization/" aria-label="在线阅读《文明的阶梯》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/civilization.mp3" data-book="wenming" data-title="文明的阶梯" data-cover="/audio/cover-civilization.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/read/civilization/" aria-label="在线阅读《文明的阶梯》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="wenming" data-book-title="文明的阶梯" aria-label="分享《文明的阶梯》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/civilization.mp3" data-book="wenming" data-title="文明的阶梯" data-cover="/audio/cover-civilization.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/civilization.mp3"></audio>
 
         <div class="bp-panel">
@@ -1381,10 +1412,17 @@
       </div>
       <h2>走向田间</h2>
       <p class="book-desc">「灵魂之觅」第四本,从前三本的「人」转向「器」:科技(AI)的试金石不在它多聪明,而在它服务谁。五幕衰败弧从土地讲到全荒,三把尺(康德/黑格尔/卢梭)量出文明走势,最后落到《农业圣典》的健康链——把目光,从收割,转回喂养。</p>
-      <a class="book-read" href="/read/xiangjian/" aria-label="在线阅读《走向田间》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/xiangjian.mp3" data-book="xiangjian" data-title="走向田间" data-cover="/audio/cover-xiangjian.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/read/xiangjian/" aria-label="在线阅读《走向田间》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="xiangjian" data-book-title="走向田间" aria-label="分享《走向田间》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/xiangjian.mp3" data-book="xiangjian" data-title="走向田间" data-cover="/audio/cover-xiangjian.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/xiangjian.mp3"></audio>
 
         <div class="bp-panel">
@@ -1738,10 +1776,17 @@
       </div>
       <h2>信任危机·前置条件论</h2>
       <p class="book-desc">「时代观察 · 方法论」,不并入四书主线:哲学没有绝对对错,只有时代前置条件是否匹配——前置条件成立,它就是事实描述;条件消失,它就是自言自语。用这套方法拆信任危机:辨利弊、避坑、借势,落到个体——对外萨特,对内列维纳斯。</p>
-      <a class="book-read" href="/read/xinqian/" aria-label="在线阅读《信任危机·前置条件论》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/xinqian.mp3" data-book="xinqian" data-title="信任危机·前置条件论" data-cover="/audio/cover-xinqian.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/read/xinqian/" aria-label="在线阅读《信任危机·前置条件论》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="xinqian" data-book-title="信任危机·前置条件论" aria-label="分享《信任危机·前置条件论》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/xinqian.mp3" data-book="xinqian" data-title="信任危机·前置条件论" data-cover="/audio/cover-xinqian.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/xinqian.mp3"></audio>
 
         <div class="bp-panel">
@@ -2053,10 +2098,17 @@
       </div>
       <h2>信任危机·群体侧观察</h2>
       <p class="book-desc">「时代观察」开篇,个体侧的群体镜像:个体讲『你怎么走』,这篇讲『时代在往哪走』。七个症状(机构塌/舆论翻/道德崩/原子散/落差大/没人动/信转人)、一套社会学索引(涂尔干×塔尔德×托克维尔)、五个坑——旧信任体系整体失灵,社会进入信用重铸期。不预测、不评判,只给一套观察框架。</p>
-      <a class="book-read" href="/posts/era-observation/2026-08-31-trust-crisis-group-side/" aria-label="在线阅读《信任危机·群体侧观察》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/qunti.mp3" data-book="qunti" data-title="信任危机·群体侧观察" data-cover="/audio/cover-qunti.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/posts/era-observation/2026-08-31-trust-crisis-group-side/" aria-label="在线阅读《信任危机·群体侧观察》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="qunti" data-book-title="信任危机·群体侧观察" aria-label="分享《信任危机·群体侧观察》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/qunti.mp3" data-book="qunti" data-title="信任危机·群体侧观察" data-cover="/audio/cover-qunti.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/qunti.mp3"></audio>
 
         <div class="bp-panel">
@@ -2309,10 +2361,17 @@
       </div>
       <h2>信任本源论</h2>
       <p class="book-desc">「信任系列」的本源篇,底层总纲:信任不是道德品性,是群居生物对他人行为可预测性的依赖——一个生存装置。装置崩坏,人先慌;慌到极致,人往两头跑(逐利崩坏派 / 偏执守序派,同一病灶、互相喂养);跑出去的样子被安全感模型焊死(左右手,终身不可逆)。它把前两篇当断言的『空窗期 / 重铸期』,推导成结论。</p>
-      <a class="book-read" href="/posts/era-observation/2026-09-02-trust-origin/" aria-label="在线阅读《信任本源论》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/benyuan.mp3" data-book="benyuan" data-title="信任本源论" data-cover="/audio/cover-benyuan.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/posts/era-observation/2026-09-02-trust-origin/" aria-label="在线阅读《信任本源论》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="benyuan" data-book-title="信任本源论" aria-label="分享《信任本源论》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/benyuan.mp3" data-book="benyuan" data-title="信任本源论" data-cover="/audio/cover-benyuan.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/benyuan.mp3"></audio>
 
         <div class="bp-panel">
@@ -2550,10 +2609,17 @@
       </div>
       <h2>信任·伦理篇</h2>
       <p class="book-desc">「信任系列」的上游篇,供给篇:本源论讲需求侧——个体怎么依赖可预测性活命;这篇讲供给侧——那份「说话算话」,社会是怎么一年年生产出来的。伦理不是道德说教,是那台给行为可预测性供货的供水机。边界是磨出来的、法律是伦理的欠条、五条美德是五道工序;伦理有工厂,工厂有厂主,厂主抢的是对错的出厂设置。</p>
-      <a class="book-read" href="/posts/era-observation/2026-09-02-trust-ethics/" aria-label="在线阅读《信任·伦理篇》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/lunli.mp3" data-book="lunli" data-title="信任·伦理篇" data-cover="/audio/cover-lunli.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/posts/era-observation/2026-09-02-trust-ethics/" aria-label="在线阅读《信任·伦理篇》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="lunli" data-book-title="信任·伦理篇" aria-label="分享《信任·伦理篇》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/lunli.mp3" data-book="lunli" data-title="信任·伦理篇" data-cover="/audio/cover-lunli.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/lunli.mp3"></audio>
 
         <div class="bp-panel">
@@ -2794,10 +2860,17 @@
       </div>
       <h2>信任·伦理篇补遗</h2>
       <p class="book-desc">「信任系列」的体系终章、压轴补遗:正稿把那台生产「说话算话」的机器铺完了,本篇把灯转过来之后照见的几个问号彻底拆透。伦理何时真正诞生(入场券与伪伦理)、从划算到应当隔着守信资产化的年费引擎、预装系统的模仿软肋、人为什么为善争吵(管生产/管分配/管正义)、四拍时序的规范真空争夺,到普通人的三锚定与照旧出水。</p>
-      <a class="book-read" href="/posts/era-observation/2026-09-03-trust-ethics-addendum/" aria-label="在线阅读《信任·伦理篇补遗》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a><div class="bp-shell" data-src="/audio/buyi.mp3" data-book="buyi" data-title="信任·伦理篇补遗" data-cover="/audio/cover-buyi.jpg">
+
+      <div class="book-head-actions">
+        <a class="book-read" href="/posts/era-observation/2026-09-03-trust-ethics-addendum/" aria-label="在线阅读《信任·伦理篇补遗》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        <button class="book-quote-btn" type="button" data-book-id="buyi" data-book-title="信任·伦理篇补遗" aria-label="分享《信任·伦理篇补遗》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div><div class="bp-shell" data-src="/audio/buyi.mp3" data-book="buyi" data-title="信任·伦理篇补遗" data-cover="/audio/cover-buyi.jpg">
         <audio class="bp-audio" preload="metadata" src="/audio/buyi.mp3"></audio>
 
         <div class="bp-panel">
@@ -3079,9 +3152,84 @@
   </div>
   <p class="tip-fine">金额随意 · 感谢每一份心意</p>
 </section>
+<div id="promo-modal" class="promo-modal-backdrop" hidden>
+  <div class="promo-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="promo-dialog-title">
+    <div class="promo-modal-header">
+      <div class="promo-tabs" role="tablist">
+        <button class="promo-tab active" type="button" role="tab" data-tab="mp" id="tab-btn-mp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          微信小程序 · 锁屏连播
+        </button>
+        <button class="promo-tab" type="button" role="tab" data-tab="posters" id="tab-btn-posters">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          金句海报 · 朋友圈/小红书
+        </button>
+      </div>
+      <button class="promo-modal-close" type="button" aria-label="关闭弹窗" id="btn-close-promo">&times;</button>
+    </div>
 
+    <div class="promo-modal-body">
+      
+      <div class="promo-panel active" id="panel-mp" role="tabpanel">
+        <div class="mp-promo-grid">
+          <div class="mp-qr-box">
+            <img src="/images/qrcode_audiobook.png" alt="世界一隅·听书微信小程序码" class="mp-qr-img" width="180" height="180">
+            <span class="mp-qr-tag">微信扫一扫 · 锁屏收听</span>
+          </div>
+          <div class="mp-promo-info">
+            <h3 id="promo-dialog-title">在微信中继续连播</h3>
+            <p class="mp-lead">不用一直停在网页上。微信原生后台音频支持，熄屏或锁屏也能继续播放。</p>
+            <ul class="mp-perks">
+              <li><strong>后台播放</strong>：锁屏展示书籍封面与时间线，随时切集</li>
+              <li><strong>深度提问</strong>：每集配套一题灵魂思考，听完即思</li>
+              <li><strong>每日修行</strong>：打卡累计心智画像，沉淀个人心得</li>
+            </ul>
+            <div class="mp-actions">
+              <button class="promo-btn promo-btn-gold" type="button" id="btn-copy-web-url">复制本页网址分享给好友</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="promo-panel" id="panel-posters" role="tabpanel" hidden>
+        <div class="posters-promo-wrap">
+          <div class="poster-selector">
+            <label for="poster-select" class="poster-label">选择金句主题：</label>
+            <select id="poster-select" class="poster-select">
+              <option value="0">海报 1 · 核心命题：文明每一级真实的跃迁，都是一场“喂饱”的革命</option>
+              <option value="1">海报 2 · 精神饥饿：信息过载、意义缺失、停不下来的刷</option>
+              <option value="2">海报 3 · 幸福真相：一个人的幸福锁在人群里</option>
+              <option value="3">海报 4 · 灯塔意象：我们做的所有事，本质是一件事——亮着，给方向</option>
+              <option value="4">海报 5 · 传灯概念：不是靠一个人成圣，是靠每个人做一束光</option>
+              <option value="5">海报 6 · 历史跃迁：从土地到蒸汽机，再到心智精神喂养</option>
+              <option value="6">海报 7 · 升级即幸福：脱离本能绑架一步，内在维度的跃升</option>
+              <option value="7">海报 8 · 每日必修：喂身 · 喂脑 · 觉察心 · 传灯</option>
+            </select>
+          </div>
+          <div class="poster-preview-card">
+            <div class="poster-img-wrap">
+              <img id="poster-display-img" src="/images/文明阶梯-海报1-喂养革命_1787839950.png" alt="金句海报预览" loading="lazy">
+            </div>
+            <div class="poster-meta-box">
+              <blockquote id="poster-quote-text" class="poster-quote">文明每一级真实的跃迁，都是一场“喂饱”的革命。先喂饱身体，再喂饱思想。</blockquote>
+              <p id="poster-quote-desc" class="poster-desc">先看清方向，学着安顿自己。我们这一代人，身体不挨饿了，思想却在饿肚子。</p>
+              <div class="poster-cta-row">
+                <button class="promo-btn promo-btn-gold" type="button" id="btn-copy-quote">复制文案</button>
+                <a class="promo-btn promo-btn-outline" id="btn-view-full-poster" href="/images/文明阶梯-海报1-喂养革命_1787839950.png" target="_blank" rel="noopener">查看高清大图</a>
+              </div>
+              <p class="poster-tip">💡 提示：在手机端长按海报图片即可直接“保存到手机相册”发朋友圈或小红书。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="promo-toast" class="promo-toast" hidden></div>
 
 <script src="/js/player-core.js" defer></script>
+<script src="/js/promo-modal.js" defer></script>
 
     </main>
     
