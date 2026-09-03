@@ -6,7 +6,17 @@
   <p class="audio-kicker">AUDIO · 完整连播</p>
   <h1>听书</h1>
   <p class="audio-sub">整本连播,打开就是完整的一本——不用逐集点,睡一觉它也替你播着。</p>
-  <a class="hero-map" href="/theory-map/" aria-label="查看三书总理论地图">三书 · 总理论地图 →</a>
+  <div class="hero-actions">
+    <a class="hero-map" href="/theory-map/" aria-label="查看三书总理论地图">三书 · 总理论地图 →</a>
+    <button class="hero-mp-btn" type="button" id="btn-open-mp-modal" aria-label="微信小程序锁屏听书">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      微信锁屏听书
+    </button>
+    <button class="hero-share-btn" type="button" id="btn-open-share-modal" aria-label="金句海报与文案">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      精选金句海报
+    </button>
+  </div>
 </section>
 
 {{- with $d.guide }}
@@ -52,13 +62,19 @@
       <h2>{{ .title }}</h2>
       <p class="book-desc">{{ .desc }}</p>
 
-      {{- $bt := .title }}
-      {{- with .read_href }}
-      <a class="book-read" href="{{ . }}" aria-label="在线阅读《{{ $bt }}》">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
-        在线阅读
-      </a>
-      {{- end }}
+      <div class="book-head-actions">
+        {{- $bt := .title }}
+        {{- with .read_href }}
+        <a class="book-read" href="{{ . }}" aria-label="在线阅读《{{ $bt }}》">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c-2-1.2-5-1.6-8-1.6v13.6c3 0 6 .4 8 1.6 2-1.2 5-1.6 8-1.6V3.4c-3 0-6 .4-8 1.6z"/><path d="M12 5v13.6"/></svg>
+          在线阅读
+        </a>
+        {{- end }}
+        <button class="book-quote-btn" type="button" data-book-id="{{ .id }}" data-book-title="{{ .title }}" aria-label="分享《{{ .title }}》金句">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          提取金句
+        </button>
+      </div>
 
       {{- $id := .id -}}
       <div class="bp-shell" data-src="{{ .src }}" data-book="{{ .id }}" data-title="{{ .title }}" data-cover="{{ .cover }}">
@@ -209,5 +225,83 @@
   "note" "如果这些声音陪你走过一段路,欢迎请作者喝杯茶。一两块也是心意,够这盏灯多亮一会儿。"
 ) }}
 
+{{- /* 推广与小程序承接弹窗组件 */ -}}
+<div id="promo-modal" class="promo-modal-backdrop" hidden>
+  <div class="promo-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="promo-dialog-title">
+    <div class="promo-modal-header">
+      <div class="promo-tabs" role="tablist">
+        <button class="promo-tab active" type="button" role="tab" data-tab="mp" id="tab-btn-mp">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          微信小程序 · 锁屏连播
+        </button>
+        <button class="promo-tab" type="button" role="tab" data-tab="posters" id="tab-btn-posters">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          金句海报 · 朋友圈/小红书
+        </button>
+      </div>
+      <button class="promo-modal-close" type="button" aria-label="关闭弹窗" id="btn-close-promo">&times;</button>
+    </div>
+
+    <div class="promo-modal-body">
+      <!-- Tab 1: 小程序承接 -->
+      <div class="promo-panel active" id="panel-mp" role="tabpanel">
+        <div class="mp-promo-grid">
+          <div class="mp-qr-box">
+            <img src="/images/qrcode_audiobook.png" alt="世界一隅·听书微信小程序码" class="mp-qr-img" width="180" height="180">
+            <span class="mp-qr-tag">微信扫一扫 · 锁屏收听</span>
+          </div>
+          <div class="mp-promo-info">
+            <h3 id="promo-dialog-title">在微信中继续连播</h3>
+            <p class="mp-lead">不用一直停在网页上。微信原生后台音频支持，熄屏或锁屏也能继续播放。</p>
+            <ul class="mp-perks">
+              <li><strong>后台播放</strong>：锁屏展示书籍封面与时间线，随时切集</li>
+              <li><strong>深度提问</strong>：每集配套一题灵魂思考，听完即思</li>
+              <li><strong>每日修行</strong>：打卡累计心智画像，沉淀个人心得</li>
+            </ul>
+            <div class="mp-actions">
+              <button class="promo-btn promo-btn-gold" type="button" id="btn-copy-web-url">复制本页网址分享给好友</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: 金句海报与社交分发 -->
+      <div class="promo-panel" id="panel-posters" role="tabpanel" hidden>
+        <div class="posters-promo-wrap">
+          <div class="poster-selector">
+            <label for="poster-select" class="poster-label">选择金句主题：</label>
+            <select id="poster-select" class="poster-select">
+              <option value="0">海报 1 · 核心命题：文明每一级真实的跃迁，都是一场“喂饱”的革命</option>
+              <option value="1">海报 2 · 精神饥饿：信息过载、意义缺失、停不下来的刷</option>
+              <option value="2">海报 3 · 幸福真相：一个人的幸福锁在人群里</option>
+              <option value="3">海报 4 · 灯塔意象：我们做的所有事，本质是一件事——亮着，给方向</option>
+              <option value="4">海报 5 · 传灯概念：不是靠一个人成圣，是靠每个人做一束光</option>
+              <option value="5">海报 6 · 历史跃迁：从土地到蒸汽机，再到心智精神喂养</option>
+              <option value="6">海报 7 · 升级即幸福：脱离本能绑架一步，内在维度的跃升</option>
+              <option value="7">海报 8 · 每日必修：喂身 · 喂脑 · 觉察心 · 传灯</option>
+            </select>
+          </div>
+          <div class="poster-preview-card">
+            <div class="poster-img-wrap">
+              <img id="poster-display-img" src="/images/文明阶梯-海报1-喂养革命_1787839950.png" alt="金句海报预览" loading="lazy">
+            </div>
+            <div class="poster-meta-box">
+              <blockquote id="poster-quote-text" class="poster-quote">文明每一级真实的跃迁，都是一场“喂饱”的革命。先喂饱身体，再喂饱思想。</blockquote>
+              <p id="poster-quote-desc" class="poster-desc">先看清方向，学着安顿自己。我们这一代人，身体不挨饿了，思想却在饿肚子。</p>
+              <div class="poster-cta-row">
+                <button class="promo-btn promo-btn-gold" type="button" id="btn-copy-quote">复制文案</button>
+                <a class="promo-btn promo-btn-outline" id="btn-view-full-poster" href="/images/文明阶梯-海报1-喂养革命_1787839950.png" target="_blank" rel="noopener">查看高清大图</a>
+              </div>
+              <p class="poster-tip">💡 提示：在手机端长按海报图片即可直接“保存到手机相册”发朋友圈或小红书。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="promo-toast" class="promo-toast" hidden></div>
+
 <script src="/js/player-core.js" defer></script>
+<script src="/js/promo-modal.js" defer></script>
 {{ end }}

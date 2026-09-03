@@ -351,3 +351,349 @@
 @media (max-width: 640px) {
   .bn-actions { margin-left: 0; width: 100%; }
 }
+
+/* --- 推广与小程序生态承接组件 --- */
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  margin-left: calc(6.5% + 30px);
+}
+.hero-mp-btn,
+.hero-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-family: "Source Han Serif CN", Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.hero-mp-btn {
+  background: rgba(200, 160, 60, 0.15);
+  color: var(--brand-gold-light, #e0b858);
+  border: 1px solid rgba(200, 160, 60, 0.5);
+}
+.hero-mp-btn:hover {
+  background: var(--brand-gold, #c8a03c);
+  color: #0b1017;
+}
+.hero-share-btn {
+  background: transparent;
+  color: var(--secondary, #8e9aa8);
+  border: 1px solid rgba(200, 160, 60, 0.3);
+}
+.hero-share-btn:hover {
+  border-color: var(--brand-gold, #c8a03c);
+  color: var(--brand-gold-light, #e0b858);
+}
+.book-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 16px;
+  flex-wrap: wrap;
+}
+.book-head-actions .book-read {
+  margin: 0;
+}
+.book-quote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  background: rgba(200, 160, 60, 0.08);
+  color: var(--brand-gold, #c8a03c);
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.book-quote-btn:hover {
+  background: rgba(200, 160, 60, 0.2);
+  color: var(--brand-gold-light, #e0b858);
+  border-color: var(--brand-gold, #c8a03c);
+}
+
+/* --- 模态弹窗（深夜书房深藏青 + 典雅金） --- */
+.promo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5, 8, 12, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: promoFadeIn 0.2s ease-out;
+}
+@keyframes promoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.promo-modal-dialog {
+  width: 100%;
+  max-width: 720px;
+  background: #0b1017;
+  border: 1px solid rgba(200, 160, 60, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+.promo-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(200, 160, 60, 0.2);
+  background: #121820;
+}
+.promo-tabs {
+  display: flex;
+  gap: 8px;
+}
+.promo-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #8e9aa8;
+  font-family: "Source Han Serif CN", "Songti SC", Georgia, serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.promo-tab:hover {
+  color: #e0b858;
+}
+.promo-tab.active {
+  background: rgba(200, 160, 60, 0.15);
+  color: #c8a03c;
+  border-color: rgba(200, 160, 60, 0.4);
+}
+.promo-modal-close {
+  background: none;
+  border: none;
+  color: #8e9aa8;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.promo-modal-close:hover {
+  color: #c8a03c;
+}
+.promo-modal-body {
+  padding: 24px;
+  max-height: 78vh;
+  overflow-y: auto;
+}
+
+/* 微信小程序网格卡片 */
+.mp-promo-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.mp-qr-box {
+  text-align: center;
+  padding: 16px;
+  background: #161c24;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 160, 60, 0.25);
+}
+.mp-qr-img {
+  width: 168px;
+  height: 168px;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+.mp-qr-tag {
+  display: block;
+  font-size: 0.76rem;
+  color: #c8a03c;
+  letter-spacing: 0.1em;
+}
+.mp-promo-info h3 {
+  margin: 0 0 10px;
+  font-family: "Source Han Serif CN", Georgia, serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+}
+.mp-lead {
+  color: #8e9aa8;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+.mp-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  font-size: 0.85rem;
+  color: #abb6c2;
+}
+.mp-perks li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+.mp-perks strong {
+  color: #c8a03c;
+}
+.promo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.promo-btn-gold {
+  background: #c8a03c;
+  color: #0b1017;
+  border: none;
+  font-weight: 600;
+}
+.promo-btn-gold:hover {
+  background: #e0b858;
+}
+.promo-btn-outline {
+  background: transparent;
+  color: #c8a03c;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+}
+.promo-btn-outline:hover {
+  background: rgba(200, 160, 60, 0.15);
+  color: #e0b858;
+}
+
+/* 金句海报区域 */
+.poster-selector {
+  margin-bottom: 18px;
+}
+.poster-label {
+  display: block;
+  font-size: 0.82rem;
+  color: #c8a03c;
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+}
+.poster-select {
+  width: 100%;
+  background: #161c24;
+  color: #ffffff;
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.88rem;
+}
+.poster-preview-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: #141a22;
+  border: 1px solid rgba(200, 160, 60, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+}
+.poster-img-wrap {
+  flex: 0 0 200px;
+  max-width: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(200, 160, 60, 0.3);
+}
+.poster-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.poster-meta-box {
+  flex: 1;
+}
+.poster-quote {
+  font-family: "Source Han Serif CN", Georgia, serif;
+  font-size: 1.05rem;
+  color: #e0b858;
+  line-height: 1.7;
+  margin: 0 0 12px;
+  border-left: 3px solid #c8a03c;
+  padding-left: 12px;
+}
+.poster-desc {
+  color: #8e9aa8;
+  font-size: 0.84rem;
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+.poster-cta-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.poster-tip {
+  font-size: 0.76rem;
+  color: #728090;
+  margin: 0;
+}
+
+/* 提示气泡 */
+.promo-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(11, 16, 23, 0.95);
+  border: 1px solid #c8a03c;
+  color: #e0b858;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  z-index: 10001;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  animation: promoToastIn 0.2s ease-out;
+}
+@keyframes promoToastIn {
+  from { transform: translate(-50%, 10px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .hero-actions {
+    margin-left: 0;
+  }
+  .mp-promo-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .poster-preview-card {
+    flex-direction: column;
+    align-items: center;
+  }
+  .poster-img-wrap {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
