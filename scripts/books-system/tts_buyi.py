@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""《信任·伦理篇·补遗》8 节 → 单文件有声书 mp3(edge-tts 晓晓女声, +2%)
+"""《信任·伦理篇·补遗》9 节 → 单文件有声书 mp3(edge-tts 晓晓女声, +2%)
 
 克隆 tts_lunli.py 的清洗、合成、合并逻辑,针对本文调整:
-  章节   8 节(引子/壹贰叁肆伍陆/收尾),一级标题也朗读(单篇长文,听众需要节边界,title 注入)
+  章节   9 节(引子/壹贰叁肆伍陆/收尾),一级标题也朗读(单篇长文,听众需要节边界,title 注入)
   表格   本文无 markdown 表格(TABLE_SPEECH 留空兜底)
   符号   箭头 → 读「到」;乘号 × → 顿号(正文虽有 →,保留 × 兜底)
   合成   edge-tts zh-CN-XiaoxiaoNeural, rate +2%, 3000 字/段, 6 并发, 失败重试 3 次
@@ -10,7 +10,7 @@
   时间   用 ffprobe 测每节时长,输出每节起始秒数供 audiobook.yaml chapters
 
 用法:
-    python tts_buyi.py           # 合成全部 8 节并合并(已存在则跳过)
+    python tts_buyi.py           # 合成全部 9 节并合并(已存在则跳过)
     python tts_buyi.py 1         # 只合成第 1 节(冒烟),不合并 final
 """
 import asyncio
@@ -36,7 +36,7 @@ FFPROBE = r"H:\ffmpeg-2025-03-27-git-114fccc4a5-full_build\bin\ffprobe.exe"
 CHAPTER_NAMES = [
     "01-引子", "02-长出来的条件", "03-从划算到应当",
     "04-怎么传下来", "05-为善吵架", "06-伦理总在迟到",
-    "07-能动自己的伦理吗", "08-收尾",
+    "07-能动自己的伦理吗", "08-知与行之间", "09-收尾",
 ]
 
 # 表格 → 口语化朗读文本(本文无表格,留空兜底)
@@ -216,7 +216,7 @@ def fmt(sec):
 
 def main():
     chapters = split_chapters(SRC)
-    assert len(chapters) == 8, "章数 %d != 8" % len(chapters)
+    assert len(chapters) == 9, "章数 %d != 9" % len(chapters)
 
     only = None
     if len(sys.argv) > 1:
