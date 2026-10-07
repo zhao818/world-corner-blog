@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Pseudo-Demand: The “Want” That Was Mass-Produced for You | World Corner</title>
+<meta name="keywords" content="pseudo-demand, consumerism, Marcuse, trust crisis, era observation, cognitive growth">
+<meta name="description" content="Era Observation · standalone essay (the desire side of the Trust series). A dishcloth gets rebranded as &#39;kitchen paper towels&#39; — you think you wanted it, but someone wanted it for you in advance. The same assembly line runs three more workshops: housing, success, and manufactured innocence. One discriminator, three self-defense questions: check the source, check the pricing, check the exit. Real needs survive an audit. No prior reading required.">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="https://worldcorner.xyz/en/posts/era-observation/2026-09-07-pseudo-demand/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.966b0d65fc66f98dbcc86e3741a7305fbcdd8eeee1f69836d5c4e8249dffba99.css" integrity="sha256-lmsNZfxm&#43;Y28yG43QacwX7zdju7h9pg21cToJJ3/upk=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://worldcorner.xyz/posts/era-observation/2026-09-07-pseudo-demand/">
+<link rel="alternate" hreflang="en" href="https://worldcorner.xyz/en/posts/era-observation/2026-09-07-pseudo-demand/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" /><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "世界一隅",
+  "alternateName": "认知能量工程",
+  "url": "https:\/\/worldcorner.xyz\/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  function init() {
+    var content = document.querySelector('.post-content') || document.querySelector('.pitfall-single');
+    if (!content) return;
+    var titleEl = document.querySelector('.post-title') || content.querySelector('h1');
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2);
+    var target = lang === 'en' ? 'zh' : 'en';
+    var S = {
+      btn: "🌐 AI Translate",
+      back: "↩ Show original",
+      loading: "AI translating… long articles take about a minute",
+      done: "AI translation (machine translated, for reference · powered by worldcorner API)",
+      fail: "Translation failed, please try again later"
+    };
+    var API = 'https://api.worldcorner.xyz/community/api/translate';
+    var btn = document.createElement('button');
+    btn.className = 'ai-tr-btn';
+    btn.type = 'button';
+    btn.textContent = S.btn;
+    document.body.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'ai-tr-panel';
+    panel.hidden = true;
+    if (content.parentNode) content.parentNode.insertBefore(panel, content.nextSibling);
+
+    var state = 'orig';
+    var cache = null;
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function toHtml(t) {
+      return t.split(/\n\n+/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    function call(text) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, target: target })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.error) throw new Error(j.error);
+        return j.translated;
+      });
+    }
+    function withRetry(fn, n) {
+      var p = fn();
+      for (var i = 0; i < (n || 1); i++) {
+        p = p.catch(function () { return new Promise(function (res) { setTimeout(res, 1500); }).then(fn); });
+      }
+      return p;
+    }
+    
+
+    function splitClient(text, max) {
+      var paras = text.split(/\n\n+/);
+      var chunks = [];
+      var buf = '';
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (!p) continue;
+        if (p.length > max) {
+          if (buf) { chunks.push(buf); buf = ''; }
+          for (var j = 0; j < p.length; j += max) chunks.push(p.slice(j, j + max));
+          continue;
+        }
+        if (buf && (buf + '\n\n' + p).length > max) { chunks.push(buf); buf = p; }
+        else buf = buf ? buf + '\n\n' + p : p;
+      }
+      if (buf) chunks.push(buf);
+      return chunks;
+    }
+    function fetchAll() {
+      if (cache) {
+        panel.innerHTML = (cache.title ? '<h1 class="ai-tr-title"></h1>' : '') + toHtml(cache.body);
+        if (cache.title) panel.querySelector('.ai-tr-title').textContent = cache.title;
+        var doneNote = document.createElement('p');
+        doneNote.className = 'ai-tr-note';
+        doneNote.textContent = S.done;
+        panel.appendChild(doneNote);
+        return Promise.resolve(cache);
+      }
+      var titleText = titleEl ? titleEl.innerText.trim() : '';
+      var chunks = splitClient(content.innerText.trim(), 650);
+      var results = new Array(chunks.length);
+      var done = 0;
+      var head = titleText ? '<h1 class="ai-tr-title"></h1>' : '';
+      var note = document.createElement('p');
+      note.className = 'ai-tr-note';
+      function render() {
+        var html = head;
+        for (var i = 0; i < results.length; i++) if (results[i]) html += toHtml(results[i]);
+        panel.innerHTML = html;
+        note.textContent = done < chunks.length ? done + '/' + chunks.length + ' · ' + S.loading : S.done;
+        panel.appendChild(note);
+      }
+      if (titleText) {
+        withRetry(function () { return call(titleText); }, 1).then(function (t) {
+          if (state === 'trans') { var h1 = panel.querySelector('.ai-tr-title'); if (h1) h1.textContent = t; }
+        }).catch(function () {});
+      }
+      var idx = 0;
+      function lane() {
+        return new Promise(function (resolve) {
+          function next() {
+            if (idx >= chunks.length) return resolve();
+            var i = idx++;
+            withRetry(function () { return call(chunks[i]); }, 2).then(function (t) {
+              results[i] = t; done++; render(); next();
+            }).catch(function () {
+              results[i] = '⚠ ' + S.fail; done++; render(); next();
+            });
+          }
+          next();
+        });
+      }
+      render();
+      return Promise.all([lane(), lane()]).then(function () {
+        cache = { title: titleText, body: results.join('\n\n') };
+        return cache;
+      });
+    }
+    btn.addEventListener('click', function () {
+      if (state === 'trans') {
+        state = 'orig';
+        panel.hidden = true;
+        content.style.display = '';
+        if (titleEl) titleEl.style.display = '';
+        btn.textContent = S.btn;
+        return;
+      }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = S.loading;
+      if (state === 'orig') {
+        panel.hidden = false;
+        content.style.display = 'none';
+        if (titleEl) titleEl.style.display = 'none';
+        state = 'trans';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      fetchAll().then(function () {
+        state = 'trans';
+        btn.disabled = false;
+        btn.textContent = S.back;
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = S.btn;
+        panel.innerHTML = '<p class="ai-tr-note">' + esc(S.fail) + '</p>';
+        panel.hidden = false;
+        state = 'orig';
+      });
+    });
+
+    var css = document.createElement('style');
+    css.textContent = [
+      '.ai-tr-btn{position:fixed;right:18px;bottom:18px;z-index:99;padding:9px 14px;border-radius:999px;',
+      'border:1px solid var(--secondary,#999);background:var(--theme,#fafafa);color:var(--primary,#111);',
+      'font-size:14px;cursor:pointer;opacity:.92;box-shadow:0 2px 10px rgba(0,0,0,.15);}',
+      '.ai-tr-btn:hover{opacity:1}',
+      '.ai-tr-btn:disabled{cursor:wait;opacity:.7}',
+      '.ai-tr-panel{border:1px dashed var(--secondary,#bbb);border-radius:8px;padding:18px 22px;margin:24px 0;line-height:1.8}',
+      '.ai-tr-panel[hidden]{display:none}',
+      '.ai-tr-note{font-size:12px;color:var(--secondary,#888);margin:0 0 12px}',
+      '.ai-tr-title{font-size:1.4em;margin:0 0 16px}'
+    ].join('');
+    document.head.appendChild(css);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<meta property="og:title" content="Pseudo-Demand: The “Want” That Was Mass-Produced for You" />
+<meta property="og:description" content="Era Observation · standalone essay (the desire side of the Trust series). A dishcloth gets rebranded as &#39;kitchen paper towels&#39; — you think you wanted it, but someone wanted it for you in advance. The same assembly line runs three more workshops: housing, success, and manufactured innocence. One discriminator, three self-defense questions: check the source, check the pricing, check the exit. Real needs survive an audit. No prior reading required." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://worldcorner.xyz/en/posts/era-observation/2026-09-07-pseudo-demand/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-09-07T00:00:00+08:00" />
+<meta property="article:modified_time" content="2026-09-07T00:00:00+08:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:title" content="Pseudo-Demand: The “Want” That Was Mass-Produced for You"/>
+<meta name="twitter:description" content="Era Observation · standalone essay (the desire side of the Trust series). A dishcloth gets rebranded as &#39;kitchen paper towels&#39; — you think you wanted it, but someone wanted it for you in advance. The same assembly line runs three more workshops: housing, success, and manufactured innocence. One discriminator, three self-defense questions: check the source, check the pricing, check the exit. Real needs survive an audit. No prior reading required."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://worldcorner.xyz/en/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Era Observation",
+      "item": "https://worldcorner.xyz/en/posts/era-observation/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Pseudo-Demand: The “Want” That Was Mass-Produced for You",
+      "item": "https://worldcorner.xyz/en/posts/era-observation/2026-09-07-pseudo-demand/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pseudo-Demand: The “Want” That Was Mass-Produced for You",
+  "name": "Pseudo-Demand: The “Want” That Was Mass-Produced for You",
+  "description": "Era Observation · standalone essay (the desire side of the Trust series). A dishcloth gets rebranded as \u0027kitchen paper towels\u0027 — you think you wanted it, but someone wanted it for you in advance. The same assembly line runs three more workshops: housing, success, and manufactured innocence. One discriminator, three self-defense questions: check the source, check the pricing, check the exit. Real needs survive an audit. No prior reading required.",
+  "keywords": [
+    "pseudo-demand", "consumerism", "Marcuse", "trust crisis", "era observation", "cognitive growth"
+  ],
+  "articleBody": " Era Observation · standalone essay. You don\u0026rsquo;t need to have read anything else in the series — this one starts from the most ordinary sentence: \u0026ldquo;I want to buy it.\u0026rdquo; The other essays in the series take apart \u0026ldquo;whom should I trust\u0026rdquo;: whether other people\u0026rsquo;s words count, and how society manufactures that \u0026ldquo;counting\u0026rdquo; year after year. This essay turns to the other side of the same machine — the side that supplies it — and asks a question one layer deeper: shouldn\u0026rsquo;t even \u0026ldquo;my own wanting\u0026rdquo; be verified first? The writing rules are the same as the series: ① this is a model, not an object of faith; ② every universal claim carries its own limits; ③ we dissect mechanisms only, never the people who buy things; ④ no private anecdotes. One rule added here: I won\u0026rsquo;t talk you into buying less — I\u0026rsquo;ll only show you the filling pipeline. Whether to buy is your ledger to keep.\nPrologue: The Lawsuit Over a Dishcloth Let me start with the smallest possible example.\nThe philosopher Herbert Marcuse had a concept called \u0026ldquo;false needs.\u0026rdquo; When Liu Qing retells it, his favorite example is kitchen paper towels. A dishcloth was always enough. Then the market makes a product called \u0026ldquo;kitchen-specific paper towels,\u0026rdquo; and advertising convinces you this is standard equipment for modern life. You think it was you who wanted it — in fact someone wanted it for you, and after wanting it for you, they even persuade you: it\u0026rsquo;s not expensive.\nThis example is too small — small enough that you smile and forget it. On the same assembly line there are three more workshops, and they sit on much more expensive shelves of your life.\nI. Three Workshops The first workshop sells housing. The need to live is real: shelter from the rain, household registration, a child\u0026rsquo;s schooling — every item on that list is solid. But \u0026ldquo;your life is incomplete unless you get on the property ladder,\u0026rdquo; or \u0026ldquo;no big house equals failure\u0026rdquo; — those were poured in. The real need and the imported anxiety are tangled in the same contract. This is the hardest order to unpack, because the true and the false can\u0026rsquo;t be cleanly separated; all you can do is tell which part is the load-bearing base and which part is a skin plastered on later.\nThe second workshop sells success. The shelves hold courses and books, but the only thing actually for sale is this: recognition of \u0026ldquo;success\u0026rdquo; itself. The method is to first install a one-way ruler — only money, only a comeback, only financial freedom count. Once you accept that ruler, anxiety takes root, and then they sell you the ticket toward that same ruler. Wanting to improve, wanting to be recognized — that\u0026rsquo;s real. Only that one specific way of living counting as \u0026ldquo;improvement\u0026rdquo; — that part was poured in.\nThe third workshop sells innocence. A child\u0026rsquo;s casually written characters get packaged by traffic algorithms as \u0026ldquo;naive and translucent, great skill disguised as clumsiness.\u0026rdquo; Thousands of people are moved, and they pay. The desire to approach purity, the longing to be healed — that gap is real. But \u0026ldquo;this pile of handwriting is the very embodiment of innocence\u0026rdquo; — that answer never passed through a single pair of real-world eyes. The coldest layer comes after: the child doesn\u0026rsquo;t understand this narrative and took no part in manufacturing it, yet carries its entire weight. When the hype recedes, the artificially inflated value instantly drops to zero.\nThree workshops, opened on three layers: survival, worth, and spirit. Added together, they occupy most of the shelves of a life.\nII. Four Processes Take it apart and the processes are identical. Four of them.\nOne, detect the gap. The machine doesn\u0026rsquo;t invent needs — recognition, safety, shelter, innocence are all real; they are the bedrock of human nature accumulated over millions of years. It only does reconnaissance: wherever there\u0026rsquo;s a gap, there\u0026rsquo;s business.\nTwo, mint a symbol. Package satisfaction as a product: a course, a floor-plan narrative, a framed doodle. The cost isn\u0026rsquo;t in the goods; it\u0026rsquo;s in the story.\nThree, pour one way. Advertising is the official department of this process. It doesn\u0026rsquo;t debate; it repeats. It gives you no comparison group, only one answer. The number of times you hear \u0026ldquo;it\u0026rsquo;s time to buy a house\u0026rdquo; and the number of times you hear \u0026ldquo;renting is fine too\u0026rdquo; are not in the same order of magnitude. This is not free competition of opinions — it is a disparity of dosage.\nFour, harvest. Convert longing into revenue. It doesn\u0026rsquo;t matter if the gap never got filled — once the goods that fill the gap are discontinued, they manufacture a new gap, and new goods. The gap is the durable good; the commodity is the consumable.\nThis is no single company\u0026rsquo;s invention; it is the universal craft of nearly every \u0026ldquo;gap-filling\u0026rdquo; business. Real needs have a verification procedure, but verification is slow — compare prices, trial it, fall into pits, review. Narratives can\u0026rsquo;t wait for verification. So they mass-produce the \u0026ldquo;want\u0026rdquo; in advance and lay it out in front of your eyes.\nIII. One Discriminator, Three Self-Defense Moves First, acknowledge the difficulty with Marcuse\u0026rsquo;s theory: there is no self that precedes society. Your desires grew up inside society in the first place — and you might genuinely find kitchen paper towels useful. At the layer of \u0026ldquo;motive,\u0026rdquo; true and false cannot be cut apart.\nSo don\u0026rsquo;t ask \u0026ldquo;is this desire real?\u0026rdquo; — desires are always real, and asking verifies nothing. The question to ask is: what real price has this satisfaction plan paid? The discriminator has two rulers: Can it survive a real-world audit? Does it leave an opening for being overturned?\nAs for moves, three self-defense questions:\nFirst, ask about the source. What fills the \u0026ldquo;source\u0026rdquo; field of this \u0026ldquo;I want it\u0026rdquo;? Did it come from using it, comparing it, falling into a pit — or from the three hundred times it was broadcast to you? Times exposed are not times verified — repetition is not evidence; repetition is dosage.\nSecond, ask about the pricing. Translate \u0026ldquo;I want it\u0026rdquo; into \u0026ldquo;what am I willing to lose for it,\u0026rdquo; and then look at the payment schedule. Poured-in desires share one signature move: they rush you into paying immediately, in full. Courses must be bought out at once, houses signed overnight, tips sent out on the spot. A real need can survive installments — trial first, buy small, keep an exit. What cannot survive installments is not a commodity; it\u0026rsquo;s a hook. It rushes you because fakes live only inside the window where there\u0026rsquo;s no time to verify.\nThird, ask about the exit. Did the plan leave a door for being overturned? Are there visible negative reviews, refunds, a third party to audit against? Whatever seals off the window of doubt — whether it sells goods or principles — rolled off the same factory line.\nI won\u0026rsquo;t promise these three questions can separate all true from false. Some desires grow fused with their narratives and cannot be cut apart — that\u0026rsquo;s the honest truth. The only promise I can make: when you can\u0026rsquo;t tell, you at least know where to check.\nIV. The Most Expensive Loss Isn\u0026rsquo;t Buying the Wrong Thing A poured-in \u0026ldquo;want\u0026rdquo; costs more than any single wrong purchase.\nYour time, attention, trust, and money are one wallet. Every unit of verification budget spent on a counterfeit is diverted from the real path — those hours anxiously looping on \u0026ldquo;should I actually buy this\u0026rdquo; could have gone toward finding out what you truly want. Pseudo-demand harvests more than your money; it harvests the principal you could have invested in verifying what\u0026rsquo;s real.\nEpilogue: One More Layer, Same Machine The three self-defense questions handle the \u0026ldquo;I want\u0026rdquo; layer. But you\u0026rsquo;ve probably also bumped into the sibling product on the other layer: instead of pouring \u0026ldquo;you want it\u0026rdquo; into you, they pour \u0026ldquo;you should.\u0026rdquo; \u0026ldquo;For the greater good.\u0026rdquo; \u0026ldquo;It\u0026rsquo;s your duty.\u0026rdquo; \u0026ldquo;Refusing this makes you cold.\u0026rdquo; The label changes from \u0026ldquo;you deserve it\u0026rdquo; to \u0026ldquo;you should\u0026rdquo; — the filling process is identical, and the discriminator is the same one.\nWe dissected that layer separately in \u0026ldquo;Ethics Always Arrives Late, and Society Keeps Rebuilding It\u0026rdquo; (in Chinese). If you want to see, from the demand side, why this whole machine exists — why people must believe, and why belief collapses — start with \u0026ldquo;Trust Is Not Morality; It Is the Chassis of Survival\u0026rdquo; (in Chinese).\nOne last rule for this diagnostic machine itself: Marcuse wrote his case history about a society of abundance. Transport this framework to a place of scarcity and it stops fitting. Every theory has preconditions — check the terrain before you apply it.\nReal needs are not afraid of an audit. Whatever fears an audit — whether wrapped in paper towels, courses, or innocence — runs on the same assembly line. And the fastest-moving product on that line will always be the one that mass-produced even your \u0026ldquo;want\u0026rdquo; for you in advance.\n",
+  "wordCount" : "1506",
+  "inLanguage": "en",
+  "datePublished": "2026-09-07 00:00:00 \u002b0800 \u002b0800",
+  "dateModified": "2026-09-07 00:00:00 \u002b0800 \u002b0800",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https:\/\/worldcorner.xyz\/en\/posts\/era-observation\/2026-09-07-pseudo-demand\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "World Corner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://worldcorner.xyz/en/" accesskey="h" title="World Corner (Alt + H)">
+                <img src="https://worldcorner.xyz/images/mark.svg" alt="" aria-label="logo"
+                    height="32">World Corner</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://worldcorner.xyz/" title="中文"
+                            aria-label="中文">Zh</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/systems-thinking/" title="Systems Thinking"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>Systems Thinking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/learning/" title="Learning"
+                class="nav-btn nav-menu-learning">
+                    <span>Learning</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/tooling/" title="Tooling"
+                class="nav-btn nav-menu-tooling">
+                    <span>Tooling</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/pitfalls/" title="Pitfalls"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>Pitfalls</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/collections/" title="Collections"
+                class="nav-btn nav-menu-collections">
+                    <span>Collections</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/audiobook/" title="Audiobooks"
+                class="nav-btn nav-menu-audiobook">
+                    <span>Audiobooks</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/app/" title="App"
+                class="nav-btn nav-menu-app">
+                    <span>App</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://api.worldcorner.xyz/community/" title="Community"
+                class="nav-btn nav-menu-community">
+                    <span>Community</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/assets/" title="Assets"
+                class="nav-btn nav-menu-assets">
+                    <span>Assets</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/skills/" title="Skills"
+                class="nav-btn nav-menu-skills">
+                    <span>Skills</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/search/" title="Search"
+                class="nav-btn nav-menu-search">
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/archives/" title="Archives"
+                class="nav-btn nav-menu-archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/about/" title="About"
+                class="nav-btn nav-menu-about">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<script>
+function toggleNav() {
+    var b = document.querySelector('.nav-toggle');
+    var open = document.body.classList.toggle('nav-open');
+    if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (e.target.closest && e.target.closest('#menu a')) toggleNav();
+});
+</script>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Pseudo-Demand: The “Want” That Was Mass-Produced for You
+    </h1>
+    <div class="post-description">
+      Era Observation · standalone essay (the desire side of the Trust series). A dishcloth gets rebranded as &#39;kitchen paper towels&#39; — you think you wanted it, but someone wanted it for you in advance. The same assembly line runs three more workshops: housing, success, and manufactured innocence. One discriminator, three self-defense questions: check the source, check the pricing, check the exit. Real needs survive an audit. No prior reading required.
+    </div>
+    <div class="post-meta"><span title='2026-09-07 00:00:00 +0800 +0800'>Sep 7, 2026</span>&nbsp;·&nbsp;Tianbing Zhao&nbsp;|&nbsp;Translations:
+<ul class="i18n_list">
+    <li>
+        <a href="https://worldcorner.xyz/posts/era-observation/2026-09-07-pseudo-demand/">Zh</a>
+    </li>
+</ul>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#prologue-the-lawsuit-over-a-dishcloth" aria-label="Prologue: The Lawsuit Over a Dishcloth">Prologue: The Lawsuit Over a Dishcloth</a></li>
+                <li>
+                    <a href="#i-three-workshops" aria-label="I. Three Workshops">I. Three Workshops</a></li>
+                <li>
+                    <a href="#ii-four-processes" aria-label="II. Four Processes">II. Four Processes</a></li>
+                <li>
+                    <a href="#iii-one-discriminator-three-self-defense-moves" aria-label="III. One Discriminator, Three Self-Defense Moves">III. One Discriminator, Three Self-Defense Moves</a></li>
+                <li>
+                    <a href="#iv-the-most-expensive-loss-isnt-buying-the-wrong-thing" aria-label="IV. The Most Expensive Loss Isn&rsquo;t Buying the Wrong Thing">IV. The Most Expensive Loss Isn&rsquo;t Buying the Wrong Thing</a></li>
+                <li>
+                    <a href="#epilogue-one-more-layer-same-machine" aria-label="Epilogue: One More Layer, Same Machine">Epilogue: One More Layer, Same Machine</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content md-content"><blockquote>
+<p>Era Observation · standalone essay. You don&rsquo;t need to have read anything else in the series — this one starts from the most ordinary sentence: &ldquo;I want to buy it.&rdquo;
+The other essays in the series take apart &ldquo;whom should I trust&rdquo;: whether other people&rsquo;s words count, and how society manufactures that &ldquo;counting&rdquo; year after year. This essay turns to the other side of the same machine — the side that supplies it — and asks a question one layer deeper: <strong>shouldn&rsquo;t even &ldquo;my own wanting&rdquo; be verified first?</strong>
+The writing rules are the same as the series: ① this is a model, not an object of faith; ② every universal claim carries its own limits; ③ we dissect mechanisms only, never the people who buy things; ④ no private anecdotes. One rule added here: <strong>I won&rsquo;t talk you into buying less</strong> — I&rsquo;ll only show you the filling pipeline. Whether to buy is your ledger to keep.</p></blockquote>
+<hr>
+<h2 id="prologue-the-lawsuit-over-a-dishcloth">Prologue: The Lawsuit Over a Dishcloth<a hidden class="anchor" aria-hidden="true" href="#prologue-the-lawsuit-over-a-dishcloth">#</a></h2>
+<p>Let me start with the smallest possible example.</p>
+<p>The philosopher Herbert Marcuse had a concept called &ldquo;false needs.&rdquo; When Liu Qing retells it, his favorite example is kitchen paper towels. A dishcloth was always enough. Then the market makes a product called &ldquo;kitchen-specific paper towels,&rdquo; and advertising convinces you this is standard equipment for modern life. You think it was you who wanted it — in fact someone wanted it for you, and after wanting it for you, they even persuade you: it&rsquo;s not expensive.</p>
+<p>This example is too small — small enough that you smile and forget it. On the same assembly line there are three more workshops, and they sit on much more expensive shelves of your life.</p>
+<h2 id="i-three-workshops">I. Three Workshops<a hidden class="anchor" aria-hidden="true" href="#i-three-workshops">#</a></h2>
+<p><strong>The first workshop sells housing.</strong> The need to live is real: shelter from the rain, household registration, a child&rsquo;s schooling — every item on that list is solid. But &ldquo;your life is incomplete unless you get on the property ladder,&rdquo; or &ldquo;no big house equals failure&rdquo; — those were poured in. The real need and the imported anxiety are tangled in the same contract. This is the hardest order to unpack, because the true and the false can&rsquo;t be cleanly separated; all you can do is tell which part is the load-bearing base and which part is a skin plastered on later.</p>
+<p><strong>The second workshop sells success.</strong> The shelves hold courses and books, but the only thing actually for sale is this: recognition of &ldquo;success&rdquo; itself. The method is to first install a one-way ruler — only money, only a comeback, only financial freedom count. Once you accept that ruler, anxiety takes root, and then they sell you the ticket toward that same ruler. Wanting to improve, wanting to be recognized — that&rsquo;s real. Only that one specific way of living counting as &ldquo;improvement&rdquo; — that part was poured in.</p>
+<p><strong>The third workshop sells innocence.</strong> A child&rsquo;s casually written characters get packaged by traffic algorithms as &ldquo;naive and translucent, great skill disguised as clumsiness.&rdquo; Thousands of people are moved, and they pay. The desire to approach purity, the longing to be healed — that gap is real. But &ldquo;this pile of handwriting is the very embodiment of innocence&rdquo; — that answer never passed through a single pair of real-world eyes. The coldest layer comes after: the child doesn&rsquo;t understand this narrative and took no part in manufacturing it, yet carries its entire weight. When the hype recedes, the artificially inflated value instantly drops to zero.</p>
+<p>Three workshops, opened on three layers: survival, worth, and spirit. Added together, they occupy most of the shelves of a life.</p>
+<h2 id="ii-four-processes">II. Four Processes<a hidden class="anchor" aria-hidden="true" href="#ii-four-processes">#</a></h2>
+<p>Take it apart and the processes are identical. Four of them.</p>
+<p><strong>One, detect the gap.</strong> The machine doesn&rsquo;t invent needs — recognition, safety, shelter, innocence are all real; they are the bedrock of human nature accumulated over millions of years. It only does reconnaissance: wherever there&rsquo;s a gap, there&rsquo;s business.</p>
+<p><strong>Two, mint a symbol.</strong> Package satisfaction as a product: a course, a floor-plan narrative, a framed doodle. The cost isn&rsquo;t in the goods; it&rsquo;s in the story.</p>
+<p><strong>Three, pour one way.</strong> Advertising is the official department of this process. It doesn&rsquo;t debate; it repeats. It gives you no comparison group, only one answer. The number of times you hear &ldquo;it&rsquo;s time to buy a house&rdquo; and the number of times you hear &ldquo;renting is fine too&rdquo; are not in the same order of magnitude. This is not free competition of opinions — it is a disparity of dosage.</p>
+<p><strong>Four, harvest.</strong> Convert longing into revenue. It doesn&rsquo;t matter if the gap never got filled — once the goods that fill the gap are discontinued, they manufacture a new gap, and new goods. The gap is the durable good; the commodity is the consumable.</p>
+<p>This is no single company&rsquo;s invention; it is the universal craft of nearly every &ldquo;gap-filling&rdquo; business. Real needs have a verification procedure, but verification is slow — compare prices, trial it, fall into pits, review. Narratives can&rsquo;t wait for verification. So they mass-produce the &ldquo;want&rdquo; in advance and lay it out in front of your eyes.</p>
+<h2 id="iii-one-discriminator-three-self-defense-moves">III. One Discriminator, Three Self-Defense Moves<a hidden class="anchor" aria-hidden="true" href="#iii-one-discriminator-three-self-defense-moves">#</a></h2>
+<p>First, acknowledge the difficulty with Marcuse&rsquo;s theory: there is no self that precedes society. Your desires grew up inside society in the first place — and you might genuinely find kitchen paper towels useful. At the layer of &ldquo;motive,&rdquo; true and false cannot be cut apart.</p>
+<p>So don&rsquo;t ask &ldquo;is this desire real?&rdquo; — desires are always real, and asking verifies nothing. The question to ask is: <strong>what real price has this satisfaction plan paid?</strong> The discriminator has two rulers: Can it survive a real-world audit? Does it leave an opening for being overturned?</p>
+<p>As for moves, three self-defense questions:</p>
+<p><strong>First, ask about the source.</strong> What fills the &ldquo;source&rdquo; field of this &ldquo;I want it&rdquo;? Did it come from using it, comparing it, falling into a pit — or from the three hundred times it was broadcast to you? Times exposed are not times verified — repetition is not evidence; repetition is dosage.</p>
+<p><strong>Second, ask about the pricing.</strong> Translate &ldquo;I want it&rdquo; into &ldquo;what am I willing to lose for it,&rdquo; and then look at the payment schedule. Poured-in desires share one signature move: they rush you into paying immediately, in full. Courses must be bought out at once, houses signed overnight, tips sent out on the spot. A real need can survive installments — trial first, buy small, keep an exit. What cannot survive installments is not a commodity; it&rsquo;s a hook. It rushes you because fakes live only inside the window where there&rsquo;s no time to verify.</p>
+<p><strong>Third, ask about the exit.</strong> Did the plan leave a door for being overturned? Are there visible negative reviews, refunds, a third party to audit against? Whatever seals off the window of doubt — whether it sells goods or principles — rolled off the same factory line.</p>
+<p>I won&rsquo;t promise these three questions can separate all true from false. Some desires grow fused with their narratives and cannot be cut apart — that&rsquo;s the honest truth. The only promise I can make: when you can&rsquo;t tell, you at least know where to check.</p>
+<h2 id="iv-the-most-expensive-loss-isnt-buying-the-wrong-thing">IV. The Most Expensive Loss Isn&rsquo;t Buying the Wrong Thing<a hidden class="anchor" aria-hidden="true" href="#iv-the-most-expensive-loss-isnt-buying-the-wrong-thing">#</a></h2>
+<p>A poured-in &ldquo;want&rdquo; costs more than any single wrong purchase.</p>
+<p>Your time, attention, trust, and money are one wallet. Every unit of verification budget spent on a counterfeit is diverted from the real path — those hours anxiously looping on &ldquo;should I actually buy this&rdquo; could have gone toward finding out what you truly want. Pseudo-demand harvests more than your money; it harvests the principal you could have invested in verifying what&rsquo;s real.</p>
+<h2 id="epilogue-one-more-layer-same-machine">Epilogue: One More Layer, Same Machine<a hidden class="anchor" aria-hidden="true" href="#epilogue-one-more-layer-same-machine">#</a></h2>
+<p>The three self-defense questions handle the &ldquo;I want&rdquo; layer. But you&rsquo;ve probably also bumped into the sibling product on the other layer: instead of pouring &ldquo;you want it&rdquo; into you, they pour &ldquo;you should.&rdquo; &ldquo;For the greater good.&rdquo; &ldquo;It&rsquo;s your duty.&rdquo; &ldquo;Refusing this makes you cold.&rdquo; The label changes from &ldquo;you deserve it&rdquo; to &ldquo;you should&rdquo; — the filling process is identical, and the discriminator is the same one.</p>
+<p>We dissected that layer separately in <a href="/en/posts/era-observation/2026-09-03-trust-ethics-addendum/">&ldquo;Ethics Always Arrives Late, and Society Keeps Rebuilding It&rdquo;</a> (in Chinese). If you want to see, from the demand side, why this whole machine exists — why people must believe, and why belief collapses — start with <a href="/en/posts/era-observation/2026-09-02-trust-origin/">&ldquo;Trust Is Not Morality; It Is the Chassis of Survival&rdquo;</a> (in Chinese).</p>
+<p>One last rule for this diagnostic machine itself: Marcuse wrote his case history about a society of abundance. Transport this framework to a place of scarcity and it stops fitting. Every theory has preconditions — check the terrain before you apply it.</p>
+<p>Real needs are not afraid of an audit. Whatever fears an audit — whether wrapped in paper towels, courses, or innocence — runs on the same assembly line. And the fastest-moving product on that line will always be the one that mass-produced even your &ldquo;want&rdquo; for you in advance.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://worldcorner.xyz/en/tags/pseudo-demand/">Pseudo-Demand</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/consumerism/">Consumerism</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/marcuse/">Marcuse</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/trust-crisis/">Trust Crisis</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/era-observation/">Era Observation</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/cognitive-growth/">Cognitive Growth</a></li>
+    </ul>
+  </footer>
+<section class="tipbox" aria-label="赞赏支持">
+  <div class="tip-lead">
+    <span class="tip-badge"><span class="tip-badge-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>
+</span>
+    <div class="tip-lead-txt">
+      <h3>请作者喝杯茶</h3>
+      <p>如果这些文字对你有一点点用处,欢迎请我喝杯茶。一两块也是心意,够这盏灯多亮一会儿。</p>
+    </div>
+  </div>
+  <div class="tip-codes">
+      <figure class="tip-code">
+        <img src="/tip/weixinpay.jpg" alt="微信赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>微信赞赏</figcaption>
+      </figure>
+      <figure class="tip-code">
+        <img src="/tip/alipay.jpg" alt="支付宝赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>支付宝赞赏</figcaption>
+      </figure>
+  </div>
+  <p class="tip-fine">金额随意 · 感谢每一份心意</p>
+</section>
+<script src="https://giscus.app/client.js"
+        data-repo="zhao818/world-corner-blog"
+        data-repo-id="R_kgDOSRYMPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSRYMPs4C8HQL"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="https://worldcorner.xyz/en/posts/era-observation/" class="series-sidebar-title">Era Observation</a>
+        <span class="series-sidebar-count">5 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/era-observation/2026-09-07-pseudo-demand/"
+             class="series-capsule series-era-observation active"
+             title="Pseudo-Demand: The “Want” That Was Mass-Produced for You">
+            Pseudo-Demand: The “Want” That Was Mass-Produced for You
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/era-observation/2026-09-03-trust-ethics-addendum/"
+             class="series-capsule series-era-observation"
+             title="Ethics Is Always Late, and Society Keeps Rebuilding It: Trust · On Ethics, Addendum">
+            Ethics Is Always Late, and Society Keeps Rebuilding It: Trust · On Ethics, Addendum
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/era-observation/2026-09-02-trust-ethics/"
+             class="series-capsule series-era-observation"
+             title="Ethics Is Not Moral Preaching; It Is Trust&#39;s Water Supply: Trust · On Ethics">
+            Ethics Is Not Moral Preaching; It Is Trust&#39;s Water Supply: Trust · On Ethics
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/era-observation/2026-09-02-trust-origin/"
+             class="series-capsule series-era-observation"
+             title="Trust Is Not Morality; It Is the Chassis of Survival: The Origin of Trust">
+            Trust Is Not Morality; It Is the Chassis of Survival: The Origin of Trust
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/era-observation/2026-08-31-trust-crisis-group-side/"
+             class="series-capsule series-era-observation"
+             title="Individuals Are Changing Currency; the Group Awaits Recasting: Trust Crisis · Group-Side Observation">
+            Individuals Are Changing Currency; the Group Awaits Recasting: Trust Crisis · Group-Side Observation
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="https://worldcorner.xyz/en/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+      Systems Thinking
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/learning/" class="nav-btn nav-menu-learning">
+      Learning
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/tooling/" class="nav-btn nav-menu-tooling">
+      Tooling
+    </a>
+    <a href="https://worldcorner.xyz/en/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      Pitfalls
+    </a>
+    <a href="https://worldcorner.xyz/en/collections/" class="nav-btn nav-menu-collections">
+      Collections
+    </a>
+    <a href="https://worldcorner.xyz/en/audiobook/" class="nav-btn nav-menu-audiobook">
+      Audiobooks
+    </a>
+    <a href="https://worldcorner.xyz/en/app/" class="nav-btn nav-menu-app">
+      App
+    </a>
+    <a href="https://api.worldcorner.xyz/community/" class="nav-btn nav-menu-community">
+      Community
+    </a>
+    <a href="https://worldcorner.xyz/en/assets/" class="nav-btn nav-menu-assets">
+      Assets
+    </a>
+    <a href="https://worldcorner.xyz/en/skills/" class="nav-btn nav-menu-skills">
+      Skills
+    </a>
+    <a href="https://worldcorner.xyz/en/search/" class="nav-btn nav-menu-search">
+      Search
+    </a>
+    <a href="https://worldcorner.xyz/en/archives/" class="nav-btn nav-menu-archives">
+      Archives
+    </a>
+    <a href="https://worldcorner.xyz/en/about/" class="nav-btn nav-menu-about">
+      About
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/en/">World Corner</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

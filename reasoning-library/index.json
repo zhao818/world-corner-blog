@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "created": "2026-07-03",
+  "puzzles": [
+    {
+      "id": "r001",
+      "title": "囚徒困境",
+      "type": "strategy",
+      "file": "strategy/r001-prisoner-dilemma.md",
+      "difficulty": 3,
+      "tags": ["博弈", "合作", "信任"],
+      "keywords": ["合作", "背叛", "纳什均衡"],
+      "mappings": ["职场合作", "价格战", "AI安全", "商业竞争"]
+    },
+    {
+      "id": "r002",
+      "title": "狼羊菜过河",
+      "type": "strategy",
+      "file": "strategy/r002-wolf-goat-cabbage.md",
+      "difficulty": 2,
+      "tags": ["约束求解", "规划"],
+      "keywords": ["约束", "顺序", "中间态"],
+      "mappings": ["项目管理", "AI任务规划", "多任务处理", "迁移"]
+    },
+    {
+      "id": "r003",
+      "title": "过桥问题",
+      "type": "strategy",
+      "file": "strategy/r003-bridge-crossing.md",
+      "difficulty": 3,
+      "tags": ["优化", "调度"],
+      "keywords": ["优化", "调度", "瓶颈", "协作"],
+      "mappings": ["团队效率", "资源调度", "人力配置", "关键路径"]
+    },
+    {
+      "id": "r004",
+      "title": "三个囚犯的帽子问题",
+      "type": "deduction",
+      "file": "deduction/r004-prison-hats.md",
+      "difficulty": 4,
+      "tags": ["推理链", "公共知识"],
+      "keywords": ["推理", "公共知识", "沉默", "间接信息"],
+      "mappings": ["沟通", "信息不对称", "阅读理解", "市场"]
+    },
+    {
+      "id": "r005",
+      "title": "九点连线",
+      "type": "lateral-thinking",
+      "file": "lateral-thinking/r005-nine-dots.md",
+      "difficulty": 2,
+      "tags": ["横向思维", "创造性"],
+      "keywords": ["假设", "边界", "跳出框架"],
+      "mappings": ["创新", "问题解决", "创业", "写作", "AI边界"]
+    },
+    {
+      "id": "r006",
+      "title": "说谎者与诚实者",
+      "type": "deduction",
+      "file": "deduction/r006-liar-truth-teller.md",
+      "difficulty": 2,
+      "tags": ["布尔逻辑", "条件判断"],
+      "keywords": ["逻辑", "问题设计", "信息筛选"],
+      "mappings": ["决策", "信息甄别", "面试", "AI提示词", "调研"]
+    },
+    {
+      "id": "r007",
+      "title": "蒙提霍尔问题（三扇门）",
+      "type": "strategy",
+      "file": "strategy/r007-monty-hall.md",
+      "difficulty": 3,
+      "tags": ["概率", "贝叶斯", "反直觉"],
+      "keywords": ["概率", "决策", "反直觉", "信息更新"],
+      "mappings": ["决策", "投资", "职业选择", "产品迭代", "A/B测试"]
+    },
+    {
+      "id": "r008",
+      "title": "谁养鱼？（爱因斯坦谜题）",
+      "type": "deduction",
+      "file": "deduction/r008-zebra-puzzle.md",
+      "difficulty": 5,
+      "tags": ["约束满足", "排除法"],
+      "keywords": ["逻辑", "约束", "排除法", "多维度"],
+      "mappings": ["AI工具选择", "信息整合", "招聘", "产品设计", "系统思维"]
+    },
+    {
+      "id": "r009",
+      "title": "海龟汤：男人走进酒吧",
+      "type": "lateral-thinking",
+      "file": "lateral-thinking/r009-turtle-soup.md",
+      "difficulty": 2,
+      "tags": ["海龟汤", "情境推理", "逆向思维"],
+      "keywords": ["海龟汤", "情境谜题", "是否问答", "逆向推理"],
+      "mappings": ["需求分析", "调试Bug", "面试提问", "用户调研"]
+    },
+    {
+      "id": "r010",
+      "title": "女士的年龄",
+      "type": "deduction",
+      "file": "deduction/r010-lady-age.md",
+      "difficulty": 4,
+      "tags": ["信息博弈", "对话推理", "消除法"],
+      "keywords": ["信息不对称", "轮次推理", "消除法", "共同知识"],
+      "mappings": ["信息不对称", "市场调研", "安全审计", "谈判策略"]
+    },
+    {
+      "id": "r011",
+      "title": "如果昨天是明天",
+      "type": "deduction",
+      "file": "deduction/r011-yesterday-tomorrow.md",
+      "difficulty": 3,
+      "tags": ["时间推理", "条件推理", "语言陷阱"],
+      "keywords": ["时间推理", "条件假设", "相对关系", "语言歧义"],
+      "mappings": ["需求理解", "计划排期", "AI时间理解", "沟通歧义"]
+    },
+    {
+      "id": "r012",
+      "title": "缺失的号码",
+      "type": "pattern",
+      "file": "pattern/r012-number-sequence.md",
+      "difficulty": 3,
+      "tags": ["数字规律", "模式识别", "归纳推理"],
+      "keywords": ["规律", "模式", "归纳", "数列", "找规律"],
+      "mappings": ["趋势判断", "机器学习", "投资分析", "用户行为"]
+    }
+  ]
+}

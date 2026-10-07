@@ -1,0 +1,16 @@
+{{- /* Section nav capsules — visible on mobile */}}
+<nav class="section-nav-row" aria-label="专栏导航">
+  {{- $currentPage := . }}
+  {{- range site.Menus.main }}
+    {{- $btnClass := printf "nav-btn nav-%s" .Identifier }}
+    {{- $isActive := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+    {{- if not $isActive }}
+      {{- $menuPrefix := .URL | strings.TrimSuffix "/" }}
+      {{- $pagePath := $currentPage.RelPermalink | strings.TrimSuffix "/" }}
+      {{- $isActive = strings.HasPrefix $pagePath $menuPrefix }}
+    {{- end }}
+    <a href="{{ .URL | absLangURL }}" class="{{ $btnClass }}{{ if $isActive }} active{{ end }}">
+      {{ .Name }}
+    </a>
+  {{- end }}
+</nav>

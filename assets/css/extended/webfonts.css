@@ -1,0 +1,28 @@
+/* ========== 自托管字体(本地化,消除第三方域名依赖) ========== */
+
+/* 思源宋体(可变字重 200-900,全站字符子集 ~870KB) */
+@font-face {
+  font-family: "Noto Serif SC";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("/fonts/noto-serif-sc.woff2") format("woff2-variations");
+}
+
+/* JetBrains Mono 400 */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/jbmono-400.woff2") format("woff2");
+}
+
+/* JetBrains Mono 600 */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/jbmono-600.woff2") format("woff2");
+}

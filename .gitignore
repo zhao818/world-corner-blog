@@ -1,0 +1,36 @@
+# Hugo 构建输出
+public/
+public.old/
+public-iis/
+
+# Hugo 构建锁文件
+.hugo_build.lock
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 临时文件
+*.bak
+
+# ===== 工作文件不入库（2026-10-07 事故后立的规矩：本仓库禁止 git add -A）=====
+# 有声书音频（喜马拉雅分发产物，体积大且站点不引用）
+static/audio/ximalaya/
+docs/audio/ximalaya/
+# 短视频工程文件
+static/videos/
+docs/videos/
+scripts/_*.mp4
+scripts/_*.png
+scripts/_*.txt
+scripts/_*.srt
+# 书籍生产系统工作目录（自有内容，另行保管）
+scripts/books-system/
+scripts/hegel-book/
+articles/
+fonts-chars.txt

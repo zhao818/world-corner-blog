@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>自动化 on 世界一隅</title>
+    <link>https://worldcorner.xyz/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+    <description>Recent content in 自动化 on 世界一隅</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 01 May 2026 12:40:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/categories/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</title>
+      <link>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</link>
+      <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</guid>
+      <description>你每天打开多少次信息应用？</description>
+    </item>
+    
+  </channel>
+</rss>

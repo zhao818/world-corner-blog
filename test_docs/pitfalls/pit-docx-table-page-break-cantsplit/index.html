@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>python-docx 表格跨页断开无法控制 | 世界一隅 | 认知能量工程</title>
+<meta name="keywords" content="">
+<meta name="description" content="症状
+
+你看到什么？
+用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。
+根因
+
+真正的原因是什么？
+python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。
+这是 python-docx 的默认行为缺陷，不是 Word 的问题。
+修复
+
+具体怎么修的？
+from docx import Document
+from docx.oxml.ns import qn
+
+doc = Document()
+table = doc.add_table(rows=5, cols=3)
+
+# 关键：给每一行设 cantSplit，禁止跨页断开
+for row in table.rows:
+    tr = row._tr
+    trPr = tr.get_or_add_trPr()
+    cant_split = OxmlElement(&#39;w:cantSplit&#39;)
+    trPr.append(cant_split)
+
+doc.save(&#39;output.docx&#39;)
+这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。
+怎么避免
+
+下次怎么不踩？
+
+生成 docx 表格时，所有行显式设 cantSplit
+目录（TOC）不要手动写，用 Word 域代码 TOC \o &quot;1-3&quot; 生成
+参考 ~/claude-memory/global/tools/docx-patterns.md 的完整模式
+">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="/pitfalls/pit-docx-table-page-break-cantsplit/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9509714cdb3f26fa10dc6409169eb856b3b0a39ac7bf90a573f6682c73b2a4f5.css" integrity="sha256-lQlxTNs/JvoQ3GQJFp64VrOwo5rHv5Clc/ZoLHOypPU=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="/pitfalls/pit-docx-table-page-break-cantsplit/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<meta property="og:title" content="python-docx 表格跨页断开无法控制" />
+<meta property="og:description" content="症状
+
+你看到什么？
+用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。
+根因
+
+真正的原因是什么？
+python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。
+这是 python-docx 的默认行为缺陷，不是 Word 的问题。
+修复
+
+具体怎么修的？
+from docx import Document
+from docx.oxml.ns import qn
+
+doc = Document()
+table = doc.add_table(rows=5, cols=3)
+
+# 关键：给每一行设 cantSplit，禁止跨页断开
+for row in table.rows:
+    tr = row._tr
+    trPr = tr.get_or_add_trPr()
+    cant_split = OxmlElement(&#39;w:cantSplit&#39;)
+    trPr.append(cant_split)
+
+doc.save(&#39;output.docx&#39;)
+这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。
+怎么避免
+
+下次怎么不踩？
+
+生成 docx 表格时，所有行显式设 cantSplit
+目录（TOC）不要手动写，用 Word 域代码 TOC \o &quot;1-3&quot; 生成
+参考 ~/claude-memory/global/tools/docx-patterns.md 的完整模式
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pitfalls/pit-docx-table-page-break-cantsplit/" /><meta property="article:section" content="pitfalls" />
+<meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-13T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="python-docx 表格跨页断开无法控制"/>
+<meta name="twitter:description" content="症状
+
+你看到什么？
+用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。
+根因
+
+真正的原因是什么？
+python-docx 创建的表格行，默认没有设置 &lt;w:cantSplit/&gt; 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。
+这是 python-docx 的默认行为缺陷，不是 Word 的问题。
+修复
+
+具体怎么修的？
+from docx import Document
+from docx.oxml.ns import qn
+
+doc = Document()
+table = doc.add_table(rows=5, cols=3)
+
+# 关键：给每一行设 cantSplit，禁止跨页断开
+for row in table.rows:
+    tr = row._tr
+    trPr = tr.get_or_add_trPr()
+    cant_split = OxmlElement(&#39;w:cantSplit&#39;)
+    trPr.append(cant_split)
+
+doc.save(&#39;output.docx&#39;)
+这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。
+怎么避免
+
+下次怎么不踩？
+
+生成 docx 表格时，所有行显式设 cantSplit
+目录（TOC）不要手动写，用 Word 域代码 TOC \o &quot;1-3&quot; 生成
+参考 ~/claude-memory/global/tools/docx-patterns.md 的完整模式
+"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "踩坑宝典",
+      "item": "/pitfalls/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "python-docx 表格跨页断开无法控制",
+      "item": "/pitfalls/pit-docx-table-page-break-cantsplit/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "python-docx 表格跨页断开无法控制",
+  "name": "python-docx 表格跨页断开无法控制",
+  "description": "症状 你看到什么？\n用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。\n根因 真正的原因是什么？\npython-docx 创建的表格行，默认没有设置 \u0026lt;w:cantSplit\/\u0026gt; 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。\n这是 python-docx 的默认行为缺陷，不是 Word 的问题。\n修复 具体怎么修的？\nfrom docx import Document from docx.oxml.ns import qn doc = Document() table = doc.add_table(rows=5, cols=3) # 关键：给每一行设 cantSplit，禁止跨页断开 for row in table.rows: tr = row._tr trPr = tr.get_or_add_trPr() cant_split = OxmlElement(\u0026#39;w:cantSplit\u0026#39;) trPr.append(cant_split) doc.save(\u0026#39;output.docx\u0026#39;) 这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。\n怎么避免 下次怎么不踩？\n生成 docx 表格时，所有行显式设 cantSplit 目录（TOC）不要手动写，用 Word 域代码 TOC \\o \u0026quot;1-3\u0026quot; 生成 参考 ~\/claude-memory\/global\/tools\/docx-patterns.md 的完整模式 ",
+  "keywords": [
+    
+  ],
+  "articleBody": "症状 你看到什么？\n用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。\n根因 真正的原因是什么？\npython-docx 创建的表格行，默认没有设置 \u0026lt;w:cantSplit\/\u0026gt; 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。\n这是 python-docx 的默认行为缺陷，不是 Word 的问题。\n修复 具体怎么修的？\nfrom docx import Document from docx.oxml.ns import qn doc = Document() table = doc.add_table(rows=5, cols=3) # 关键：给每一行设 cantSplit，禁止跨页断开 for row in table.rows: tr = row._tr trPr = tr.get_or_add_trPr() cant_split = OxmlElement(\u0026#39;w:cantSplit\u0026#39;) trPr.append(cant_split) doc.save(\u0026#39;output.docx\u0026#39;) 这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。\n怎么避免 下次怎么不踩？\n生成 docx 表格时，所有行显式设 cantSplit 目录（TOC）不要手动写，用 Word 域代码 TOC \\o \u0026quot;1-3\u0026quot; 生成 参考 ~\/claude-memory\/global\/tools\/docx-patterns.md 的完整模式 ",
+  "wordCount" : "75",
+  "inLanguage": "en",
+  "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-13 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "\/pitfalls\/pit-docx-table-page-break-cantsplit\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅 | 认知能量工程",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="世界一隅 | 认知能量工程 (Alt + H)">世界一隅 | 认知能量工程</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+<article class="pitfall-single">
+  <header class="pitfall-hero">
+    <h1>python-docx 表格跨页断开无法控制</h1>
+    <div class="pitfall-meta">
+      <span>📅 2026-06-13</span>
+    </div>
+  </header>
+
+  <div class="pitfall-body">
+    <h2 id="症状">症状</h2>
+<blockquote>
+<p>你看到什么？</p></blockquote>
+<p>用 python-docx 生成的报告，表格在页面底部被 Word 自动劈成两半——表头在上页，数据在下页。读者看到断裂的表格，专业性大打折扣。手动在 Word 里调整也调不好。</p>
+<h2 id="根因">根因</h2>
+<blockquote>
+<p>真正的原因是什么？</p></blockquote>
+<p>python-docx 创建的表格行，默认没有设置 <code>&lt;w:cantSplit/&gt;</code> 属性。Word 打开文档后，按自己的分页算法决定是否断开表格——如果表格行正好落在页面底部，Word 就会把它断开。</p>
+<p><strong>这是 python-docx 的默认行为缺陷，不是 Word 的问题。</strong></p>
+<h2 id="修复">修复</h2>
+<blockquote>
+<p>具体怎么修的？</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> docx <span style="color:#f92672">import</span> Document
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> docx.oxml.ns <span style="color:#f92672">import</span> qn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#f92672">=</span> Document()
+</span></span><span style="display:flex;"><span>table <span style="color:#f92672">=</span> doc<span style="color:#f92672">.</span>add_table(rows<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, cols<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 关键：给每一行设 cantSplit，禁止跨页断开</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> table<span style="color:#f92672">.</span>rows:
+</span></span><span style="display:flex;"><span>    tr <span style="color:#f92672">=</span> row<span style="color:#f92672">.</span>_tr
+</span></span><span style="display:flex;"><span>    trPr <span style="color:#f92672">=</span> tr<span style="color:#f92672">.</span>get_or_add_trPr()
+</span></span><span style="display:flex;"><span>    cant_split <span style="color:#f92672">=</span> OxmlElement(<span style="color:#e6db74">&#39;w:cantSplit&#39;</span>)
+</span></span><span style="display:flex;"><span>    trPr<span style="color:#f92672">.</span>append(cant_split)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;output.docx&#39;</span>)
+</span></span></code></pre></div><p>这样生成的表格不会在页面中间断开，Word 会把整行推到下一页。</p>
+<h2 id="怎么避免">怎么避免</h2>
+<blockquote>
+<p>下次怎么不踩？</p></blockquote>
+<ul>
+<li>生成 docx 表格时，所有行显式设 <code>cantSplit</code></li>
+<li>目录（TOC）不要手动写，用 Word 域代码 <code>TOC \o &quot;1-3&quot;</code> 生成</li>
+<li>参考 <code>~/claude-memory/global/tools/docx-patterns.md</code> 的完整模式</li>
+</ul>
+
+  </div>
+
+  <footer class="pitfall-footer">
+    <p>🕳️ 这条踩坑对你有用吗？<a href="https://github.com/zhao818/claude-memory/issues/new" target="_blank">报告新踩坑</a></p>
+    <p><a href="/pitfalls/">← 返回踩坑宝典</a></p>
+  </footer>
+</article>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="/">世界一隅 | 认知能量工程</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

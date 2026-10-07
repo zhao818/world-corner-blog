@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>内在世界 on 世界一隅 | 认知能量工程</title>
+    <link>/tags/%E5%86%85%E5%9C%A8%E4%B8%96%E7%95%8C/</link>
+    <description>Recent content in 内在世界 on 世界一隅 | 认知能量工程</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 12 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%86%85%E5%9C%A8%E4%B8%96%E7%95%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>人生的向外与向内</title>
+      <link>/posts/systems-thinking/outward-and-inward/</link>
+      <pubDate>Fri, 12 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/systems-thinking/outward-and-inward/</guid>
+      <description>帝王将相追逐的是向外，思想家探索的是向内。你选哪条路？</description>
+    </item>
+    
+    <item>
+      <title>往日伤痛与未来追寻</title>
+      <link>/posts/systems-thinking/past-wounds-future-search/</link>
+      <pubDate>Fri, 12 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/systems-thinking/past-wounds-future-search/</guid>
+      <description>任何一种情感经历，都是心智觉醒的契机。</description>
+    </item>
+    
+  </channel>
+</rss>

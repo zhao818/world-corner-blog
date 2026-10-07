@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="30 天,一条路:先看清文明往哪走,再看到你自己怎么空,最后动手去修。每天读一小段,做一个动作。">
+<title>30 天实践 · 一条路 | 世界一隅</title>
+<style>
+:root {
+  --bg:#0b1017; --panel:#121a28; --panel2:#0e1520;
+  --ink:#e9e4d8; --ink-2:#a79e8c; --gold:#c9a55c; --gold-l:#e7cd8c;
+  --line:#223047; --thin:rgba(201,165,92,.28);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--ink);
+  font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong",serif;
+  line-height:1.9; font-size:17px;
+}
+a { color:var(--gold); text-decoration:none; }
+
+/* 顶栏 */
+.topbar {
+  position:sticky; top:0; z-index:50; height:52px;
+  display:flex; align-items:center; gap:12px; padding:0 18px;
+  background:rgba(11,16,23,.9); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.tb-back { font-size:.8rem; color:var(--ink-2); letter-spacing:.08em; }
+.tb-back:hover { color:var(--gold); }
+.tb-title { font-size:.92rem; font-weight:600; letter-spacing:.08em; }
+.tb-spacer { flex:1; }
+
+.wrap { max-width:820px; margin:0 auto; padding:52px 22px 80px; }
+
+/* 题头 */
+.hero { text-align:center; margin-bottom:26px; }
+.kicker { font-size:.68rem; letter-spacing:.34em; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+.hero h1 { font-size:1.9rem; letter-spacing:.06em; color:var(--ink); font-weight:700; line-height:1.5; }
+.hero .sub { margin-top:12px; font-size:.9rem; color:var(--ink-2); letter-spacing:.05em; line-height:2; }
+.hero .sub b { color:var(--gold-l); font-weight:600; }
+
+/* 路线总览 */
+.route {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:22px 0 34px;
+}
+.rp {
+  background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 14px; text-align:center;
+}
+.rp .r-no { font-size:.66rem; letter-spacing:.22em; color:var(--gold); margin-bottom:8px; }
+.rp .r-name { font-size:1.02rem; color:var(--ink); font-weight:600; letter-spacing:.06em; }
+.rp .r-book { font-size:.7rem; color:var(--ink-2); letter-spacing:.1em; margin-top:6px; }
+.rp.on { border-color:var(--thin); background:linear-gradient(160deg, rgba(201,165,92,.1), rgba(201,165,92,.02)); }
+.rp.on .r-name { color:var(--gold-l); }
+
+/* 起点/回测卡 */
+.gate {
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  background:var(--panel2); border:1px dashed var(--thin); border-radius:12px;
+  padding:16px 20px; margin-bottom:26px;
+}
+.gate .g-txt { flex:1 1 260px; }
+.gate .g-tag { font-size:.64rem; letter-spacing:.2em; color:var(--gold); }
+.gate h3 { font-size:1.06rem; color:var(--gold-l); margin-top:4px; letter-spacing:.04em; }
+.gate p { font-size:.82rem; color:var(--ink-2); margin-top:4px; line-height:1.8; }
+.gate a {
+  flex:0 0 auto; padding:9px 22px; border-radius:999px; font-size:.85rem; font-weight:700; letter-spacing:.08em;
+  background:var(--gold); color:#0b1017; transition:background .2s, transform .2s;
+}
+.gate a:hover { background:var(--gold-l); transform:translateY(-2px); }
+
+/* 阶段 */
+.phase { margin:34px 0 14px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+.phase .ph-tag { font-size:.64rem; letter-spacing:.22em; color:var(--gold); }
+.phase h2 { font-size:1.4rem; color:var(--ink); letter-spacing:.08em; margin-top:2px; }
+.phase p { font-size:.86rem; color:var(--ink-2); margin-top:4px; }
+
+/* 每日条目 */
+.day {
+  display:flex; gap:16px; padding:13px 0 13px 4px;
+  border-bottom:1px solid rgba(34,48,71,.5);
+}
+.d-no {
+  flex:0 0 58px; font-size:.7rem; letter-spacing:.1em; color:var(--gold);
+  border:1px solid var(--thin); border-radius:999px; height:28px;
+  display:flex; align-items:center; justify-content:center; margin-top:3px;
+}
+.d-main { flex:1; min-width:0; }
+.d-main h3 { font-size:1rem; color:var(--ink); letter-spacing:.03em; font-weight:600; }
+.d-read { font-size:.76rem; color:var(--ink-2); letter-spacing:.08em; margin-top:2px; }
+.d-do {
+  font-size:.86rem; color:var(--ink); margin-top:7px; line-height:1.8;
+}
+.d-do b { color:var(--gold-l); font-weight:600; }
+.d-links { margin-top:7px; display:flex; gap:14px; flex-wrap:wrap; }
+.d-links a { font-size:.76rem; letter-spacing:.06em; color:var(--gold); border:1px solid var(--thin); border-radius:999px; padding:3px 13px; transition:all .2s; }
+.d-links a:hover { background:rgba(201,165,92,.1); color:var(--gold-l); }
+.day.rest { opacity:.75; }
+.day.rest .d-no { border-style:dashed; color:var(--ink-2); }
+
+/* 底部 */
+.foot { margin-top:42px; text-align:center; }
+.foot .nudge { font-size:.84rem; color:var(--ink-2); letter-spacing:.08em; margin-bottom:14px; }
+.foot-links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.foot-links a {
+  padding:8px 22px; border:1px solid var(--thin); border-radius:999px;
+  font-size:.84rem; color:var(--gold); letter-spacing:.06em; transition:all .2s;
+}
+.foot-links a:hover { background:rgba(201,165,92,.1); color:var(--gold-l); }
+.foot-meta { margin-top:24px; font-size:.72rem; color:var(--ink-2); letter-spacing:.04em; }
+
+@media (max-width:680px) {
+  .route { grid-template-columns:1fr; }
+  .hero h1 { font-size:1.55rem; }
+  .d-no { flex-basis:52px; }
+  .day { gap:12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="tb-back" href="/theory-map/">← 总理论地图</a>
+  <span class="tb-title">30 天实践</span>
+  <span class="tb-spacer"></span>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="kicker">30-DAY PRACTICE · 知行合一</p>
+    <h1>30 天,一条路</h1>
+    <p class="sub">先看清 <b>文明往哪走</b>,再看到 <b>你怎么空</b>,最后动手 <b>怎么修</b>。<br>每天读一小段,做一个动作。第 30 天,回来照见自己。</p>
+  </section>
+
+  <section class="route">
+    <div class="rp on">
+      <div class="r-no">阶段一 · 第 1-10 天</div>
+      <div class="r-name">看清方向</div>
+      <div class="r-book">《文明的阶梯》</div>
+    </div>
+    <div class="rp">
+      <div class="r-no">阶段二 · 第 11-20 天</div>
+      <div class="r-name">看到自己</div>
+      <div class="r-book">《幸福的内在》</div>
+    </div>
+    <div class="rp">
+      <div class="r-no">阶段三 · 第 21-30 天</div>
+      <div class="r-name">动手去修</div>
+      <div class="r-book">《内心的修炼》</div>
+    </div>
+  </section>
+
+  <section class="gate">
+    <div class="g-txt">
+      <span class="g-tag">第 0 天 · 起点</span>
+      <h3>先测你的认知能量</h3>
+      <p>15 个问题、3 分钟,照见你的能量主要消耗在哪。把它记下来——那是你的基线,第 30 天回来对比。</p>
+    </div>
+    <a href="/energy-test/">去测试 →</a>
+  </section>
+
+  <!-- 阶段一 -->
+  <section class="phase">
+    <span class="ph-tag">阶段一 · 第 1-10 天</span>
+    <h2>看清方向</h2>
+    <p>读《文明的阶梯》:先知道文明往哪走,才知道你站在哪。</p>
+  </section>
+
+  <div class="day">
+    <span class="d-no">第 1 天</span>
+    <div class="d-main">
+      <h3>喂饱,是文明的第一级阶梯</h3>
+      <p class="d-read">读《文明的阶梯》壹</p>
+      <p class="d-do"><b>动作:</b>今天留意你被什么真正喂饱、被什么只是填满——各记录一件。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 2 天</span>
+    <div class="d-main">
+      <h3>人不止一层饿 · 身体会饿</h3>
+      <p class="d-read">读《文明的阶梯》贰(上)</p>
+      <p class="d-do"><b>动作:</b>好好喂一次身体——正经吃一顿饭,不边吃边刷手机。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 3 天</span>
+    <div class="d-main">
+      <h3>人不止一层饿 · 思想也会饿</h3>
+      <p class="d-read">读《文明的阶梯》贰(下)</p>
+      <p class="d-do"><b>动作:</b>认真读一段话 10 分钟,体会「吃饭」和「刷手机」的差别。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 4 天</span>
+    <div class="d-main">
+      <h3>幸福,就是升级</h3>
+      <p class="d-read">读《文明的阶梯》叁</p>
+      <p class="d-do"><b>动作:</b>写下你「升级过」的一刻——从一层满足,到更高一层的满足。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 5 天</span>
+    <div class="d-main">
+      <h3>灯塔:我们唯一能做的事</h3>
+      <p class="d-read">读《文明的阶梯》肆(上)</p>
+      <p class="d-do"><b>动作:</b>想一件你这辈子唯一想做的事,写下来。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 6 天</span>
+    <div class="d-main">
+      <h3>灯塔 · 为什么是灯塔</h3>
+      <p class="d-read">读《文明的阶梯》肆(下)</p>
+      <p class="d-do"><b>动作:</b>今天为那件事,花 10 分钟做一步。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 7 天</span>
+    <div class="d-main">
+      <h3>每日必修 · 喂身喂脑</h3>
+      <p class="d-read">读《文明的阶梯》伍(上)</p>
+      <p class="d-do"><b>动作:</b>今天完成两件:睡够/一顿好饭;留一段固定时间,喂一次思想。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 8 天</span>
+    <div class="d-main">
+      <h3>每日必修 · 觉察心、传灯</h3>
+      <p class="d-read">读《文明的阶梯》伍(下)</p>
+      <p class="d-do"><b>动作:</b>记一次「看见自己念头」的时刻;把一句话,说给一个人听。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 9 天</span>
+    <div class="d-main">
+      <h3>回看 · 一灯照己,万灯照海</h3>
+      <p class="d-read">读《文明的阶梯》跋</p>
+      <p class="d-do"><b>动作:</b>用一句话,重写「文明往哪走」。</p>
+      <p class="d-links"><a href="/read/civilization/">读 →</a><a href="/audiobook/#book-wenming">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day rest">
+    <span class="d-no">第 10 天</span>
+    <div class="d-main">
+      <h3>阶段小结 · 写下你的坐标</h3>
+      <p class="d-do"><b>动作:</b>三行字:文明往哪走?我怎么空?我怎么修?各一行。存好,第 30 天再回看。</p>
+    </div>
+  </div>
+
+  <!-- 阶段二 -->
+  <section class="phase">
+    <span class="ph-tag">阶段二 · 第 11-20 天</span>
+    <h2>看到自己</h2>
+    <p>读《幸福的内在》:先看见空在哪里,空才不再是黑洞。</p>
+  </section>
+
+  <div class="day">
+    <span class="d-no">第 11 天</span>
+    <div class="d-main">
+      <h3>脱节时代</h3>
+      <p class="d-read">读《幸福的内在》07</p>
+      <p class="d-do"><b>动作:</b>记一件「时代让你觉得不对劲」的具体小事。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 12 天</span>
+    <div class="d-main">
+      <h3>大逃离</h3>
+      <p class="d-read">读《幸福的内在》08</p>
+      <p class="d-do"><b>动作:</b>诚实问自己:我在逃向哪——刷手机、忙、囤、躲?认下一个。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 13 天</span>
+    <div class="d-main">
+      <h3>历史夹缝</h3>
+      <p class="d-read">读《幸福的内在》10</p>
+      <p class="d-do"><b>动作:</b>写你正站在哪道缝里——旧地图已经失效的地方。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 14 天</span>
+    <div class="d-main">
+      <h3>我们的哥伦布</h3>
+      <p class="d-read">读《幸福的内在》11</p>
+      <p class="d-do"><b>动作:</b>承认空白不是失败。写一句:「我不知道,但我要去找。」</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 15 天</span>
+    <div class="d-main">
+      <h3>内心基建</h3>
+      <p class="d-read">读《幸福的内在》12</p>
+      <p class="d-do"><b>动作:</b>给内心做一件基建:一句肯定、一次拒绝、或一场独处。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 16 天</span>
+    <div class="d-main">
+      <h3>第四维度</h3>
+      <p class="d-read">读《幸福的内在》13</p>
+      <p class="d-do"><b>动作:</b>列出你生命里那些「第四维」时刻——让生命突然变厚了的时刻。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 17 天</span>
+    <div class="d-main">
+      <h3>极好的一生</h3>
+      <p class="d-read">读《幸福的内在》14</p>
+      <p class="d-do"><b>动作:</b>写三件「如果我今天离开,会遗憾没做的事」。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 18 天</span>
+    <div class="d-main">
+      <h3>与自然对话 · 上</h3>
+      <p class="d-read">读《幸福的内在》16</p>
+      <p class="d-do"><b>动作:</b>今天不带手机,到户外走 20 分钟,只听、只看、只闻。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 19 天</span>
+    <div class="d-main">
+      <h3>纯真之眼</h3>
+      <p class="d-read">读《幸福的内在》19</p>
+      <p class="d-do"><b>动作:</b>用第一次见面的眼睛,重新看一个熟悉的人或地方,记下一个新发现。</p>
+      <p class="d-links"><a href="/read/happiness/">读 →</a><a href="/audiobook/#book-xingfu">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day rest">
+    <span class="d-no">第 20 天</span>
+    <div class="d-main">
+      <h3>阶段小结 · 你的缺课单</h3>
+      <p class="d-do"><b>动作:</b>写下这十天照见的「缺课单」——你缺的,是哪一关?</p>
+    </div>
+  </div>
+
+  <!-- 阶段三 -->
+  <section class="phase">
+    <span class="ph-tag">阶段三 · 第 21-30 天</span>
+    <h2>动手去修</h2>
+    <p>读《内心的修炼》:最高级的修行不在深山,在事上。</p>
+  </section>
+
+  <div class="day">
+    <span class="d-no">第 21 天</span>
+    <div class="d-main">
+      <h3>断舍离 · 先减负</h3>
+      <p class="d-read">读《内心的修炼》第一篇</p>
+      <p class="d-do"><b>动作:</b>扔掉或送走一件「身外之物」,给内在减一次负。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 22 天</span>
+    <div class="d-main">
+      <h3>炼心术 · 心即理</h3>
+      <p class="d-read">读《内心的修炼》第三篇</p>
+      <p class="d-do"><b>动作:</b>今天遇事,先问「我心里怎么想」,再问别人怎么想。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 23 天</span>
+    <div class="d-main">
+      <h3>炼心术 · 知行合一</h3>
+      <p class="d-read">读《内心的修炼》第三篇</p>
+      <p class="d-do"><b>动作:</b>挑一件「知道却一直没做」的小事,今天就做掉它。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 24 天</span>
+    <div class="d-main">
+      <h3>炼心术 · 事上磨练</h3>
+      <p class="d-read">读《内心的修炼》第三篇</p>
+      <p class="d-do"><b>动作:</b>把一件日常琐事(做饭/通勤/家务)当成修炼场,全程安住。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 25 天</span>
+    <div class="d-main">
+      <h3>养身体 · 睡与动</h3>
+      <p class="d-read">读《内心的修炼》第五篇</p>
+      <p class="d-do"><b>动作:</b>今晚提前一小时关屏入睡;或做一次微运动。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 26 天</span>
+    <div class="d-main">
+      <h3>结善缘 · 利他</h3>
+      <p class="d-read">读《内心的修炼》第六篇</p>
+      <p class="d-do"><b>动作:</b>今天主动帮一个人,不求回报。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 27 天</span>
+    <div class="d-main">
+      <h3>明经济 · 稀缺与现金流</h3>
+      <p class="d-read">读《内心的修炼》第八篇</p>
+      <p class="d-do"><b>动作:</b>算一算这个月钱花在了哪,找出三笔「可删」。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 28 天</span>
+    <div class="d-main">
+      <h3>立财基 · 让钱为你工作</h3>
+      <p class="d-read">读《内心的修炼》第九篇</p>
+      <p class="d-do"><b>动作:</b>写下你的资产和负债各一行,看清现金流的方向。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day">
+    <span class="d-no">第 29 天</span>
+    <div class="d-main">
+      <h3>破执念 · 自由与责任</h3>
+      <p class="d-read">读《内心的修炼》第四篇</p>
+      <p class="d-do"><b>动作:</b>选一件「我以为是别人逼我」的事,今天自己认下。</p>
+      <p class="d-links"><a href="/read/neixin/">读 →</a><a href="/audiobook/#book-neixin">听 →</a></p>
+    </div>
+  </div>
+
+  <div class="day rest">
+    <span class="d-no">第 30 天</span>
+    <div class="d-main">
+      <h3>完结 · 回到 36 问</h3>
+      <p class="d-do"><b>动作:</b>重做一次认知能量测试,对照第 0 天,写下变化。然后,把第 10 天那张坐标拿出来,看看你走到了哪。</p>
+    </div>
+  </div>
+
+  <section class="gate">
+    <div class="g-txt">
+      <span class="g-tag">第 30 天 · 回测</span>
+      <h3>回来照见自己</h3>
+      <p>同样的 15 个问题。你的主画像变了吗?消耗在哪一格,被你自己喂回去了一点点?这就是 30 天的意义——不用惊天动地,只要每天一次。</p>
+    </div>
+    <a href="/energy-test/">重测一次 →</a>
+  </section>
+
+  <section class="foot">
+    <p class="nudge">沿着这条路,可以一直走</p>
+    <div class="foot-links">
+      <a href="/theory-map/">总理论地图</a>
+      <a href="/audiobook/">三本有声书</a>
+      <a href="/app/">灵魂之觅 · 36 问</a>
+    </div>
+    <p class="foot-meta">世界一隅 · worldcorner.xyz —— 在算法洪流中,守护清醒的微光。</p>
+  </section>
+
+</main>
+</body>
+</html>

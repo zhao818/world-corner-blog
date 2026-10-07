@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>认知能量 on 世界一隅</title>
+    <link>https://worldcorner.xyz/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/</link>
+    <description>Recent content in 认知能量 on 世界一隅</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/categories/%E8%AE%A4%E7%9F%A5%E8%83%BD%E9%87%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title>
+      <link>https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/</guid>
+      <description>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。</description>
+    </item>
+    
+  </channel>
+</rss>

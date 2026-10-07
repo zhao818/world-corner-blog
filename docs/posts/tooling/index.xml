@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>效率工具 on 世界一隅</title>
+    <link>https://worldcorner.xyz/posts/tooling/</link>
+    <description>Recent content in 效率工具 on 世界一隅</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/posts/tooling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我整理了 16 条程序员真实踩坑，每条四步拆解：症状→根因→修复→避免</title>
+      <link>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</link>
+      <pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/2026-06-13-pitfall-knowledge-base/</guid>
+      <description>踩过坑、修好坑、记住坑——同一个坑不踩第二次：症状、根因、修复、避免四步拆解 16 条真实踩坑。</description>
+    </item>
+    
+    <item>
+      <title>AI审AI</title>
+      <link>https://worldcorner.xyz/posts/tooling/ai-audit-ai/</link>
+      <pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/ai-audit-ai/</guid>
+      <description>上一个AI做的数据，让下一个AI来审，结果抓出一堆毛病。</description>
+    </item>
+    
+    <item>
+      <title>「一份施工组织设计的重生：从报审表空壳到完整技术文档」</title>
+      <link>https://worldcorner.xyz/posts/tooling/construction-documents-rebirth/</link>
+      <pubDate>Tue, 09 Jun 2026 20:00:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/construction-documents-rebirth/</guid>
+      <description>一次完整的工程资料审计与重建过程。不只是修了哪些bug的工作日志，更是对几个底层问题的追问：合同数据和设计数据谁说了算？为什么隐藏行是最危险的陷阱？为什么生成器模式比手动改文档靠谱一千倍？</description>
+    </item>
+    
+    <item>
+      <title>当一个工程师决定用 AI 打造「个人内容工厂」：关于效率、规则与技术降维的真实实验</title>
+      <link>https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/</link>
+      <pubDate>Mon, 18 May 2026 21:42:52 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/tool-sovereignty-occams-razor/</guid>
+      <description>他用两天时间在 API 文档的迷宫中碰壁，又用 2 分钟完成了整条内容管线的贯通。这不是技术的胜利，而是一个个体对自己工具主权的夺回——在 API 的高墙下，真正的自由从不来自遵循规范，而来自对“轻量化”近乎偏执的坚持。</description>
+    </item>
+    
+    <item>
+      <title>别再轮询了。你的人生应该 Event-Driven。</title>
+      <link>https://worldcorner.xyz/posts/tooling/wxpusher-polling-to-event-driven/</link>
+      <pubDate>Sat, 02 May 2026 20:38:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/wxpusher-polling-to-event-driven/</guid>
+      <description>用 WxPusher 把你的微信变成每秒都在待命的贴身中枢。告别刷新焦虑，从这句咒语开始。</description>
+    </item>
+    
+    <item>
+      <title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</title>
+      <link>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</link>
+      <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</guid>
+      <description>你每天打开多少次信息应用？</description>
+    </item>
+    
+    <item>
+      <title>别再做效率难民：为什么一行粗糙的代码，胜过一万篇完美的干货？</title>
+      <link>https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/tooling/farewell-efficiency-refugees/</guid>
+      <description>凌晨两点，我盯着 n8n 的 workflow 编辑器，屏幕上蜿蜒着二十几个拖拽节点。</description>
+    </item>
+    
+  </channel>
+</rss>

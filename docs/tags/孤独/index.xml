@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>孤独 on 世界一隅</title>
+    <link>https://worldcorner.xyz/tags/%E5%AD%A4%E7%8B%AC/</link>
+    <description>Recent content in 孤独 on 世界一隅</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E5%AD%A4%E7%8B%AC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>孤独与灵魂</title>
+      <link>https://worldcorner.xyz/posts/systems-thinking/loneliness-and-soul/</link>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/systems-thinking/loneliness-and-soul/</guid>
+      <description>孤独不是等待填补的空洞，而是灵魂存在的证明。</description>
+    </item>
+    
+    <item>
+      <title>在系统的噪音中，重构灵魂的索引</title>
+      <link>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</link>
+      <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</guid>
+      <description>你打开一本书，或者点开一个课程的播放键。屏幕的光打在脸上，知识流进大脑，神经元开始构建新的突触。你感到充实。</description>
+    </item>
+    
+    <item>
+      <title>认知套利：我们为何终其一生在对冲孤独？</title>
+      <link>https://worldcorner.xyz/posts/systems-thinking/cognitive-arbitrage-loneliness/</link>
+      <pubDate>Fri, 01 May 2026 15:27:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/posts/systems-thinking/cognitive-arbitrage-loneliness/</guid>
+      <description>凌晨两点，你刚从一场热闹的饭局回到空无一人的房间。手机屏幕还亮着——23条未读消息，30个朋友圈点赞。你滑了一遍，锁屏，放下。</description>
+    </item>
+    
+  </channel>
+</rss>

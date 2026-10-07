@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容管线 · 流程图</title>
+<style>
+  :root {
+    --bg: #0a0a16;
+    --card-bg: #16162e;
+    --border: #2a2a4a;
+    --text: #e8e6e3;
+    --text-dim: #888;
+    --gold: #c8a03c;
+    --gold-dim: #8a6a20;
+    --blue: #3a6ea5;
+    --green: #27ae60;
+    --red: #e74c3c;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --orange: #f59e0b;
+    --teal: #14b8a6;
+    --stage1: rgba(245,158,11,.12);
+    --stage2: rgba(200,160,60,.12);
+    --stage3: rgba(58,110,165,.12);
+    --stage4: rgba(139,92,246,.12);
+    --stage5: rgba(20,184,166,.12);
+    --stage6: rgba(236,72,153,.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 16px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header h1 { font-size: 20px; color: var(--gold); font-weight: 700; letter-spacing: 1px; }
+  .header h1 small { font-size: 12px; color: var(--text-dim); font-weight: 400; margin-left: 10px; }
+  .header-controls { display: flex; gap: 8px; align-items: center; }
+  .header-controls input {
+    background: var(--card-bg); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 12px; border-radius: 6px; font-size: 12px; outline: none; width: 200px;
+  }
+  .header-controls input:focus { border-color: var(--gold); }
+  .header-controls button {
+    background: var(--card-bg); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: .15s;
+  }
+  .header-controls button:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── Pipeline Layout ── */
+  .pipeline {
+    display: flex;
+    gap: 16px;
+    min-width: 1400px;
+    padding: 10px 20px 40px;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .stage {
+    flex: 1;
+    min-width: 200px;
+    max-width: 260px;
+    position: relative;
+  }
+
+  .stage-header {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    border: 1px solid;
+  }
+
+  /* ── Arrows (CSS) ── */
+  .stage::after {
+    content: '▶';
+    position: absolute;
+    right: -12px;
+    top: 30px;
+    color: var(--text-dim);
+    font-size: 12px;
+    opacity: .4;
+    z-index: 0;
+  }
+  .stage:last-child::after { display: none; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    z-index: 1;
+  }
+  .card:hover {
+    border-color: var(--gold);
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  }
+  .card.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(200,160,60,.25);
+  }
+  .card .title {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card .desc {
+    font-size: 10.5px;
+    color: var(--text-dim);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  .card .badge {
+    display: inline-block;
+    font-size: 8.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .badge-core { color: var(--gold); border-color: rgba(200,160,60,.3); background: rgba(200,160,60,.08); }
+  .badge-py { color: var(--teal); border-color: rgba(20,184,166,.3); background: rgba(20,184,166,.08); }
+  .badge-platform { color: var(--blue); border-color: rgba(58,110,165,.3); background: rgba(58,110,165,.08); }
+  .badge-video { color: var(--pink); border-color: rgba(236,72,153,.3); background: rgba(236,72,153,.08); }
+  .badge-data { color: var(--purple); border-color: rgba(139,92,246,.3); background: rgba(139,92,246,.08); }
+  .badge-search { color: var(--orange); border-color: rgba(245,158,11,.3); background: rgba(245,158,11,.08); }
+  .badge-money { color: var(--green); border-color: rgba(39,174,96,.3); background: rgba(39,174,96,.08); }
+  .badge-op { color: var(--red); border-color: rgba(231,76,60,.3); background: rgba(231,76,60,.08); }
+
+  /* ── Branch indicator ── */
+  .branch-line {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    opacity: .3;
+  }
+  .branch-label {
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: rotate(-90deg) translateX(-50%);
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* ── Column highlights ── */
+  .stage-s1 .stage-header { border-color: var(--orange); color: var(--orange); background: var(--stage1); }
+  .stage-s2 .stage-header { border-color: var(--gold); color: var(--gold); background: var(--stage2); }
+  .stage-s3 .stage-header { border-color: var(--blue); color: var(--blue); background: var(--stage3); }
+  .stage-s4 .stage-header { border-color: var(--purple); color: var(--purple); background: var(--stage4); }
+  .stage-s5 .stage-header { border-color: var(--teal); color: var(--teal); background: var(--stage5); }
+  .stage-s6 .stage-header { border-color: var(--pink); color: var(--pink); background: var(--stage6); }
+
+  /* ── Sub pipeline (vertical) ── */
+  .sub-pipeline {
+    border-left: 2px dashed rgba(236,72,153,.2);
+    margin-left: 8px;
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+  .sub-pipeline .card { margin-bottom: 6px; }
+
+  /* ── Detail modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 520px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .modal h2 { color: var(--gold); font-size: 18px; margin-bottom: 4px; }
+  .modal .close { float: right; background: none; border: none; color: var(--text-dim); font-size: 20px; cursor: pointer; padding: 0 4px; }
+  .modal .close:hover { color: var(--text); }
+  .modal .sub { color: var(--text-dim); font-size: 13px; margin-bottom: 12px; }
+  .modal .sec { margin: 10px 0; }
+  .modal .sec h3 { font-size: 13px; color: var(--gold-dim); margin-bottom: 3px; }
+  .modal .sec h3::before { content: '▸ '; }
+  .modal .sec p, .modal .sec li { font-size: 12.5px; line-height: 1.6; opacity: .9; }
+  .modal .sec ul { padding-left: 16px; }
+  .modal .flow { font-size: 12px; background: var(--bg); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); line-height: 1.6; white-space: pre-wrap; font-family: 'Cascadia Code', monospace; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔀 内容管线流程图 <small>上下游承接关系 · 点击卡片查看详情</small></h1>
+  <div class="header-controls">
+    <input id="searchInput" placeholder="🔍 搜索..." oninput="filterCards(this.value)">
+    <button onclick="location.reload()">重置</button>
+  </div>
+</div>
+
+<div class="pipeline" id="pipeline"></div>
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ═══ 管线数据: 每阶段一列, 卡片按上下游顺序排列 ═══
+
+const stages = [
+  {
+    id: 's1', label: '① 输入层 · 搜索引擎', cls: 'stage-s1',
+    cards: [
+      { id:'yuanbao', title:'yuanbao_search.py', desc:'元宝搜索(铁律首选)', badge:'search', detail:{
+        title:'yuanbao_search.py', desc:'腾讯元宝联网搜索 · CLAUDE.md铁律首选',
+        arch:'Playwright控yuanbao.tencent.com\n反检测三层: stealth.js + 随机视口 + 人格化延时\n输出模式: -r(纯文本) / -j(JSON)',
+        pros:['中文搜索质量优于WebSearch','反检测三层有效'], cons:['Cookie维护成本','元宝更新DOM会中断'],
+        opt:'缓存同关键词24h TTL | 连续3次失败自动告警+降级WebSearch'
+      }},
+      { id:'dsw', title:'deepseek_web.py', desc:'DS Web搜索(管线主力)', badge:'search', detail:{
+        title:'deepseek_web.py', desc:'Playwright + storage_state · 管线主力搜索引擎',
+        arch:'反检测三层: webdriver篡改+随机视口+SessionPersona(gamma/指数/均匀分布)\nstorage_state持久化: ~/.claude/deepseek-state.json',
+        pros:['接口兼容可互换','反检测完整','storage_state免登录'], cons:['Playwright性能开销大','过期需刷新'],
+        opt:'Browser实例池化减80%启动 | 快速query走API+深度搜索走Web混合'
+      }},
+      { id:'dsapi', title:'deepseek_search.py', desc:'DS API快速搜索', badge:'search' },
+      { id:'doubao', title:'doubao_search.py', desc:'豆包搜索(降级链一环)', badge:'search' },
+      { id:'gemini', title:'gemini_search.py', desc:'Gemini搜索(降级链二环)', badge:'search' },
+    ]
+  },
+  {
+    id: 's2', label: '② 生产层 · 文章生成', cls: 'stage-s2',
+    cards: [
+      { id:'pub1', title:'publish_one.py', desc:'5步快速发文: 选题→搜索→起草→推送→登记', badge:'core', highlight:true, detail:{
+        title:'publish_one.py · 一键快速发文', desc:'5步直达公众号草稿 · V2 (2026-06-29)',
+        arch:'[0/5] AI选题 → [1/5] DeepSeek搜索 → [2/5] JSON起草(V2增强解析) → [3/5] 公众号推送 → [4/5] 内容登记',
+        flow:'用户 → publish_one.py → deepseek_web.search()(搜索) → deepseek_web.search()(起草) → WechatPlatform → RegistryManager → content_registry.json',
+        pros:['单命令全流程(5min一篇)','JSON解析三级回退(loads→\\n转义→原文)','Token计费贯穿全程'],
+        cons:['仅公众号单平台','JSON起草无质量审核','任一步失败直接return无重试'],
+        opt:'加入指数退避重试(1s→3s→9s) | 五维评分自动审核(<70分重生成) | Playwright实例池化',
+        files:'world-corner-blog/scripts/publish_one.py'
+      }},
+      { id:'pub2', title:'content_orchestrator.py', desc:'三AI协作深度写: 调研→骨架→精加工→组装→发布→视频→登记', badge:'core', highlight:true, detail:{
+        title:'content-orchestrator · 三AI协作深度管线', desc:'在publish_one.py之上加精耕细作层',
+        arch:'Step1调研(豆包→Gemini→DS降级) → 👀审核 → Step2骨架 → 👀审核 → Step3精加工 → 👀审核 → Step4组装 → Step5调publish_one.py → Step6调video_pipeline.py → Step7调content_dashboard.py',
+        pros:['三AI自动降级(引擎健康检查)','每步审核闸门可控','双内容线(ai/thinking)','端到端集成发布+视频+登记'],
+        cons:['串行管线墙钟长','Token消耗大(深度×引擎数)','无搜索结果缓存'],
+        opt:'LRU Cache减40-60% API调用 | 三AI独立产出→交叉评审→择优 | LLM-as-Judge自动替代人工审核',
+        files:'catalog/scripts/content_orchestrator.py'
+      }},
+      { id:'pub3', title:'yuanbao_pipeline.py', desc:'元宝管线: 研究(①)→情报(②)→起草(③)', badge:'py' },
+      { id:'pub4', title:'publish_llm_article.py', desc:'Hugo MD → 封面 → 公众号草稿', badge:'py' },
+      { id:'pub5', title:'content_eval.py', desc:'五维评分(标题/结构/金句/引流/品牌)≥70放行', badge:'data' },
+    ]
+  },
+  {
+    id: 's3', label: '③ 分发层 · 多平台发布', cls: 'stage-s3',
+    cards: [
+      { id:'dist1', title:'publish.py', desc:'多平台分发引擎 · MD→11平台', badge:'core', highlight:true, detail:{
+        title:'publish.py · 多平台分发引擎', desc:'一个Markdown发11个平台',
+        arch:'解析MD(YAML frontmatter) → Pillow生成封面 → publish_to() → 各平台模块\nTEXT: 公众号/掘金/知乎/即刻/腾讯云/爱发电/闲鱼\nVIDEO: B站/抖音/快手/小红书/视频号',
+        pros:['策略模式加新平台成本低','统一Cookie管理','反检测三层','引流文案中心traffic.py统一管理'],
+        cons:['缺发布后验证(是否真的发布成功)','Playwright选择器脆弱','Cookie过期需人工介入'],
+        opt:'发布后截图验证 | data-testid替代CSS选择器 | 异步队列+失败重试',
+        files:'world-corner-blog/scripts/publish.py'
+      }},
+      { id:'dist2', title:'📘 wechat.py · 公众号', desc:'API推草稿 appID:wx331b651c', badge:'platform' },
+      { id:'dist3', title:'📕 juejin.py · 掘金', desc:'技术文章发布', badge:'platform' },
+      { id:'dist4', title:'📗 zhihu.py · 知乎', desc:'文章发布', badge:'platform' },
+      { id:'dist5', title:'📘 jike.py · 即刻', desc:'动态发布', badge:'platform' },
+      { id:'dist6', title:'📙 tencent_cloud.py · 腾讯云', desc:'技术文章', badge:'platform' },
+      { id:'dist7', title:'💌 afdian.py · 爱发电', desc:'创作者文章', badge:'platform' },
+      { id:'dist8', title:'🏷️ goofish.py · 闲鱼', desc:'虚拟商品发布+自动发货', badge:'platform' },
+      { id:'dist9', title:'traffic.py · 引流文案', desc:'5种内容类型统一话术', badge:'py' },
+      { id:'dist10', title:'content_adapter.py · 格式适配', desc:'Markdown→各平台HTML', badge:'py' },
+    ]
+  },
+  {
+    id: 's4', label: '④ 视频层 · 生成 & 上传', cls: 'stage-s4',
+    cards: [
+      { id:'vid1', title:'video_pipeline.py', desc:'6步: Hook→素材→TTS→Remotion渲染→登记', badge:'core', highlight:true, detail:{
+        title:'video-pipeline · Remotion视频生成', desc:'文章→竖屏短视频全自动',
+        arch:'[0/6]Hook评分 → [1/6]文章注册 → [2/6]素材Pillow → [3/6]edge-tts+lo-fi → [4/6]Remotion渲染 → [5/6]注册表更新\n10主题: midnight-galaxy / ocean-depths / sunset-boulevard 等',
+        pros:['端到端自动','10套主题','React模板组件化'], cons:['25秒固定时长','单TTS音色','依赖多(edge-tts/ffmpeg/Node)'],
+        opt:'自适应时长15-60s | Fish-Speech/CosyVoice多音色 | 并行渲染',
+        files:'projects/remotion-video-platform/scripts/video_pipeline.py'
+      }},
+      { id:'vid2', title:'🎥 bilibili.py · B站', desc:'视频+文章发布', badge:'platform' },
+      { id:'vid3', title:'🎬 douyin.py · 抖音', desc:'视频上传', badge:'platform' },
+      { id:'vid4', title:'📺 kuaishou.py · 快手', desc:'短视频发布', badge:'platform' },
+      { id:'vid5', title:'📱 xiaohongshu.py · 小红书', desc:'图文/视频', badge:'platform' },
+      { id:'vid6', title:'📹 channels.py · 视频号', desc:'channels.weixin.qq.com', badge:'platform' },
+      { id:'vid7', title:'upload-video.py', desc:'MP4→抖音/快手/B站', badge:'video' },
+      { id:'vid8', title:'publish_xhs_video.py', desc:'小红书视频发布', badge:'video' },
+      { id:'vid9', title:'videofast_server.py', desc:'Flask API→Remotion→Gmail', badge:'video' },
+    ]
+  },
+  {
+    id: 's5', label: '⑤ 追踪层 · 数据 & 报告', cls: 'stage-s5',
+    cards: [
+      { id:'data1', title:'content_dashboard.py', desc:'可视仪表盘 serve/list/add/mark/sync', badge:'data', detail:{
+        title:'内容发布仪表盘', desc:'Python http.server + dashboard_template.html',
+        arch:'RegistryManager CRUD → http.server → 浏览器看板\n状态: not_planned/pending/published/failed/skipped\n平台分类: TEXT(7) + VIDEO(5)',
+        pros:['零依赖标准库','RegistryManager统一接口','即开即用'], cons:['JSON无并发保护','无认证鉴权'],
+        opt:'SQLite替代JSON支持并发'
+      }},
+      { id:'data2', title:'content_registry.json', desc:'统一发布注册表(~82KB)', badge:'data' },
+      { id:'data3', title:'collect_video_stats.py', desc:'定时采集各平台视频数据', badge:'data' },
+      { id:'data4', title:'collectors/ (8个)', desc:'各平台数据采集器', badge:'data' },
+      { id:'data5', title:'reports/ (4个)', desc:'交叉引用/互动/反馈/策略', badge:'data' },
+    ]
+  },
+  {
+    id: 's6', label: '⑥ 变现 & 运营', cls: 'stage-s6',
+    cards: [
+      { id:'com1', title:'commerce_pipeline.py', desc:'商业流水线: 钩子→阶梯→CRM→关键词', badge:'money', detail:{
+        title:'商业变现管线', desc:'免费内容→引流→钩子产品→付费→高价',
+        pros:['变现路径清晰','模块化设计'], cons:['缺转化漏斗分析'],
+        opt:'AARRR漏斗追踪阅读量→加微信→购买转化率'
+      }},
+      { id:'com2', title:'lead_magnet.py · 钩子产品', desc:'工程人AI提效+深度阅读者工具包', badge:'money' },
+      { id:'com3', title:'product_ladder.py · 产品阶梯', desc:'免费→付费→高价', badge:'money' },
+      { id:'com4', title:'reader_crm.py · 读者CRM', desc:'读者关系管理+报告', badge:'money' },
+      { id:'com5', title:'wechat_keyword.py · 关键词', desc:'公众号自动回复规则', badge:'money' },
+      { id:'op1', title:'zhihu_answer.py', desc:'知乎智能回答(36KB)·DS/Qwen双引擎', badge:'op', detail:{
+        title:'知乎智能回答', desc:'最大的独立脚本(36KB)',
+        arch:'Playwright抓问题 → 知识库RAG(系统思维/工具/CAD) → LLM生成 → 去AI味 → 草稿/发布',
+        pros:['完整管线','双LLM引擎','本地知识库RAG'], cons:['36KB耦合高','缺质量评分','缺A/B测试'],
+        opt:'拆4模块(fetcher/retriever/generator/publisher) | 向量检索替代关键词'
+      }},
+      { id:'op2', title:'zhihu_traffic.py · 引流', desc:'搜索问题→回答→挂链接', badge:'op' },
+      { id:'op3', title:'auto_comment.py · 自动评论', desc:'知乎+掘金带去重', badge:'op' },
+    ]
+  },
+];
+
+// ─── 渲染 ───
+function render() {
+  const root = document.getElementById('pipeline');
+
+  stages.forEach(stage => {
+    const col = document.createElement('div');
+    col.className = `stage ${stage.cls}`;
+
+    const header = document.createElement('div');
+    header.className = 'stage-header';
+    header.textContent = stage.label;
+    col.appendChild(header);
+
+    // Count highlight cards
+    let hasHighlight = false;
+
+    stage.cards.forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'card' + (c.highlight ? ' active' : '');
+      card.id = 'card-' + c.id;
+      card.innerHTML = `
+        <div class="title">${c.title}</div>
+        <div class="desc">${c.desc}</div>
+        <span class="badge badge-${c.badge}">${c.badge}</span>
+      `;
+      card.onclick = () => showDetail(c.detail || { title: c.title, desc: c.desc });
+      col.appendChild(card);
+      if (c.highlight) hasHighlight = true;
+    });
+
+    root.appendChild(col);
+  });
+}
+
+// ─── 详情弹窗 ───
+function showDetail(d) {
+  if (!d) return;
+  const m = document.getElementById('modalContent');
+  let html = `<button class="close" onclick="closeModal()">✕</button>`;
+  html += `<h2>${d.title || ''}</h2>`;
+  if (d.desc) html += `<div class="sub">${d.desc}</div>`;
+
+  if (d.arch) html += `<div class="sec"><h3>架构</h3><div class="flow">${d.arch}</div></div>`;
+  if (d.flow) html += `<div class="sec"><h3>数据流</h3><div class="flow">${d.flow}</div></div>`;
+
+  if (d.files) {
+    html += `<div class="sec"><h3>文件</h3><ul>`;
+    (Array.isArray(d.files) ? d.files : [d.files]).forEach(f => html += `<li>${f}</li>`);
+    html += `</ul></div>`;
+  }
+
+  if (d.pros) { html += `<div class="sec"><h3>✅ 优点</h3><ul>`; d.pros.forEach(p => html += `<li>${p}</li>`); html += `</ul></div>`; }
+  if (d.cons) { html += `<div class="sec"><h3>⚠️ 缺点</h3><ul>`; d.cons.forEach(c => html += `<li>${c}</li>`); html += `</ul></div>`; }
+  if (d.opt) { html += `<div class="sec"><h3>🔧 可优化</h3><ul>`; d.opt.split('|').forEach(o => html += `<li>${o.trim()}</li>`); html += `</ul></div>`; }
+
+  document.getElementById('modal').classList.add('show');
+  m.innerHTML = html;
+}
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+// ─── 搜索 ───
+function filterCards(q) {
+  const lower = q.toLowerCase().trim();
+  document.querySelectorAll('.card').forEach(el => {
+    const text = el.textContent.toLowerCase();
+    const match = !lower || text.includes(lower);
+    el.style.display = match ? '' : 'none';
+    if (match && lower) {
+      // Highlight match in title
+      const title = el.querySelector('.title');
+      if (title) {
+        const orig = title.textContent;
+        const idx = orig.toLowerCase().indexOf(lower);
+        if (idx >= 0) {
+          title.innerHTML = orig.slice(0, idx) + '<mark style="background:rgba(200,160,60,.3);border-radius:2px;padding:0 2px;">' + orig.slice(idx, idx + lower.length) + '</mark>' + orig.slice(idx + lower.length);
+        }
+      }
+    }
+  });
+}
+
+// ─── 初始化 ───
+document.addEventListener('DOMContentLoaded', render);
+</script>
+</body>
+</html>

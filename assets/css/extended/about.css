@@ -1,0 +1,319 @@
+/* ========== 关于页(世界一隅 · 深夜书房) ========== */
+
+/* --- 英雄区 --- */
+.about-hero {
+  position: relative;
+  padding: clamp(36px, 5vw, 60px) 0 16px;
+}
+.about-kicker {
+  font-family: var(--mono-stack);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  color: var(--brand-gold);
+  margin: 0 0 10px;
+  margin-left: calc(6.5% + 30px);
+}
+.about-hero h1 {
+  margin: 0 0 8px;
+  margin-left: calc(6.5% + 30px);
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  color: var(--primary);
+}
+.about-slogan {
+  margin: 0 0 12px;
+  margin-left: calc(6.5% + 30px);
+  color: var(--brand-gold);
+  letter-spacing: 0.1em;
+  font-size: 1.05rem;
+}
+.about-intro {
+  margin: 0;
+  margin-left: calc(6.5% + 30px);
+  max-width: 42em;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+
+/* --- 双栏正文 --- */
+.about-body {
+  max-width: 940px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: clamp(20px, 4vw, 40px);
+  padding: 10px 0 24px;
+}
+.about-narrative {
+  display: grid;
+  gap: 22px;
+}
+.about-card {
+  padding: clamp(18px, 3vw, 26px);
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.about-card h2 {
+  margin: 0 0 14px;
+  font-size: 1.02rem;
+  color: var(--primary);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.card-no {
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  color: var(--brand-gold);
+  letter-spacing: 0.2em;
+}
+.signature {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+.sig-en {
+  color: var(--secondary);
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+.about-card p {
+  margin: 0.6em 0;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+
+/* --- 右栏信息卡 --- */
+.about-rail {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.rail-card {
+  padding: 18px 20px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.rail-card h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-family: var(--mono-stack);
+  letter-spacing: 0.16em;
+}
+.rail-map {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rail-map li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.rail-map li:last-child {
+  border-bottom: none;
+}
+.rail-map a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.rail-map a:hover {
+  color: var(--brand-gold);
+}
+.rail-map em {
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--secondary);
+  font-family: var(--mono-stack);
+}
+.rail-card p {
+  margin: 0.5em 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+.rail-card a {
+  color: var(--brand-gold);
+  text-decoration: none;
+}
+.rail-card a:hover {
+  color: var(--brand-gold-light);
+}
+
+/* --- 两本书 --- */
+.about-books {
+  max-width: 940px;
+  padding: 8px 0 12px;
+}
+.books-head {
+  margin-bottom: 18px;
+}
+.books-tag {
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--brand-gold);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+.books-head h2 {
+  margin: 14px 0 8px;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--primary);
+}
+.books-lead {
+  margin: 0;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+.books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.book-tile {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: 16px;
+  padding: 18px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+  align-items: center;
+}
+.book-tile:hover {
+  border-color: var(--brand-gold);
+}
+.book-tile img {
+  width: 116px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+}
+.book-tile-txt h3 {
+  margin: 0 0 6px;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+.book-tile-sub {
+  margin: 0 0 8px;
+  color: var(--brand-gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+.book-tile-desc {
+  margin: 0 0 12px;
+  color: var(--secondary);
+  font-size: 0.84rem;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.book-tile-go {
+  color: var(--brand-gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+}
+
+/* --- 小程序条 --- */
+.about-app {
+  max-width: 940px;
+  padding: 8px 0 30px;
+}
+.app-tile {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 4vw, 34px);
+  padding: clamp(20px, 4vw, 30px);
+  background: linear-gradient(160deg, var(--entry), color-mix(in srgb, var(--entry) 88%, var(--brand-gold) 12%));
+  border: 1px solid rgba(200, 160, 60, 0.35);
+  border-radius: 14px;
+}
+.app-tile-txt {
+  flex: 1;
+  min-width: 0;
+}
+.app-tag {
+  font-family: var(--mono-stack);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--brand-gold);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+.app-tile h2 {
+  margin: 12px 0 4px;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: var(--primary);
+}
+.app-tile-slogan {
+  margin: 0 0 8px;
+  color: var(--brand-gold);
+  letter-spacing: 0.08em;
+}
+.app-tile-desc {
+  margin: 0 0 16px;
+  color: var(--secondary);
+  line-height: 1.85;
+}
+.app-tile-go {
+  color: var(--brand-gold);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  font-size: 0.86rem;
+}
+.app-tile-go:hover {
+  color: var(--brand-gold-light);
+}
+.app-tile-qr {
+  width: clamp(96px, 20vw, 132px);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 160, 60, 0.5);
+}
+
+/* --- 响应式 --- */
+@media (max-width: 900px) {
+  .about-body {
+    grid-template-columns: 1fr;
+  }
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-tile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .app-tile-qr {
+    width: 132px;
+  }
+}
+@media (max-width: 640px) {
+  .about-kicker,
+  .about-hero h1,
+  .about-slogan,
+  .about-intro {
+    margin-left: 0;
+  }
+  .book-tile {
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+  }
+  .book-tile img {
+    width: 92px;
+  }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Efficiency on World Corner</title>
+    <link>https://worldcorner.xyz/en/tags/efficiency/</link>
+    <description>Recent content in Efficiency on World Corner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/en/tags/efficiency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stop Being an Efficiency Refugee: Why One Rough Line of Code Beats Ten Thousand Perfect Productivity Posts</title>
+      <link>https://worldcorner.xyz/en/posts/tooling/farewell-efficiency-refugees/</link>
+      <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
+      
+      <guid>https://worldcorner.xyz/en/posts/tooling/farewell-efficiency-refugees/</guid>
+      <description>2 a.m. I&amp;#39;m staring at n8n&amp;#39;s workflow editor, two dozen drag-and-drop nodes snaking across the screen.</description>
+    </item>
+    
+  </channel>
+</rss>

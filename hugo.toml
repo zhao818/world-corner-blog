@@ -1,0 +1,207 @@
+baseURL = 'https://worldcorner.xyz/'
+languageCode = 'zh-cn'
+title = '世界一隅'
+theme = 'PaperMod'
+enableRobotsTXT = true
+
+# 多语言：中文为默认（根路径），英文挂 /en/（PaperMod 自带 zh/en 主题文案与右上切换器）
+defaultContentLanguage = 'zh'
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+# ---- 中文菜单（默认语言，顶层 menu.main）----
+[[menu.main]]
+  name = "系统思维"
+  url = "/posts/systems-thinking/"
+  weight = 10
+  identifier = "menu-systems-thinking"
+
+[[menu.main]]
+  name = "学习方法"
+  url = "/posts/learning/"
+  weight = 20
+  identifier = "menu-learning"
+
+[[menu.main]]
+  name = "效率工具"
+  url = "/posts/tooling/"
+  weight = 30
+  identifier = "menu-tooling"
+
+[[menu.main]]
+  name = "踩坑宝典"
+  url = "/pitfalls/"
+  weight = 40
+  identifier = "menu-pitfalls"
+
+[[menu.main]]
+  name = "合集"
+  url = "/collections/"
+  weight = 50
+  identifier = "menu-collections"
+
+[[menu.main]]
+  name = "听书"
+  url = "/audiobook/"
+  weight = 60
+  identifier = "menu-audiobook"
+
+[[menu.main]]
+  name = "小程序"
+  url = "/app/"
+  weight = 70
+  identifier = "menu-app"
+
+[[menu.main]]
+  name = "社区"
+  url = "https://api.worldcorner.xyz/community/"
+  weight = 75
+  identifier = "menu-community"
+
+[[menu.main]]
+  name = "资产"
+  url = "/assets/"
+  weight = 80
+  identifier = "menu-assets"
+
+[[menu.main]]
+  name = "技能"
+  url = "/skills/"
+  weight = 90
+  identifier = "menu-skills"
+
+[[menu.main]]
+  name = "关于"
+  url = "/about/"
+  weight = 100
+  identifier = "menu-about"
+
+[[menu.main]]
+  name = "搜索"
+  url = "/search/"
+  weight = 95
+  identifier = "menu-search"
+
+[[menu.main]]
+  name = "归档"
+  url = "/archives/"
+  weight = 96
+  identifier = "menu-archives"
+
+# ---- 双语言定义 ----
+[languages]
+  [languages.zh]
+    languageName = '中文'
+    languageCode = 'zh-cn'
+    weight = 1
+    title = '世界一隅'
+    [languages.zh.params]
+      description = '在算法洪流中，守护清醒的微光。'
+      DateFormat = '2006年1月2日'
+
+  [languages.en]
+    languageName = 'English'
+    languageCode = 'en-us'
+    weight = 2
+    title = 'World Corner'
+    [languages.en.params]
+      description = 'Guarding a flicker of clarity in the flood of algorithms.'
+      DateFormat = 'Jan 2, 2006'
+      [languages.en.params.label]
+        text = 'World Corner'
+
+  # 英文菜单：已译板块指向 /en/，未译板块（听书/小程序/资产/技能）先指向中文页
+  [[languages.en.menu.main]]
+    name = "Systems Thinking"
+    url = "/en/posts/systems-thinking/"
+    weight = 10
+    identifier = "menu-systems-thinking"
+
+  [[languages.en.menu.main]]
+    name = "Learning"
+    url = "/en/posts/learning/"
+    weight = 20
+    identifier = "menu-learning"
+
+  [[languages.en.menu.main]]
+    name = "Tooling"
+    url = "/en/posts/tooling/"
+    weight = 30
+    identifier = "menu-tooling"
+
+  [[languages.en.menu.main]]
+    name = "Pitfalls"
+    url = "/en/pitfalls/"
+    weight = 40
+    identifier = "menu-pitfalls"
+
+  [[languages.en.menu.main]]
+    name = "Collections"
+    url = "/en/collections/"
+    weight = 50
+    identifier = "menu-collections"
+
+  [[languages.en.menu.main]]
+    name = "Audiobooks"
+    url = "/audiobook/"
+    weight = 60
+    identifier = "menu-audiobook"
+
+  [[languages.en.menu.main]]
+    name = "App"
+    url = "/app/"
+    weight = 70
+    identifier = "menu-app"
+
+  [[languages.en.menu.main]]
+    name = "Community"
+    url = "https://api.worldcorner.xyz/community/"
+    weight = 75
+    identifier = "menu-community"
+
+  [[languages.en.menu.main]]
+    name = "Assets"
+    url = "/assets/"
+    weight = 80
+    identifier = "menu-assets"
+
+  [[languages.en.menu.main]]
+    name = "Skills"
+    url = "/skills/"
+    weight = 90
+    identifier = "menu-skills"
+
+  [[languages.en.menu.main]]
+    name = "Search"
+    url = "/en/search/"
+    weight = 95
+    identifier = "menu-search"
+
+  [[languages.en.menu.main]]
+    name = "Archives"
+    url = "/en/archives/"
+    weight = 96
+    identifier = "menu-archives"
+
+  [[languages.en.menu.main]]
+    name = "About"
+    url = "/en/about/"
+    weight = 100
+    identifier = "menu-about"
+
+[params]
+  env = 'production'
+  ShowToc = true
+  title = '世界一隅'
+  description = '在算法洪流中，守护清醒的微光。'
+  DateFormat = '2006年1月2日'
+  author = 'Tianbing Zhao'
+  defaultTheme = 'dark'
+  [params.label]
+    text = '世界一隅'
+    icon = '/images/mark.svg'
+    iconHeight = 32
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

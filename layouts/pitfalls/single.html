@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="pitfall-single">
+  <header class="pitfall-hero">
+    <h1>{{ .Title }}</h1>
+    <div class="pitfall-meta">
+      <span>{{ partial "icon.html" (dict "name" "calendar" "class" "mini-icon" ) }} {{ .Date.Format "2006-01-02" }}</span>
+    </div>
+  </header>
+
+  <div class="pitfall-body">
+    {{ .Content }}
+  </div>
+
+  <footer class="pitfall-footer">
+    <p>{{ partial "icon.html" (dict "name" "hole" "class" "inline-icon" ) }} 这条踩坑对你有用吗？<a href="https://github.com/zhao818/world-corner-blog/issues/new?title=%5B%E8%B8%A9%E5%9D%91%E6%8A%95%E7%A8%BF%5D+" target="_blank">报告新踩坑</a></p>
+    <p><a href="{{ .Site.BaseURL }}pitfalls/">← 返回踩坑宝典</a></p>
+  </footer>
+</article>
+{{ end }}

@@ -1,0 +1,80 @@
+{{- define "main" }}
+{{- $all := site.RegularPages }}
+{{- $shelves := slice
+      (dict "path" "posts/systems-thinking" "index" "01" "title" (i18n "shelfSystems"))
+      (dict "path" "posts/learning" "index" "02" "title" (i18n "shelfLearning"))
+      (dict "path" "posts/tooling" "index" "03" "title" (i18n "shelfTooling"))
+      (dict "path" "pitfalls" "index" "04" "title" (i18n "shelfPitfalls"))
+      (dict "path" "posts/era-observation" "index" "05" "title" (i18n "shelfEra"))
+}}
+
+{{- /* 深夜书房 · 主视觉 */ -}}
+<div class="home-hero">
+  <span class="hero-vein" aria-hidden="true"></span>
+  <p class="hero-eyebrow">{{ i18n "heroEyebrow" }}</p>
+  <h1>{{ i18n "heroTitle1" }}<br><span class="accent">{{ i18n "heroTitleAccent" }}</span></h1>
+  <p class="hero-slogan">{{ i18n "heroSlogan" }}<br>
+    {{ i18n "heroSlogan2" }}</p>
+</div>
+
+{{- /* 新板块入口:听书 × 小程序 / 资产 × 技能(不对称双卡两行) */ -}}
+<div class="home-features">
+  <a class="home-feature is-wide" href="/audiobook/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "headphones" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>{{ i18n "featAudioTitle" }}</strong>
+      <em>{{ i18n "featAudioDesc" }}</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+  <a class="home-feature" href="/app/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "heart" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>{{ i18n "featAppTitle" }}</strong>
+      <em>{{ i18n "featAppDesc" }}</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+  <a class="home-feature is-wide" href="/assets/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "box" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>{{ i18n "featAssetsTitle" }}</strong>
+      <em>{{ i18n "featAssetsDesc" }}</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+  <a class="home-feature" href="/skills/">
+    <span class="hf-icon">{{- partial "icon.html" (dict "name" "sparkle" "class" "hf-svg") }}</span>
+    <span class="hf-body">
+      <strong>{{ i18n "featSkillsTitle" }}</strong>
+      <em>{{ i18n "featSkillsDesc" }}</em>
+    </span>
+    <span class="hf-arrow">{{- partial "icon.html" (dict "name" "arrow" "class" "hf-svg") }}</span>
+  </a>
+</div>
+
+{{- /* 书架抽屉:四大栏目 */ -}}
+{{- range $shelves }}
+  {{- $sec := site.GetPage .path }}
+  {{- if $sec }}
+    {{- partial "shelf.html" (dict "sec" $sec "index" .index "title" .title "pages" (first 3 $sec.RegularPages) "count" (len $sec.RegularPages)) -}}
+  {{- end }}
+{{- end }}
+
+{{- /* 最近更新一览 */ -}}
+<div class="latest-block">
+  <div class="shelf-head">
+    <span class="shelf-index">06</span>
+    <h2>{{ i18n "latestTitle" }}</h2>
+    <span class="shelf-count">{{ i18n "latestAll" (dict "count" (len $all)) }}</span>
+  </div>
+  <table>
+    {{- range first 10 $all.ByDate.Reverse }}
+    <tr>
+      <td class="lb-date">{{ .Date.Format "2006-01-02" }}</td>
+      <td class="lb-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+    </tr>
+    {{- end }}
+  </table>
+</div>
+{{- end }}

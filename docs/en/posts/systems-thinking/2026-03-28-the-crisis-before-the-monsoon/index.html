@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project | World Corner</title>
+<meta name="keywords" content="systems engineering, project management, cognitive reframing, decision games">
+<meta name="description" content="March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section.">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="https://worldcorner.xyz/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.966b0d65fc66f98dbcc86e3741a7305fbcdd8eeee1f69836d5c4e8249dffba99.css" integrity="sha256-lmsNZfxm&#43;Y28yG43QacwX7zdju7h9pg21cToJJ3/upk=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://worldcorner.xyz/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/">
+<link rel="alternate" hreflang="en" href="https://worldcorner.xyz/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" /><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "世界一隅",
+  "alternateName": "认知能量工程",
+  "url": "https:\/\/worldcorner.xyz\/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  function init() {
+    var content = document.querySelector('.post-content') || document.querySelector('.pitfall-single');
+    if (!content) return;
+    var titleEl = document.querySelector('.post-title') || content.querySelector('h1');
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2);
+    var target = lang === 'en' ? 'zh' : 'en';
+    var S = {
+      btn: "🌐 AI Translate",
+      back: "↩ Show original",
+      loading: "AI translating… long articles take about a minute",
+      done: "AI translation (machine translated, for reference · powered by worldcorner API)",
+      fail: "Translation failed, please try again later"
+    };
+    var API = 'https://api.worldcorner.xyz/community/api/translate';
+    var btn = document.createElement('button');
+    btn.className = 'ai-tr-btn';
+    btn.type = 'button';
+    btn.textContent = S.btn;
+    document.body.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'ai-tr-panel';
+    panel.hidden = true;
+    if (content.parentNode) content.parentNode.insertBefore(panel, content.nextSibling);
+
+    var state = 'orig';
+    var cache = null;
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function toHtml(t) {
+      return t.split(/\n\n+/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    function call(text) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, target: target })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.error) throw new Error(j.error);
+        return j.translated;
+      });
+    }
+    function withRetry(fn, n) {
+      var p = fn();
+      for (var i = 0; i < (n || 1); i++) {
+        p = p.catch(function () { return new Promise(function (res) { setTimeout(res, 1500); }).then(fn); });
+      }
+      return p;
+    }
+    
+
+    function splitClient(text, max) {
+      var paras = text.split(/\n\n+/);
+      var chunks = [];
+      var buf = '';
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (!p) continue;
+        if (p.length > max) {
+          if (buf) { chunks.push(buf); buf = ''; }
+          for (var j = 0; j < p.length; j += max) chunks.push(p.slice(j, j + max));
+          continue;
+        }
+        if (buf && (buf + '\n\n' + p).length > max) { chunks.push(buf); buf = p; }
+        else buf = buf ? buf + '\n\n' + p : p;
+      }
+      if (buf) chunks.push(buf);
+      return chunks;
+    }
+    function fetchAll() {
+      if (cache) {
+        panel.innerHTML = (cache.title ? '<h1 class="ai-tr-title"></h1>' : '') + toHtml(cache.body);
+        if (cache.title) panel.querySelector('.ai-tr-title').textContent = cache.title;
+        var doneNote = document.createElement('p');
+        doneNote.className = 'ai-tr-note';
+        doneNote.textContent = S.done;
+        panel.appendChild(doneNote);
+        return Promise.resolve(cache);
+      }
+      var titleText = titleEl ? titleEl.innerText.trim() : '';
+      var chunks = splitClient(content.innerText.trim(), 650);
+      var results = new Array(chunks.length);
+      var done = 0;
+      var head = titleText ? '<h1 class="ai-tr-title"></h1>' : '';
+      var note = document.createElement('p');
+      note.className = 'ai-tr-note';
+      function render() {
+        var html = head;
+        for (var i = 0; i < results.length; i++) if (results[i]) html += toHtml(results[i]);
+        panel.innerHTML = html;
+        note.textContent = done < chunks.length ? done + '/' + chunks.length + ' · ' + S.loading : S.done;
+        panel.appendChild(note);
+      }
+      if (titleText) {
+        withRetry(function () { return call(titleText); }, 1).then(function (t) {
+          if (state === 'trans') { var h1 = panel.querySelector('.ai-tr-title'); if (h1) h1.textContent = t; }
+        }).catch(function () {});
+      }
+      var idx = 0;
+      function lane() {
+        return new Promise(function (resolve) {
+          function next() {
+            if (idx >= chunks.length) return resolve();
+            var i = idx++;
+            withRetry(function () { return call(chunks[i]); }, 2).then(function (t) {
+              results[i] = t; done++; render(); next();
+            }).catch(function () {
+              results[i] = '⚠ ' + S.fail; done++; render(); next();
+            });
+          }
+          next();
+        });
+      }
+      render();
+      return Promise.all([lane(), lane()]).then(function () {
+        cache = { title: titleText, body: results.join('\n\n') };
+        return cache;
+      });
+    }
+    btn.addEventListener('click', function () {
+      if (state === 'trans') {
+        state = 'orig';
+        panel.hidden = true;
+        content.style.display = '';
+        if (titleEl) titleEl.style.display = '';
+        btn.textContent = S.btn;
+        return;
+      }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = S.loading;
+      if (state === 'orig') {
+        panel.hidden = false;
+        content.style.display = 'none';
+        if (titleEl) titleEl.style.display = 'none';
+        state = 'trans';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      fetchAll().then(function () {
+        state = 'trans';
+        btn.disabled = false;
+        btn.textContent = S.back;
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = S.btn;
+        panel.innerHTML = '<p class="ai-tr-note">' + esc(S.fail) + '</p>';
+        panel.hidden = false;
+        state = 'orig';
+      });
+    });
+
+    var css = document.createElement('style');
+    css.textContent = [
+      '.ai-tr-btn{position:fixed;right:18px;bottom:18px;z-index:99;padding:9px 14px;border-radius:999px;',
+      'border:1px solid var(--secondary,#999);background:var(--theme,#fafafa);color:var(--primary,#111);',
+      'font-size:14px;cursor:pointer;opacity:.92;box-shadow:0 2px 10px rgba(0,0,0,.15);}',
+      '.ai-tr-btn:hover{opacity:1}',
+      '.ai-tr-btn:disabled{cursor:wait;opacity:.7}',
+      '.ai-tr-panel{border:1px dashed var(--secondary,#bbb);border-radius:8px;padding:18px 22px;margin:24px 0;line-height:1.8}',
+      '.ai-tr-panel[hidden]{display:none}',
+      '.ai-tr-note{font-size:12px;color:var(--secondary,#888);margin:0 0 12px}',
+      '.ai-tr-title{font-size:1.4em;margin:0 0 16px}'
+    ].join('');
+    document.head.appendChild(css);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<meta property="og:title" content="The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project" />
+<meta property="og:description" content="March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://worldcorner.xyz/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-03-28T22:30:00+08:00" />
+<meta property="article:modified_time" content="2026-03-28T22:30:00+08:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:title" content="The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project"/>
+<meta name="twitter:description" content="March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://worldcorner.xyz/en/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Systems Thinking",
+      "item": "https://worldcorner.xyz/en/posts/systems-thinking/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project",
+      "item": "https://worldcorner.xyz/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project",
+  "name": "The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project",
+  "description": "March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section.",
+  "keywords": [
+    "systems engineering", "project management", "cognitive reframing", "decision games"
+  ],
+  "articleBody": "March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section.\nThe project manager shook his head; the owner\u0026rsquo;s representative frowned. But no one pointed out the more fundamental fact: this is not a people problem. The system design itself has failed.\nI. System Noise Floor: When the KPI Sensors Fail Every feedback control system depends on one critical component: truthful sensor readings.\nWhat did the sensors of the Yongde project report back?\nMengban section: reservoir 75%, DN150 pipe 68%, wrapping up Banlao Village section: DN200 pipe 5.6%, severely behind Three sub-districts of Daxueshan: 0%, deadlock Chonggang and Yongkang: quantities \u0026ldquo;to be determined,\u0026rdquo; blind spots On the surface, this is a progress report. But as a systems engineer, what I see is a sensor network transmitting noise back to the control center.\nWhat does \u0026ldquo;not yet started\u0026rdquo; sustained for 25 days mean? In feedback control theory, it means an actuator received a command 25 days ago and its position sensor still reports \u0026ldquo;zero displacement.\u0026rdquo; The control algorithm must conclude either that the sensor is broken or that the actuator has disconnected from the control system.\nMore interesting still: \u0026ldquo;awaiting resources\u0026rdquo; is treated as a legitimate status description rather than a system-crash signal. The three Daxueshan sub-districts (Dapingshan, Mangjiuhe, Dagouba) have sat in this state since March 2 — 25 days, zero progress, zero alarms.\nWhen a system allows an actuator to sit indefinitely in a \u0026ldquo;ready\u0026rdquo; state without producing any utility, the manager\u0026rsquo;s cognitive filter has already sustained irreversible damage.\nII. The Mathematical Crisis: The Jump from 36 to 151 Let\u0026rsquo;s do some simple arithmetic.\nBanlao Village\u0026rsquo;s DN200 steel pipe installation: 800 meters completed in 22 days. Average daily rate:\n$$v_{current} = \\frac{800}{22} = 36.4 ; \\text{m\/day}$$\nRemaining: 13,600 meters, planned for completion in 90–120 days. Required average daily rate:\n$$v_{90} = \\frac{13600}{90} = 151.1 ; \\text{m\/day}$$ $$v_{120} = \\frac{13600}{120} = 113.3 ; \\text{m\/day}$$\nThe efficiency gap is between 3.1× and 4.1×.\nThat is the \u0026ldquo;mathematical crisis\u0026rdquo; — not a vague \u0026ldquo;progress is a bit slow,\u0026rdquo; not an encouraging \u0026ldquo;let\u0026rsquo;s push harder,\u0026rdquo; but a rigid constraint: at the current efficiency, finishing the DN200 pipeline requires not 90–120 days but 374 days.\nWhat does 374 days mean? It means that at the current system throughput, this milestone completes in April 2027 — assuming it never rains.\nIII. Weather Is the Highest-Priority Hard-Coded Constraint The rainy season in Yongde County, Yunnan, runs from May through September, with monthly rainfall of 800–1,200 mm and 15–22 rainy days per month. Effective working days for earthworks drop to 40–50%. Pouring a reservoir requires 7 consecutive days of dry curing — nearly impossible in the rainy season.\nSystem constraints have priorities. Weather is not a \u0026ldquo;risk factor\u0026rdquo; — it is a non-negotiable hard-coded constraint, as impossible to route around as a kernel-level interrupt in an operating system.\nWhat does this mean? From today (March 28) to the point where the rainy season substantially degrades productivity (May 10), the effective construction window is about 33 days. Subtracting rain and force majeure, the usable days are only 16–20.\nWithin this window, Banlao Village can complete roughly 600 more meters of DN200 pipe at its current rate. Once the rains arrive, efficiency falls another 40–60%, and each following month yields less than 500 meters.\nThis is where the concept of the \u0026ldquo;hard fork\u0026rdquo; comes from: any earthwork not completed before April 30 automatically enters the 3× cost mode of \u0026ldquo;wet-season construction.\u0026rdquo;\nThe \u0026ldquo;hard fork line\u0026rdquo; for Banlao\u0026rsquo;s DN200 trunk is the first 4,000 meters — 28% of the total. If those 4,000 meters cannot be finished before April 30, the entire section gets locked down by the rainy season for half a year.\nIV. Resource Deadlock and Priority Inversion What is the classic resource-deadlock pattern in EPC projects? People, equipment, and materials assigned to three places at once — with all three places half-stalled.\nThe current state of the Yongde project is a textbook deadlock case:\nMengban is almost done; 15–20 people idle on finishing work, but not released The three Daxueshan districts are \u0026ldquo;awaiting resources,\u0026rdquo; 25 days at zero progress, while resources stay locked on already half-stalled work faces Banlao Village is critically short-handed and desperate for crews, but the people can\u0026rsquo;t come over An operating system\u0026rsquo;s deadlock-detection algorithm would flag this as \u0026ldquo;hold and wait\u0026rdquo; — Mengban holds the labor and welding equipment while waiting for materials to complete its last DN200 segment; Daxueshan holds its budget allocation (unspent) while waiting for Mengban to release resources; Banlao holds nothing, yet has been routed around by everyone\u0026rsquo;s dispatch queues.\nMore dangerous still are Chonggang and Yongkang: \u0026ldquo;quantities to be determined\u0026rdquo; — meaning the system booted up without even knowing how many resources it needs. In scheduling theory, that is a process that calls fork() and then enters zombie state without performing any I\/O.\nV. The Way Out: Rebuilding the Dispatch Order Along Four Dimensions Dimension One: The Mengban Annihilation Battle (April 15) Mengban is not \u0026ldquo;wrapping up.\u0026rdquo; It should be fought as a battle of annihilation.\nFor the remaining DN200 segment (1,087 m), abandon manual excavation and switch to mechanical excavation with lifting support. Build the 2 water-intake structures in parallel; borrow the Mangqijing welding crew for 3 days. Run the last reservoir concurrently with the DN100 segment. Submit the single-item acceptance application on April 15 and trigger the payment process.\nTactical logic: single-item acceptance → cash returns → cash flow released → Mengban\u0026rsquo;s 15–20 locked workers unbound. Every link exists to free up throughput for the next milestone.\nDimension Two: Banlao Village, Attacked from Four Sides (starting April 16) After Mengban falls, all 15–20 workers and both welding rigs transfer to Banlao Village within 24 hours. Idle time may not exceed one day.\nOpen 4 work faces simultaneously along Banlao\u0026rsquo;s entire DN200 line (currently 1). Per-face daily output needs to rise from 36 meters to 45 — no 3–4× efficiency gain required, just switch from \u0026ldquo;serial execution\u0026rdquo; to \u0026ldquo;parallel execution.\u0026rdquo;\nDimension Three: Dagouba First (mobilize April 1) Among the three Daxueshan districts, Dagouba has the smallest scope (1,548 m of pipe). Start it on April 1, finish in 3–4 weeks → fast output → accumulate experience for Mangjiuhe. On May 1, Mangjiuhe absorbs the crews freed up by Mangqijing\u0026rsquo;s completion.\nDapingshan is scheduled for wet-season construction (May–August), with drainage ditches built alongside — not a surrender, but optimal time-sharing scheduling once the constraint is accepted.\nDimension Four: Chonggang\/Yongkang, Fill the Pit in 7 Days Within 7 days, force the submission of complete bills of quantities: pipe specifications, lengths, reservoir counts, road lengths, estimated schedules. If the scope exceeds what the project can bear (e.g., Chonggang\u0026rsquo;s quantity \u0026gt; 50% of Banlao\u0026rsquo;s), immediately apply for a design change or split the contract into packages.\nNo bill of quantities, no resources. This is the only rational response a system can give to a black hole.\nVI. The Sublimation: The Manager\u0026rsquo;s Cognitive Filter Yongde is not an anomaly. Every EPC project with more than two nodes faces the same essential problem: the manager\u0026rsquo;s cognitive bandwidth is racing against the system\u0026rsquo;s information entropy.\n800 meters in 22 days — why did no alarm sound on day 10?\nBecause on day 10, \u0026ldquo;progress is normal\u0026rdquo; was recorded — everyone felt the project had just started; slow is normal. On day 15, \u0026ldquo;accelerating\u0026rdquo; — the break-in period was over, people felt. On day 22, \u0026ldquo;only 5.6%, a bit slow\u0026rdquo; — but it was already 3 weeks too late.\nHow the cognitive filter works: on low-confidence early data, managers tend to fill in the missing signal with expectations. Every \u0026ldquo;normalize it\u0026rdquo; decision creates a tiny, irreversible delay.\nIn the end, 36 m\/day became the system\u0026rsquo;s new baseline, even though the system could theoretically run at 151 m\/day. This is not a failure of execution. This is a control system tolerating the establishment of an inefficient steady state before receiving enough negative feedback.\nAnd in large-scale engineering, an inefficient steady state means: not every risk will erupt, but every repair cost has already been amplified exponentially.\nThe first principle of project management is not chasing the schedule — it is managing your cognitive filter\u0026rsquo;s tolerance threshold for \u0026ldquo;noise.\u0026rdquo; Because a system never collapses while you are staring at it. It collapses in those few minutes when you look away and allow an anomalous signal to sit below the threshold line.\n",
+  "wordCount" : "1409",
+  "inLanguage": "en",
+  "datePublished": "2026-03-28 22:30:00 \u002b0800 \u002b0800",
+  "dateModified": "2026-03-28 22:30:00 \u002b0800 \u002b0800",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https:\/\/worldcorner.xyz\/en\/posts\/systems-thinking\/2026-03-28-the-crisis-before-the-monsoon\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "World Corner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://worldcorner.xyz/en/" accesskey="h" title="World Corner (Alt + H)">
+                <img src="https://worldcorner.xyz/images/mark.svg" alt="" aria-label="logo"
+                    height="32">World Corner</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://worldcorner.xyz/" title="中文"
+                            aria-label="中文">Zh</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/systems-thinking/" title="Systems Thinking"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>Systems Thinking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/learning/" title="Learning"
+                class="nav-btn nav-menu-learning">
+                    <span>Learning</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/tooling/" title="Tooling"
+                class="nav-btn nav-menu-tooling">
+                    <span>Tooling</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/pitfalls/" title="Pitfalls"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>Pitfalls</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/collections/" title="Collections"
+                class="nav-btn nav-menu-collections">
+                    <span>Collections</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/audiobook/" title="Audiobooks"
+                class="nav-btn nav-menu-audiobook">
+                    <span>Audiobooks</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/app/" title="App"
+                class="nav-btn nav-menu-app">
+                    <span>App</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://api.worldcorner.xyz/community/" title="Community"
+                class="nav-btn nav-menu-community">
+                    <span>Community</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/assets/" title="Assets"
+                class="nav-btn nav-menu-assets">
+                    <span>Assets</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/skills/" title="Skills"
+                class="nav-btn nav-menu-skills">
+                    <span>Skills</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/search/" title="Search"
+                class="nav-btn nav-menu-search">
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/archives/" title="Archives"
+                class="nav-btn nav-menu-archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/about/" title="About"
+                class="nav-btn nav-menu-about">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<script>
+function toggleNav() {
+    var b = document.querySelector('.nav-toggle');
+    var open = document.body.classList.toggle('nav-open');
+    if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (e.target.closest && e.target.closest('#menu a')) toggleNav();
+});
+</script>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project
+    </h1>
+    <div class="post-description">
+      March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section.
+    </div>
+    <div class="post-meta"><span title='2026-03-28 22:30:00 +0800 +0800'>Mar 28, 2026</span>&nbsp;·&nbsp;Tianbing Zhao&nbsp;|&nbsp;Translations:
+<ul class="i18n_list">
+    <li>
+        <a href="https://worldcorner.xyz/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/">Zh</a>
+    </li>
+</ul>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#i-system-noise-floor-when-the-kpi-sensors-fail" aria-label="I. System Noise Floor: When the KPI Sensors Fail">I. System Noise Floor: When the KPI Sensors Fail</a></li>
+                <li>
+                    <a href="#ii-the-mathematical-crisis-the-jump-from-36-to-151" aria-label="II. The Mathematical Crisis: The Jump from 36 to 151">II. The Mathematical Crisis: The Jump from 36 to 151</a></li>
+                <li>
+                    <a href="#iii-weather-is-the-highest-priority-hard-coded-constraint" aria-label="III. Weather Is the Highest-Priority Hard-Coded Constraint">III. Weather Is the Highest-Priority Hard-Coded Constraint</a></li>
+                <li>
+                    <a href="#iv-resource-deadlock-and-priority-inversion" aria-label="IV. Resource Deadlock and Priority Inversion">IV. Resource Deadlock and Priority Inversion</a></li>
+                <li>
+                    <a href="#v-the-way-out-rebuilding-the-dispatch-order-along-four-dimensions" aria-label="V. The Way Out: Rebuilding the Dispatch Order Along Four Dimensions">V. The Way Out: Rebuilding the Dispatch Order Along Four Dimensions</a><ul>
+                        
+                <li>
+                    <a href="#dimension-one-the-mengban-annihilation-battle-april-15" aria-label="Dimension One: The Mengban Annihilation Battle (April 15)">Dimension One: The Mengban Annihilation Battle (April 15)</a></li>
+                <li>
+                    <a href="#dimension-two-banlao-village-attacked-from-four-sides-starting-april-16" aria-label="Dimension Two: Banlao Village, Attacked from Four Sides (starting April 16)">Dimension Two: Banlao Village, Attacked from Four Sides (starting April 16)</a></li>
+                <li>
+                    <a href="#dimension-three-dagouba-first-mobilize-april-1" aria-label="Dimension Three: Dagouba First (mobilize April 1)">Dimension Three: Dagouba First (mobilize April 1)</a></li>
+                <li>
+                    <a href="#dimension-four-chonggangyongkang-fill-the-pit-in-7-days" aria-label="Dimension Four: Chonggang/Yongkang, Fill the Pit in 7 Days">Dimension Four: Chonggang/Yongkang, Fill the Pit in 7 Days</a></li></ul>
+                </li>
+                <li>
+                    <a href="#vi-the-sublimation-the-managers-cognitive-filter" aria-label="VI. The Sublimation: The Manager&rsquo;s Cognitive Filter">VI. The Sublimation: The Manager&rsquo;s Cognitive Filter</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content md-content"><p>March 2026, Yongde County, Yunnan. 800 meters of steel pipe laid in 22 days — that was the report card delivered by the Banlao Village section.</p>
+<p>The project manager shook his head; the owner&rsquo;s representative frowned. But no one pointed out the more fundamental fact: <strong>this is not a people problem. The system design itself has failed.</strong></p>
+<hr>
+<h2 id="i-system-noise-floor-when-the-kpi-sensors-fail">I. System Noise Floor: When the KPI Sensors Fail<a hidden class="anchor" aria-hidden="true" href="#i-system-noise-floor-when-the-kpi-sensors-fail">#</a></h2>
+<p>Every feedback control system depends on one critical component: <strong>truthful sensor readings</strong>.</p>
+<p>What did the sensors of the Yongde project report back?</p>
+<ul>
+<li>Mengban section: reservoir 75%, DN150 pipe 68%, <strong>wrapping up</strong></li>
+<li>Banlao Village section: DN200 pipe 5.6%, <strong>severely behind</strong></li>
+<li>Three sub-districts of Daxueshan: 0%, <strong>deadlock</strong></li>
+<li>Chonggang and Yongkang: quantities &ldquo;to be determined,&rdquo; <strong>blind spots</strong></li>
+</ul>
+<p>On the surface, this is a progress report. But as a systems engineer, what I see is a <strong>sensor network transmitting noise back to the control center</strong>.</p>
+<p>What does &ldquo;not yet started&rdquo; sustained for 25 days mean? In feedback control theory, it means an actuator received a command 25 days ago and its position sensor still reports &ldquo;zero displacement.&rdquo; The control algorithm must conclude either that the sensor is broken or that the actuator has disconnected from the control system.</p>
+<p>More interesting still: &ldquo;awaiting resources&rdquo; is treated as a legitimate status description rather than a <strong>system-crash signal</strong>. The three Daxueshan sub-districts (Dapingshan, Mangjiuhe, Dagouba) have sat in this state since March 2 — 25 days, zero progress, zero alarms.</p>
+<p><strong>When a system allows an actuator to sit indefinitely in a &ldquo;ready&rdquo; state without producing any utility, the manager&rsquo;s cognitive filter has already sustained irreversible damage.</strong></p>
+<hr>
+<h2 id="ii-the-mathematical-crisis-the-jump-from-36-to-151">II. The Mathematical Crisis: The Jump from 36 to 151<a hidden class="anchor" aria-hidden="true" href="#ii-the-mathematical-crisis-the-jump-from-36-to-151">#</a></h2>
+<p>Let&rsquo;s do some simple arithmetic.</p>
+<p>Banlao Village&rsquo;s DN200 steel pipe installation: 800 meters completed in 22 days. Average daily rate:</p>
+<p>$$v_{current} = \frac{800}{22} = 36.4 ; \text{m/day}$$</p>
+<p>Remaining: 13,600 meters, planned for completion in 90–120 days. Required average daily rate:</p>
+<p>$$v_{90} = \frac{13600}{90} = 151.1 ; \text{m/day}$$
+$$v_{120} = \frac{13600}{120} = 113.3 ; \text{m/day}$$</p>
+<p><strong>The efficiency gap is between 3.1× and 4.1×.</strong></p>
+<p>That is the &ldquo;mathematical crisis&rdquo; — not a vague &ldquo;progress is a bit slow,&rdquo; not an encouraging &ldquo;let&rsquo;s push harder,&rdquo; but a rigid constraint: <strong>at the current efficiency, finishing the DN200 pipeline requires not 90–120 days but 374 days.</strong></p>
+<p>What does 374 days mean? It means that at the current system throughput, this milestone completes in <strong>April 2027</strong> — assuming it never rains.</p>
+<hr>
+<h2 id="iii-weather-is-the-highest-priority-hard-coded-constraint">III. Weather Is the Highest-Priority Hard-Coded Constraint<a hidden class="anchor" aria-hidden="true" href="#iii-weather-is-the-highest-priority-hard-coded-constraint">#</a></h2>
+<p>The rainy season in Yongde County, Yunnan, runs from <strong>May through September</strong>, with monthly rainfall of 800–1,200 mm and 15–22 rainy days per month. Effective working days for earthworks drop to 40–50%. Pouring a reservoir requires 7 consecutive days of dry curing — nearly impossible in the rainy season.</p>
+<p>System constraints have priorities. Weather is not a &ldquo;risk factor&rdquo; — it is a <strong>non-negotiable hard-coded constraint</strong>, as impossible to route around as a kernel-level interrupt in an operating system.</p>
+<p>What does this mean? From today (March 28) to the point where the rainy season substantially degrades productivity (May 10), <strong>the effective construction window is about 33 days</strong>. Subtracting rain and force majeure, the usable days are only <strong>16–20</strong>.</p>
+<p>Within this window, Banlao Village can complete roughly 600 more meters of DN200 pipe at its current rate. Once the rains arrive, efficiency falls another 40–60%, and each following month yields less than 500 meters.</p>
+<p>This is where the concept of the &ldquo;hard fork&rdquo; comes from: <strong>any earthwork not completed before April 30 automatically enters the 3× cost mode of &ldquo;wet-season construction.&rdquo;</strong></p>
+<p>The &ldquo;hard fork line&rdquo; for Banlao&rsquo;s DN200 trunk is the first 4,000 meters — 28% of the total. If those 4,000 meters cannot be finished before April 30, the entire section gets locked down by the rainy season for half a year.</p>
+<hr>
+<h2 id="iv-resource-deadlock-and-priority-inversion">IV. Resource Deadlock and Priority Inversion<a hidden class="anchor" aria-hidden="true" href="#iv-resource-deadlock-and-priority-inversion">#</a></h2>
+<p>What is the classic resource-deadlock pattern in EPC projects? <strong>People, equipment, and materials assigned to three places at once — with all three places half-stalled.</strong></p>
+<p>The current state of the Yongde project is a textbook deadlock case:</p>
+<ul>
+<li>Mengban is almost done; 15–20 people idle on finishing work, <strong>but not released</strong></li>
+<li>The three Daxueshan districts are &ldquo;awaiting resources,&rdquo; 25 days at zero progress, <strong>while resources stay locked on already half-stalled work faces</strong></li>
+<li>Banlao Village is critically short-handed and desperate for crews, <strong>but the people can&rsquo;t come over</strong></li>
+</ul>
+<p>An operating system&rsquo;s deadlock-detection algorithm would flag this as &ldquo;hold and wait&rdquo; — Mengban holds the labor and welding equipment while waiting for materials to complete its last DN200 segment; Daxueshan holds its budget allocation (unspent) while waiting for Mengban to release resources; Banlao holds nothing, yet has been routed around by everyone&rsquo;s dispatch queues.</p>
+<p>More dangerous still are Chonggang and Yongkang: &ldquo;quantities to be determined&rdquo; — meaning <strong>the system booted up without even knowing how many resources it needs</strong>. In scheduling theory, that is a process that calls fork() and then enters zombie state without performing any I/O.</p>
+<hr>
+<h2 id="v-the-way-out-rebuilding-the-dispatch-order-along-four-dimensions">V. The Way Out: Rebuilding the Dispatch Order Along Four Dimensions<a hidden class="anchor" aria-hidden="true" href="#v-the-way-out-rebuilding-the-dispatch-order-along-four-dimensions">#</a></h2>
+<h3 id="dimension-one-the-mengban-annihilation-battle-april-15">Dimension One: The Mengban Annihilation Battle (April 15)<a hidden class="anchor" aria-hidden="true" href="#dimension-one-the-mengban-annihilation-battle-april-15">#</a></h3>
+<p>Mengban is not &ldquo;wrapping up.&rdquo; It should be fought as a <strong>battle of annihilation</strong>.</p>
+<p>For the remaining DN200 segment (1,087 m), abandon manual excavation and switch to mechanical excavation with lifting support. Build the 2 water-intake structures in parallel; borrow the Mangqijing welding crew for 3 days. Run the last reservoir concurrently with the DN100 segment. Submit the single-item acceptance application on April 15 and trigger the payment process.</p>
+<p><strong>Tactical logic</strong>: single-item acceptance → cash returns → cash flow released → Mengban&rsquo;s 15–20 locked workers unbound. Every link exists to free up throughput for the next milestone.</p>
+<h3 id="dimension-two-banlao-village-attacked-from-four-sides-starting-april-16">Dimension Two: Banlao Village, Attacked from Four Sides (starting April 16)<a hidden class="anchor" aria-hidden="true" href="#dimension-two-banlao-village-attacked-from-four-sides-starting-april-16">#</a></h3>
+<p>After Mengban falls, all 15–20 workers and both welding rigs <strong>transfer to Banlao Village within 24 hours</strong>. Idle time may not exceed one day.</p>
+<p>Open 4 work faces simultaneously along Banlao&rsquo;s entire DN200 line (currently 1). Per-face daily output needs to rise from 36 meters to 45 — no 3–4× efficiency gain required, just switch from &ldquo;serial execution&rdquo; to &ldquo;parallel execution.&rdquo;</p>
+<h3 id="dimension-three-dagouba-first-mobilize-april-1">Dimension Three: Dagouba First (mobilize April 1)<a hidden class="anchor" aria-hidden="true" href="#dimension-three-dagouba-first-mobilize-april-1">#</a></h3>
+<p>Among the three Daxueshan districts, Dagouba has the smallest scope (1,548 m of pipe). Start it on April 1, finish in 3–4 weeks → fast output → accumulate experience for Mangjiuhe. On May 1, Mangjiuhe absorbs the crews freed up by Mangqijing&rsquo;s completion.</p>
+<p>Dapingshan is scheduled for wet-season construction (May–August), with drainage ditches built alongside — <strong>not a surrender, but optimal time-sharing scheduling once the constraint is accepted.</strong></p>
+<h3 id="dimension-four-chonggangyongkang-fill-the-pit-in-7-days">Dimension Four: Chonggang/Yongkang, Fill the Pit in 7 Days<a hidden class="anchor" aria-hidden="true" href="#dimension-four-chonggangyongkang-fill-the-pit-in-7-days">#</a></h3>
+<p>Within 7 days, force the submission of complete bills of quantities: pipe specifications, lengths, reservoir counts, road lengths, estimated schedules. If the scope exceeds what the project can bear (e.g., Chonggang&rsquo;s quantity &gt; 50% of Banlao&rsquo;s), <strong>immediately apply for a design change or split the contract into packages.</strong></p>
+<p><strong>No bill of quantities, no resources.</strong> This is the only rational response a system can give to a black hole.</p>
+<hr>
+<h2 id="vi-the-sublimation-the-managers-cognitive-filter">VI. The Sublimation: The Manager&rsquo;s Cognitive Filter<a hidden class="anchor" aria-hidden="true" href="#vi-the-sublimation-the-managers-cognitive-filter">#</a></h2>
+<p>Yongde is not an anomaly. Every EPC project with more than two nodes faces the same essential problem: <strong>the manager&rsquo;s cognitive bandwidth is racing against the system&rsquo;s information entropy.</strong></p>
+<p>800 meters in 22 days — why did no alarm sound on day 10?</p>
+<p>Because on day 10, &ldquo;progress is normal&rdquo; was recorded — everyone felt the project had just started; slow is normal. On day 15, &ldquo;accelerating&rdquo; — the break-in period was over, people felt. On day 22, &ldquo;only 5.6%, a bit slow&rdquo; — but it was already 3 weeks too late.</p>
+<p><strong>How the cognitive filter works</strong>: on low-confidence early data, managers tend to fill in the missing signal with expectations. Every &ldquo;normalize it&rdquo; decision creates a tiny, irreversible delay.</p>
+<p>In the end, 36 m/day became the system&rsquo;s new baseline, even though the system could theoretically run at 151 m/day. This is not a failure of execution. This is <strong>a control system tolerating the establishment of an inefficient steady state before receiving enough negative feedback.</strong></p>
+<p>And in large-scale engineering, an inefficient steady state means: <strong>not every risk will erupt, but every repair cost has already been amplified exponentially.</strong></p>
+<blockquote>
+<p>The first principle of project management is not chasing the schedule — it is managing your cognitive filter&rsquo;s tolerance threshold for &ldquo;noise.&rdquo; Because a system never collapses while you are staring at it. It collapses in those few minutes when you look away and allow an anomalous signal to sit below the threshold line.</p></blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://worldcorner.xyz/en/tags/systems-engineering/">Systems Engineering</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/project-management/">Project Management</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/cognitive-reframing/">Cognitive Reframing</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/decision-games/">Decision Games</a></li>
+    </ul>
+  </footer>
+<section class="tipbox" aria-label="赞赏支持">
+  <div class="tip-lead">
+    <span class="tip-badge"><span class="tip-badge-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>
+</span>
+    <div class="tip-lead-txt">
+      <h3>请作者喝杯茶</h3>
+      <p>如果这些文字对你有一点点用处,欢迎请我喝杯茶。一两块也是心意,够这盏灯多亮一会儿。</p>
+    </div>
+  </div>
+  <div class="tip-codes">
+      <figure class="tip-code">
+        <img src="/tip/weixinpay.jpg" alt="微信赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>微信赞赏</figcaption>
+      </figure>
+      <figure class="tip-code">
+        <img src="/tip/alipay.jpg" alt="支付宝赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>支付宝赞赏</figcaption>
+      </figure>
+  </div>
+  <p class="tip-fine">金额随意 · 感谢每一份心意</p>
+</section>
+<script src="https://giscus.app/client.js"
+        data-repo="zhao818/world-corner-blog"
+        data-repo-id="R_kgDOSRYMPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSRYMPs4C8HQL"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="https://worldcorner.xyz/en/posts/systems-thinking/" class="series-sidebar-title">Systems Thinking</a>
+        <span class="series-sidebar-count">2 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/systems-thinking/pseudo-rest-cognitive-drain/"
+             class="series-capsule series-systems-thinking"
+             title="Why Does Modern Rest Leave You More Exhausted? “Energy Hemorrhage” Is the Biggest Scam">
+            Why Does Modern Rest Leave You More Exhausted? “Energy Hemorrhage” Is the Biggest Scam
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/"
+             class="series-capsule series-systems-thinking active"
+             title="The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project">
+            The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="https://worldcorner.xyz/en/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking active">
+      Systems Thinking
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/learning/" class="nav-btn nav-menu-learning">
+      Learning
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/tooling/" class="nav-btn nav-menu-tooling">
+      Tooling
+    </a>
+    <a href="https://worldcorner.xyz/en/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      Pitfalls
+    </a>
+    <a href="https://worldcorner.xyz/en/collections/" class="nav-btn nav-menu-collections">
+      Collections
+    </a>
+    <a href="https://worldcorner.xyz/en/audiobook/" class="nav-btn nav-menu-audiobook">
+      Audiobooks
+    </a>
+    <a href="https://worldcorner.xyz/en/app/" class="nav-btn nav-menu-app">
+      App
+    </a>
+    <a href="https://api.worldcorner.xyz/community/" class="nav-btn nav-menu-community">
+      Community
+    </a>
+    <a href="https://worldcorner.xyz/en/assets/" class="nav-btn nav-menu-assets">
+      Assets
+    </a>
+    <a href="https://worldcorner.xyz/en/skills/" class="nav-btn nav-menu-skills">
+      Skills
+    </a>
+    <a href="https://worldcorner.xyz/en/search/" class="nav-btn nav-menu-search">
+      Search
+    </a>
+    <a href="https://worldcorner.xyz/en/archives/" class="nav-btn nav-menu-archives">
+      Archives
+    </a>
+    <a href="https://worldcorner.xyz/en/about/" class="nav-btn nav-menu-about">
+      About
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/en/">World Corner</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

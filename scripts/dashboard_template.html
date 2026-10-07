@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>世界一隅 · 发布仪表盘</title>
+<style>
+:root {
+  --bg:#0a0c10; --bg-elev:#11141a; --bg-elev-2:#161a22; --bg-hover:#1a1f29;
+  --fg-0:#e6edf3; --fg-1:#c9d1d9; --fg-2:#8b949e; --fg-3:#6e7681; --fg-4:#484f58;
+  --c-brand:#79c0ff; --c-ok:#7ee787; --c-warn:#f0b07d; --c-err:#ff8b81;
+  --bd:#1a1d24;
+  --mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+  --r:2px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:13px;background:var(--bg);color:var(--fg-1);display:flex;flex-direction:column;height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Top bar ── */
+.top{display:flex;align-items:center;gap:12px;padding:0 20px;height:44px;
+  background:var(--bg-elev);border-bottom:1px solid var(--bd);flex-shrink:0;}
+.top .brand{color:var(--c-brand);font-weight:700;letter-spacing:.06em;font-family:var(--mono)}
+.top .sub{color:var(--fg-4);font-family:var(--mono);font-size:12px}
+.top .grow{flex:1}
+.top .stats{display:flex;gap:16px;font-size:12px;color:var(--fg-3)}
+.top .stats .v{color:var(--fg-1)}
+.top .stats .v.ok{color:var(--c-ok)}
+.top .stats .v.warn{color:var(--c-warn)}
+
+/* ── Toolbar ── */
+.tbar{display:flex;align-items:center;gap:10px;padding:6px 20px;border-bottom:1px solid var(--bd);flex-shrink:0}
+.tbar input{background:var(--bg-elev);border:1px solid var(--bd);border-radius:var(--r);padding:4px 10px;
+  font-family:var(--mono);font-size:12px;color:var(--fg-0);outline:none;width:180px}
+.tbar input:focus{border-color:var(--c-brand)}
+.tbar .fbtn{padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--fg-3);
+  background:transparent;border:1px solid transparent;border-radius:var(--r);cursor:pointer;text-transform:uppercase}
+.tbar .fbtn:hover{color:var(--fg-1)}
+.tbar .fbtn.active{color:var(--c-brand);border-color:var(--bd);background:var(--bg-elev)}
+.tbar .cnt{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--fg-4)}
+
+/* ── Scrollable table ── */
+.wrap{flex:1;overflow:auto;min-height:0}
+.wrap::-webkit-scrollbar{width:8px}
+.wrap::-webkit-scrollbar-thumb{background:var(--bd);border-radius:4px}
+
+table{width:100%;border-collapse:collapse}
+thead{position:sticky;top:0;z-index:2}
+thead th{
+  background:var(--bg-elev);padding:7px 6px;border-bottom:1px solid var(--bd);
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--fg-2);
+  text-transform:uppercase;letter-spacing:.04em;text-align:center;white-space:nowrap;
+}
+thead th:first-child{text-align:left;padding-left:14px;position:sticky;left:0;z-index:3;background:var(--bg-elev);width:200px;min-width:150px}
+thead th.plat{min-width:60px;padding:7px 4px}
+
+tbody tr{transition:background .08s}
+tbody tr:hover{background:var(--bg-hover)}
+tbody td{padding:5px 4px;border-bottom:1px solid #14171e;text-align:center;vertical-align:middle}
+tbody td:first-child{
+  text-align:left;padding-left:14px;position:sticky;left:0;z-index:1;background:var(--bg);
+  font-weight:600;font-size:15px;color:var(--fg-0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;
+  border-right:1px solid var(--bd);
+}
+tbody tr:hover td:first-child{background:var(--bg-hover)}
+tbody td .icon{font-size:13px;line-height:1;display:inline-block}
+tbody td .type{font-size:11px;margin-right:4px;color:var(--fg-4)}
+
+/* Status cells */
+.cell{cursor:pointer;transition:all .1s;border-radius:var(--r);padding:2px 0}
+.cell:hover{background:rgba(121,192,255,.08)}
+.cell .s{font-size:18px;line-height:1.4}
+.cell .l{font-family:var(--mono);font-size:10px;display:block;color:var(--fg-4);line-height:1.2}
+.cell.pub .s{color:var(--c-ok)}
+.cell.pub .l{color:var(--c-ok)}
+.cell.pend .s{color:var(--c-warn)}
+.cell.pend .l{color:var(--c-warn)}
+.cell.skip .s{color:var(--fg-3)}
+.cell.skip .l{color:var(--fg-3)}
+.cell.fail .s{color:var(--c-err)}
+.cell.nop .s{color:var(--fg-4)}
+
+/* Series badge in title */
+.ser{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--c-brand);background:rgba(121,192,255,.08);padding:1px 6px;border-radius:6px;margin-left:6px}
+tbody td .type{font-size:13px;margin-right:4px;color:var(--fg-4)}
+
+/* Status bar */
+.sbar{display:flex;align-items:center;gap:14px;padding:0 20px;height:26px;
+  background:var(--bg-elev);border-top:1px solid var(--bd);font-family:var(--mono);font-size:11px;color:var(--fg-3);flex-shrink:0}
+.sbar .grow{flex:1}
+
+/* Toast */
+.toast{position:fixed;bottom:40px;right:20px;background:var(--bg-elev-2);border:1px solid var(--bd);
+  border-left:2px solid var(--c-ok);padding:8px 14px;border-radius:var(--r);
+  font-family:var(--mono);font-size:12px;color:var(--c-ok);display:none;z-index:100}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="brand">◈ 世界一隅</span>
+  <span class="sub">发布仪表盘</span>
+  <span class="grow"></span>
+  <span class="stats">
+    <span>✅ <span class="v ok" id="s-pub">—</span></span>
+    <span>⏳ <span class="v warn" id="s-pend">—</span></span>
+    <span>⬜ <span class="v" id="s-nop">—</span></span>
+    <span>📦 <span class="v" id="s-total">—</span></span>
+  </span>
+</div>
+
+<div class="tbar">
+  <input type="text" id="q" placeholder="搜索标题…">
+  <button class="fbtn active" data-f="all">全部</button>
+  <button class="fbtn" data-f="published">已发布</button>
+  <button class="fbtn" data-f="pending">待发布</button>
+  <button class="fbtn" data-f="skipped">跳过</button>
+  <span class="cnt" id="cnt"></span>
+</div>
+
+<div class="wrap">
+  <table>
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div class="sbar">
+  <span>点击格子循环：⏳待发 → ✅已发布 → ⊘跳过</span>
+  <span class="grow"></span>
+  <span id="ts"></span>
+</div>
+
+<div class="toast" id="toast">✓</div>
+
+<script>
+const API='/api/registry';
+let D=null, pieces=[], filter='all', q='';
+
+const NEXT={pending:'published', published:'skipped', skipped:'pending'};
+
+function st(p,k){
+  return p.platforms?.[k]?.status || p.status?.[k] || 'not_planned';
+}
+
+function has(p,s){
+  const ks=new Set([...Object.keys(p.platforms||{}),...Object.keys(p.status||{})]);
+  for(const k of ks) if(st(p,k)===s) return true;
+  return false;
+}
+
+function render(){
+  let plats = D?.platforms || [];
+  // Build thead dynamically
+  document.getElementById('thead').innerHTML = '<tr><th>标题</th>' +
+    plats.map(p => `<th class="plat">${p==='wechat'?'公众号':p==='juejin'?'掘金':p==='zhihu'?'知乎':p==='bilibili'?'B站':p==='douyin'?'抖音':p==='kuaishou'?'快手':p==='channels'?'视频号':p==='xiaohongshu'?'小红书':p==='goofish'?'闲鱼':p==='jike'?'即刻':p==='tencent_cloud'?'腾讯云':p}</th>`).join('') + '</tr>';
+
+  let f = pieces.filter(p => {
+    if(filter==='published' && !has(p,'published')) return false;
+    if(filter==='pending' && (!has(p,'pending') || has(p,'published'))) return false;
+    if(filter==='skipped' && !has(p,'skipped')) return false;
+    if(q && !p.title.toLowerCase().includes(q.toLowerCase())) return false;
+    return true;
+  });
+
+  document.getElementById('cnt').textContent = f.length+'/'+pieces.length;
+
+  document.getElementById('tbody').innerHTML = f.length
+    ? f.map(p => {
+        const typeI = p.type==='video'?'🎬':'📝';
+        const series = p.series ? `<span class="ser">${p.series}</span>` : '';
+        const cells = plats.map(k => {
+          const s = st(p,k);
+          const cls = s==='published'?'pub':s==='pending'?'pend':s==='skipped'?'skip':s==='failed'?'fail':'nop';
+          const icon = {published:'✅',pending:'⏳',skipped:'⊘',failed:'❌'}[s]||'⬜';
+          const lbl = {published:'已发',pending:'待发',skipped:'跳过',failed:'失败'}[s]||'不发';
+          // Only allow toggle for format 1 (platforms dict)
+          const clickable = p.platforms?.[k] ? `onclick="cycle('${p.id}','${k}')"` : '';
+          return `<td><div class="cell ${cls}" ${clickable}><span class="s">${icon}</span><span class="l">${lbl}</span></div></td>`;
+        }).join('');
+        return `<tr><td><span class="type">${typeI}</span>${p.title}${series}</td>${cells}</tr>`;
+      }).join('')
+    : `<tr><td colspan="${1+(plats.length||1)}" style="text-align:center;padding:40px;color:var(--fg-4);font-family:var(--mono);font-size:13px;">无匹配内容</td></tr>`;
+
+  updateStats();
+}
+
+async function cycle(id,k){
+  const p=pieces.find(x=>x.id===id);
+  if(!p?.platforms?.[k]) return;
+  const cur=p.platforms[k].status;
+  const nxt=NEXT[cur]||'pending';
+  try{
+    const r=await fetch(`${API}/${id}/${k}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status:nxt})});
+    if(r.ok){
+      const up=await r.json();
+      const i=pieces.findIndex(x=>x.id===id); if(i>-1) pieces[i]=up;
+      if(D){const j=D.pieces.findIndex(x=>x.id===id); if(j>-1) D.pieces[j]=up;}
+      render(); showToast();
+    }
+  }catch(e){console.error(e)}
+}
+
+function updateStats(){
+  const t=pieces.length, pub=pieces.filter(p=>has(p,'published')).length;
+  const pend=pieces.filter(p=>has(p,'pending')&&!has(p,'published')).length;
+  const nop=pieces.filter(p=>!has(p,'pending')&&!has(p,'published')).length;
+  document.getElementById('s-total').textContent=t;
+  document.getElementById('s-pub').textContent=pub;
+  document.getElementById('s-pend').textContent=pend;
+  document.getElementById('s-nop').textContent=nop;
+  if(D?.updated_at) document.getElementById('ts').textContent='更新 '+D.updated_at.replace('T',' ').substring(0,19);
+}
+
+function showToast(){const t=document.getElementById('toast');t.style.display='block';setTimeout(()=>{t.style.display='none'},1000)}
+
+async function init(){
+  try{
+    const r=await fetch(API); D=await r.json(); pieces=D.pieces||[]; render();
+  }catch(e){
+    document.getElementById('tbody').innerHTML='<tr><td colspan="12" style="text-align:center;padding:60px;color:var(--fg-4);font-family:var(--mono);">⚠️ 无法加载，启动 python content_dashboard.py serve</td></tr>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value.trim();render()});
+document.querySelectorAll('.fbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); filter=b.dataset.f; render();
+  });
+});
+</script>
+</body>
+</html>

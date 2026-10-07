@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>经济学思维：看清世界的另一双眼睛 | 世界一隅</title>
+<meta name="keywords" content="经济学, 思维, 认知">
+<meta name="description" content="为什么钻石比水贵，水却比钻石重要？经济学的答案让你重新认识世界。">
+<meta name="author" content="美好需要创造">
+<link rel="canonical" href="https://worldcorner.xyz/posts/learning/economic-thinking/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.966b0d65fc66f98dbcc86e3741a7305fbcdd8eeee1f69836d5c4e8249dffba99.css" integrity="sha256-lmsNZfxm&#43;Y28yG43QacwX7zdju7h9pg21cToJJ3/upk=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://worldcorner.xyz/posts/learning/economic-thinking/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" /><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "世界一隅",
+  "alternateName": "认知能量工程",
+  "url": "https:\/\/worldcorner.xyz\/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  function init() {
+    var content = document.querySelector('.post-content') || document.querySelector('.pitfall-single');
+    if (!content) return;
+    var titleEl = document.querySelector('.post-title') || content.querySelector('h1');
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2);
+    var target = lang === 'en' ? 'zh' : 'en';
+    var S = {
+      btn: "🌐 AI 翻译",
+      back: "↩ 返回原文",
+      loading: "AI 翻译中…长文约需一分钟",
+      done: "AI 译文（机器翻译，仅供参考 · 由 worldcorner API 提供）",
+      fail: "翻译失败，请稍后再试"
+    };
+    var API = 'https://api.worldcorner.xyz/community/api/translate';
+    var btn = document.createElement('button');
+    btn.className = 'ai-tr-btn';
+    btn.type = 'button';
+    btn.textContent = S.btn;
+    document.body.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'ai-tr-panel';
+    panel.hidden = true;
+    if (content.parentNode) content.parentNode.insertBefore(panel, content.nextSibling);
+
+    var state = 'orig';
+    var cache = null;
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function toHtml(t) {
+      return t.split(/\n\n+/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    function call(text) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, target: target })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.error) throw new Error(j.error);
+        return j.translated;
+      });
+    }
+    function withRetry(fn, n) {
+      var p = fn();
+      for (var i = 0; i < (n || 1); i++) {
+        p = p.catch(function () { return new Promise(function (res) { setTimeout(res, 1500); }).then(fn); });
+      }
+      return p;
+    }
+    
+
+    function splitClient(text, max) {
+      var paras = text.split(/\n\n+/);
+      var chunks = [];
+      var buf = '';
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (!p) continue;
+        if (p.length > max) {
+          if (buf) { chunks.push(buf); buf = ''; }
+          for (var j = 0; j < p.length; j += max) chunks.push(p.slice(j, j + max));
+          continue;
+        }
+        if (buf && (buf + '\n\n' + p).length > max) { chunks.push(buf); buf = p; }
+        else buf = buf ? buf + '\n\n' + p : p;
+      }
+      if (buf) chunks.push(buf);
+      return chunks;
+    }
+    function fetchAll() {
+      if (cache) {
+        panel.innerHTML = (cache.title ? '<h1 class="ai-tr-title"></h1>' : '') + toHtml(cache.body);
+        if (cache.title) panel.querySelector('.ai-tr-title').textContent = cache.title;
+        var doneNote = document.createElement('p');
+        doneNote.className = 'ai-tr-note';
+        doneNote.textContent = S.done;
+        panel.appendChild(doneNote);
+        return Promise.resolve(cache);
+      }
+      var titleText = titleEl ? titleEl.innerText.trim() : '';
+      var chunks = splitClient(content.innerText.trim(), 650);
+      var results = new Array(chunks.length);
+      var done = 0;
+      var head = titleText ? '<h1 class="ai-tr-title"></h1>' : '';
+      var note = document.createElement('p');
+      note.className = 'ai-tr-note';
+      function render() {
+        var html = head;
+        for (var i = 0; i < results.length; i++) if (results[i]) html += toHtml(results[i]);
+        panel.innerHTML = html;
+        note.textContent = done < chunks.length ? done + '/' + chunks.length + ' · ' + S.loading : S.done;
+        panel.appendChild(note);
+      }
+      if (titleText) {
+        withRetry(function () { return call(titleText); }, 1).then(function (t) {
+          if (state === 'trans') { var h1 = panel.querySelector('.ai-tr-title'); if (h1) h1.textContent = t; }
+        }).catch(function () {});
+      }
+      var idx = 0;
+      function lane() {
+        return new Promise(function (resolve) {
+          function next() {
+            if (idx >= chunks.length) return resolve();
+            var i = idx++;
+            withRetry(function () { return call(chunks[i]); }, 2).then(function (t) {
+              results[i] = t; done++; render(); next();
+            }).catch(function () {
+              results[i] = '⚠ ' + S.fail; done++; render(); next();
+            });
+          }
+          next();
+        });
+      }
+      render();
+      return Promise.all([lane(), lane()]).then(function () {
+        cache = { title: titleText, body: results.join('\n\n') };
+        return cache;
+      });
+    }
+    btn.addEventListener('click', function () {
+      if (state === 'trans') {
+        state = 'orig';
+        panel.hidden = true;
+        content.style.display = '';
+        if (titleEl) titleEl.style.display = '';
+        btn.textContent = S.btn;
+        return;
+      }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = S.loading;
+      if (state === 'orig') {
+        panel.hidden = false;
+        content.style.display = 'none';
+        if (titleEl) titleEl.style.display = 'none';
+        state = 'trans';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      fetchAll().then(function () {
+        state = 'trans';
+        btn.disabled = false;
+        btn.textContent = S.back;
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = S.btn;
+        panel.innerHTML = '<p class="ai-tr-note">' + esc(S.fail) + '</p>';
+        panel.hidden = false;
+        state = 'orig';
+      });
+    });
+
+    var css = document.createElement('style');
+    css.textContent = [
+      '.ai-tr-btn{position:fixed;right:18px;bottom:18px;z-index:99;padding:9px 14px;border-radius:999px;',
+      'border:1px solid var(--secondary,#999);background:var(--theme,#fafafa);color:var(--primary,#111);',
+      'font-size:14px;cursor:pointer;opacity:.92;box-shadow:0 2px 10px rgba(0,0,0,.15);}',
+      '.ai-tr-btn:hover{opacity:1}',
+      '.ai-tr-btn:disabled{cursor:wait;opacity:.7}',
+      '.ai-tr-panel{border:1px dashed var(--secondary,#bbb);border-radius:8px;padding:18px 22px;margin:24px 0;line-height:1.8}',
+      '.ai-tr-panel[hidden]{display:none}',
+      '.ai-tr-note{font-size:12px;color:var(--secondary,#888);margin:0 0 12px}',
+      '.ai-tr-title{font-size:1.4em;margin:0 0 16px}'
+    ].join('');
+    document.head.appendChild(css);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<meta property="og:title" content="经济学思维：看清世界的另一双眼睛" />
+<meta property="og:description" content="为什么钻石比水贵，水却比钻石重要？经济学的答案让你重新认识世界。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://worldcorner.xyz/posts/learning/economic-thinking/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-06-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-06-12T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:title" content="经济学思维：看清世界的另一双眼睛"/>
+<meta name="twitter:description" content="为什么钻石比水贵，水却比钻石重要？经济学的答案让你重新认识世界。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://worldcorner.xyz/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "学习方法",
+      "item": "https://worldcorner.xyz/posts/learning/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "经济学思维：看清世界的另一双眼睛",
+      "item": "https://worldcorner.xyz/posts/learning/economic-thinking/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "经济学思维：看清世界的另一双眼睛",
+  "name": "经济学思维：看清世界的另一双眼睛",
+  "description": "为什么钻石比水贵，水却比钻石重要？经济学的答案让你重新认识世界。",
+  "keywords": [
+    "经济学", "思维", "认知"
+  ],
+  "articleBody": "你是否想过这些问题：为什么钻石比水贵，但水比钻石重要？为什么房租越涨，租房的人反而越多？为什么政府出台调控政策，有时候会适得其反？\n这些看似矛盾的现象，背后都隐藏着经济学的基本原理。经济学教你的不是怎么赚钱，而是怎么用理性思维重新认识世界。它是一双额外的眼睛——让你在别人看到混乱的地方，看到秩序；在别人觉得理所当然的地方，看到代价。\n壹 · 钻石为什么比水贵 亚当·斯密在《国富论》中提出了一个著名的悖论：水对人类的重要性远超钻石，但钻石的价格远超水。为什么？\n答案在于\u0026quot;边际\u0026quot;这个概念。价格不由\u0026quot;总效用\u0026quot;决定，而由\u0026quot;边际效用\u0026quot;决定。水虽然重要，但它在大多数地方极其丰富——你喝到的那最后一杯水的价值，决定了所有水的价格。而钻石极其稀缺，每一颗钻石的边际效用都很高。\n这个道理一旦学会，就能解释无数看似矛盾的现象。为什么空气不要钱，但氧气罐要钱？因为空气在大多数情况下是无限供应的，它的边际效用为零。为什么网红餐厅排队越长越火？排队的\u0026quot;成本\u0026quot;本身成了稀缺的信号，增加了边际效用。\n✦ 价格不反映重要性。价格只反映稀缺性。重要的东西如果遍地都是，它就是免费的。\n贰 · 你选择的每一样东西，都意味着你放弃了另一样 曼昆的《经济学原理》中有个核心洞察：人们面临权衡取舍。没有什么东西是免费的。你选择了A，就意味着放弃了B。\n这个道理简单到不值一提，但真正贯彻在每一个决策中的人，少之又少。因为大多数决策的成本是隐性的。你花两小时刷短视频，你没有付钱，你只是付出了两小时——这两小时就是你的\u0026quot;机会成本\u0026quot;。你可以用这两小时读书、运动、学一项技能、陪家人。但你选择把它交给了算法。\n经济学的核心洞察之一就是：所有成本都是机会成本。你花的每一块钱、每一分钟、每一分注意力，都在与其他可能的用途竞争。而大多数人不觉得\u0026quot;时间\u0026quot;是成本，直到时间用完了。\n✦ 你觉得自己没花钱。其实你花了生命。\n这不是说不能娱乐。经济学从来不反对消费——它只是坚持让你看到消费的真实代价。一个清醒的人和一个麻木的人，做同一件事的区别在于：前者知道自己在交易什么。\n叁 · 把\u0026quot;理所当然\u0026quot;变成\u0026quot;值得追问\u0026quot; 经济学思维的本质，是把\u0026quot;理所当然\u0026quot;变成\u0026quot;值得追问\u0026quot;。每当你觉得一件事\u0026quot;就应该这样\u0026quot;时，问一句：谁受益？谁承担成本？有没有被忽略的外部性？\n这就是经济学的灵魂。\n房租为什么涨？因为供给没跟上需求。那为什么供给跟不上？因为土地政策、容积率限制、开发周期——每一个看似合理的政策背后，都有被它扭曲的供需关系。调控房价的限购政策，短期抑制了价格，长期却压缩了供给——政策制定者有没有考虑过这个外部性？\n当你开始用这三问看世界，一切都变得不同了。同事为什么加班？不是为了公司，是因为加班在绩效考核中的边际收益大于回家休息的边际收益。家长为什么焦虑鸡娃？不是真的相信多上一个辅导班能改变命运，而是别人都在上——不上就是博弈中的劣势。\n经济学的终极智慧不是教你赚钱。是教你看见世界运转的真实逻辑。看见那些隐藏的成本、被忽略的选择、被转嫁的代价。看见之后，你才能做出真正属于自己的决策，而不是活在被安排好的默认选项里。\n这种\u0026quot;把隐藏逻辑显式化\u0026quot;的思维，和《工具主权与奥卡姆剃刀》中讨论的核心问题是一致的——你是在用工具，还是工具在用你？答案取决于你是否真正理解每项选择的成本。\n核心要点 价格不反映重要性，只反映稀缺性。 重要的东西如果遍地都是，它就是免费的。空气如此，注意力也如此——直到它被消耗殆尽。 所有成本都是机会成本。 你花的每一分钟，都在与另一种可能的用途竞争。你觉得自己没花钱，其实你花了生命。 把\u0026quot;理所当然\u0026quot;变成\u0026quot;值得追问\u0026quot;。 谁受益？谁承担成本？有没有被忽略的外部性？这三个问题是你清醒的起点。 结语 这双眼睛一旦睁开，就关不上了。你会发现生活中的一切——工作、感情、育儿、消费——都逃不开成本、稀缺、激励和权衡。这不是冷酷，是诚实。\n下一次，当你觉得某件事\u0026quot;本该如此\u0026quot;的时候，停下来，问那三句话：\n谁在受益？谁在付出代价？有没有被藏起来的外部性？\n答案可能不会让你舒服。但它会让你清醒。而清醒，是自由的前提。\n——读曼昆《经济学原理》有感\n",
+  "wordCount" : "41",
+  "inLanguage": "zh",
+  "datePublished": "2026-06-12 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-06-12 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "美好需要创造"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https:\/\/worldcorner.xyz\/posts\/learning\/economic-thinking\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://worldcorner.xyz/" accesskey="h" title="世界一隅 (Alt + H)">
+                <img src="https://worldcorner.xyz/images/mark.svg" alt="" aria-label="logo"
+                    height="32">世界一隅</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://worldcorner.xyz/en/" title="English"
+                            aria-label="English">En</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://worldcorner.xyz/posts/systems-thinking/" title="系统思维"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>系统思维</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/posts/learning/" title="学习方法"
+                class="nav-btn nav-menu-learning">
+                    <span>学习方法</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/posts/tooling/" title="效率工具"
+                class="nav-btn nav-menu-tooling">
+                    <span>效率工具</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>踩坑宝典</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/collections/" title="合集"
+                class="nav-btn nav-menu-collections">
+                    <span>合集</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/audiobook/" title="听书"
+                class="nav-btn nav-menu-audiobook">
+                    <span>听书</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/app/" title="小程序"
+                class="nav-btn nav-menu-app">
+                    <span>小程序</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://api.worldcorner.xyz/community/" title="社区"
+                class="nav-btn nav-menu-community">
+                    <span>社区</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/assets/" title="资产"
+                class="nav-btn nav-menu-assets">
+                    <span>资产</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/skills/" title="技能"
+                class="nav-btn nav-menu-skills">
+                    <span>技能</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
+                class="nav-btn nav-menu-search">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/archives/" title="归档"
+                class="nav-btn nav-menu-archives">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/about/" title="关于"
+                class="nav-btn nav-menu-about">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<script>
+function toggleNav() {
+    var b = document.querySelector('.nav-toggle');
+    var open = document.body.classList.toggle('nav-open');
+    if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (e.target.closest && e.target.closest('#menu a')) toggleNav();
+});
+</script>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      经济学思维：看清世界的另一双眼睛
+    </h1>
+    <div class="post-description">
+      为什么钻石比水贵，水却比钻石重要？经济学的答案让你重新认识世界。
+    </div>
+    <div class="post-meta"><span title='2026-06-12 00:00:00 +0000 UTC'>2026年6月12日</span>&nbsp;·&nbsp;美好需要创造
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%a3%b9--%e9%92%bb%e7%9f%b3%e4%b8%ba%e4%bb%80%e4%b9%88%e6%af%94%e6%b0%b4%e8%b4%b5" aria-label="壹 · 钻石为什么比水贵">壹 · 钻石为什么比水贵</a></li>
+                <li>
+                    <a href="#%e8%b4%b0--%e4%bd%a0%e9%80%89%e6%8b%a9%e7%9a%84%e6%af%8f%e4%b8%80%e6%a0%b7%e4%b8%9c%e8%a5%bf%e9%83%bd%e6%84%8f%e5%91%b3%e7%9d%80%e4%bd%a0%e6%94%be%e5%bc%83%e4%ba%86%e5%8f%a6%e4%b8%80%e6%a0%b7" aria-label="贰 · 你选择的每一样东西，都意味着你放弃了另一样">贰 · 你选择的每一样东西，都意味着你放弃了另一样</a></li>
+                <li>
+                    <a href="#%e5%8f%81--%e6%8a%8a%e7%90%86%e6%89%80%e5%bd%93%e7%84%b6%e5%8f%98%e6%88%90%e5%80%bc%e5%be%97%e8%bf%bd%e9%97%ae" aria-label="叁 · 把&quot;理所当然&quot;变成&quot;值得追问&quot;">叁 · 把&quot;理所当然&quot;变成&quot;值得追问&quot;</a></li>
+                <li>
+                    <a href="#%e6%a0%b8%e5%bf%83%e8%a6%81%e7%82%b9" aria-label="核心要点">核心要点</a></li>
+                <li>
+                    <a href="#%e7%bb%93%e8%af%ad" aria-label="结语">结语</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content md-content"><p>你是否想过这些问题：为什么钻石比水贵，但水比钻石重要？为什么房租越涨，租房的人反而越多？为什么政府出台调控政策，有时候会适得其反？</p>
+<p>这些看似矛盾的现象，背后都隐藏着经济学的基本原理。经济学教你的不是怎么赚钱，而是怎么用理性思维重新认识世界。它是一双额外的眼睛——让你在别人看到混乱的地方，看到秩序；在别人觉得理所当然的地方，看到代价。</p>
+<hr>
+<h2 id="壹--钻石为什么比水贵">壹 · 钻石为什么比水贵<a hidden class="anchor" aria-hidden="true" href="#壹--钻石为什么比水贵">#</a></h2>
+<p>亚当·斯密在《国富论》中提出了一个著名的悖论：水对人类的重要性远超钻石，但钻石的价格远超水。为什么？</p>
+<p>答案在于&quot;边际&quot;这个概念。价格不由&quot;总效用&quot;决定，而由&quot;边际效用&quot;决定。水虽然重要，但它在大多数地方极其丰富——你喝到的那最后一杯水的价值，决定了所有水的价格。而钻石极其稀缺，每一颗钻石的边际效用都很高。</p>
+<p>这个道理一旦学会，就能解释无数看似矛盾的现象。为什么空气不要钱，但氧气罐要钱？因为空气在大多数情况下是无限供应的，它的边际效用为零。为什么网红餐厅排队越长越火？排队的&quot;成本&quot;本身成了稀缺的信号，增加了边际效用。</p>
+<blockquote>
+<p>✦ 价格不反映重要性。价格只反映稀缺性。重要的东西如果遍地都是，它就是免费的。</p></blockquote>
+<hr>
+<h2 id="贰--你选择的每一样东西都意味着你放弃了另一样">贰 · 你选择的每一样东西，都意味着你放弃了另一样<a hidden class="anchor" aria-hidden="true" href="#贰--你选择的每一样东西都意味着你放弃了另一样">#</a></h2>
+<p>曼昆的《经济学原理》中有个核心洞察：人们面临权衡取舍。没有什么东西是免费的。你选择了A，就意味着放弃了B。</p>
+<p>这个道理简单到不值一提，但真正贯彻在每一个决策中的人，少之又少。因为大多数决策的成本是隐性的。你花两小时刷短视频，你没有付钱，你只是付出了两小时——这两小时就是你的&quot;机会成本&quot;。你可以用这两小时读书、运动、学一项技能、陪家人。但你选择把它交给了算法。</p>
+<p>经济学的核心洞察之一就是：所有成本都是机会成本。你花的每一块钱、每一分钟、每一分注意力，都在与其他可能的用途竞争。而大多数人不觉得&quot;时间&quot;是成本，直到时间用完了。</p>
+<blockquote>
+<p>✦ 你觉得自己没花钱。其实你花了生命。</p></blockquote>
+<p>这不是说不能娱乐。经济学从来不反对消费——它只是坚持让你看到消费的真实代价。一个清醒的人和一个麻木的人，做同一件事的区别在于：前者知道自己在交易什么。</p>
+<hr>
+<h2 id="叁--把理所当然变成值得追问">叁 · 把&quot;理所当然&quot;变成&quot;值得追问&quot;<a hidden class="anchor" aria-hidden="true" href="#叁--把理所当然变成值得追问">#</a></h2>
+<p>经济学思维的本质，是把&quot;理所当然&quot;变成&quot;值得追问&quot;。每当你觉得一件事&quot;就应该这样&quot;时，问一句：谁受益？谁承担成本？有没有被忽略的外部性？</p>
+<p>这就是经济学的灵魂。</p>
+<p>房租为什么涨？因为供给没跟上需求。那为什么供给跟不上？因为土地政策、容积率限制、开发周期——每一个看似合理的政策背后，都有被它扭曲的供需关系。调控房价的限购政策，短期抑制了价格，长期却压缩了供给——政策制定者有没有考虑过这个外部性？</p>
+<p>当你开始用这三问看世界，一切都变得不同了。同事为什么加班？不是为了公司，是因为加班在绩效考核中的边际收益大于回家休息的边际收益。家长为什么焦虑鸡娃？不是真的相信多上一个辅导班能改变命运，而是别人都在上——不上就是博弈中的劣势。</p>
+<p>经济学的终极智慧不是教你赚钱。是教你看见世界运转的真实逻辑。看见那些隐藏的成本、被忽略的选择、被转嫁的代价。看见之后，你才能做出真正属于自己的决策，而不是活在被安排好的默认选项里。</p>
+<p>这种&quot;把隐藏逻辑显式化&quot;的思维，和《工具主权与奥卡姆剃刀》中讨论的核心问题是一致的——你是在用工具，还是工具在用你？答案取决于你是否真正理解每项选择的成本。</p>
+<hr>
+<h2 id="核心要点">核心要点<a hidden class="anchor" aria-hidden="true" href="#核心要点">#</a></h2>
+<ul>
+<li><strong>价格不反映重要性，只反映稀缺性。</strong> 重要的东西如果遍地都是，它就是免费的。空气如此，注意力也如此——直到它被消耗殆尽。</li>
+<li><strong>所有成本都是机会成本。</strong> 你花的每一分钟，都在与另一种可能的用途竞争。你觉得自己没花钱，其实你花了生命。</li>
+<li><strong>把&quot;理所当然&quot;变成&quot;值得追问&quot;。</strong> 谁受益？谁承担成本？有没有被忽略的外部性？这三个问题是你清醒的起点。</li>
+</ul>
+<hr>
+<h2 id="结语">结语<a hidden class="anchor" aria-hidden="true" href="#结语">#</a></h2>
+<p>这双眼睛一旦睁开，就关不上了。你会发现生活中的一切——工作、感情、育儿、消费——都逃不开成本、稀缺、激励和权衡。这不是冷酷，是诚实。</p>
+<p>下一次，当你觉得某件事&quot;本该如此&quot;的时候，停下来，问那三句话：</p>
+<p>谁在受益？谁在付出代价？有没有被藏起来的外部性？</p>
+<p>答案可能不会让你舒服。但它会让你清醒。而清醒，是自由的前提。</p>
+<p><em>——读曼昆《经济学原理》有感</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://worldcorner.xyz/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6/">经济学</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E6%80%9D%E7%BB%B4/">思维</a></li>
+      <li><a href="https://worldcorner.xyz/tags/%E8%AE%A4%E7%9F%A5/">认知</a></li>
+    </ul>
+  </footer>
+<section class="tipbox" aria-label="赞赏支持">
+  <div class="tip-lead">
+    <span class="tip-badge"><span class="tip-badge-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>
+</span>
+    <div class="tip-lead-txt">
+      <h3>请作者喝杯茶</h3>
+      <p>如果这些文字对你有一点点用处,欢迎请我喝杯茶。一两块也是心意,够这盏灯多亮一会儿。</p>
+    </div>
+  </div>
+  <div class="tip-codes">
+      <figure class="tip-code">
+        <img src="/tip/weixinpay.jpg" alt="微信赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>微信赞赏</figcaption>
+      </figure>
+      <figure class="tip-code">
+        <img src="/tip/alipay.jpg" alt="支付宝赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>支付宝赞赏</figcaption>
+      </figure>
+  </div>
+  <p class="tip-fine">金额随意 · 感谢每一份心意</p>
+</section>
+
+</article>
+
+
+    <aside class="series-sidebar">
+      <div class="series-sidebar-header">
+        <a href="https://worldcorner.xyz/posts/learning/" class="series-sidebar-title">学习方法</a>
+        <span class="series-sidebar-count">3 篇</span>
+      </div>
+      <ul class="series-sidebar-list">
+        <li>
+          <a href="https://worldcorner.xyz/posts/learning/economic-thinking/"
+             class="series-capsule series-learning active"
+             title="经济学思维：看清世界的另一双眼睛">
+            经济学思维：看清世界的另一双眼睛
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/posts/learning/trigonometry-learning-guide/"
+             class="series-capsule series-learning"
+             title="圆上的指针：为什么你不需要记住三角函数，却能用它解决一切">
+            圆上的指针：为什么你不需要记住三角函数，却能用它解决一切
+          </a>
+        </li>
+        <li>
+          <a href="https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/"
+             class="series-capsule series-learning"
+             title="学习的本质，是为内心「重新索引」——当学习心境成为AI时代的底层内核">
+            学习的本质，是为内心「重新索引」——当学习心境成为AI时代的底层内核
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="https://worldcorner.xyz/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+      系统思维
+    </a>
+    <a href="https://worldcorner.xyz/posts/learning/" class="nav-btn nav-menu-learning active">
+      学习方法
+    </a>
+    <a href="https://worldcorner.xyz/posts/tooling/" class="nav-btn nav-menu-tooling">
+      效率工具
+    </a>
+    <a href="https://worldcorner.xyz/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      踩坑宝典
+    </a>
+    <a href="https://worldcorner.xyz/collections/" class="nav-btn nav-menu-collections">
+      合集
+    </a>
+    <a href="https://worldcorner.xyz/audiobook/" class="nav-btn nav-menu-audiobook">
+      听书
+    </a>
+    <a href="https://worldcorner.xyz/app/" class="nav-btn nav-menu-app">
+      小程序
+    </a>
+    <a href="https://api.worldcorner.xyz/community/" class="nav-btn nav-menu-community">
+      社区
+    </a>
+    <a href="https://worldcorner.xyz/assets/" class="nav-btn nav-menu-assets">
+      资产
+    </a>
+    <a href="https://worldcorner.xyz/skills/" class="nav-btn nav-menu-skills">
+      技能
+    </a>
+    <a href="https://worldcorner.xyz/search/" class="nav-btn nav-menu-search">
+      搜索
+    </a>
+    <a href="https://worldcorner.xyz/archives/" class="nav-btn nav-menu-archives">
+      归档
+    </a>
+    <a href="https://worldcorner.xyz/about/" class="nav-btn nav-menu-about">
+      关于
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/">世界一隅</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

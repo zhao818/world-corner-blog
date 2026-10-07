@@ -1,0 +1,12 @@
+# 全站赞赏组件配置 — tip-box.html 读取
+# codes[].img 为 static/tip/ 下的文件名;fileExists 不存在时自动隐藏该项;全空则整块不渲染。
+# 放 static/tip/wechat.jpg 与 static/tip/alipay.jpg 后,文章页 / 听书页 / 关于页 自动出现赞赏码。
+
+lead: 请作者喝杯茶
+note: 如果这些文字对你有一点点用处,欢迎请我喝杯茶。一两块也是心意,够这盏灯多亮一会儿。
+fine: 金额随意 · 感谢每一份心意
+codes:
+  - img: weixinpay.jpg
+    alt: 微信赞赏
+  - img: alipay.jpg
+    alt: 支付宝赞赏

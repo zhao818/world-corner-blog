@@ -1,0 +1,19 @@
+# GIS 数据工作室 —— 工作项目地图(ArcGIS Online)
+# 地图数据均在 https://zhaot-gis.maps.arcgis.com/ 公开共享
+
+note: "工作中的空间项目地图:外业采集、片区精调,全部在 ArcGIS Online 上公开可看。"
+group:
+  title: "GIS 项目共享组"
+  desc: "更多地图与数据集"
+  url: "https://zhaot-gis.maps.arcgis.com/home/group.html?id=66c331ee5b61431b9bb5c8a9e36caf00#overview"
+maps:
+  - title: 临沧
+    scope: 市级全境 · 外业采集底图
+    desc: "覆盖临沧市域的采集底图,支持 Collector 外业编辑与离线使用。"
+    url: "https://zhaot-gis.maps.arcgis.com/home/item.html?id=5f5d71593a224a4c9fffddbd9230943b"
+    thumb: "/gis/lincang-800.jpg"
+  - title: 优化版
+    scope: 片区精调 · 名称自动归类
+    desc: "同片区项目的精调版本,线段名称按规则自动清洗归类。"
+    url: "https://zhaot-gis.maps.arcgis.com/home/item.html?id=57e8069c8c9a4197b72fe212c463a1eb"
+    thumb: "/gis/optimized-800.jpg"

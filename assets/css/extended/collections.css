@@ -1,0 +1,252 @@
+/* ========== 合集页(赵天兵作品集 · 深夜书房版) ========== */
+
+/* --- 英雄区 --- */
+.collec-hero {
+  position: relative;
+  padding: clamp(36px, 5vw, 64px) 0 20px;
+  max-width: 560px;
+}
+.collec-avatar {
+  position: relative;
+  width: 114px;
+  height: 114px;
+  margin: 0 0 28px;
+  margin-left: calc(6.5% + 30px);
+}
+.avatar-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--brand-gold) 120deg, transparent 240deg);
+  animation: ring-spin 9s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(200, 160, 60, 0.35));
+}
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.avatar-glyph {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #26263f, var(--brand-night) 70%);
+  border: 1px solid rgba(200, 160, 60, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-gold);
+  font-size: 3.2rem;
+  font-family: var(--serif-stack);
+  font-weight: 800;
+}
+.collec-hero h1 {
+  margin-left: calc(6.5% + 30px);
+  font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+.collec-roles {
+  margin-left: calc(6.5% + 30px);
+  color: var(--brand-gold);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  font-family: var(--mono-stack);
+  margin-bottom: 12px;
+}
+.collec-bio {
+  margin-left: calc(6.5% + 30px);
+  color: var(--secondary);
+  max-width: 34em;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+.collec-vlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: calc(6.5% + 30px);
+  padding: 11px 26px;
+  border: 1px solid var(--brand-gold);
+  border-radius: 999px;
+  color: var(--brand-gold-light);
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+  transition: all 0.22s ease;
+}
+.collec-vlink:hover {
+  background: var(--brand-gold);
+  color: var(--brand-night);
+  box-shadow: 0 6px 26px rgba(200, 160, 60, 0.28);
+}
+
+/* --- 专辑卡片 --- */
+.album-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.album-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--brand-gold), transparent 82%);
+  opacity: 0.6;
+}
+.album-card:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(16, 16, 28, 0.22);
+}
+.album-no {
+  font-family: var(--mono-stack);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--brand-gold);
+  margin-bottom: 8px;
+}
+.album-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.12em;
+  color: var(--primary);
+}
+.album-card:hover h3 {
+  color: var(--brand-gold-light);
+}
+.album-desc {
+  font-size: 0.88em;
+  color: var(--secondary);
+  margin: 0 0 12px;
+}
+.album-arrow {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  color: var(--brand-gold);
+  opacity: 0.75;
+}
+.album-card:hover .album-arrow {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+  opacity: 1;
+}
+
+/* --- 主要链接窗口 --- */
+.link-window {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 660px;
+}
+.link-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 20px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: all 0.22s ease;
+}
+a.link-pill:hover {
+  border-color: var(--brand-gold);
+  box-shadow: 0 8px 24px rgba(16, 16, 28, 0.2);
+  transform: translateX(4px);
+}
+.pill-icon {
+  display: inline-flex;
+  color: var(--brand-gold);
+  flex-shrink: 0;
+}
+.pill-icon svg {
+  width: 21px;
+  height: 21px;
+}
+.pill-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pill-text strong {
+  color: var(--primary);
+  font-size: 1rem;
+}
+a.link-pill:hover .pill-text strong {
+  color: var(--brand-gold-light);
+}
+.pill-text em {
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+.pill-arrow {
+  margin-left: auto;
+  display: inline-flex;
+  color: var(--secondary);
+}
+.pill-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+a.link-pill:hover .pill-arrow {
+  color: var(--brand-gold);
+  transform: translateX(3px);
+  transition: all 0.2s ease;
+}
+.link-pill.is-pending {
+  opacity: 0.55;
+  cursor: default;
+}
+.pill-todo {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-family: var(--mono-stack);
+  letter-spacing: 0.12em;
+  color: var(--secondary);
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+
+/* --- 社交芯片 --- */
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.social-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.86rem;
+  color: var(--secondary);
+  transition: all 0.2s ease;
+}
+.social-chip:hover {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold-light);
+  transform: translateY(-2px);
+}
+
+/* --- 响应式 --- */
+@media (max-width: 640px) {
+  .collec-avatar,
+  .collec-hero h1,
+  .collec-roles,
+  .collec-bio,
+  .collec-vlink {
+    margin-left: 0;
+  }
+}

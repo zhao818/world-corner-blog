@@ -1,0 +1,97 @@
+/* 全站赞赏卡:品牌深底 + 金色描边 + 左侧金轴 */
+.tipbox {
+  margin: 2.4em 0 1.2em;
+  padding: 1.5em 1.6em 1.2em;
+  border: 1px solid rgba(200, 160, 60, .28);
+  border-radius: 14px;
+  background: var(--entry, #121a28);
+  position: relative;
+  overflow: hidden;
+}
+.tipbox::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, rgba(200, 160, 60, .85), transparent);
+}
+.tip-lead {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.tip-badge {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: #c9a55c;
+  background: rgba(200, 160, 60, .12);
+  border: 1px solid rgba(200, 160, 60, .3);
+}
+.tip-badge-ico svg,
+.tip-badge .icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.tip-lead-txt h3 {
+  margin: 0 0 4px;
+  font-size: 1.05em;
+  color: var(--secondary, #e7cd8c);
+  letter-spacing: .02em;
+}
+.tip-lead-txt p {
+  margin: 0;
+  font-size: .88em;
+  color: var(--secondary);
+  opacity: .85;
+  line-height: 1.7;
+}
+.tip-codes {
+  margin-top: 1.1em;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.tip-code {
+  margin: 0;
+  text-align: center;
+}
+.tip-code img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(200, 160, 60, .35);
+  background: #fff;
+  padding: 6px;
+  display: block;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.tip-code:hover img {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(200, 160, 60, .18);
+}
+.tip-code figcaption {
+  margin-top: 8px;
+  font-size: .8em;
+  color: var(--secondary);
+  font-family: var(--mono-stack, monospace);
+  letter-spacing: .06em;
+}
+.tip-fine {
+  margin: 1em 0 0;
+  font-size: .75em;
+  color: var(--secondary);
+  opacity: .55;
+  text-align: right;
+  letter-spacing: .08em;
+}
+@media (max-width: 640px) {
+  .tipbox { padding: 1.2em 1.1em 1em; }
+  .tip-code img { width: 132px; height: 132px; }
+}

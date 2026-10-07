@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age | World Corner</title>
+<meta name="keywords" content="learning, AI era, disposition, flow, inner civilization, cognitive architecture">
+<meta name="description" content="In an age of exploding AI compute, learning is no longer knowledge acquisition — it is the re-indexing of the mind.">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="https://worldcorner.xyz/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.966b0d65fc66f98dbcc86e3741a7305fbcdd8eeee1f69836d5c4e8249dffba99.css" integrity="sha256-lmsNZfxm&#43;Y28yG43QacwX7zdju7h9pg21cToJJ3/upk=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/">
+<link rel="alternate" hreflang="en" href="https://worldcorner.xyz/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" /><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "世界一隅",
+  "alternateName": "认知能量工程",
+  "url": "https:\/\/worldcorner.xyz\/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  function init() {
+    var content = document.querySelector('.post-content') || document.querySelector('.pitfall-single');
+    if (!content) return;
+    var titleEl = document.querySelector('.post-title') || content.querySelector('h1');
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2);
+    var target = lang === 'en' ? 'zh' : 'en';
+    var S = {
+      btn: "🌐 AI Translate",
+      back: "↩ Show original",
+      loading: "AI translating… long articles take about a minute",
+      done: "AI translation (machine translated, for reference · powered by worldcorner API)",
+      fail: "Translation failed, please try again later"
+    };
+    var API = 'https://api.worldcorner.xyz/community/api/translate';
+    var btn = document.createElement('button');
+    btn.className = 'ai-tr-btn';
+    btn.type = 'button';
+    btn.textContent = S.btn;
+    document.body.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'ai-tr-panel';
+    panel.hidden = true;
+    if (content.parentNode) content.parentNode.insertBefore(panel, content.nextSibling);
+
+    var state = 'orig';
+    var cache = null;
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function toHtml(t) {
+      return t.split(/\n\n+/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    function call(text) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, target: target })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.error) throw new Error(j.error);
+        return j.translated;
+      });
+    }
+    function withRetry(fn, n) {
+      var p = fn();
+      for (var i = 0; i < (n || 1); i++) {
+        p = p.catch(function () { return new Promise(function (res) { setTimeout(res, 1500); }).then(fn); });
+      }
+      return p;
+    }
+    
+
+    function splitClient(text, max) {
+      var paras = text.split(/\n\n+/);
+      var chunks = [];
+      var buf = '';
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (!p) continue;
+        if (p.length > max) {
+          if (buf) { chunks.push(buf); buf = ''; }
+          for (var j = 0; j < p.length; j += max) chunks.push(p.slice(j, j + max));
+          continue;
+        }
+        if (buf && (buf + '\n\n' + p).length > max) { chunks.push(buf); buf = p; }
+        else buf = buf ? buf + '\n\n' + p : p;
+      }
+      if (buf) chunks.push(buf);
+      return chunks;
+    }
+    function fetchAll() {
+      if (cache) {
+        panel.innerHTML = (cache.title ? '<h1 class="ai-tr-title"></h1>' : '') + toHtml(cache.body);
+        if (cache.title) panel.querySelector('.ai-tr-title').textContent = cache.title;
+        var doneNote = document.createElement('p');
+        doneNote.className = 'ai-tr-note';
+        doneNote.textContent = S.done;
+        panel.appendChild(doneNote);
+        return Promise.resolve(cache);
+      }
+      var titleText = titleEl ? titleEl.innerText.trim() : '';
+      var chunks = splitClient(content.innerText.trim(), 650);
+      var results = new Array(chunks.length);
+      var done = 0;
+      var head = titleText ? '<h1 class="ai-tr-title"></h1>' : '';
+      var note = document.createElement('p');
+      note.className = 'ai-tr-note';
+      function render() {
+        var html = head;
+        for (var i = 0; i < results.length; i++) if (results[i]) html += toHtml(results[i]);
+        panel.innerHTML = html;
+        note.textContent = done < chunks.length ? done + '/' + chunks.length + ' · ' + S.loading : S.done;
+        panel.appendChild(note);
+      }
+      if (titleText) {
+        withRetry(function () { return call(titleText); }, 1).then(function (t) {
+          if (state === 'trans') { var h1 = panel.querySelector('.ai-tr-title'); if (h1) h1.textContent = t; }
+        }).catch(function () {});
+      }
+      var idx = 0;
+      function lane() {
+        return new Promise(function (resolve) {
+          function next() {
+            if (idx >= chunks.length) return resolve();
+            var i = idx++;
+            withRetry(function () { return call(chunks[i]); }, 2).then(function (t) {
+              results[i] = t; done++; render(); next();
+            }).catch(function () {
+              results[i] = '⚠ ' + S.fail; done++; render(); next();
+            });
+          }
+          next();
+        });
+      }
+      render();
+      return Promise.all([lane(), lane()]).then(function () {
+        cache = { title: titleText, body: results.join('\n\n') };
+        return cache;
+      });
+    }
+    btn.addEventListener('click', function () {
+      if (state === 'trans') {
+        state = 'orig';
+        panel.hidden = true;
+        content.style.display = '';
+        if (titleEl) titleEl.style.display = '';
+        btn.textContent = S.btn;
+        return;
+      }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = S.loading;
+      if (state === 'orig') {
+        panel.hidden = false;
+        content.style.display = 'none';
+        if (titleEl) titleEl.style.display = 'none';
+        state = 'trans';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      fetchAll().then(function () {
+        state = 'trans';
+        btn.disabled = false;
+        btn.textContent = S.back;
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = S.btn;
+        panel.innerHTML = '<p class="ai-tr-note">' + esc(S.fail) + '</p>';
+        panel.hidden = false;
+        state = 'orig';
+      });
+    });
+
+    var css = document.createElement('style');
+    css.textContent = [
+      '.ai-tr-btn{position:fixed;right:18px;bottom:18px;z-index:99;padding:9px 14px;border-radius:999px;',
+      'border:1px solid var(--secondary,#999);background:var(--theme,#fafafa);color:var(--primary,#111);',
+      'font-size:14px;cursor:pointer;opacity:.92;box-shadow:0 2px 10px rgba(0,0,0,.15);}',
+      '.ai-tr-btn:hover{opacity:1}',
+      '.ai-tr-btn:disabled{cursor:wait;opacity:.7}',
+      '.ai-tr-panel{border:1px dashed var(--secondary,#bbb);border-radius:8px;padding:18px 22px;margin:24px 0;line-height:1.8}',
+      '.ai-tr-panel[hidden]{display:none}',
+      '.ai-tr-note{font-size:12px;color:var(--secondary,#888);margin:0 0 12px}',
+      '.ai-tr-title{font-size:1.4em;margin:0 0 16px}'
+    ].join('');
+    document.head.appendChild(css);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<meta property="og:title" content="The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age" />
+<meta property="og:description" content="In an age of exploding AI compute, learning is no longer knowledge acquisition — it is the re-indexing of the mind." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://worldcorner.xyz/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2026-05-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2026-05-01T00:00:00+00:00" /><meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:title" content="The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age"/>
+<meta name="twitter:description" content="In an age of exploding AI compute, learning is no longer knowledge acquisition — it is the re-indexing of the mind."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://worldcorner.xyz/en/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Learning",
+      "item": "https://worldcorner.xyz/en/posts/learning/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age",
+      "item": "https://worldcorner.xyz/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age",
+  "name": "The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age",
+  "description": "In an age of exploding AI compute, learning is no longer knowledge acquisition — it is the re-indexing of the mind.",
+  "keywords": [
+    "learning", "AI era", "disposition", "flow", "inner civilization", "cognitive architecture"
+  ],
+  "articleBody": "Introduction: Cognitive Bandwidth Under a DDoS Attack 1 a.m., and your phone screen is still lit.\nTwenty-seven unread notifications across five apps — the work group is discussing tomorrow\u0026rsquo;s PPT deliverable, a knowledge community has pushed \u0026ldquo;10 AI tools you must learn in 2026,\u0026rdquo; a subscription account warns \u0026ldquo;if you don\u0026rsquo;t read this article you\u0026rsquo;re already obsolete,\u0026rdquo; and on Moments someone is showing off day 87 of their third foreign language streak.\nYou open a learning app. Five minutes into the video, a thought flashes through your mind: \u0026ldquo;I still haven\u0026rsquo;t replied to that group message.\u0026rdquo; The next thing you know, you\u0026rsquo;ve opened another app and started scrolling the news feed. An hour later you put the phone down feeling profoundly exhausted — nothing went in, yet you\u0026rsquo;re more tired than after a marathon.\nThis is the standard modern cognitive predicament. But the root cause is not insufficient willpower. It is that your kernel is under a DDoS attack — your cognitive bandwidth is saturated by overwhelming signals of \u0026ldquo;pseudo-importance.\u0026rdquo; Your mind is no longer a still lake that mirrors knowledge; it is a ruin shelled repeatedly by algorithmic artillery.\nChapter One: The Kernel — When Learning Disposition Becomes the Bedrock of Cognitive Architecture The essay \u0026ldquo;The Disposition for Learning\u0026rdquo; makes a remarkably precise observation: the optimal state for learning is not excitement but an inner climate that is calm yet focused, curious yet open. The flow researcher Mihaly Csikszentmihalyi called it \u0026ldquo;the loss of self-consciousness, the distortion of time\u0026rdquo; — complete immersion in the present activity.\nBut within that narrative, we should push one engineering-level question further: why can the same knowledge input be processed tens of times more or less efficiently depending on disposition?\nThe answer: disposition is not the background. Disposition is the kernel.\nIn an operating system\u0026rsquo;s architecture, the kernel manages all hardware resources, process scheduling, and memory allocation. Once the kernel becomes unstable — deadlocks, memory leaks, interrupt storms — every application above it crashes, no matter how elegantly they are written.\nYour cognitive system works the same way. Learning is an application process running on top of the \u0026ldquo;disposition kernel.\u0026rdquo; When the kernel is stable (calm, focused, curious), every knowledge packet gets parsed, verified, and written to long-term storage efficiently. When the kernel is seized by anxiety, burnout, or resistance — that is, a high-priority interrupt storm — every CPU cycle goes to servicing interrupt requests, and the learning process is suspended indefinitely.\nYou cannot install new software while the system is busy.\nThis is why \u0026ldquo;forcing your way through the fog yields half the result for twice the effort\u0026rdquo; — not because you aren\u0026rsquo;t smart enough, but because your kernel has allocated no compute to the learning process at all.\nChapter Two: Anxiety — A DDoS Attack on the Cognitive System The original text precisely identifies three emotional blockers: anxiety and stress, burnout and numbness, resistance and aversion. But in the AI age these emotions have taken a new, more destructive form — they are no longer random fluctuations of an individual psyche; they are system attacks precisely induced by algorithms.\n2.1 Compute-saturation anxiety Modern anxiety is not \u0026ldquo;haven\u0026rsquo;t learned enough\u0026rdquo; — it is input overload. Open any content platform and the information your brain receives in one hour rivals what an ordinary person in the 18th century ingested in half a year. Under this input density the brain is forced into a perpetual \u0026ldquo;inter-frame prediction\u0026rdquo; mode — before the current piece of information finishes processing, the next one is already flooding in from the queue.\nThis is exactly the mechanism of a DDoS attack: the attacker floods a server with far more request packets than it can process, so it cannot serve legitimate requests. Your hippocampus is drowning in request packets titled \u0026ldquo;Master AI prompting in 3 minutes\u0026rdquo; and \u0026ldquo;Learn Python in 5 days,\u0026rdquo; until finally the system refuses service — nothing goes in anymore, and even the act of opening a learning app triggers instinctive revulsion.\n2.2 Burnout — cache overflow after sustained underestimation The burnout and numbness mentioned in the original text trace back, in the AI age, to cognitive cache overflow. When someone spends months switching among courses, feeds, and tools, the brain\u0026rsquo;s working memory stays at full load until the protective mechanism triggers — like a system killing its most resource-hungry process once RAM is exhausted. Learning happens to be that process.\n2.3 Algorithm-induced resistance The most hidden of all is the algorithm-induced aversion reflex. When recommendation systems keep pushing \u0026ldquo;people your age have already mastered XXXX\u0026rdquo; and \u0026ldquo;your peers reached a million-a-year salary through XXXX,\u0026rdquo; what is essentially happening is a social-comparison DDoS — every push is an ICMP packet reading \u0026ldquo;you are not good enough,\u0026rdquo; bombarding the port of your self-respect on repeat. Over time, learning is no longer exploration; it becomes a humiliating proof game. Resistance is self-protection.\nChapter Three: \u0026ldquo;Wu Wei\u0026rdquo; — The Highest Form of Compute Scheduling The original text introduces the Daoist concept of wu wei (non-forcing): learning should \u0026ldquo;drop the deliberate striving and obsession of \u0026lsquo;I must learn this well,\u0026rsquo; and instead cultivate love and focus for the knowledge itself.\u0026rdquo;\nIn a traditional context that sounds like spiritual advice. In the context of cognitive architecture, it describes the optimal compute scheduling policy.\nWhen a person is stuck in the compulsive state of \u0026ldquo;I must learn this well,\u0026rdquo; the brain\u0026rsquo;s metacognition module keeps monitoring \u0026ldquo;How am I doing? Am I good enough?\u0026rdquo; — and those monitoring threads themselves burn CPU cycles. Worse, they trigger the overhead of emotion as background threads: anxiety needs energy to sustain, self-blame needs energy to reverse — all of it compute hijacked from the main learning process.\nThe state of wu wei does exactly one thing: it kills all monitoring threads.\nYou stop allocating compute to the self-referential question \u0026ldquo;how am I learning,\u0026rdquo; and concentrate every computing resource on the single task — understanding the knowledge in front of you. This is not laziness, not giving up. It is extreme resource concentration.\nIn engineering language: wu wei is the mental version of the Dropout mechanism in deep learning — randomly dropping redundant connections so the network focuses on learning the core features. Or a more direct metaphor: it is a mass \u0026ldquo;process cleanup\u0026rdquo; for the cognitive system — kill every non-essential background process, and hand the full CPU, memory, and I\/O bandwidth back to the foreground application called learning.\nChapter Four: Re-Indexing the Self — When Learning Is No Longer Acquisition At its close, the original essay makes a beautiful ontological leap — \u0026ldquo;step outside the framework of \u0026rsquo;learning\u0026rsquo; itself\u0026rdquo; — pointing out that learning\u0026rsquo;s final fruit is not knowledge but becoming \u0026ldquo;an inwardly abundant, whole person.\u0026rdquo;\nHere I want to propose a more operational version:\nLearning is the re-indexing (Reindexing) of the self.\nIn computer science, the index determines retrieval efficiency. A well-designed B\u002b tree locates a target among millions of records in milliseconds. A table with no index requires a full scan for every query — slow, expensive, doomed.\nThe mind is the same. The knowledge you already hold is not an open encyclopedia; it is a data structure with indexes. When your disposition is stable, open, and curious — when the kernel is in its optimal scheduling state — you are not \u0026ldquo;inserting\u0026rdquo; new knowledge into that structure. You are re-indexing everything you already have, letting every old piece of information re-sort, re-weight, and rewrite its associations under this new vantage point.\nReal learning is not filling. It is not even construction. It is the reorganization of internal structure.\nEvery moment of \u0026ldquo;insight\u0026rdquo; is not your brain growing a new neuron — it is some index path being re-tuned into a better search algorithm. You no longer take the detour; you reach the essence directly.\nPractice: Maintaining Kernel Stability Given all the above, instead of a set of \u0026ldquo;efficient study methods,\u0026rdquo; here is a kernel maintenance manual:\n1. Energy dimension: run process cleanup on schedule Set two hours of \u0026ldquo;digital silence\u0026rdquo; every day; turn off notifications for all non-essential apps (kill all background processes). This is not wasted time — it is reclaiming your cognitive compute.\n2. Environment dimension: add friction to input Add friction to your information intake — turn off algorithmic recommendations, use RSS instead of infinite scroll, run admission audits on your information sources. Rewiring the environment loop beats fighting with willpower.\n3. Observation dimension: distinguish \u0026ldquo;system interrupt\u0026rdquo; from \u0026ldquo;real learning\u0026rdquo; When you feel the urge to switch apps while studying, identify the nature of the impulse: is this an interrupt signal from the kernel, or a shift of motive? The former requires rest; the latter is laziness. Learning to tell CPU overload from process misjudgment is the first step of metacognition.\n4. Tool dimension: let AI be the index assistant, not the index itself Do not treat AI as an \u0026ldquo;answer machine.\u0026rdquo; Treat it as a compressive sensor — let it help you extract patterns from redundant information, but always keep the power of \u0026ldquo;re-indexing\u0026rdquo; in your own hands. Otherwise your brain will degrade from an independently thinking kernel into a cache layer that only serves queries.\nEpilogue: After the Kernel, No More Anxiety The original ends with an ecological metaphor — learning as the fruit that blossoms naturally from the inner flower. That is entirely right, but it needs one line of annotation:\nThe essence of the kernel is that every application above it no longer fears crashing.\nWhen you no longer see learning as \u0026ldquo;acquisition\u0026rdquo; — the knowledge that\u0026rsquo;s never enough, the certifications that are never enough, the peers you can never catch up with — your mind stops being a container that can never be filled. It becomes a system that continuously reorganizes itself, where every new vantage point triggers a re-indexing, and every \u0026ldquo;insight\u0026rdquo; is an elegant version upgrade.\nThe information explosion is not a disaster. It merely provides a condition — one that lets you confirm, over and over: can your kernel still maintain stable scheduling at a constrained clock frequency?\nAnd the moment you truly achieve that, you\u0026rsquo;ll be surprised to find:\nThe road from anxiety to calm never required you to run faster. It only requires you to delete the redundant processes clogging your ports — and then let the natural computation happen.\nLearning was never acquisition. Only when you stop trying to stuff things into your head do you discover that what truly mattered has been waiting for you, for a long time, on some index path of that structure.\nWorld Corner · Issue 006\n",
+  "wordCount" : "1763",
+  "inLanguage": "en",
+  "datePublished": "2026-05-01 00:00:00 \u002b0000 UTC",
+  "dateModified": "2026-05-01 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https:\/\/worldcorner.xyz\/en\/posts\/learning\/2026-05-01-learning-as-kernel-reconstruction\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "World Corner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://worldcorner.xyz/en/" accesskey="h" title="World Corner (Alt + H)">
+                <img src="https://worldcorner.xyz/images/mark.svg" alt="" aria-label="logo"
+                    height="32">World Corner</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://worldcorner.xyz/" title="中文"
+                            aria-label="中文">Zh</a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/systems-thinking/" title="Systems Thinking"
+                class="nav-btn nav-menu-systems-thinking">
+                    <span>Systems Thinking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/learning/" title="Learning"
+                class="nav-btn nav-menu-learning">
+                    <span>Learning</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/posts/tooling/" title="Tooling"
+                class="nav-btn nav-menu-tooling">
+                    <span>Tooling</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/pitfalls/" title="Pitfalls"
+                class="nav-btn nav-menu-pitfalls">
+                    <span>Pitfalls</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/collections/" title="Collections"
+                class="nav-btn nav-menu-collections">
+                    <span>Collections</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/audiobook/" title="Audiobooks"
+                class="nav-btn nav-menu-audiobook">
+                    <span>Audiobooks</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/app/" title="App"
+                class="nav-btn nav-menu-app">
+                    <span>App</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://api.worldcorner.xyz/community/" title="Community"
+                class="nav-btn nav-menu-community">
+                    <span>Community</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/assets/" title="Assets"
+                class="nav-btn nav-menu-assets">
+                    <span>Assets</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/skills/" title="Skills"
+                class="nav-btn nav-menu-skills">
+                    <span>Skills</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/search/" title="Search"
+                class="nav-btn nav-menu-search">
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/archives/" title="Archives"
+                class="nav-btn nav-menu-archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/en/about/" title="About"
+                class="nav-btn nav-menu-about">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<script>
+function toggleNav() {
+    var b = document.querySelector('.nav-toggle');
+    var open = document.body.classList.toggle('nav-open');
+    if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (e.target.closest && e.target.closest('#menu a')) toggleNav();
+});
+</script>
+<main class="main">
+
+<div class="post-with-sidebar">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      The Essence of Learning Is Re-Indexing the Mind — When Learning Disposition Becomes the Kernel of the AI Age
+    </h1>
+    <div class="post-description">
+      In an age of exploding AI compute, learning is no longer knowledge acquisition — it is the re-indexing of the mind.
+    </div>
+    <div class="post-meta"><span title='2026-05-01 00:00:00 +0000 UTC'>May 1, 2026</span>&nbsp;·&nbsp;Tianbing Zhao&nbsp;|&nbsp;Translations:
+<ul class="i18n_list">
+    <li>
+        <a href="https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/">Zh</a>
+    </li>
+</ul>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction-cognitive-bandwidth-under-a-ddos-attack" aria-label="Introduction: Cognitive Bandwidth Under a DDoS Attack">Introduction: Cognitive Bandwidth Under a DDoS Attack</a></li>
+                <li>
+                    <a href="#chapter-one-the-kernel--when-learning-disposition-becomes-the-bedrock-of-cognitive-architecture" aria-label="Chapter One: The Kernel — When Learning Disposition Becomes the Bedrock of Cognitive Architecture">Chapter One: The Kernel — When Learning Disposition Becomes the Bedrock of Cognitive Architecture</a></li>
+                <li>
+                    <a href="#chapter-two-anxiety--a-ddos-attack-on-the-cognitive-system" aria-label="Chapter Two: Anxiety — A DDoS Attack on the Cognitive System">Chapter Two: Anxiety — A DDoS Attack on the Cognitive System</a><ul>
+                        
+                <li>
+                    <a href="#21-compute-saturation-anxiety" aria-label="2.1 Compute-saturation anxiety">2.1 Compute-saturation anxiety</a></li>
+                <li>
+                    <a href="#22-burnout--cache-overflow-after-sustained-underestimation" aria-label="2.2 Burnout — cache overflow after sustained underestimation">2.2 Burnout — cache overflow after sustained underestimation</a></li>
+                <li>
+                    <a href="#23-algorithm-induced-resistance" aria-label="2.3 Algorithm-induced resistance">2.3 Algorithm-induced resistance</a></li></ul>
+                </li>
+                <li>
+                    <a href="#chapter-three-wu-wei--the-highest-form-of-compute-scheduling" aria-label="Chapter Three: &ldquo;Wu Wei&rdquo; — The Highest Form of Compute Scheduling">Chapter Three: &ldquo;Wu Wei&rdquo; — The Highest Form of Compute Scheduling</a></li>
+                <li>
+                    <a href="#chapter-four-re-indexing-the-self--when-learning-is-no-longer-acquisition" aria-label="Chapter Four: Re-Indexing the Self — When Learning Is No Longer Acquisition">Chapter Four: Re-Indexing the Self — When Learning Is No Longer Acquisition</a></li>
+                <li>
+                    <a href="#practice-maintaining-kernel-stability" aria-label="Practice: Maintaining Kernel Stability">Practice: Maintaining Kernel Stability</a><ul>
+                        
+                <li>
+                    <a href="#1-energy-dimension-run-process-cleanup-on-schedule" aria-label="1. Energy dimension: run process cleanup on schedule">1. Energy dimension: run process cleanup on schedule</a></li>
+                <li>
+                    <a href="#2-environment-dimension-add-friction-to-input" aria-label="2. Environment dimension: add friction to input">2. Environment dimension: add friction to input</a></li>
+                <li>
+                    <a href="#3-observation-dimension-distinguish-system-interrupt-from-real-learning" aria-label="3. Observation dimension: distinguish &ldquo;system interrupt&rdquo; from &ldquo;real learning&rdquo;">3. Observation dimension: distinguish &ldquo;system interrupt&rdquo; from &ldquo;real learning&rdquo;</a></li>
+                <li>
+                    <a href="#4-tool-dimension-let-ai-be-the-index-assistant-not-the-index-itself" aria-label="4. Tool dimension: let AI be the index assistant, not the index itself">4. Tool dimension: let AI be the index assistant, not the index itself</a></li></ul>
+                </li>
+                <li>
+                    <a href="#epilogue-after-the-kernel-no-more-anxiety" aria-label="Epilogue: After the Kernel, No More Anxiety">Epilogue: After the Kernel, No More Anxiety</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content md-content"><h2 id="introduction-cognitive-bandwidth-under-a-ddos-attack">Introduction: Cognitive Bandwidth Under a DDoS Attack<a hidden class="anchor" aria-hidden="true" href="#introduction-cognitive-bandwidth-under-a-ddos-attack">#</a></h2>
+<p>1 a.m., and your phone screen is still lit.</p>
+<p>Twenty-seven unread notifications across five apps — the work group is discussing tomorrow&rsquo;s PPT deliverable, a knowledge community has pushed &ldquo;10 AI tools you must learn in 2026,&rdquo; a subscription account warns &ldquo;if you don&rsquo;t read this article you&rsquo;re already obsolete,&rdquo; and on Moments someone is showing off day 87 of their third foreign language streak.</p>
+<p>You open a learning app. Five minutes into the video, a thought flashes through your mind: &ldquo;I still haven&rsquo;t replied to that group message.&rdquo; The next thing you know, you&rsquo;ve opened another app and started scrolling the news feed. An hour later you put the phone down feeling profoundly exhausted — nothing went in, yet you&rsquo;re more tired than after a marathon.</p>
+<p>This is the standard modern cognitive predicament. But the root cause is not insufficient willpower. It is that <strong>your kernel is under a DDoS attack</strong> — your cognitive bandwidth is saturated by overwhelming signals of &ldquo;pseudo-importance.&rdquo; Your mind is no longer a still lake that mirrors knowledge; it is a ruin shelled repeatedly by algorithmic artillery.</p>
+<hr>
+<h2 id="chapter-one-the-kernel--when-learning-disposition-becomes-the-bedrock-of-cognitive-architecture">Chapter One: The Kernel — When Learning Disposition Becomes the Bedrock of Cognitive Architecture<a hidden class="anchor" aria-hidden="true" href="#chapter-one-the-kernel--when-learning-disposition-becomes-the-bedrock-of-cognitive-architecture">#</a></h2>
+<p>The essay &ldquo;The Disposition for Learning&rdquo; makes a remarkably precise observation: the optimal state for learning is not excitement but <strong>an inner climate that is calm yet focused, curious yet open</strong>. The flow researcher Mihaly Csikszentmihalyi called it &ldquo;the loss of self-consciousness, the distortion of time&rdquo; — complete immersion in the present activity.</p>
+<p>But within that narrative, we should push one engineering-level question further: <strong>why can the same knowledge input be processed tens of times more or less efficiently depending on disposition?</strong></p>
+<p>The answer: <strong>disposition is not the background. Disposition is the kernel.</strong></p>
+<p>In an operating system&rsquo;s architecture, the kernel manages all hardware resources, process scheduling, and memory allocation. Once the kernel becomes unstable — deadlocks, memory leaks, interrupt storms — every application above it crashes, no matter how elegantly they are written.</p>
+<p>Your cognitive system works the same way. Learning is an application process running on top of the &ldquo;disposition kernel.&rdquo; When the kernel is stable (calm, focused, curious), every knowledge packet gets parsed, verified, and written to long-term storage efficiently. When the kernel is seized by anxiety, burnout, or resistance — that is, a high-priority interrupt storm — every CPU cycle goes to servicing interrupt requests, and the learning process is suspended indefinitely.</p>
+<p><strong>You cannot install new software while the system is busy.</strong></p>
+<p>This is why &ldquo;forcing your way through the fog yields half the result for twice the effort&rdquo; — not because you aren&rsquo;t smart enough, but because your kernel has allocated no compute to the learning process at all.</p>
+<hr>
+<h2 id="chapter-two-anxiety--a-ddos-attack-on-the-cognitive-system">Chapter Two: Anxiety — A DDoS Attack on the Cognitive System<a hidden class="anchor" aria-hidden="true" href="#chapter-two-anxiety--a-ddos-attack-on-the-cognitive-system">#</a></h2>
+<p>The original text precisely identifies three emotional blockers: anxiety and stress, burnout and numbness, resistance and aversion. But in the AI age these emotions have taken a new, more destructive form — <strong>they are no longer random fluctuations of an individual psyche; they are system attacks precisely induced by algorithms.</strong></p>
+<h3 id="21-compute-saturation-anxiety">2.1 Compute-saturation anxiety<a hidden class="anchor" aria-hidden="true" href="#21-compute-saturation-anxiety">#</a></h3>
+<p>Modern anxiety is not &ldquo;haven&rsquo;t learned enough&rdquo; — it is <strong>input overload</strong>. Open any content platform and the information your brain receives in one hour rivals what an ordinary person in the 18th century ingested in half a year. Under this input density the brain is forced into a perpetual &ldquo;inter-frame prediction&rdquo; mode — before the current piece of information finishes processing, the next one is already flooding in from the queue.</p>
+<p>This is exactly the mechanism of a DDoS attack: the attacker floods a server with far more request packets than it can process, so it cannot serve legitimate requests. Your hippocampus is drowning in request packets titled &ldquo;Master AI prompting in 3 minutes&rdquo; and &ldquo;Learn Python in 5 days,&rdquo; until finally <strong>the system refuses service</strong> — nothing goes in anymore, and even the act of opening a learning app triggers instinctive revulsion.</p>
+<h3 id="22-burnout--cache-overflow-after-sustained-underestimation">2.2 Burnout — cache overflow after sustained underestimation<a hidden class="anchor" aria-hidden="true" href="#22-burnout--cache-overflow-after-sustained-underestimation">#</a></h3>
+<p>The burnout and numbness mentioned in the original text trace back, in the AI age, to <strong>cognitive cache overflow</strong>. When someone spends months switching among courses, feeds, and tools, the brain&rsquo;s working memory stays at full load until the protective mechanism triggers — like a system killing its most resource-hungry process once RAM is exhausted. Learning happens to be that process.</p>
+<h3 id="23-algorithm-induced-resistance">2.3 Algorithm-induced resistance<a hidden class="anchor" aria-hidden="true" href="#23-algorithm-induced-resistance">#</a></h3>
+<p>The most hidden of all is the <strong>algorithm-induced aversion reflex</strong>. When recommendation systems keep pushing &ldquo;people your age have already mastered XXXX&rdquo; and &ldquo;your peers reached a million-a-year salary through XXXX,&rdquo; what is essentially happening is a <strong>social-comparison DDoS</strong> — every push is an ICMP packet reading &ldquo;you are not good enough,&rdquo; bombarding the port of your self-respect on repeat. Over time, learning is no longer exploration; it becomes a humiliating proof game. Resistance is self-protection.</p>
+<hr>
+<h2 id="chapter-three-wu-wei--the-highest-form-of-compute-scheduling">Chapter Three: &ldquo;Wu Wei&rdquo; — The Highest Form of Compute Scheduling<a hidden class="anchor" aria-hidden="true" href="#chapter-three-wu-wei--the-highest-form-of-compute-scheduling">#</a></h2>
+<p>The original text introduces the Daoist concept of wu wei (non-forcing): learning should &ldquo;drop the deliberate striving and obsession of &lsquo;I must learn this well,&rsquo; and instead cultivate love and focus for the knowledge itself.&rdquo;</p>
+<p>In a traditional context that sounds like spiritual advice. In the context of cognitive architecture, it describes <strong>the optimal compute scheduling policy</strong>.</p>
+<p>When a person is stuck in the compulsive state of &ldquo;I must learn this well,&rdquo; the brain&rsquo;s metacognition module keeps monitoring &ldquo;How am I doing? Am I good enough?&rdquo; — and those monitoring threads themselves burn CPU cycles. Worse, they trigger the <strong>overhead of emotion as background threads</strong>: anxiety needs energy to sustain, self-blame needs energy to reverse — all of it compute hijacked from the main learning process.</p>
+<p>The state of wu wei does exactly one thing: <strong>it kills all monitoring threads.</strong></p>
+<p>You stop allocating compute to the self-referential question &ldquo;how am I learning,&rdquo; and concentrate every computing resource on the single task — <strong>understanding the knowledge in front of you</strong>. This is not laziness, not giving up. It is extreme resource concentration.</p>
+<p>In engineering language: <strong>wu wei is the mental version of the Dropout mechanism in deep learning — randomly dropping redundant connections so the network focuses on learning the core features.</strong> Or a more direct metaphor: <strong>it is a mass &ldquo;process cleanup&rdquo; for the cognitive system — kill every non-essential background process, and hand the full CPU, memory, and I/O bandwidth back to the foreground application called learning.</strong></p>
+<hr>
+<h2 id="chapter-four-re-indexing-the-self--when-learning-is-no-longer-acquisition">Chapter Four: Re-Indexing the Self — When Learning Is No Longer Acquisition<a hidden class="anchor" aria-hidden="true" href="#chapter-four-re-indexing-the-self--when-learning-is-no-longer-acquisition">#</a></h2>
+<p>At its close, the original essay makes a beautiful ontological leap — &ldquo;step outside the framework of &rsquo;learning&rsquo; itself&rdquo; — pointing out that learning&rsquo;s final fruit is not knowledge but becoming &ldquo;an inwardly abundant, whole person.&rdquo;</p>
+<p>Here I want to propose a more operational version:</p>
+<p><strong>Learning is the re-indexing (Reindexing) of the self.</strong></p>
+<p>In computer science, the index determines retrieval efficiency. A well-designed B+ tree locates a target among millions of records in milliseconds. A table with no index requires a full scan for every query — slow, expensive, doomed.</p>
+<p>The mind is the same. The knowledge you already hold is not an open encyclopedia; it is a <strong>data structure with indexes</strong>. When your disposition is stable, open, and curious — when the kernel is in its optimal scheduling state — you are not &ldquo;inserting&rdquo; new knowledge into that structure. You are <strong>re-indexing everything you already have</strong>, letting every old piece of information re-sort, re-weight, and rewrite its associations under this new vantage point.</p>
+<p>Real learning is not filling. It is not even construction. It is <strong>the reorganization of internal structure</strong>.</p>
+<p>Every moment of &ldquo;insight&rdquo; is not your brain growing a new neuron — it is some index path being re-tuned into a better search algorithm. You no longer take the detour; you reach the essence directly.</p>
+<hr>
+<h2 id="practice-maintaining-kernel-stability">Practice: Maintaining Kernel Stability<a hidden class="anchor" aria-hidden="true" href="#practice-maintaining-kernel-stability">#</a></h2>
+<p>Given all the above, instead of a set of &ldquo;efficient study methods,&rdquo; here is a <strong>kernel maintenance manual</strong>:</p>
+<h3 id="1-energy-dimension-run-process-cleanup-on-schedule">1. Energy dimension: run process cleanup on schedule<a hidden class="anchor" aria-hidden="true" href="#1-energy-dimension-run-process-cleanup-on-schedule">#</a></h3>
+<p>Set two hours of &ldquo;digital silence&rdquo; every day; turn off notifications for all non-essential apps (kill all background processes). This is not wasted time — it is reclaiming your cognitive compute.</p>
+<h3 id="2-environment-dimension-add-friction-to-input">2. Environment dimension: add friction to input<a hidden class="anchor" aria-hidden="true" href="#2-environment-dimension-add-friction-to-input">#</a></h3>
+<p>Add friction to your information intake — turn off algorithmic recommendations, use RSS instead of infinite scroll, run admission audits on your information sources. Rewiring the environment loop beats fighting with willpower.</p>
+<h3 id="3-observation-dimension-distinguish-system-interrupt-from-real-learning">3. Observation dimension: distinguish &ldquo;system interrupt&rdquo; from &ldquo;real learning&rdquo;<a hidden class="anchor" aria-hidden="true" href="#3-observation-dimension-distinguish-system-interrupt-from-real-learning">#</a></h3>
+<p>When you feel the urge to switch apps while studying, identify the nature of the impulse: is this an interrupt signal from the kernel, or a shift of motive? The former requires rest; the latter is laziness. <strong>Learning to tell CPU overload from process misjudgment is the first step of metacognition.</strong></p>
+<h3 id="4-tool-dimension-let-ai-be-the-index-assistant-not-the-index-itself">4. Tool dimension: let AI be the index assistant, not the index itself<a hidden class="anchor" aria-hidden="true" href="#4-tool-dimension-let-ai-be-the-index-assistant-not-the-index-itself">#</a></h3>
+<p>Do not treat AI as an &ldquo;answer machine.&rdquo; Treat it as a <strong>compressive sensor</strong> — let it help you extract patterns from redundant information, but always keep the power of &ldquo;re-indexing&rdquo; in your own hands. Otherwise your brain will degrade from an independently thinking kernel into a cache layer that only serves queries.</p>
+<hr>
+<h2 id="epilogue-after-the-kernel-no-more-anxiety">Epilogue: After the Kernel, No More Anxiety<a hidden class="anchor" aria-hidden="true" href="#epilogue-after-the-kernel-no-more-anxiety">#</a></h2>
+<p>The original ends with an ecological metaphor — learning as the fruit that blossoms naturally from the inner flower. That is entirely right, but it needs one line of annotation:</p>
+<p><strong>The essence of the kernel is that every application above it no longer fears crashing.</strong></p>
+<p>When you no longer see learning as &ldquo;acquisition&rdquo; — the knowledge that&rsquo;s never enough, the certifications that are never enough, the peers you can never catch up with — your mind stops being a container that can never be filled. It becomes a system that continuously reorganizes itself, where every new vantage point triggers a re-indexing, and every &ldquo;insight&rdquo; is an elegant version upgrade.</p>
+<p>The information explosion is not a disaster. It merely provides a condition — one that lets you confirm, over and over: <strong>can your kernel still maintain stable scheduling at a constrained clock frequency?</strong></p>
+<p>And the moment you truly achieve that, you&rsquo;ll be surprised to find:</p>
+<p>The road from anxiety to calm never required you to run faster. It only requires you to <strong>delete the redundant processes clogging your ports</strong> — and then let the natural computation happen.</p>
+<blockquote>
+<p><em>Learning was never acquisition. Only when you stop trying to stuff things into your head do you discover that what truly mattered has been waiting for you, for a long time, on some index path of that structure.</em></p></blockquote>
+<hr>
+<p><em>World Corner · Issue 006</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://worldcorner.xyz/en/tags/learning/">Learning</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/ai-era/">AI Era</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/disposition/">Disposition</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/flow/">Flow</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/inner-civilization/">Inner Civilization</a></li>
+      <li><a href="https://worldcorner.xyz/en/tags/cognitive-architecture/">Cognitive Architecture</a></li>
+    </ul>
+  </footer>
+<section class="tipbox" aria-label="赞赏支持">
+  <div class="tip-lead">
+    <span class="tip-badge"><span class="tip-badge-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>
+</span>
+    <div class="tip-lead-txt">
+      <h3>请作者喝杯茶</h3>
+      <p>如果这些文字对你有一点点用处,欢迎请我喝杯茶。一两块也是心意,够这盏灯多亮一会儿。</p>
+    </div>
+  </div>
+  <div class="tip-codes">
+      <figure class="tip-code">
+        <img src="/tip/weixinpay.jpg" alt="微信赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>微信赞赏</figcaption>
+      </figure>
+      <figure class="tip-code">
+        <img src="/tip/alipay.jpg" alt="支付宝赞赏" loading="lazy" width="180" height="180" />
+        <figcaption>支付宝赞赏</figcaption>
+      </figure>
+  </div>
+  <p class="tip-fine">金额随意 · 感谢每一份心意</p>
+</section>
+<script src="https://giscus.app/client.js"
+        data-repo="zhao818/world-corner-blog"
+        data-repo-id="R_kgDOSRYMPg"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOSRYMPs4C8HQL"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+
+
+
+</div>
+
+
+<nav class="section-nav-row" aria-label="专栏导航">
+    <a href="https://worldcorner.xyz/en/posts/systems-thinking/" class="nav-btn nav-menu-systems-thinking">
+      Systems Thinking
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/learning/" class="nav-btn nav-menu-learning active">
+      Learning
+    </a>
+    <a href="https://worldcorner.xyz/en/posts/tooling/" class="nav-btn nav-menu-tooling">
+      Tooling
+    </a>
+    <a href="https://worldcorner.xyz/en/pitfalls/" class="nav-btn nav-menu-pitfalls">
+      Pitfalls
+    </a>
+    <a href="https://worldcorner.xyz/en/collections/" class="nav-btn nav-menu-collections">
+      Collections
+    </a>
+    <a href="https://worldcorner.xyz/en/audiobook/" class="nav-btn nav-menu-audiobook">
+      Audiobooks
+    </a>
+    <a href="https://worldcorner.xyz/en/app/" class="nav-btn nav-menu-app">
+      App
+    </a>
+    <a href="https://api.worldcorner.xyz/community/" class="nav-btn nav-menu-community">
+      Community
+    </a>
+    <a href="https://worldcorner.xyz/en/assets/" class="nav-btn nav-menu-assets">
+      Assets
+    </a>
+    <a href="https://worldcorner.xyz/en/skills/" class="nav-btn nav-menu-skills">
+      Skills
+    </a>
+    <a href="https://worldcorner.xyz/en/search/" class="nav-btn nav-menu-search">
+      Search
+    </a>
+    <a href="https://worldcorner.xyz/en/archives/" class="nav-btn nav-menu-archives">
+      Archives
+    </a>
+    <a href="https://worldcorner.xyz/en/about/" class="nav-btn nav-menu-about">
+      About
+    </a>
+</nav>
+
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/en/">World Corner</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

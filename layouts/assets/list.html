@@ -1,0 +1,87 @@
+{{- define "main" }}
+{{- $items := site.Data.assets }}
+{{- $TC := dict "project" "项目" "agent" "Agent" "script" "脚本" "skill" "技能" "bundle" "合集" "tool" "工具" "other" "其他" }}
+<div class="cat-scope">
+  <h1 class="cat-title">📦 项目资产</h1>
+  <p class="cat-meta">自研项目 / Agent / 脚本 / 技能目录 · 共 {{ len $items }} 项 · 8 个分类</p>
+  <div class="cat-filters">
+    <input id="cat-q" type="search" placeholder="搜索资产名或描述…" autocomplete="off">
+    <select id="cat-c">
+      <option value="all">全部分类</option>
+      <option value="ai">AI 开发工具</option><option value="scripts">脚本超市</option><option value="office">办公文档方案</option><option value="content">内容创作工具</option><option value="tools">系统工具</option><option value="hardware">桌面 &amp; 应用工具</option><option value="knowledge">知识资产</option><option value="agents">Agent 配置教程</option>
+    </select>
+    <select id="cat-t">
+      <option value="all">全部类型</option>
+      <option value="project">项目</option><option value="agent">Agent</option><option value="script">脚本</option><option value="skill">技能</option><option value="bundle">合集</option><option value="tool">工具</option><option value="other">其他</option>
+    </select>
+  </div>
+  <p class="cat-count" id="cat-count">共 {{ len $items }} 项</p>
+  <div class="cat-cards" id="cat-cards">
+    {{- range $items }}
+    <div class="cat-card" data-c="{{ .c }}" data-t="{{ .t }}" data-s="{{ printf "%s %s %s" .n .d .g }}">
+      <div class="cat-nm">
+        <code>{{ .n }}</code>
+        <span class="cat-type cat-t-{{ .t }}">{{ index $TC .t | default .t }}</span>
+        {{- range $tag := split .g "," }}{{- with trim $tag " " }}<span class="cat-tag">{{ . }}</span>{{- end }}{{- end }}
+      </div>
+      {{- with .d }}<p class="cat-ds">{{ . }}</p>{{- end }}
+    </div>
+    {{- end }}
+  </div>
+</div>
+
+<style>
+  .cat-scope { max-width: 980px; margin: 0 auto; }
+  .cat-title { font-size: 24px; letter-spacing: 1px; color: #c9a55c; }
+  .cat-meta { font-size: 13px; color: var(--secondary); margin: 8px 0 20px; }
+  .cat-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+  .cat-filters input, .cat-filters select {
+    padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--theme); color: var(--primary); font-size: 13px; outline: none;
+  }
+  .cat-filters input { flex: 1; min-width: 220px; }
+  .cat-filters input:focus, .cat-filters select:focus { border-color: #c9a55c; }
+  .cat-count { font-size: 12px; color: var(--secondary); margin-bottom: 12px; }
+  .cat-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .cat-card { background: var(--entry); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .cat-card:hover { border-color: #c9a55c; }
+  .cat-nm { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .cat-nm code { font-family: Consolas, monospace; font-size: 14px; color: #c9a55c; background: none; padding: 0; }
+  .cat-type { font-size: 10px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--secondary); }
+  .cat-t-project { color: #7fb3ff; border-color: #7fb3ff55; }
+  .cat-t-agent { color: #c9a55c; border-color: #c9a55c55; }
+  .cat-t-script { color: #6ee7a8; border-color: #6ee7a855; }
+  .cat-t-skill { color: #f0a35c; border-color: #f0a35c55; }
+  .cat-t-bundle { color: #e28bb4; border-color: #e28bb455; }
+  .cat-tag { font-size: 10px; color: var(--secondary); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; }
+  .cat-ds { font-size: 13px; color: var(--secondary); line-height: 1.7; margin-top: 6px; }
+</style>
+
+<script>
+(function () {
+  var q = document.getElementById('cat-q');
+  var c = document.getElementById('cat-c');
+  var t = document.getElementById('cat-t');
+  var cards = [].slice.call(document.querySelectorAll('.cat-card'));
+  var countEl = document.getElementById('cat-count');
+  function apply() {
+    var qq = (q.value || '').trim().toLowerCase();
+    var cv = c.value, tv = t.value, shown = 0;
+    cards.forEach(function (el) {
+      var ok = true;
+      if (cv !== 'all' && el.getAttribute('data-c') !== cv) ok = false;
+      if (tv !== 'all' && el.getAttribute('data-t') !== tv) ok = false;
+      if (qq && el.getAttribute('data-s').toLowerCase().indexOf(qq) < 0) ok = false;
+      el.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    countEl.textContent = '共 ' + shown + ' 项';
+  }
+  [q, c, t].forEach(function (el) {
+    el.addEventListener('input', apply);
+    el.addEventListener('change', apply);
+  });
+  apply();
+})();
+</script>
+{{- end }}
