@@ -224,6 +224,47 @@
     border-color: rgba(163, 230, 53, 0.50);
 }
 
+/* 搜索 — gold */
+.nav-menu-search {
+    background: rgba(234, 179, 8, 0.12);
+    color: #ca8a04;
+    border: 1px solid rgba(234, 179, 8, 0.28);
+}
+.nav-menu-search:hover {
+    background: rgba(234, 179, 8, 0.22);
+    border-color: rgba(234, 179, 8, 0.48);
+}
+.dark .nav-menu-search {
+    background: rgba(250, 204, 21, 0.16);
+    color: #facc15;
+    border-color: rgba(250, 204, 21, 0.32);
+}
+.dark .nav-menu-search:hover {
+    background: rgba(250, 204, 21, 0.28);
+    border-color: rgba(250, 204, 21, 0.52);
+}
+
+/* 归档 — warm earth / wood */
+.nav-menu-archives {
+    background: rgba(234, 88, 12, 0.12);
+    color: #c2410c;
+    border: 1px solid rgba(234, 88, 12, 0.25);
+}
+.nav-menu-archives:hover {
+    background: rgba(234, 88, 12, 0.22);
+    border-color: rgba(234, 88, 12, 0.45);
+}
+.dark .nav-menu-archives {
+    background: rgba(251, 146, 60, 0.16);
+    color: #fb923c;
+    border-color: rgba(251, 146, 60, 0.30);
+}
+.dark .nav-menu-archives:hover {
+    background: rgba(251, 146, 60, 0.28);
+    border-color: rgba(251, 146, 60, 0.50);
+}
+
+
 /* ===== Series Sidebar ===== */
 .post-with-sidebar {
     display: flex;
