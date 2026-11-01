@@ -9,13 +9,11 @@
 <meta name="description" content="症状
 
 你看到什么？
-
 Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示&quot;上传失败&quot;。Cloudreve 日志里看不到明显错误。
 换小文件（&lt;5MB）上传正常。大文件必挂。
 根因
 
 到底为什么出问题？
-
 请求链路：
 浏览器 → Cloudflare CDN (100s 超时) → cloudflared tunnel → Docker Cloudreve:5212
 Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。
@@ -23,7 +21,6 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 修复
 
 怎么做？
-
 去 Cloudreve 后台调整存储策略的分块大小：
 
 登录 Cloudreve 管理后台（/admin）
@@ -34,8 +31,8 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 这样 15MB 文件分成 3 块上传，每块控制在 30-40 秒内，不会触发 100 秒限制。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-cloudreve-upload-timeout-cloudflare/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.78f13accebc7c9b4878e7ba984f946bd6f6284000f38dcb188250674f1ffff51.css" integrity="sha256-ePE6zOvHybSHjnuphPlGvW9ihAAPONyxiCUGdPH//1E=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bf79a96356bfe519bdcf7d61342cf47bb3b9ff40418a06d509d65d55917c333a.css" integrity="sha256-v3mpY1a/5Rm9z31hNCz0e7O5/0BBigbVCdZdVZF8Mzo=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -252,13 +249,11 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 <meta property="og:description" content="症状
 
 你看到什么？
-
 Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示&quot;上传失败&quot;。Cloudreve 日志里看不到明显错误。
 换小文件（&lt;5MB）上传正常。大文件必挂。
 根因
 
 到底为什么出问题？
-
 请求链路：
 浏览器 → Cloudflare CDN (100s 超时) → cloudflared tunnel → Docker Cloudreve:5212
 Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。
@@ -266,7 +261,6 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 修复
 
 怎么做？
-
 去 Cloudreve 后台调整存储策略的分块大小：
 
 登录 Cloudreve 管理后台（/admin）
@@ -286,13 +280,11 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 <meta name="twitter:description" content="症状
 
 你看到什么？
-
 Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示&quot;上传失败&quot;。Cloudreve 日志里看不到明显错误。
 换小文件（&lt;5MB）上传正常。大文件必挂。
 根因
 
 到底为什么出问题？
-
 请求链路：
 浏览器 → Cloudflare CDN (100s 超时) → cloudflared tunnel → Docker Cloudreve:5212
 Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。
@@ -300,7 +292,6 @@ Cloudflare 免费版 HTTP 代理有硬性 100 秒超时。Cloudreve 默认分块
 修复
 
 怎么做？
-
 去 Cloudreve 后台调整存储策略的分块大小：
 
 登录 Cloudreve 管理后台（/admin）
@@ -441,22 +432,19 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p>
-</blockquote>
+<p>你看到什么？</p></blockquote>
 <p>Cloudreve 云盘通过 Cloudflare Tunnel 暴露到公网。上传一个 15MB 的文件，浏览器进度条走得很慢，大约 2 分钟后显示&quot;上传失败&quot;。Cloudreve 日志里看不到明显错误。</p>
 <p>换小文件（&lt;5MB）上传正常。大文件必挂。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p>
-</blockquote>
+<p>到底为什么出问题？</p></blockquote>
 <p>请求链路：</p>
 <pre tabindex="0"><code>浏览器 → Cloudflare CDN (100s 超时) → cloudflared tunnel → Docker Cloudreve:5212
 </code></pre><p><strong>Cloudflare 免费版 HTTP 代理有硬性 100 秒超时</strong>。Cloudreve 默认分块大小较大（如 25MB），在网络慢的情况下，单块上传耗时 125 秒，超过 100 秒限制后 Cloudflare 直接切断连接。</p>
 <p>这不是 Cloudreve 的 bug，也不是网络问题——是 Cloudflare 免费版的<strong>硬限制</strong>。付费版可以调超时时间（最长 600 秒）。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p>
-</blockquote>
+<p>怎么做？</p></blockquote>
 <p>去 Cloudreve 后台调整存储策略的分块大小：</p>
 <ol>
 <li>登录 Cloudreve 管理后台（<code>/admin</code>）</li>
@@ -472,8 +460,7 @@ document.addEventListener('click', function (e) {
 </ul>
 <h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p>
-</blockquote>
+<p>下次怎么不踩？</p></blockquote>
 <ol>
 <li><strong>算清楚链路超时</strong>：部署任何文件上传服务前，画出完整代理链路，确认每一跳的超时上限</li>
 <li><strong>分块大小公式</strong>：<code>分块大小(MB) &lt; (超时上限(秒) - 20秒余量) × 最慢上行速度(MB/s)</code></li>

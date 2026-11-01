@@ -9,17 +9,14 @@
 <meta name="description" content="症状
 
 你看到什么？
-
 git push 到 GitHub 报错：fatal: unable to access &#39;https://github.com/...&#39;: SSL connection error 或 TLS handshake failed。每次 push 都失败，ping 不通 GitHub。
 根因
 
 真正的原因是什么？
-
 Windows 环境下，Git 不会自动走系统代理（Clash/V2Ray）。之前只在单仓库设了 http.proxy，其他仓库和全局 .gitconfig 都没设，每次在新仓库 push 都重复踩坑。
 修复
 
 具体怎么修的？
-
 git config --global http.proxy http://127.0.0.1:7897
 git config --global https.proxy http://127.0.0.1:7897
 设完立刻生效，所有仓库自动走代理。当前 Clash 代理端口是 7897，如果你的代理端口不同需要改。
@@ -27,15 +24,14 @@ git config --global https.proxy http://127.0.0.1:7897
 
 下次怎么不踩？
 
-
 新机器/新系统第一件事：跑上面两行命令
 用 git config --global --list | grep proxy 确认已设
 别用单仓库 --local，那是坑的根源
 ">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-git-push-ssl-proxy-fix/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.78f13accebc7c9b4878e7ba984f946bd6f6284000f38dcb188250674f1ffff51.css" integrity="sha256-ePE6zOvHybSHjnuphPlGvW9ihAAPONyxiCUGdPH//1E=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bf79a96356bfe519bdcf7d61342cf47bb3b9ff40418a06d509d65d55917c333a.css" integrity="sha256-v3mpY1a/5Rm9z31hNCz0e7O5/0BBigbVCdZdVZF8Mzo=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -252,24 +248,20 @@ git config --global https.proxy http://127.0.0.1:7897
 <meta property="og:description" content="症状
 
 你看到什么？
-
 git push 到 GitHub 报错：fatal: unable to access &#39;https://github.com/...&#39;: SSL connection error 或 TLS handshake failed。每次 push 都失败，ping 不通 GitHub。
 根因
 
 真正的原因是什么？
-
 Windows 环境下，Git 不会自动走系统代理（Clash/V2Ray）。之前只在单仓库设了 http.proxy，其他仓库和全局 .gitconfig 都没设，每次在新仓库 push 都重复踩坑。
 修复
 
 具体怎么修的？
-
 git config --global http.proxy http://127.0.0.1:7897
 git config --global https.proxy http://127.0.0.1:7897
 设完立刻生效，所有仓库自动走代理。当前 Clash 代理端口是 7897，如果你的代理端口不同需要改。
 怎么避免
 
 下次怎么不踩？
-
 
 新机器/新系统第一件事：跑上面两行命令
 用 git config --global --list | grep proxy 确认已设
@@ -286,24 +278,20 @@ git config --global https.proxy http://127.0.0.1:7897
 <meta name="twitter:description" content="症状
 
 你看到什么？
-
 git push 到 GitHub 报错：fatal: unable to access &#39;https://github.com/...&#39;: SSL connection error 或 TLS handshake failed。每次 push 都失败，ping 不通 GitHub。
 根因
 
 真正的原因是什么？
-
 Windows 环境下，Git 不会自动走系统代理（Clash/V2Ray）。之前只在单仓库设了 http.proxy，其他仓库和全局 .gitconfig 都没设，每次在新仓库 push 都重复踩坑。
 修复
 
 具体怎么修的？
-
 git config --global http.proxy http://127.0.0.1:7897
 git config --global https.proxy http://127.0.0.1:7897
 设完立刻生效，所有仓库自动走代理。当前 Clash 代理端口是 7897，如果你的代理端口不同需要改。
 怎么避免
 
 下次怎么不踩？
-
 
 新机器/新系统第一件事：跑上面两行命令
 用 git config --global --list | grep proxy 确认已设
@@ -441,25 +429,21 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p>
-</blockquote>
+<p>你看到什么？</p></blockquote>
 <p><code>git push</code> 到 GitHub 报错：<code>fatal: unable to access 'https://github.com/...': SSL connection error</code> 或 <code>TLS handshake failed</code>。每次 push 都失败，ping 不通 GitHub。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>真正的原因是什么？</p>
-</blockquote>
+<p>真正的原因是什么？</p></blockquote>
 <p>Windows 环境下，Git 不会自动走系统代理（Clash/V2Ray）。之前只在单仓库设了 <code>http.proxy</code>，其他仓库和全局 <code>.gitconfig</code> 都没设，每次在新仓库 push 都重复踩坑。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>具体怎么修的？</p>
-</blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global http.proxy http://127.0.0.1:7897
+<p>具体怎么修的？</p></blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global http.proxy http://127.0.0.1:7897
 </span></span><span style="display:flex;"><span>git config --global https.proxy http://127.0.0.1:7897
 </span></span></code></pre></div><p>设完立刻生效，所有仓库自动走代理。当前 Clash 代理端口是 7897，如果你的代理端口不同需要改。</p>
 <h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p>
-</blockquote>
+<p>下次怎么不踩？</p></blockquote>
 <ul>
 <li>新机器/新系统第一件事：跑上面两行命令</li>
 <li>用 <code>git config --global --list | grep proxy</code> 确认已设</li>
