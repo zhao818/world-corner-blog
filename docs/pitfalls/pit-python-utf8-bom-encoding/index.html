@@ -9,6 +9,7 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
         if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
@@ -17,10 +18,12 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 根因
 
 真正的原因是什么？
+
 Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=&#39;utf-8&#39; 不会自动跳过 BOM，它被当作第一个字符读进去。
 修复
 
 具体怎么修的？
+
 # ❌ 错误
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
@@ -31,14 +34,15 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 
 下次怎么不踩？
 
+
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
 如果不想改 encoding，可以手动 line.lstrip(&#39;﻿&#39;)
 ">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-python-utf8-bom-encoding/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.419469a59b9e4f75149c91b3bf8c8360b0ffa00bd1b8f1cb5c652e76337b0932.css" integrity="sha256-QZRppZueT3UUnJGzv4yDYLD/oAvRuPHLXGUudjN7CTI=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c7c7dd3058e8a61d237992455c264aa473b428dd398771e61ddf93f4ac069c9.css" integrity="sha256-DHx90wWOimHSN5kkVcJkqkc7Qo3TmHceYd35P0rAack=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -255,6 +259,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 <meta property="og:description" content="症状
 
 你看到什么？
+
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
         if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
@@ -263,10 +268,12 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 根因
 
 真正的原因是什么？
+
 Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=&#39;utf-8&#39; 不会自动跳过 BOM，它被当作第一个字符读进去。
 修复
 
 具体怎么修的？
+
 # ❌ 错误
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
@@ -276,6 +283,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 怎么避免
 
 下次怎么不踩？
+
 
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
@@ -292,6 +300,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
     for line in f:
         if line.startswith(&#34;GITEE_TOKEN=&#34;):  # ← 永远不匹配
@@ -300,10 +309,12 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 根因
 
 真正的原因是什么？
+
 Windows 下某些工具（记事本、PowerShell Out-File、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，﻿）。Python 的 encoding=&#39;utf-8&#39; 不会自动跳过 BOM，它被当作第一个字符读进去。
 修复
 
 具体怎么修的？
+
 # ❌ 错误
 with open(&#34;config.txt&#34;, encoding=&#34;utf-8&#34;) as f:
 
@@ -313,6 +324,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 怎么避免
 
 下次怎么不踩？
+
 
 读配置文件、.env、用户输入文件时，默认用 utf-8-sig
 调试编码问题第一招：print(repr(line)) 看原始字符
@@ -374,10 +386,10 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 }
 </script>
 </head>
-<body class=" dark" id="top">
+<body class="" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
     }
 
 </script>
@@ -422,87 +434,9 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
         </div>
         <ul id="menu">
             <li>
-                <a href="https://worldcorner.xyz/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span>踩坑宝典</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/collections/" title="合集"
-                class="nav-btn nav-menu-collections">
-                    <span>合集</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/audiobook/" title="听书"
-                class="nav-btn nav-menu-audiobook">
-                    <span>听书</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/app/" title="小程序"
-                class="nav-btn nav-menu-app">
-                    <span>小程序</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://api.worldcorner.xyz/community/" title="社区"
-                class="nav-btn nav-menu-community">
-                    <span>社区</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/assets/" title="资产"
-                class="nav-btn nav-menu-assets">
-                    <span>资产</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/skills/" title="技能"
-                class="nav-btn nav-menu-skills">
-                    <span>技能</span>
-                </a>
-            </li>
-            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/archives/" title="归档"
-                class="nav-btn nav-menu-archives">
-                    <span>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/about/" title="关于"
-                class="nav-btn nav-menu-about">
-                    <span>关于</span>
                 </a>
             </li>
         </ul>
@@ -532,20 +466,23 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
+<p>你看到什么？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> line<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#34;GITEE_TOKEN=&#34;</span>):  <span style="color:#75715e"># ← 永远不匹配</span>
 </span></span><span style="display:flex;"><span>            token <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>, <span style="color:#ae81ff">1</span>)[<span style="color:#ae81ff">1</span>]
 </span></span></code></pre></div><p>文件明明以 <code>GITEE_TOKEN=cfe33...</code> 开头，但 <code>startswith</code> 永远返回 False，令牌读不到。打了 <code>print(repr(line))</code> 才发现行首有 <code>﻿</code>。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>真正的原因是什么？</p></blockquote>
+<p>真正的原因是什么？</p>
+</blockquote>
 <p>Windows 下某些工具（记事本、PowerShell <code>Out-File</code>、部分 IDE）保存 UTF-8 文件时会在文件头加 BOM（Byte Order Mark，<code>﻿</code>）。Python 的 <code>encoding='utf-8'</code> 不会自动跳过 BOM，它被当作第一个字符读进去。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>具体怎么修的？</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ❌ 错误</span>
+<p>具体怎么修的？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ❌ 错误</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;config.txt&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> f:
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># ✅ 正确——自动跳过 BOM</span>
@@ -553,7 +490,8 @@ document.addEventListener('click', function (e) {
 </span></span></code></pre></div><p>一行之差，三天之坑。</p>
 <h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ul>
 <li>读配置文件、.env、用户输入文件时，默认用 <code>utf-8-sig</code></li>
 <li>调试编码问题第一招：<code>print(repr(line))</code> 看原始字符</li>

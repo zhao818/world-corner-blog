@@ -6,12 +6,14 @@
     <description>Recent content in Tooling on World Corner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <managingEditor>Tianbing Zhao</managingEditor>
+    <webMaster>Tianbing Zhao</webMaster>
     <lastBuildDate>Fri, 01 May 2026 12:30:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/en/posts/tooling/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Stop Being an Efficiency Refugee: Why One Rough Line of Code Beats Ten Thousand Perfect Productivity Posts</title>
       <link>https://worldcorner.xyz/en/posts/tooling/farewell-efficiency-refugees/</link>
       <pubDate>Fri, 01 May 2026 12:30:00 +0800</pubDate>
-      
+      <author>Tianbing Zhao</author>
       <guid>https://worldcorner.xyz/en/posts/tooling/farewell-efficiency-refugees/</guid>
       <description>2 a.m. I&amp;#39;m staring at n8n&amp;#39;s workflow editor, two dozen drag-and-drop nodes snaking across the screen.</description>
     </item>

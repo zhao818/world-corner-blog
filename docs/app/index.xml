@@ -5,6 +5,8 @@
     <link>https://worldcorner.xyz/app/</link>
     <description>Recent content in 灵魂之觅 on 世界一隅</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://worldcorner.xyz/app/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <managingEditor>Tianbing Zhao</managingEditor>
+    <webMaster>Tianbing Zhao</webMaster><atom:link href="https://worldcorner.xyz/app/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

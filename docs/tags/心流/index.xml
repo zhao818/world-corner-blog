@@ -6,12 +6,14 @@
     <description>Recent content in 心流 on 世界一隅</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <managingEditor>Tianbing Zhao</managingEditor>
+    <webMaster>Tianbing Zhao</webMaster>
     <lastBuildDate>Wed, 24 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/%E5%BF%83%E6%B5%81/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一场集体的&#34;大逃离&#34;</title>
       <link>https://worldcorner.xyz/posts/systems-thinking/2026-06-24-ch4-collective-escape/</link>
       <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
-      
+      <author>Tianbing Zhao</author>
       <guid>https://worldcorner.xyz/posts/systems-thinking/2026-06-24-ch4-collective-escape/</guid>
       <description>逃向远方、逃回过去、逃入幻想、逃进虚拟——这四种姿态背后，是同一颗想要摆脱内心空虚的心。</description>
     </item>
@@ -20,7 +22,7 @@
       <title>在系统的噪音中，重构灵魂的索引</title>
       <link>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</link>
       <pubDate>Fri, 01 May 2026 22:30:00 +0800</pubDate>
-      
+      <author>Tianbing Zhao</author>
       <guid>https://worldcorner.xyz/posts/systems-thinking/soul-index-reconstruction-in-system-noise/</guid>
       <description>你打开一本书，或者点开一个课程的播放键。屏幕的光打在脸上，知识流进大脑，神经元开始构建新的突触。你感到充实。</description>
     </item>
@@ -29,7 +31,7 @@
       <title>学习的本质，是为内心「重新索引」——当学习心境成为AI时代的底层内核</title>
       <link>https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</link>
       <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      
+      <author>Tianbing Zhao</author>
       <guid>https://worldcorner.xyz/posts/learning/2026-05-01-learning-as-kernel-reconstruction/</guid>
       <description>在AI算力爆炸时代，学习不再是知识获取，而是内心的重新索引。</description>
     </item>

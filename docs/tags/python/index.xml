@@ -6,12 +6,14 @@
     <description>Recent content in Python on 世界一隅</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <managingEditor>Tianbing Zhao</managingEditor>
+    <webMaster>Tianbing Zhao</webMaster>
     <lastBuildDate>Fri, 01 May 2026 12:40:00 +0800</lastBuildDate><atom:link href="https://worldcorner.xyz/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？</title>
       <link>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</link>
       <pubDate>Fri, 01 May 2026 12:40:00 +0800</pubDate>
-      
+      <author>Tianbing Zhao</author>
       <guid>https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/</guid>
       <description>你每天打开多少次信息应用？</description>
     </item>

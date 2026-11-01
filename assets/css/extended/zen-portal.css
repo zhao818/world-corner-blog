@@ -1,0 +1,717 @@
+/* ============================================================
+   🌿 世界一隅 · 统一入口 · 晨曦素纸与禅意极简设计系统 (Zen Portal)
+   ============================================================ */
+
+:root {
+  /* 晨曦素纸核心色盘 */
+  --zen-bg: #FAF8F3;
+  --zen-bg-card: #FFFFFF;
+  --zen-bg-subtle: #F3EFE6;
+  --zen-pine: #244B3E;
+  --zen-pine-hover: #1A382E;
+  --zen-pine-light: #EBF2EE;
+  --zen-amber: #D9822B;
+  --zen-amber-light: #FDF3E7;
+  --zen-ink-deep: #24221D;
+  --zen-ink-body: #423E37;
+  --zen-ink-muted: #7E786D;
+  --zen-border: #E8E2D5;
+  --zen-border-hover: #244B3E;
+  --zen-shadow: 0 4px 20px rgba(36, 75, 62, 0.06);
+  --zen-shadow-hover: 0 8px 30px rgba(36, 75, 62, 0.12);
+  --zen-radius-sm: 8px;
+  --zen-radius-md: 14px;
+  --zen-radius-lg: 20px;
+  --zen-radius-pill: 999px;
+  
+  /* 覆盖 PaperMod 基础底色以实现统一温暖纸张 */
+  --theme: var(--zen-bg);
+  --entry: var(--zen-bg-card);
+  --primary: var(--zen-ink-deep);
+  --secondary: var(--zen-ink-muted);
+  --border: var(--zen-border);
+}
+
+.dark {
+  /* 沉静深墨暗夜核心色盘 */
+  --zen-bg: #141816;
+  --zen-bg-card: #1A201D;
+  --zen-bg-subtle: #222B26;
+  --zen-pine: #3B826B;
+  --zen-pine-hover: #4FA88C;
+  --zen-pine-light: rgba(59, 130, 107, 0.18);
+  --zen-amber: #E29643;
+  --zen-amber-light: rgba(226, 150, 67, 0.15);
+  --zen-ink-deep: #FAF7F0;
+  --zen-ink-body: #D4CEBF;
+  --zen-ink-muted: #8E968F;
+  --zen-border: #2C3831;
+  --zen-border-hover: #3B826B;
+  --zen-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --zen-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.6);
+
+  --theme: var(--zen-bg);
+  --entry: var(--zen-bg-card);
+  --primary: var(--zen-ink-deep);
+  --secondary: var(--zen-ink-muted);
+  --border: var(--zen-border);
+}
+
+/* 全站容器宽度与呼吸感 */
+.main {
+  max-width: 860px !important;
+  margin: 0 auto !important;
+  padding: 0 20px 60px !important;
+}
+
+/* 顶部导航极简通透化 */
+.header {
+  border-bottom: 1px solid var(--zen-border);
+  background: rgba(250, 248, 243, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.25s ease;
+}
+.dark .header {
+  background: rgba(20, 24, 22, 0.88);
+}
+.nav {
+  max-width: 860px !important;
+}
+.nav a.nav-menu-search {
+  padding: 6px 14px;
+  border-radius: var(--zen-radius-pill);
+  border: 1px solid var(--zen-border);
+  background: var(--zen-bg-card);
+  color: var(--zen-ink-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.nav a.nav-menu-search:hover {
+  border-color: var(--zen-pine);
+  color: var(--zen-pine);
+}
+
+/* ============================================================
+   1. 统一主页 Hero 首屏
+   ============================================================ */
+.zen-portal-hero {
+  text-align: center;
+  padding: 40px 10px 24px;
+  animation: zenFadeIn 0.5s ease-out;
+}
+.zen-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--zen-pine);
+  background: var(--zen-pine-light);
+  padding: 4px 14px;
+  border-radius: var(--zen-radius-pill);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.zen-portal-hero h1 {
+  font-family: var(--serif-stack);
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--zen-ink-deep);
+  line-height: 1.35;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.zen-portal-hero h1 .zen-accent {
+  color: var(--zen-pine);
+  position: relative;
+  display: inline-block;
+}
+.zen-hero-sub {
+  font-size: 1.05rem;
+  color: var(--zen-ink-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   2. 中央大尺寸 AI 探索交互框 (AI-First Explorer)
+   ============================================================ */
+.zen-ai-container {
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-lg);
+  padding: 24px;
+  margin: 16px 0 28px;
+  box-shadow: var(--zen-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.zen-ai-container:focus-within {
+  border-color: var(--zen-pine);
+  box-shadow: var(--zen-shadow-hover);
+}
+.zen-ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.zen-ai-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--zen-pine);
+}
+.zen-ai-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--zen-radius-pill);
+  background: var(--zen-amber-light);
+  color: var(--zen-amber);
+  font-weight: 600;
+}
+.zen-ai-input-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--zen-bg-subtle);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-md);
+  padding: 6px 8px 6px 16px;
+  transition: all 0.2s ease;
+}
+.zen-ai-input-wrap:focus-within {
+  background: var(--zen-bg-card);
+  border-color: var(--zen-pine);
+}
+.zen-ai-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: var(--zen-ink-deep);
+  padding: 8px 0;
+  font-family: inherit;
+}
+.zen-ai-input::placeholder {
+  color: var(--zen-ink-muted);
+  opacity: 0.8;
+}
+.zen-ai-send-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--zen-pine);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--zen-radius-md);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.zen-ai-send-btn:hover {
+  background: var(--zen-amber);
+  transform: translateY(-1px);
+}
+.zen-ai-send-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+/* 启发式快捷 Prompt 引导药丸 */
+.zen-prompts-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.zen-prompt-btn {
+  background: var(--zen-bg-subtle);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-pill);
+  padding: 6px 13px;
+  font-size: 12.5px;
+  color: var(--zen-ink-body);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.zen-prompt-btn:hover {
+  border-color: var(--zen-pine);
+  color: var(--zen-pine);
+  background: var(--zen-bg-card);
+  transform: translateY(-1px);
+}
+
+/* AI 对话流式展开区域 */
+.zen-ai-dialogue-box {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--zen-border);
+  animation: zenFadeIn 0.25s ease-out;
+}
+.zen-ai-dialogue-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.zen-ai-status-text {
+  font-size: 12px;
+  color: var(--zen-ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.zen-ai-pulsing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zen-amber);
+  animation: zenPulse 1.4s infinite;
+}
+.zen-ai-clear-btn {
+  background: transparent;
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-pill);
+  padding: 3px 10px;
+  font-size: 11.5px;
+  color: var(--zen-ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.zen-ai-clear-btn:hover {
+  border-color: var(--zen-amber);
+  color: var(--zen-amber);
+}
+.zen-ai-log {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+.zen-ai-msg {
+  font-size: 14.5px;
+  line-height: 1.75;
+  padding: 12px 16px;
+  border-radius: var(--zen-radius-md);
+  margin-bottom: 12px;
+  word-break: break-word;
+}
+.zen-ai-msg.user {
+  background: var(--zen-pine-light);
+  color: var(--zen-pine);
+  margin-left: 36px;
+  text-align: right;
+  border-bottom-right-radius: 4px;
+}
+.dark .zen-ai-msg.user {
+  background: rgba(59, 130, 107, 0.2);
+  color: #B5E0D0;
+}
+.zen-ai-msg.assistant {
+  background: var(--zen-bg-subtle);
+  color: var(--zen-ink-deep);
+  margin-right: 20px;
+  border: 1px solid var(--zen-border);
+  border-bottom-left-radius: 4px;
+}
+.zen-ai-links-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--zen-border);
+}
+.zen-ai-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: var(--zen-radius-pill);
+  background: var(--zen-pine-light);
+  color: var(--zen-pine);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.zen-ai-link-pill:hover {
+  background: var(--zen-pine);
+  color: #FFFFFF;
+}
+
+/* ============================================================
+   3. 极简高频胶囊快捷入口 (Core Quick Capsules)
+   ============================================================ */
+.zen-capsules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 34px;
+}
+.zen-capsule-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-md);
+  text-decoration: none;
+  color: var(--zen-ink-deep);
+  box-shadow: var(--zen-shadow);
+  transition: all 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+.zen-capsule-card:hover {
+  border-color: var(--zen-pine);
+  transform: translateY(-2px);
+  box-shadow: var(--zen-shadow-hover);
+}
+.zen-capsule-card.highlight {
+  border-color: rgba(217, 130, 43, 0.4);
+}
+.zen-capsule-card.highlight:hover {
+  border-color: var(--zen-amber);
+}
+.zen-capsule-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zen-capsule-body {
+  min-width: 0;
+}
+.zen-capsule-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--zen-ink-deep);
+  white-space: nowrap;
+}
+.zen-capsule-desc {
+  font-size: 11.5px;
+  color: var(--zen-ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   4. 精选双翼流 (Twin-Wing Curated Section)
+   ============================================================ */
+.zen-twin-wings {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.zen-wing-card {
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-lg);
+  padding: 22px;
+  box-shadow: var(--zen-shadow);
+}
+.zen-wing-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--zen-border);
+}
+.zen-wing-head h2 {
+  font-size: 16.5px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--zen-ink-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.zen-wing-more {
+  font-size: 12.5px;
+  color: var(--zen-pine);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.zen-wing-more:hover {
+  color: var(--zen-amber);
+}
+
+/* 📚 左翼：精选深思文章列表 */
+.zen-article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.zen-article-item {
+  display: block;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: var(--zen-radius-md);
+  border: 1px solid transparent;
+  background: var(--zen-bg-subtle);
+  transition: all 0.2s ease;
+}
+.zen-article-item:hover {
+  background: var(--zen-bg-card);
+  border-color: var(--zen-pine);
+  transform: translateX(3px);
+}
+.zen-article-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.zen-meta-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--zen-pine-light);
+  color: var(--zen-pine);
+}
+.zen-meta-date {
+  font-size: 11.5px;
+  color: var(--zen-ink-muted);
+}
+.zen-article-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--zen-ink-deep);
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+.zen-article-desc {
+  font-size: 12.5px;
+  color: var(--zen-ink-muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 🎧 右翼：九书随身听迷你控制台 */
+.zen-player-box {
+  background: var(--zen-bg-subtle);
+  border-radius: var(--zen-radius-md);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border: 1px solid var(--zen-border);
+}
+.zen-player-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.zen-player-current {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--zen-pine);
+}
+.zen-player-duration {
+  font-size: 11.5px;
+  color: var(--zen-amber);
+  background: var(--zen-amber-light);
+  padding: 2px 7px;
+  border-radius: var(--zen-radius-pill);
+  font-weight: 600;
+}
+.zen-player-audio {
+  width: 100%;
+  height: 38px;
+  margin: 6px 0 10px;
+  outline: none;
+}
+.zen-book-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.zen-book-chips::-webkit-scrollbar {
+  display: none;
+}
+.zen-book-chip {
+  flex: 0 0 auto;
+  padding: 4px 10px;
+  border-radius: var(--zen-radius-pill);
+  font-size: 12px;
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  color: var(--zen-ink-body);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.zen-book-chip:hover {
+  border-color: var(--zen-pine);
+  color: var(--zen-pine);
+}
+.zen-book-chip.active {
+  background: var(--zen-pine);
+  color: #FFFFFF;
+  border-color: var(--zen-pine);
+}
+
+/* ⚠️ 踩坑速览列表 */
+.zen-pitfall-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.zen-pitfall-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: var(--zen-bg-subtle);
+  border-radius: var(--zen-radius-sm);
+  text-decoration: none;
+  color: var(--zen-ink-body);
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.zen-pitfall-link:hover {
+  background: var(--zen-bg-card);
+  color: var(--zen-amber);
+  transform: translateX(2px);
+}
+.zen-pitfall-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 8px;
+}
+.zen-pitfall-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--zen-amber-light);
+  color: var(--zen-amber);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   5. 全站紧凑优雅站点地图 (Zen Site Atlas · 聚合13个历史分类)
+   ============================================================ */
+.zen-site-atlas {
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-lg);
+  padding: 28px 24px;
+  margin-top: 10px;
+  box-shadow: var(--zen-shadow);
+}
+.zen-atlas-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+.zen-atlas-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--zen-ink-deep);
+  margin: 0 0 4px;
+}
+.zen-atlas-header p {
+  font-size: 12.5px;
+  color: var(--zen-ink-muted);
+  margin: 0;
+}
+.zen-atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.zen-atlas-col h4 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--zen-pine);
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--zen-border);
+}
+.zen-atlas-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.zen-atlas-col a {
+  font-size: 13px;
+  color: var(--zen-ink-body);
+  text-decoration: none;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.zen-atlas-col a:hover {
+  color: var(--zen-amber);
+  transform: translateX(2px);
+}
+
+/* 动效 */
+@keyframes zenFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes zenPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* 移动端与平板自适应 */
+@media (max-width: 768px) {
+  .zen-portal-hero h1 {
+    font-size: 1.8rem;
+  }
+  .zen-twin-wings {
+    grid-template-columns: 1fr;
+  }
+  .zen-atlas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .zen-capsules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .zen-atlas-grid {
+    grid-template-columns: 1fr;
+  }
+  .zen-ai-container {
+    padding: 16px;
+  }
+}

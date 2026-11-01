@@ -5,6 +5,8 @@
     <link>https://worldcorner.xyz/en/about/</link>
     <description>Recent content in About on World Corner</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://worldcorner.xyz/en/about/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <managingEditor>Tianbing Zhao</managingEditor>
+    <webMaster>Tianbing Zhao</webMaster><atom:link href="https://worldcorner.xyz/en/about/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

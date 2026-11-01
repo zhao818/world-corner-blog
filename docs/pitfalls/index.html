@@ -9,7 +9,7 @@
 <meta name="description" content="16 条结构化踩坑经验 —— 症状、根因、修复、避免，搜到即避坑">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.419469a59b9e4f75149c91b3bf8c8360b0ffa00bd1b8f1cb5c652e76337b0932.css" integrity="sha256-QZRppZueT3UUnJGzv4yDYLD/oAvRuPHLXGUudjN7CTI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c7c7dd3058e8a61d237992455c264aa473b428dd398771e61ddf93f4ac069c9.css" integrity="sha256-DHx90wWOimHSN5kkVcJkqkc7Qo3TmHceYd35P0rAack=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -78,10 +78,10 @@
 }
 </script>
 </head>
-<body class="list dark" id="top">
+<body class="list" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
     }
 
 </script>
@@ -126,87 +126,9 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://worldcorner.xyz/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span class="active">踩坑宝典</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/collections/" title="合集"
-                class="nav-btn nav-menu-collections">
-                    <span>合集</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/audiobook/" title="听书"
-                class="nav-btn nav-menu-audiobook">
-                    <span>听书</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/app/" title="小程序"
-                class="nav-btn nav-menu-app">
-                    <span>小程序</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://api.worldcorner.xyz/community/" title="社区"
-                class="nav-btn nav-menu-community">
-                    <span>社区</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/assets/" title="资产"
-                class="nav-btn nav-menu-assets">
-                    <span>资产</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/skills/" title="技能"
-                class="nav-btn nav-menu-skills">
-                    <span>技能</span>
-                </a>
-            </li>
-            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/archives/" title="归档"
-                class="nav-btn nav-menu-archives">
-                    <span>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/about/" title="关于"
-                class="nav-btn nav-menu-about">
-                    <span>关于</span>
                 </a>
             </li>
         </ul>
@@ -309,7 +231,7 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
       </div>
       <p class="card-excerpt">症状 你看到什么？
 用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
-&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md &ldquo;数据录入项目&rdquo; → …</p>
+&ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md &ldquo;数据录入项目&rdquo; → 加载 …</p>
       <div class="card-footer">
         <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
 2026-06-13</span>
@@ -329,7 +251,7 @@ _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是
       <p class="card-excerpt">症状 你看到什么？
 公众号推送文章草稿后，读者看到的中文全部变成 我是 这样的 Unicode 转义序列。微信后台预览正常，但推送后乱码。踩了 3 次才修好。
 根因 真正的原因是什么？
-requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 ensure_ascii=True， …</p>
+requests.post(url, json=data) 内部调用 json.dumps(data) 时，默认参数 ensure_ascii=True，会把所有非 …</p>
       <div class="card-footer">
         <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
 2026-06-13</span>
@@ -429,7 +351,7 @@ Hugo 是一个全量静态站点生成器——每篇文章的交叉引用、分
 用 deploy_fix4.sh 部署修复到 AstrBot 后：
 sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过（匹配到关键字） 服务器重启后返回 500 错误 用户以为修好了，实际服务器崩了。
 根因 到底为什么出问题？
-部署脚本用了 GNU sed …</p>
+部署脚本用了 GNU sed 的 …</p>
       <div class="card-footer">
         <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
 2026-06-13</span>
@@ -467,7 +389,7 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
       <p class="card-excerpt">症状 你看到什么？
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
 结果：
-多了一个无用仓库，要手动删除 镜像同步配置白做了  …</p>
+多了一个无用仓库，要手动删除 镜像同步配置白做了 …</p>
       <div class="card-footer">
         <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
 2026-06-13</span>
@@ -487,7 +409,7 @@ sed 命令执行成功（exit 0） grep -q &quot;nonce = None&quot; 验证通过
       <p class="card-excerpt">症状 你看到什么？
 git push 到 GitHub 报错：fatal: unable to access 'https://github.com/...': SSL connection error 或 TLS handshake failed。每次 push 都失败，ping 不通 GitHub。
 根因 真正的原因是什么？
-Windows 环境 …</p>
+Windows 环境下 …</p>
       <div class="card-footer">
         <span class="card-date"><span class="mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
 2026-06-13</span>

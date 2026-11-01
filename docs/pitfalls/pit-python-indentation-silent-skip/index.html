@@ -9,6 +9,7 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=False）完全不工作：
 
 用户发消息到公众号 → 无任何回复
@@ -33,11 +34,12 @@ if self.active_send_mode:
 根因
 
 到底为什么出问题？
+
 140 行被动回复代码的缩进是 12 个空格，对应 3 级缩进（4&#43;4&#43;4），错误地放在了 if self.active_send_mode: 块内部。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-python-indentation-silent-skip/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.419469a59b9e4f75149c91b3bf8c8360b0ffa00bd1b8f1cb5c652e76337b0932.css" integrity="sha256-QZRppZueT3UUnJGzv4yDYLD/oAvRuPHLXGUudjN7CTI=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c7c7dd3058e8a61d237992455c264aa473b428dd398771e61ddf93f4ac069c9.css" integrity="sha256-DHx90wWOimHSN5kkVcJkqkc7Qo3TmHceYd35P0rAack=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -254,6 +256,7 @@ if self.active_send_mode:
 <meta property="og:description" content="症状
 
 你看到什么？
+
 AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=False）完全不工作：
 
 用户发消息到公众号 → 无任何回复
@@ -278,6 +281,7 @@ if self.active_send_mode:
 根因
 
 到底为什么出问题？
+
 140 行被动回复代码的缩进是 12 个空格，对应 3 级缩进（4&#43;4&#43;4），错误地放在了 if self.active_send_mode: 块内部。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://worldcorner.xyz/pitfalls/pit-python-indentation-silent-skip/" /><meta property="article:section" content="pitfalls" />
@@ -290,6 +294,7 @@ if self.active_send_mode:
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 AstrBot 微信公众号适配器中，被动回复模式（active_send_mode=False）完全不工作：
 
 用户发消息到公众号 → 无任何回复
@@ -314,6 +319,7 @@ if self.active_send_mode:
 根因
 
 到底为什么出问题？
+
 140 行被动回复代码的缩进是 12 个空格，对应 3 级缩进（4&#43;4&#43;4），错误地放在了 if self.active_send_mode: 块内部。"/>
 
 
@@ -371,10 +377,10 @@ if self.active_send_mode:
 }
 </script>
 </head>
-<body class=" dark" id="top">
+<body class="" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
     }
 
 </script>
@@ -419,87 +425,9 @@ if self.active_send_mode:
         </div>
         <ul id="menu">
             <li>
-                <a href="https://worldcorner.xyz/posts/systems-thinking/" title="系统思维"
-                class="nav-btn nav-menu-systems-thinking">
-                    <span>系统思维</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/learning/" title="学习方法"
-                class="nav-btn nav-menu-learning">
-                    <span>学习方法</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/posts/tooling/" title="效率工具"
-                class="nav-btn nav-menu-tooling">
-                    <span>效率工具</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/pitfalls/" title="踩坑宝典"
-                class="nav-btn nav-menu-pitfalls">
-                    <span>踩坑宝典</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/collections/" title="合集"
-                class="nav-btn nav-menu-collections">
-                    <span>合集</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/audiobook/" title="听书"
-                class="nav-btn nav-menu-audiobook">
-                    <span>听书</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/app/" title="小程序"
-                class="nav-btn nav-menu-app">
-                    <span>小程序</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://api.worldcorner.xyz/community/" title="社区"
-                class="nav-btn nav-menu-community">
-                    <span>社区</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/assets/" title="资产"
-                class="nav-btn nav-menu-assets">
-                    <span>资产</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/skills/" title="技能"
-                class="nav-btn nav-menu-skills">
-                    <span>技能</span>
-                </a>
-            </li>
-            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/archives/" title="归档"
-                class="nav-btn nav-menu-archives">
-                    <span>归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://worldcorner.xyz/about/" title="关于"
-                class="nav-btn nav-menu-about">
-                    <span>关于</span>
                 </a>
             </li>
         </ul>
@@ -529,7 +457,8 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>AstrBot 微信公众号适配器中，被动回复模式（<code>active_send_mode=False</code>）完全不工作：</p>
 <ul>
 <li>用户发消息到公众号 → 无任何回复</li>
@@ -537,7 +466,7 @@ document.addEventListener('click', function (e) {
 <li>调试器中 AI 回复正常，部署后就是不行</li>
 <li>检查了所有逻辑，没发现问题——代码&quot;看起来&quot;都在</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># handle_callback 方法的末尾</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># handle_callback 方法的末尾</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>active_send_mode:
 </span></span><span style="display:flex;"><span>    result_xml <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>callback(msg)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> result_xml:
@@ -553,7 +482,8 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># ← handle_callback 结束，但没有任何 return</span>
 </span></span></code></pre></div><h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <p>140 行被动回复代码的缩进是 <strong>12 个空格</strong>，对应 3 级缩进（4+4+4），错误地放在了 <code>if self.active_send_mode:</code> 块<strong>内部</strong>。</p>
 <p>当 <code>active_send_mode=False</code>（被动回复模式）时：</p>
 <ol>
@@ -566,8 +496,9 @@ document.addEventListener('click', function (e) {
 <p><strong>为什么调试器里正常？</strong> 调试环境 <code>active_send_mode=True</code>，代码执行了。但生产环境是 <code>False</code>——这是一个<strong>环境敏感的缩进 Bug</strong>。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 修复前 - 被动回复在 if 块内（12空格 = 3级缩进）</span>
+<p>怎么做？</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 修复前 - 被动回复在 if 块内（12空格 = 3级缩进）</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>active_send_mode:
 </span></span><span style="display:flex;"><span>    result_xml <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> self<span style="color:#f92672">.</span>callback(msg)
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
@@ -583,14 +514,15 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> reply_xml
 </span></span></code></pre></div><p><strong>检查工具</strong>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 检查缩进不一致</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 检查缩进不一致</span>
 </span></span><span style="display:flex;"><span>python -m tabnanny -v your_file.py
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># pylint 检查缩进</span>
 </span></span><span style="display:flex;"><span>pylint --disable<span style="color:#f92672">=</span>all --enable<span style="color:#f92672">=</span>W0311 your_file.py
 </span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>VSCode 缩进参考线</strong>：Settings → Editor → Guides → Indentation: true，任何缩进异常一眼可见</li>
 <li><strong>关键逻辑不藏深处</strong>：如果一段逻辑是方法的&quot;主流程&quot;，它不应该在 if 块里</li>
