@@ -9,6 +9,7 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
@@ -20,6 +21,7 @@
 
 到底为什么出问题？
 
+
 匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
@@ -28,6 +30,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 修复
 
 怎么做？
+
 匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
 输入：用户消息关键词
 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
@@ -43,8 +46,8 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 自检问题（加载完文件后问自己）：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-triggers-multi-match-merge/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3d269b37c1f81c5c7d774e8cd70b563ec265fd0a566b77ff576518d12a88b754.css" integrity="sha256-PSabN8H4HFx9d06M1wtWPsJl/QpWa3f/V2UY0SqIt1Q=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f178e196dafa1c55e1528409e8ce36c8f5fa62fb602a31724c3ad97fab0dba07.css" integrity="sha256-8Xjhltr6HFXhUoQJ6M42yPX6YvtgKjFyTDrZf6sNugc=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -261,6 +264,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 <meta property="og:description" content="症状
 
 你看到什么？
+
 用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
@@ -272,6 +276,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 
 到底为什么出问题？
 
+
 匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
@@ -280,6 +285,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 修复
 
 怎么做？
+
 匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
 输入：用户消息关键词
 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
@@ -304,6 +310,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
@@ -315,6 +322,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 
 到底为什么出问题？
 
+
 匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
@@ -323,6 +331,7 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
 修复
 
 怎么做？
+
 匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
 输入：用户消息关键词
 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
@@ -364,11 +373,11 @@ TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载�
   "@type": "BlogPosting",
   "headline": "TRIGGERS 多场景同时命中时只读第一条，漏了后续路由",
   "name": "TRIGGERS 多场景同时命中时只读第一条，漏了后续路由",
-  "description": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由 合并：取所有匹配路由的并集 加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md 匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md 匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md 合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md} → 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n",
+  "description": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词\r匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由\r合并：取所有匹配路由的并集\r加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md\r匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md\r匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md\r合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}\r→ 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n",
   "keywords": [
     
   ],
-  "articleBody": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由 合并：取所有匹配路由的并集 加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md 匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md 匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md 合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md} → 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n用户提到了哪些关键词？ TRIGGERS.md 里有多少行匹配了这些关键词？ 我有没有全部读？ 怎么避免 下次怎么不踩？\n扫全表不早停：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项 AND 合并取并集：多条路由的文件列表取并集，去重后全读 自检三板斧： 用户说了什么关键词？ 还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认） 全量加载了吗？ 用户纠正过的地方加红线：这个坑已经被纠正过了，TRIGGERS.md 里\u0026quot;审计五件套\u0026quot;行的文件列表已更新为全量 ",
+  "articleBody": "症状 你看到什么？\n用户说\u0026quot;审计五件套\u0026quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：\n\u0026ldquo;审计五件套 \/ 跑审计\u0026rdquo; → 加载 audit-four-piece.md \u0026ldquo;数据录入项目\u0026rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md 但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒\u0026quot;我记得优化过你的记忆啊，为什么还做不到\u0026quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。\n后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。\n根因 到底为什么出问题？\n匹配策略是\u0026quot;命中即停\u0026quot;：扫到第一个匹配行就停下来加载了，没继续往下扫 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR） TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并 事后没自检：加载完文件后没问自己\u0026quot;用户说的是审计\u002bExcel，我有没有读 Excel 相关的路由？\u0026quot; 修复 怎么做？\n匹配策略改为\u0026quot;全量扫描 \u002b AND 合并\u0026quot;：\n输入：用户消息关键词\r匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由\r合并：取所有匹配路由的并集\r加载：读全部匹配文件 例如用户说\u0026quot;审计这个 Excel\u0026quot;：\n匹配行1: \u0026#34;审计五件套\u0026#34; → audit-four-piece.md\r匹配行2: \u0026#34;数据录入项目\u0026#34; → audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md\r匹配行3: \u0026#34;操作 Excel\u0026#34; → excel-com-audit.md\r合并结果 = {audit-four-piece.md, audit-four-piece-data.md, excel-com-audit.md, data-cross-verify.md}\r→ 全量加载这 4 个文件 自检问题（加载完文件后问自己）：\n用户提到了哪些关键词？ TRIGGERS.md 里有多少行匹配了这些关键词？ 我有没有全部读？ 怎么避免 下次怎么不踩？\n扫全表不早停：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项 AND 合并取并集：多条路由的文件列表取并集，去重后全读 自检三板斧： 用户说了什么关键词？ 还有什么场景也匹配这个关键词？（翻 TRIGGERS 全表确认） 全量加载了吗？ 用户纠正过的地方加红线：这个坑已经被纠正过了，TRIGGERS.md 里\u0026quot;审计五件套\u0026quot;行的文件列表已更新为全量 ",
   "wordCount" : "92",
   "inLanguage": "zh",
   "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
@@ -472,7 +481,8 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个<strong>数据录入项目</strong>，TRIGGERS.md 有两条路由同时命中：</p>
 <ul>
 <li>&ldquo;审计五件套 / 跑审计&rdquo; → 加载 <code>audit-four-piece.md</code></li>
@@ -482,7 +492,8 @@ document.addEventListener('click', function (e) {
 <p>后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <ol>
 <li><strong>匹配策略是&quot;命中即停&quot;</strong>：扫到第一个匹配行就停下来加载了，没继续往下扫</li>
 <li><strong>没有 OR → AND 的思维转换</strong>：多条路由匹配同一任务时，取的文件应该是<strong>并集（AND）</strong>，不是<strong>第一个命中（OR）</strong></li>
@@ -491,7 +502,8 @@ document.addEventListener('click', function (e) {
 </ol>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p></blockquote>
+<p>怎么做？</p>
+</blockquote>
 <p><strong>匹配策略改为&quot;全量扫描 + AND 合并&quot;</strong>：</p>
 <pre tabindex="0"><code>输入：用户消息关键词
 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
@@ -512,7 +524,8 @@ document.addEventListener('click', function (e) {
 </ol>
 <h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>扫全表不早停</strong>：触发匹配时遍历 TRIGGERS.md 全部行，收集所有匹配项</li>
 <li><strong>AND 合并取并集</strong>：多条路由的文件列表取并集，去重后全读</li>

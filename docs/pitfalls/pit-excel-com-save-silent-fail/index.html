@@ -9,6 +9,7 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 wb.Save() 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。
 # 跑了半小时的修复脚本...
 for row in range(2, 500):
@@ -20,6 +21,7 @@ wb.Close()
 根因
 
 到底为什么出问题？
+
 Excel COM 的 Save() 方法在以下情况下静默失败（不抛异常、不返回错误码）：
 
 文件来自只读目录：微信聊天目录 D:\xwechat_files\... 下的文件，权限受限
@@ -31,6 +33,7 @@ COM 接口的设计缺陷——Save() 不返回 HRESULT，异常被吞掉。
 修复
 
 具体步骤，能复制粘贴直接用。
+
 import os
 import win32com.client
 
@@ -51,8 +54,8 @@ excel.Quit()
 关键参数：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-excel-com-save-silent-fail/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3d269b37c1f81c5c7d774e8cd70b563ec265fd0a566b77ff576518d12a88b754.css" integrity="sha256-PSabN8H4HFx9d06M1wtWPsJl/QpWa3f/V2UY0SqIt1Q=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f178e196dafa1c55e1528409e8ce36c8f5fa62fb602a31724c3ad97fab0dba07.css" integrity="sha256-8Xjhltr6HFXhUoQJ6M42yPX6YvtgKjFyTDrZf6sNugc=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -269,6 +272,7 @@ excel.Quit()
 <meta property="og:description" content="症状
 
 你看到什么？
+
 用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 wb.Save() 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。
 # 跑了半小时的修复脚本...
 for row in range(2, 500):
@@ -280,6 +284,7 @@ wb.Close()
 根因
 
 到底为什么出问题？
+
 Excel COM 的 Save() 方法在以下情况下静默失败（不抛异常、不返回错误码）：
 
 文件来自只读目录：微信聊天目录 D:\xwechat_files\... 下的文件，权限受限
@@ -291,6 +296,7 @@ COM 接口的设计缺陷——Save() 不返回 HRESULT，异常被吞掉。
 修复
 
 具体步骤，能复制粘贴直接用。
+
 import os
 import win32com.client
 
@@ -320,6 +326,7 @@ excel.Quit()
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 wb.Save() 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。
 # 跑了半小时的修复脚本...
 for row in range(2, 500):
@@ -331,6 +338,7 @@ wb.Close()
 根因
 
 到底为什么出问题？
+
 Excel COM 的 Save() 方法在以下情况下静默失败（不抛异常、不返回错误码）：
 
 文件来自只读目录：微信聊天目录 D:\xwechat_files\... 下的文件，权限受限
@@ -342,6 +350,7 @@ COM 接口的设计缺陷——Save() 不返回 HRESULT，异常被吞掉。
 修复
 
 具体步骤，能复制粘贴直接用。
+
 import os
 import win32com.client
 
@@ -496,9 +505,10 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>用 win32com 打开 Excel 文件，批量修改了几百个单元格的值和批注，调用 <code>wb.Save()</code> 后无任何报错。打开文件一看——所有修改都没了，文件还是原来的样子。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 跑了半小时的修复脚本...</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 跑了半小时的修复脚本...</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">500</span>):
 </span></span><span style="display:flex;"><span>    ws<span style="color:#f92672">.</span>Cells(row, col)<span style="color:#f92672">.</span>Value <span style="color:#f92672">=</span> fix_value
 </span></span><span style="display:flex;"><span>    ws<span style="color:#f92672">.</span>Cells(row, col)<span style="color:#f92672">.</span>AddComment(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;原值: </span><span style="color:#e6db74">{</span>old<span style="color:#e6db74">}</span><span style="color:#e6db74"> → 修复: </span><span style="color:#e6db74">{</span>fix<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
@@ -507,7 +517,8 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span>wb<span style="color:#f92672">.</span>Close()
 </span></span></code></pre></div><h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <p>Excel COM 的 <code>Save()</code> 方法在以下情况下<strong>静默失败</strong>（不抛异常、不返回错误码）：</p>
 <ol>
 <li><strong>文件来自只读目录</strong>：微信聊天目录 <code>D:\xwechat_files\...</code> 下的文件，权限受限</li>
@@ -518,8 +529,9 @@ document.addEventListener('click', function (e) {
 <p>COM 接口的设计缺陷——<code>Save()</code> 不返回 HRESULT，异常被吞掉。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>具体步骤，能复制粘贴直接用。</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+<p>具体步骤，能复制粘贴直接用。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> win32com.client
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>excel <span style="color:#f92672">=</span> win32com<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>Dispatch(<span style="color:#e6db74">&#34;Excel.Application&#34;</span>)
@@ -544,12 +556,13 @@ document.addEventListener('click', function (e) {
 </ul>
 <h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>永远不用 <code>wb.Save()</code></strong>，所有保存走 <code>SaveAs()</code> + <code>Close(SaveChanges=False)</code></li>
 <li><strong>输出到可控目录</strong>：Desktop / Temp / 项目目录，不要覆盖原文件（方便对比）</li>
 <li><strong>保存后验证</strong>：
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 马上读回验证</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 马上读回验证</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> openpyxl
 </span></span><span style="display:flex;"><span>check <span style="color:#f92672">=</span> openpyxl<span style="color:#f92672">.</span>load_workbook(output)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> check[<span style="color:#e6db74">&#39;Sheet1&#39;</span>]<span style="color:#f92672">.</span>cell(<span style="color:#ae81ff">2</span>, col)<span style="color:#f92672">.</span>value <span style="color:#f92672">==</span> fix_value, <span style="color:#e6db74">&#34;SaveAs 失败！&#34;</span>

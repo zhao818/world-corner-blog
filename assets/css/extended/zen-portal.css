@@ -329,6 +329,129 @@
   border: 1px solid var(--zen-border);
   border-bottom-left-radius: 4px;
 }
+
+/* ============================================================
+   AI 等待态动效与焦虑缓解 (Shimmer Skeleton & Rotating Comfort)
+   ============================================================ */
+.zen-ai-waiting-wrap {
+  padding: 8px 0 6px;
+  animation: zenFadeIn 0.3s ease-out;
+}
+.zen-ai-waiting-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--zen-pine);
+  margin-bottom: 12px;
+}
+.zen-ai-sparkle {
+  display: inline-block;
+  animation: zenSpinGlow 2.5s infinite linear;
+  color: var(--zen-amber);
+  font-size: 14px;
+}
+@keyframes zenSpinGlow {
+  0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+  100% { transform: scale(0.9) rotate(360deg); opacity: 0.7; }
+}
+.zen-ai-comfort-text {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+.zen-ai-comfort-text.fade-out {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+.zen-ai-comfort-text.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 呼吸微光骨架屏 (Shimmer Skeleton) */
+.zen-ai-shimmer-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zen-ai-shimmer-line {
+  height: 11px;
+  border-radius: var(--zen-radius-pill);
+  background: linear-gradient(90deg, 
+    rgba(215, 207, 192, 0.35) 0%, 
+    rgba(255, 255, 255, 0.85) 50%, 
+    rgba(215, 207, 192, 0.35) 100%
+  );
+  background-size: 200% 100%;
+  animation: zenShimmer 1.8s infinite ease-in-out;
+}
+.dark .zen-ai-shimmer-line {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.06) 0%, 
+    rgba(255, 255, 255, 0.22) 50%, 
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  background-size: 200% 100%;
+}
+@keyframes zenShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 思考推演折叠卡片 (Thought Accordion) */
+.zen-ai-thought-box {
+  margin: 6px 0 14px;
+  background: rgba(0, 0, 0, 0.025);
+  border: 1px solid var(--zen-border);
+  border-left: 3px solid var(--zen-amber);
+  border-radius: var(--zen-radius-sm);
+  padding: 8px 12px;
+  font-size: 12.5px;
+  color: var(--zen-ink-muted);
+  transition: all 0.2s ease;
+}
+.dark .zen-ai-thought-box {
+  background: rgba(255, 255, 255, 0.03);
+}
+.zen-ai-thought-summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  user-select: none;
+  list-style: none;
+}
+.zen-ai-thought-summary::-webkit-details-marker {
+  display: none;
+}
+.zen-ai-thought-status {
+  flex: 1;
+}
+.zen-ai-thought-toggle-arrow {
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+.zen-ai-thought-box[open] .zen-ai-thought-toggle-arrow {
+  transform: rotate(180deg);
+}
+.zen-ai-thought-body {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--zen-border);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 180px;
+  overflow-y: auto;
+  color: var(--zen-ink-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 .zen-ai-links-wrap {
   display: flex;
   gap: 8px;

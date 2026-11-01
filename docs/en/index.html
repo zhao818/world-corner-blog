@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
-<head>
-	<meta name="generator" content="Hugo 0.145.0"><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -10,7 +9,7 @@
 <meta name="description" content="Guarding a flicker of clarity in the flood of algorithms.">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/en/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3d269b37c1f81c5c7d774e8cd70b563ec265fd0a566b77ff576518d12a88b754.css" integrity="sha256-PSabN8H4HFx9d06M1wtWPsJl/QpWa3f/V2UY0SqIt1Q=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f178e196dafa1c55e1528409e8ce36c8f5fa62fb602a31724c3ad97fab0dba07.css" integrity="sha256-8Xjhltr6HFXhUoQJ6M42yPX6YvtgKjFyTDrZf6sNugc=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -77,6 +76,7 @@
   ]
 }
 </script>
+	<meta name="generator" content="Hugo 0.169.0">
 </head>
 <body class="list" id="top">
 <script>
@@ -429,11 +429,72 @@ document.addEventListener('click', function (e) {
     input.value = '';
 
     
+    var COMFORT_TEXTS = [
+      '正在漫游《幸福的内在》寻觅心境答案...',
+      '正在溯源《文明的阶梯》认知脉络与精神基建...',
+      '正在调阅站内系统思维与避坑实战经验...',
+      '字句正在凝练，清醒的微光马上启程...',
+      '沉心静气，为您梳理通透的思想模型...'
+    ];
+    var comfortIndex = 0;
+
+    
     var aiEl = document.createElement('div');
     aiEl.className = 'zen-ai-msg assistant';
-    aiEl.innerHTML = '<span class="zen-ai-streaming-text"></span>';
+    aiEl.innerHTML = 
+      '<div class="zen-ai-waiting-wrap">' +
+        '<div class="zen-ai-waiting-badge">' +
+          '<span class="zen-ai-sparkle">✦</span>' +
+          '<span class="zen-ai-comfort-text">' + COMFORT_TEXTS[0] + '</span>' +
+        '</div>' +
+        '<div class="zen-ai-shimmer-box">' +
+          '<div class="zen-ai-shimmer-line" style="width: 82%;"></div>' +
+          '<div class="zen-ai-shimmer-line" style="width: 95%;"></div>' +
+          '<div class="zen-ai-shimmer-line" style="width: 60%;"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="zen-ai-thought-container"></div>' +
+      '<div class="zen-ai-streaming-text"></div>';
     log.appendChild(aiEl);
+
+    var waitingWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
+    var comfortEl = aiEl.querySelector('.zen-ai-comfort-text');
+    var thoughtContainer = aiEl.querySelector('.zen-ai-thought-container');
     var textSpan = aiEl.querySelector('.zen-ai-streaming-text');
+    var thoughtBox = null;
+    var thoughtBody = null;
+    var fullThought = '';
+
+    
+    var comfortTimer = setInterval(function() {
+      if (!comfortEl || !waitingWrap || waitingWrap.style.display === 'none') {
+        clearInterval(comfortTimer);
+        return;
+      }
+      comfortIndex = (comfortIndex + 1) % COMFORT_TEXTS.length;
+      comfortEl.classList.add('fade-out');
+      setTimeout(function() {
+        if (comfortEl) {
+          comfortEl.textContent = COMFORT_TEXTS[comfortIndex];
+          comfortEl.classList.remove('fade-out');
+          comfortEl.classList.add('fade-in');
+          setTimeout(function() {
+            if (comfortEl) comfortEl.classList.remove('fade-in');
+          }, 300);
+        }
+      }, 250);
+    }, 2200);
+
+    function stopWaitingUX() {
+      if (comfortTimer) {
+        clearInterval(comfortTimer);
+        comfortTimer = null;
+      }
+      if (waitingWrap) {
+        waitingWrap.style.display = 'none';
+      }
+    }
+
     log.scrollTop = log.scrollHeight;
 
     conversationHistory.push({ role: 'user', content: query });
@@ -475,11 +536,45 @@ document.addEventListener('click', function (e) {
             if (!jsonStr) continue;
             try {
               var parsed = JSON.parse(jsonStr);
+
+              
+              if (parsed.t) {
+                stopWaitingUX();
+                if (!thoughtBox) {
+                  statusMsg.textContent = '✦ 正在深入思考推演...';
+                  thoughtBox = document.createElement('details');
+                  thoughtBox.className = 'zen-ai-thought-box';
+                  thoughtBox.setAttribute('open', '');
+                  thoughtBox.innerHTML = 
+                    '<summary class="zen-ai-thought-summary">' +
+                      '<span class="zen-ai-thought-icon">💭</span>' +
+                      '<span class="zen-ai-thought-status">思考推演中...</span>' +
+                      '<span class="zen-ai-thought-toggle-arrow">▾</span>' +
+                    '</summary>' +
+                    '<div class="zen-ai-thought-body"></div>';
+                  thoughtContainer.appendChild(thoughtBox);
+                  thoughtBody = thoughtBox.querySelector('.zen-ai-thought-body');
+                }
+                fullThought += parsed.t;
+                thoughtBody.textContent = fullThought;
+                thoughtBody.scrollTop = thoughtBody.scrollHeight;
+                log.scrollTop = log.scrollHeight;
+              }
+
+              
               if (parsed.d) {
+                stopWaitingUX();
+                if (thoughtBox && thoughtBox.hasAttribute('open')) {
+                  thoughtBox.removeAttribute('open'); 
+                  var st = thoughtBox.querySelector('.zen-ai-thought-status');
+                  if (st) st.textContent = '思考推演已完成 (点击展开)';
+                }
+                statusMsg.textContent = '✦ 正在输出思想回答...';
                 fullReply += parsed.d;
                 textSpan.innerHTML = formatZenText(fullReply);
                 log.scrollTop = log.scrollHeight;
               }
+
               if (parsed.done) {
                 onStreamComplete();
                 return;
@@ -492,6 +587,7 @@ document.addEventListener('click', function (e) {
 
       return readChunk();
     }).catch(function(err) {
+      stopWaitingUX();
       statusMsg.textContent = '对话遇阻，已切换友好提醒';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
@@ -499,6 +595,7 @@ document.addEventListener('click', function (e) {
     });
 
     function onStreamComplete() {
+      stopWaitingUX();
       statusMsg.textContent = '✦ 回答完毕 · 可继续提问';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
