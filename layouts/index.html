@@ -1,4 +1,5 @@
 {{- define "main" }}
+{{- $isEn := eq .Lang "en" -}}
 {{- $all := site.RegularPages }}
 {{- $sysSec := site.GetPage "posts/systems-thinking" }}
 {{- $learnSec := site.GetPage "posts/learning" }}
@@ -8,9 +9,9 @@
 
 {{- /* 1. 统一入口 · 主视觉 Hero */ -}}
 <div class="zen-portal-hero">
-  <div class="zen-hero-eyebrow">🌱 世界一隅 · 统一数字庭院</div>
-  <h1>在算法洪流中，<span class="zen-accent">守护清醒的微光</span></h1>
-  <p class="zen-hero-sub">以思想为锚，向内安顿 · 聚合九书原声、灵魂内省、实战踩坑与知己书友</p>
+  <div class="zen-hero-eyebrow">{{ if $isEn }}🌱 World Corner · Unified Digital Garden{{ else }}🌱 世界一隅 · 统一数字庭院{{ end }}</div>
+  <h1>{{ if $isEn }}In the flood of algorithms, <span class="zen-accent">guard a flicker of clarity</span>{{ else }}在算法洪流中，<span class="zen-accent">守护清醒的微光</span>{{ end }}</h1>
+  <p class="zen-hero-sub">{{ if $isEn }}Anchored in deep thought, settling inward · 9 audiobooks, soul inquiries, practical pitfalls & fellow minds{{ else }}以思想为锚，向内安顿 · 聚合九书原声、灵魂内省、实战踩坑与知己书友{{ end }}</p>
 </div>
 
 {{- /* 2. AI 优先探索交互区 (AI-First Explorer) */ -}}
@@ -18,23 +19,37 @@
   <div class="zen-ai-header">
     <div class="zen-ai-title">
       <span>🤖</span>
-      <span>世界一隅 · 思想伴侣与智能向导</span>
+      <span>{{ if $isEn }}World Corner · Intellectual Companion & Guide{{ else }}世界一隅 · 思想伴侣与智能向导{{ end }}</span>
     </div>
-    <span class="zen-ai-tag">流式驱动 · 站内直达</span>
+    <span class="zen-ai-tag">{{ if $isEn }}Streaming · Direct Navigation{{ else }}流式驱动 · 站内直达{{ end }}</span>
   </div>
 
   <div class="zen-ai-input-wrap">
     <input type="text" id="zen-ai-input" class="zen-ai-input" 
-           placeholder="向 AI 伴侣提问，探讨生活心境，或检索站内思想与踩坑经验..." 
+           placeholder="{{ if $isEn }}Ask the AI companion, explore mindsets, or search site essays and pitfall notes...{{ else }}向 AI 伴侣提问，探讨生活心境，或检索站内思想与踩坑经验...{{ end }}" 
            autocomplete="off" />
     <button type="button" id="zen-ai-send" class="zen-ai-send-btn" onclick="triggerZenAI()">
-      <span>探索</span>
+      <span>{{ if $isEn }}Explore{{ else }}探索{{ end }}</span>
       <span>✦</span>
     </button>
   </div>
 
   <!-- 启发式快捷引导药丸 -->
   <div class="zen-prompts-row">
+    {{ if $isEn }}
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please pick an introspective question from the 36 Soul Inquiries for my state of mind, and offer a gentle commentary.')">
+      🔮 A Soul Inquiry
+    </button>
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please recommend a core essay on systems thinking and cognitive energy from this site, explaining its insights.')">
+      📖 Systems Thinking Highlight
+    </button>
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please introduce the audiobook Inner Happiness: why does material abundance often bring inner emptiness?')">
+      🎧 Guide: "Inner Happiness"
+    </button>
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('How can builders and creators avoid common traps? Please summarize the key pitfall directions cataloged on this site.')">
+      ⚠️ Tech Pitfalls Quick Check
+    </button>
+    {{ else }}
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('请从灵魂36问中为我挑选一道最适合当下内省的思考题，并给予温和导读。')">
       🔮 抽取一道灵魂内省题
     </button>
@@ -47,6 +62,7 @@
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('开发者和创作者如何避免常见陷阱？请概述站内踩坑宝典涵盖的方向。')">
       ⚠️ 技术实战避坑速查
     </button>
+    {{ end }}
   </div>
 
   <!-- 流式对话输出面板 -->
@@ -54,9 +70,9 @@
     <div class="zen-ai-dialogue-top">
       <div class="zen-ai-status-text">
         <span class="zen-ai-pulsing-dot" id="zen-ai-pulse"></span>
-        <span id="zen-ai-status-msg">正在思考与检索...</span>
+        <span id="zen-ai-status-msg">{{ if $isEn }}Thinking & retrieving...{{ else }}正在思考与检索...{{ end }}</span>
       </div>
-      <button type="button" class="zen-ai-clear-btn" onclick="closeZenAI()">收起对话 ✕</button>
+      <button type="button" class="zen-ai-clear-btn" onclick="closeZenAI()">{{ if $isEn }}Close ✕{{ else }}收起对话 ✕{{ end }}</button>
     </div>
     <div class="zen-ai-log" id="zen-ai-log"></div>
   </div>
@@ -67,48 +83,48 @@
   <a href="/audiobook/" class="zen-capsule-card highlight">
     <div class="zen-capsule-icon">🎧</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">九书随身听</div>
-      <div class="zen-capsule-desc">整本连播 · 打开即听</div>
+      <div class="zen-capsule-title">{{ if $isEn }}9 Audiobooks Player{{ else }}九书随身听{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Continuous play · Instant listen{{ else }}整本连播 · 打开即听{{ end }}</div>
     </div>
   </a>
 
   <a href="https://api.worldcorner.xyz/community/" class="zen-capsule-card highlight">
     <div class="zen-capsule-icon">🔮</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">灵魂之觅 36问</div>
-      <div class="zen-capsule-desc">静心观照 · 深度内省</div>
+      <div class="zen-capsule-title">{{ if $isEn }}Soul Search 36{{ else }}灵魂之觅 36问{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Mindful contemplation · Introspection{{ else }}静心观照 · 深度内省{{ end }}</div>
     </div>
   </a>
 
-  <a href="/pitfalls/" class="zen-capsule-card">
+  <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-capsule-card">
     <div class="zen-capsule-icon">⚠️</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">踩坑宝典</div>
-      <div class="zen-capsule-desc">实战经验 · 少走弯路</div>
+      <div class="zen-capsule-title">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Real battle lessons · Avoid traps{{ else }}实战经验 · 少走弯路{{ end }}</div>
     </div>
   </a>
 
   <a href="https://api.worldcorner.xyz/community/" class="zen-capsule-card">
     <div class="zen-capsule-icon">💬</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">书友社区</div>
-      <div class="zen-capsule-desc">看书·风景·田园打卡</div>
+      <div class="zen-capsule-title">{{ if $isEn }}Reader Community{{ else }}书友社区{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Reading, landscapes, pastoral check-ins{{ else }}看书·风景·田园打卡{{ end }}</div>
     </div>
   </a>
 
-  <a href="/posts/systems-thinking/" class="zen-capsule-card">
+  <a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}" class="zen-capsule-card">
     <div class="zen-capsule-icon">📚</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">思想文库</div>
-      <div class="zen-capsule-desc">系统思维 · 认知跃迁</div>
+      <div class="zen-capsule-title">{{ if $isEn }}Thought Library{{ else }}思想文库{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Systems thinking · Cognitive leap{{ else }}系统思维 · 认知跃迁{{ end }}</div>
     </div>
   </a>
 
   <a href="/app/" class="zen-capsule-card">
     <div class="zen-capsule-icon">📱</div>
     <div class="zen-capsule-body">
-      <div class="zen-capsule-title">微信小程序</div>
-      <div class="zen-capsule-desc">内心的修炼 · 随身随行</div>
+      <div class="zen-capsule-title">{{ if $isEn }}WeChat Mini Program{{ else }}微信小程序{{ end }}</div>
+      <div class="zen-capsule-desc">{{ if $isEn }}Inner Cultivation · Always with you{{ else }}内心的修炼 · 随身随行{{ end }}</div>
     </div>
   </a>
 </div>
@@ -118,8 +134,8 @@
   <!-- 📚 左翼：精选深思文章 -->
   <div class="zen-wing-card">
     <div class="zen-wing-head">
-      <h2><span>📚</span> 精选深思 · 认知基建</h2>
-      <a href="/archives/" class="zen-wing-more">浏览全部 ({{ len $all }}) →</a>
+      <h2><span>📚</span> {{ if $isEn }}Curated Reflections · Cognitive Foundation{{ else }}精选深思 · 认知基建{{ end }}</h2>
+      <a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}" class="zen-wing-more">{{ if $isEn }}Browse all ({{ len $all }}) →{{ else }}浏览全部 ({{ len $all }}) →{{ end }}</a>
     </div>
     <div class="zen-article-list">
       {{- $featured := slice -}}
@@ -131,7 +147,7 @@
       {{- range $featured }}
       <a href="{{ .RelPermalink }}" class="zen-article-item">
         <div class="zen-article-meta">
-          <span class="zen-meta-tag">{{ with .Params.categories }}{{ index . 0 }}{{ else }}深思{{ end }}</span>
+          <span class="zen-meta-tag">{{ with .Params.categories }}{{ index . 0 }}{{ else }}{{ if $isEn }}Reflection{{ else }}深思{{ end }}{{ end }}</span>
           <span class="zen-meta-date">{{ .Date.Format "2006-01-02" }}</span>
         </div>
         <div class="zen-article-title">{{ .Title }}</div>
@@ -144,56 +160,56 @@
   <!-- 🎧 右翼：随身听迷你控制台 & ⚠️ 最新踩坑 -->
   <div class="zen-wing-card">
     <div class="zen-wing-head">
-      <h2><span>🎧</span> 随身听台 · 边逛边听</h2>
-      <a href="/audiobook/" class="zen-wing-more">听书馆全集 →</a>
+      <h2><span>🎧</span> {{ if $isEn }}Audiobook Console · Listen & Explore{{ else }}随身听台 · 边逛边听{{ end }}</h2>
+      <a href="/audiobook/" class="zen-wing-more">{{ if $isEn }}Full library →{{ else }}听书馆全集 →{{ end }}</a>
     </div>
 
     <!-- 迷你播放盒 -->
     <div class="zen-player-box">
       <div class="zen-player-top">
-        <span class="zen-player-current" id="zen-player-title">《幸福的内在》</span>
-        <span class="zen-player-duration" id="zen-player-badge">连播 2小时05分</span>
+        <span class="zen-player-current" id="zen-player-title">{{ if $isEn }}The Inner Architecture of Happiness{{ else }}《幸福的内在》{{ end }}</span>
+        <span class="zen-player-duration" id="zen-player-badge">{{ if $isEn }}2 hrs 05 mins{{ else }}连播 2小时05分{{ end }}</span>
       </div>
       <audio id="zen-mini-audio" class="zen-player-audio" controls preload="none" src="/audio/happiness.mp3"></audio>
       
       <!-- 快捷切换书目 -->
       <div class="zen-book-chips">
         <button type="button" class="zen-book-chip active" 
-                onclick="switchZenTrack(this, '《幸福的内在》', '连播 2小时05分', '/audio/happiness.mp3')">
-          🌿 幸福的内在
+                onclick="switchZenTrack(this, '{{ if $isEn }}The Inner Architecture of Happiness{{ else }}《幸福的内在》{{ end }}', '{{ if $isEn }}2 hrs 05 mins{{ else }}连播 2小时05分{{ end }}', '/audio/happiness.mp3')">
+          🌿 {{ if $isEn }}Inner Happiness{{ else }}幸福的内在{{ end }}
         </button>
         <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '《文明的阶梯》', '连播 1小时15分', '/audio/wenming.mp3')">
-          🪜 文明的阶梯
+                onclick="switchZenTrack(this, '{{ if $isEn }}The Ladder of Civilization{{ else }}《文明的阶梯》{{ end }}', '{{ if $isEn }}1 hr 15 mins{{ else }}连播 1小时15分{{ end }}', '/audio/wenming.mp3')">
+          🪜 {{ if $isEn }}Civilization Ladder{{ else }}文明的阶梯{{ end }}
         </button>
         <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '《走向田间》', '连播 1小时40分', '/audio/xiangjian.mp3')">
-          🌱 走向田间
+                onclick="switchZenTrack(this, '{{ if $isEn }}Into the Fields{{ else }}《走向田间》{{ end }}', '{{ if $isEn }}1 hr 40 mins{{ else }}连播 1小时40分{{ end }}', '/audio/xiangjian.mp3')">
+          🌱 {{ if $isEn }}Into the Fields{{ else }}走向田间{{ end }}
         </button>
         <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '《内心的修炼》', '连播 2小时30分', '/audio/neixin.mp3')">
-          🧘 内心的修炼
+                onclick="switchZenTrack(this, '{{ if $isEn }}Inner Cultivation{{ else }}《内心的修炼》{{ end }}', '{{ if $isEn }}2 hrs 30 mins{{ else }}连播 2小时30分{{ end }}', '/audio/neixin.mp3')">
+          🧘 {{ if $isEn }}Inner Cultivation{{ else }}内心的修炼{{ end }}
         </button>
       </div>
     </div>
 
     <!-- ⚠️ 踩坑速报 -->
     <div class="zen-wing-head" style="margin-top:20px;padding-top:12px;border-top:1px dashed var(--zen-border)">
-      <h2><span>⚠️</span> 踩坑速报 · 实战复盘</h2>
-      <a href="/pitfalls/" class="zen-wing-more">全部避坑 →</a>
+      <h2><span>⚠️</span> {{ if $isEn }}Latest Pitfalls · Debriefs{{ else }}踩坑速报 · 实战复盘{{ end }}</h2>
+      <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-wing-more">{{ if $isEn }}All pitfalls →{{ else }}全部避坑 →{{ end }}</a>
     </div>
     <div class="zen-pitfall-list">
       {{- if $pitfallSec }}
         {{- range first 3 $pitfallSec.RegularPages }}
         <a href="{{ .RelPermalink }}" class="zen-pitfall-link">
           <span class="zen-pitfall-title">{{ .Title }}</span>
-          <span class="zen-pitfall-badge">避坑</span>
+          <span class="zen-pitfall-badge">{{ if $isEn }}Pitfall{{ else }}避坑{{ end }}</span>
         </a>
         {{- end }}
       {{- else }}
-        <a href="/pitfalls/" class="zen-pitfall-link">
-          <span class="zen-pitfall-title">查看开发与工程实战全套踩坑宝典</span>
-          <span class="zen-pitfall-badge">速查</span>
+        <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-pitfall-link">
+          <span class="zen-pitfall-title">{{ if $isEn }}Browse full development & engineering pitfall guides{{ else }}查看开发与工程实战全套踩坑宝典{{ end }}</span>
+          <span class="zen-pitfall-badge">{{ if $isEn }}Quick{{ else }}速查{{ end }}</span>
         </a>
       {{- end }}
     </div>
@@ -203,47 +219,47 @@
 {{- /* 5. 全站紧凑优雅站点地图 (Zen Site Atlas · 聚合13个历史分类) */ -}}
 <div class="zen-site-atlas">
   <div class="zen-atlas-header">
-    <h3>🧭 全站功能索引地图</h3>
-    <p>原 13 大栏目有序收敛，随取随查，无一遗漏</p>
+    <h3>🧭 {{ if $isEn }}Site Navigation Atlas{{ else }}全站功能索引地图{{ end }}</h3>
+    <p>{{ if $isEn }}All 13 core domains organized seamlessly, quick to access{{ else }}原 13 大栏目有序收敛，随取随查，无一遗漏{{ end }}</p>
   </div>
   <div class="zen-atlas-grid">
     <div class="zen-atlas-col">
-      <h4><span>📖</span> 思想书房</h4>
+      <h4><span>📖</span> {{ if $isEn }}Intellectual Core{{ else }}思想书房{{ end }}</h4>
       <ul>
-        <li><a href="/posts/systems-thinking/">系统思维 (8篇)</a></li>
-        <li><a href="/posts/learning/">学习方法 (3篇)</a></li>
-        <li><a href="/posts/tooling/">效率工具 (2篇)</a></li>
-        <li><a href="/collections/">精选合集 (专题)</a></li>
+        <li><a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}">{{ if $isEn }}Systems Thinking{{ else }}系统思维 (8篇){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/posts/learning/{{ else }}/posts/learning/{{ end }}">{{ if $isEn }}Learning Methods{{ else }}学习方法 (3篇){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/posts/tooling/{{ else }}/posts/tooling/{{ end }}">{{ if $isEn }}Productivity Tooling{{ else }}效率工具 (2篇){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/collections/{{ else }}/collections/{{ end }}">{{ if $isEn }}Featured Collections{{ else }}精选合集 (专题){{ end }}</a></li>
       </ul>
     </div>
 
     <div class="zen-atlas-col">
-      <h4><span>🎧</span> 声音与内省</h4>
+      <h4><span>🎧</span> {{ if $isEn }}Audio & Reflection{{ else }}声音与内省{{ end }}</h4>
       <ul>
-        <li><a href="/audiobook/">有声书馆 (双轨9部)</a></li>
-        <li><a href="https://api.worldcorner.xyz/community/">灵魂之觅 (36问)</a></li>
-        <li><a href="/posts/era-observation/">时代观察 (深思)</a></li>
-        <li><a href="/app/">小程序 · 内心的修炼</a></li>
+        <li><a href="/audiobook/">{{ if $isEn }}9 Audiobooks Hall{{ else }}有声书馆 (双轨9部){{ end }}</a></li>
+        <li><a href="https://api.worldcorner.xyz/community/">{{ if $isEn }}Soul Search (36 Questions){{ else }}灵魂之觅 (36问){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/posts/era-observation/{{ else }}/posts/era-observation/{{ end }}">{{ if $isEn }}Era Observations{{ else }}时代观察 (深思){{ end }}</a></li>
+        <li><a href="/app/">{{ if $isEn }}Mini Program · Inner Cultivation{{ else }}小程序 · 内心的修炼{{ end }}</a></li>
       </ul>
     </div>
 
     <div class="zen-atlas-col">
-      <h4><span>🛠️</span> 实战与资产</h4>
+      <h4><span>🛠️</span> {{ if $isEn }}Practice & Assets{{ else }}实战与资产{{ end }}</h4>
       <ul>
-        <li><a href="/pitfalls/">踩坑宝典 (实战复盘)</a></li>
-        <li><a href="/skills/">技能总表 (62项)</a></li>
-        <li><a href="/assets/">项目资产 (80项目录)</a></li>
-        <li><a href="https://api.worldcorner.xyz" target="_blank">API 开放网关</a></li>
+        <li><a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典 (实战复盘){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/skills/{{ else }}/skills/{{ end }}">{{ if $isEn }}Skills Index (62 entries){{ else }}技能总表 (62项){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/assets/{{ else }}/assets/{{ end }}">{{ if $isEn }}Project Assets (80 items){{ else }}项目资产 (80项目录){{ end }}</a></li>
+        <li><a href="https://api.worldcorner.xyz" target="_blank">{{ if $isEn }}API Gateway{{ else }}API 开放网关{{ end }}</a></li>
       </ul>
     </div>
 
     <div class="zen-atlas-col">
-      <h4><span>🌐</span> 站点与连接</h4>
+      <h4><span>🌐</span> {{ if $isEn }}Community & About{{ else }}站点与连接{{ end }}</h4>
       <ul>
-        <li><a href="https://api.worldcorner.xyz/community/" target="_blank">书友社区 (互动打卡)</a></li>
-        <li><a href="/search/">全站极速搜索</a></li>
-        <li><a href="/archives/">时光归档一览</a></li>
-        <li><a href="/about/">关于作者与世界一隅</a></li>
+        <li><a href="https://api.worldcorner.xyz/community/" target="_blank">{{ if $isEn }}Reader Community (Check-ins){{ else }}书友社区 (互动打卡){{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/search/{{ else }}/search/{{ end }}">{{ if $isEn }}Site Fast Search{{ else }}全站极速搜索{{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}">{{ if $isEn }}Chronological Archives{{ else }}时光归档一览{{ end }}</a></li>
+        <li><a href="{{ if $isEn }}/en/about/{{ else }}/about/{{ end }}">{{ if $isEn }}About Author & World Corner{{ else }}关于作者与世界一隅{{ end }}</a></li>
       </ul>
     </div>
   </div>
@@ -252,6 +268,7 @@
 {{- /* 6. 统一入口 AI 与随身听前端交互引擎脚本 */ -}}
 <script>
 (function() {
+  var isEn = {{ if $isEn }}true{{ else }}false{{ end }};
   var AI_API = 'https://api.worldcorner.xyz/community/api/ai';
   var conversationHistory = [];
 
@@ -292,7 +309,7 @@
 
     dialogueBox.style.display = 'block';
     pulse.style.display = 'inline-block';
-    statusMsg.textContent = 'AI 正在思考并调取站内知识...';
+    statusMsg.textContent = isEn ? 'AI is contemplating and retrieving insights...' : 'AI 正在思考并调取站内知识...';
     sendBtn.disabled = true;
 
     // 渲染用户提问
@@ -302,8 +319,14 @@
     log.appendChild(userEl);
     input.value = '';
 
-    // 焦虑缓解轮播文案库
-    var COMFORT_TEXTS = [
+    // 焦虑缓解轮播文案库 (中英双语)
+    var COMFORT_TEXTS = isEn ? [
+      'Wandering through "Inner Happiness" for peace of mind...',
+      'Tracing the cognitive roots of "Ladder of Civilization"...',
+      'Retrieving systems thinking and battle-tested pitfall notes...',
+      'Condensing words, a flicker of clarity is on its way...',
+      'Breathing gently, organizing clear mental models for you...'
+    ] : [
       '正在漫游《幸福的内在》寻觅心境答案...',
       '正在溯源《文明的阶梯》认知脉络与精神基建...',
       '正在调阅站内系统思维与避坑实战经验...',
@@ -375,6 +398,9 @@
     if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
 
     var fullReply = '';
+    var systemPrompt = isEn 
+      ? 'You are World Corner\'s dedicated AI intellectual guide and spiritual companion. Respond warmly, lucidly, and insightfully in English, integrating the creator\'s philosophical systems (Civilization Ladder, Inner Happiness, Systems Thinking), and practical engineering lessons. At the end, naturally include site navigation references (e.g. /en/posts/systems-thinking/, /en/pitfalls/, /audiobook/, etc.).'
+      : '你是世界一隅主站的专属智能向导与思想伴侣。请以温润、通透、启发性的语气回应，结合站长九书思想、踩坑实操与灵魂内省，为用户提供切实的启示。并在回答末尾附带相应的站内直达指引（如：有声书馆 /audiobook/、踩坑宝典 /pitfalls/、系统思维 /posts/systems-thinking/、社区 /community/ 等）。';
 
     fetch(AI_API, {
       method: 'POST',
@@ -383,11 +409,11 @@
         messages: conversationHistory,
         stream: true,
         tab: 'ai',
-        system: '你是世界一隅主站的专属智能向导与思想伴侣。请以温润、通透、启发性的语气回应，结合站长九书思想、踩坑实操与灵魂内省，为用户提供切实的启示。并在回答末尾附带相应的站内直达指引（如：有声书馆 /audiobook/、踩坑宝典 /pitfalls/、系统思维 /posts/systems-thinking/、社区 /community/ 等）。'
+        system: systemPrompt
       })
     }).then(function(res) {
-      if (!res.ok) throw new Error('网络请求异常 (' + res.status + ')');
-      if (!res.body) throw new Error('不支持流式传输');
+      if (!res.ok) throw new Error(isEn ? 'Network error (' + res.status + ')' : '网络请求异常 (' + res.status + ')');
+      if (!res.body) throw new Error(isEn ? 'Streaming not supported' : '不支持流式传输');
 
       var reader = res.body.getReader();
       var decoder = new TextDecoder('utf-8');
@@ -415,14 +441,14 @@
               if (parsed.t) {
                 stopWaitingUX();
                 if (!thoughtBox) {
-                  statusMsg.textContent = '✦ 正在深入思考推演...';
+                  statusMsg.textContent = isEn ? '✦ Deep thinking in progress...' : '✦ 正在深入思考推演...';
                   thoughtBox = document.createElement('details');
                   thoughtBox.className = 'zen-ai-thought-box';
                   thoughtBox.setAttribute('open', '');
                   thoughtBox.innerHTML = 
                     '<summary class="zen-ai-thought-summary">' +
                       '<span class="zen-ai-thought-icon">💭</span>' +
-                      '<span class="zen-ai-thought-status">思考推演中...</span>' +
+                      '<span class="zen-ai-thought-status">' + (isEn ? 'Thinking process...' : '思考推演中...') + '</span>' +
                       '<span class="zen-ai-thought-toggle-arrow">▾</span>' +
                     '</summary>' +
                     '<div class="zen-ai-thought-body"></div>';
@@ -441,9 +467,9 @@
                 if (thoughtBox && thoughtBox.hasAttribute('open')) {
                   thoughtBox.removeAttribute('open'); // 正文出现时优雅折叠思考卡片
                   var st = thoughtBox.querySelector('.zen-ai-thought-status');
-                  if (st) st.textContent = '思考推演已完成 (点击展开)';
+                  if (st) st.textContent = isEn ? 'Thinking process completed (click to expand)' : '思考推演已完成 (点击展开)';
                 }
-                statusMsg.textContent = '✦ 正在输出思想回答...';
+                statusMsg.textContent = isEn ? '✦ Flowing thoughts...' : '✦ 正在输出思想回答...';
                 fullReply += parsed.d;
                 textSpan.innerHTML = formatZenText(fullReply);
                 log.scrollTop = log.scrollHeight;
@@ -462,15 +488,17 @@
       return readChunk();
     }).catch(function(err) {
       stopWaitingUX();
-      statusMsg.textContent = '对话遇阻，已切换友好提醒';
+      statusMsg.textContent = isEn ? 'Conversation paused, switched to fallback' : '对话遇阻，已切换友好提醒';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
-      textSpan.innerHTML = '抱歉，思想网络瞬时抖动（' + (err.message || '连接超时') + '）。您可以直接点击下方的快捷胶囊，畅游听书馆、踩坑宝典或社区。';
+      textSpan.innerHTML = isEn 
+        ? 'Apologies, a momentary network jitter occurred (' + (err.message || 'Timeout') + '). You can explore the audiobooks, pitfall treasury, or community below.'
+        : '抱歉，思想网络瞬时抖动（' + (err.message || '连接超时') + '）。您可以直接点击下方的快捷胶囊，畅游听书馆、踩坑宝典或社区。';
     });
 
     function onStreamComplete() {
       stopWaitingUX();
-      statusMsg.textContent = '✦ 回答完毕 · 可继续提问';
+      statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
       conversationHistory.push({ role: 'assistant', content: fullReply });
@@ -479,23 +507,23 @@
       var linksWrap = document.createElement('div');
       linksWrap.className = 'zen-ai-links-wrap';
       var pills = [];
-      if (/听书|幸福|内在|文明|田间|音频/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/audiobook/">🎧 听书馆连播</a>');
+      if (/听书|幸福|内在|文明|田间|音频|audio|happiness|book/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="/audiobook/">🎧 ' + (isEn ? 'Audiobook Player' : '听书馆连播') + '</a>');
       }
-      if (/内省|灵魂|问题|36问/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">🔮 灵魂36问</a>');
+      if (/内省|灵魂|问题|36问|soul|introspection/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">🔮 ' + (isEn ? 'Soul Search 36' : '灵魂36问') + '</a>');
       }
-      if (/踩坑|避坑|技术|代码|Bug/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/pitfalls/">⚠️ 踩坑宝典</a>');
+      if (/踩坑|避坑|技术|代码|Bug|pitfall|trap|lesson/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/pitfalls/' : '/pitfalls/') + '">⚠️ ' + (isEn ? 'Pitfall Treasury' : '踩坑宝典') + '</a>');
       }
-      if (/系统思维|认知|学习/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/posts/systems-thinking/">📚 系统思维专栏</a>');
+      if (/系统思维|认知|学习|system|cognitive/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/posts/systems-thinking/' : '/posts/systems-thinking/') + '">📚 ' + (isEn ? 'Systems Thinking' : '系统思维专栏') + '</a>');
       }
-      if (/社区|打卡|书友/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">💬 书友社区</a>');
+      if (/社区|打卡|书友|community|reader/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">💬 ' + (isEn ? 'Community' : '书友社区') + '</a>');
       }
       if (pills.length > 0) {
-        linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">直达卡片：</span>' + pills.join('');
+        linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">' + (isEn ? 'Direct links: ' : '直达卡片：') + '</span>' + pills.join('');
         aiEl.appendChild(linksWrap);
       }
       log.scrollTop = log.scrollHeight;

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
-<head>
-	<meta name="generator" content="Hugo 0.145.0"><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -10,7 +9,7 @@
 <meta name="description" content="在算法洪流中，守护清醒的微光。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.bfdc4d699cbebfc20af4cb7677a3c8da33173c1d9d09a88a22ef7711d4dd5228.css" integrity="sha256-v9xNaZy&#43;v8IK9Mt2d6PI2jMXPB2dCaiKIu93EdTdUig=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.78f13accebc7c9b4878e7ba984f946bd6f6284000f38dcb188250674f1ffff51.css" integrity="sha256-ePE6zOvHybSHjnuphPlGvW9ihAAPONyxiCUGdPH//1E=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -77,6 +76,7 @@
   ]
 }
 </script>
+	<meta name="generator" content="Hugo 0.169.0">
 </head>
 <body class="list" id="top">
 <script>
@@ -113,10 +113,12 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
+                <ul class="lang-switch">
                     <li>
-                        <a href="https://worldcorner.xyz/en/" title="English"
-                            aria-label="English">En</a>
+                        <a href="https://worldcorner.xyz/en/" class="zen-lang-pill" title="Switch to English" aria-label="Switch to English">
+                            <span class="zen-lang-globe">🌐</span>
+                            <span>EN</span>
+                        </a>
                     </li>
                 </ul>
                 <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
@@ -170,6 +172,7 @@ document.addEventListener('click', function (e) {
 
   
   <div class="zen-prompts-row">
+    
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('请从灵魂36问中为我挑选一道最适合当下内省的思考题，并给予温和导读。')">
       🔮 抽取一道灵魂内省题
     </button>
@@ -182,6 +185,7 @@ document.addEventListener('click', function (e) {
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('开发者和创作者如何避免常见陷阱？请概述站内踩坑宝典涵盖的方向。')">
       ⚠️ 技术实战避坑速查
     </button>
+    
   </div>
 
   
@@ -284,7 +288,7 @@ document.addEventListener('click', function (e) {
           <span class="zen-meta-date">2026-09-08</span>
         </div>
         <div class="zen-article-title">托底之后：为什么“脱贫”不等于“富起来”</div>
-        <div class="zen-article-desc"> 时代观察 · 独立短文。不需要读过系列任何一篇。 这篇拆一件同时发生的事：底线在往上抬，中间却在往下沉——以及为什么“托底”和“托举”是两件不同的事。 写作规矩同系 …</div>
+        <div class="zen-article-desc"> 时代观察 · 独立短文。不需要读过系列任何一篇。 这篇拆一件同时发生的事：底线在往上抬，中间却在往下沉——以及为什么“托底”和“托举”是两件不同的事。 写作规矩同系列 …</div>
       </a>
     </div>
   </div>
@@ -393,6 +397,7 @@ document.addEventListener('click', function (e) {
   </div>
 </div><script>
 (function() {
+  var isEn = false;
   var AI_API = 'https://api.worldcorner.xyz/community/api/ai';
   var conversationHistory = [];
 
@@ -433,7 +438,7 @@ document.addEventListener('click', function (e) {
 
     dialogueBox.style.display = 'block';
     pulse.style.display = 'inline-block';
-    statusMsg.textContent = 'AI 正在思考并调取站内知识...';
+    statusMsg.textContent = isEn ? 'AI is contemplating and retrieving insights...' : 'AI 正在思考并调取站内知识...';
     sendBtn.disabled = true;
 
     
@@ -444,7 +449,13 @@ document.addEventListener('click', function (e) {
     input.value = '';
 
     
-    var COMFORT_TEXTS = [
+    var COMFORT_TEXTS = isEn ? [
+      'Wandering through "Inner Happiness" for peace of mind...',
+      'Tracing the cognitive roots of "Ladder of Civilization"...',
+      'Retrieving systems thinking and battle-tested pitfall notes...',
+      'Condensing words, a flicker of clarity is on its way...',
+      'Breathing gently, organizing clear mental models for you...'
+    ] : [
       '正在漫游《幸福的内在》寻觅心境答案...',
       '正在溯源《文明的阶梯》认知脉络与精神基建...',
       '正在调阅站内系统思维与避坑实战经验...',
@@ -516,6 +527,9 @@ document.addEventListener('click', function (e) {
     if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
 
     var fullReply = '';
+    var systemPrompt = isEn 
+      ? 'You are World Corner\'s dedicated AI intellectual guide and spiritual companion. Respond warmly, lucidly, and insightfully in English, integrating the creator\'s philosophical systems (Civilization Ladder, Inner Happiness, Systems Thinking), and practical engineering lessons. At the end, naturally include site navigation references (e.g. /en/posts/systems-thinking/, /en/pitfalls/, /audiobook/, etc.).'
+      : '你是世界一隅主站的专属智能向导与思想伴侣。请以温润、通透、启发性的语气回应，结合站长九书思想、踩坑实操与灵魂内省，为用户提供切实的启示。并在回答末尾附带相应的站内直达指引（如：有声书馆 /audiobook/、踩坑宝典 /pitfalls/、系统思维 /posts/systems-thinking/、社区 /community/ 等）。';
 
     fetch(AI_API, {
       method: 'POST',
@@ -524,11 +538,11 @@ document.addEventListener('click', function (e) {
         messages: conversationHistory,
         stream: true,
         tab: 'ai',
-        system: '你是世界一隅主站的专属智能向导与思想伴侣。请以温润、通透、启发性的语气回应，结合站长九书思想、踩坑实操与灵魂内省，为用户提供切实的启示。并在回答末尾附带相应的站内直达指引（如：有声书馆 /audiobook/、踩坑宝典 /pitfalls/、系统思维 /posts/systems-thinking/、社区 /community/ 等）。'
+        system: systemPrompt
       })
     }).then(function(res) {
-      if (!res.ok) throw new Error('网络请求异常 (' + res.status + ')');
-      if (!res.body) throw new Error('不支持流式传输');
+      if (!res.ok) throw new Error(isEn ? 'Network error (' + res.status + ')' : '网络请求异常 (' + res.status + ')');
+      if (!res.body) throw new Error(isEn ? 'Streaming not supported' : '不支持流式传输');
 
       var reader = res.body.getReader();
       var decoder = new TextDecoder('utf-8');
@@ -556,14 +570,14 @@ document.addEventListener('click', function (e) {
               if (parsed.t) {
                 stopWaitingUX();
                 if (!thoughtBox) {
-                  statusMsg.textContent = '✦ 正在深入思考推演...';
+                  statusMsg.textContent = isEn ? '✦ Deep thinking in progress...' : '✦ 正在深入思考推演...';
                   thoughtBox = document.createElement('details');
                   thoughtBox.className = 'zen-ai-thought-box';
                   thoughtBox.setAttribute('open', '');
                   thoughtBox.innerHTML = 
                     '<summary class="zen-ai-thought-summary">' +
                       '<span class="zen-ai-thought-icon">💭</span>' +
-                      '<span class="zen-ai-thought-status">思考推演中...</span>' +
+                      '<span class="zen-ai-thought-status">' + (isEn ? 'Thinking process...' : '思考推演中...') + '</span>' +
                       '<span class="zen-ai-thought-toggle-arrow">▾</span>' +
                     '</summary>' +
                     '<div class="zen-ai-thought-body"></div>';
@@ -582,9 +596,9 @@ document.addEventListener('click', function (e) {
                 if (thoughtBox && thoughtBox.hasAttribute('open')) {
                   thoughtBox.removeAttribute('open'); 
                   var st = thoughtBox.querySelector('.zen-ai-thought-status');
-                  if (st) st.textContent = '思考推演已完成 (点击展开)';
+                  if (st) st.textContent = isEn ? 'Thinking process completed (click to expand)' : '思考推演已完成 (点击展开)';
                 }
-                statusMsg.textContent = '✦ 正在输出思想回答...';
+                statusMsg.textContent = isEn ? '✦ Flowing thoughts...' : '✦ 正在输出思想回答...';
                 fullReply += parsed.d;
                 textSpan.innerHTML = formatZenText(fullReply);
                 log.scrollTop = log.scrollHeight;
@@ -603,15 +617,17 @@ document.addEventListener('click', function (e) {
       return readChunk();
     }).catch(function(err) {
       stopWaitingUX();
-      statusMsg.textContent = '对话遇阻，已切换友好提醒';
+      statusMsg.textContent = isEn ? 'Conversation paused, switched to fallback' : '对话遇阻，已切换友好提醒';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
-      textSpan.innerHTML = '抱歉，思想网络瞬时抖动（' + (err.message || '连接超时') + '）。您可以直接点击下方的快捷胶囊，畅游听书馆、踩坑宝典或社区。';
+      textSpan.innerHTML = isEn 
+        ? 'Apologies, a momentary network jitter occurred (' + (err.message || 'Timeout') + '). You can explore the audiobooks, pitfall treasury, or community below.'
+        : '抱歉，思想网络瞬时抖动（' + (err.message || '连接超时') + '）。您可以直接点击下方的快捷胶囊，畅游听书馆、踩坑宝典或社区。';
     });
 
     function onStreamComplete() {
       stopWaitingUX();
-      statusMsg.textContent = '✦ 回答完毕 · 可继续提问';
+      statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
       pulse.style.display = 'none';
       sendBtn.disabled = false;
       conversationHistory.push({ role: 'assistant', content: fullReply });
@@ -620,23 +636,23 @@ document.addEventListener('click', function (e) {
       var linksWrap = document.createElement('div');
       linksWrap.className = 'zen-ai-links-wrap';
       var pills = [];
-      if (/听书|幸福|内在|文明|田间|音频/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/audiobook/">🎧 听书馆连播</a>');
+      if (/听书|幸福|内在|文明|田间|音频|audio|happiness|book/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="/audiobook/">🎧 ' + (isEn ? 'Audiobook Player' : '听书馆连播') + '</a>');
       }
-      if (/内省|灵魂|问题|36问/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">🔮 灵魂36问</a>');
+      if (/内省|灵魂|问题|36问|soul|introspection/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">🔮 ' + (isEn ? 'Soul Search 36' : '灵魂36问') + '</a>');
       }
-      if (/踩坑|避坑|技术|代码|Bug/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/pitfalls/">⚠️ 踩坑宝典</a>');
+      if (/踩坑|避坑|技术|代码|Bug|pitfall|trap|lesson/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/pitfalls/' : '/pitfalls/') + '">⚠️ ' + (isEn ? 'Pitfall Treasury' : '踩坑宝典') + '</a>');
       }
-      if (/系统思维|认知|学习/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="/posts/systems-thinking/">📚 系统思维专栏</a>');
+      if (/系统思维|认知|学习|system|cognitive/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/posts/systems-thinking/' : '/posts/systems-thinking/') + '">📚 ' + (isEn ? 'Systems Thinking' : '系统思维专栏') + '</a>');
       }
-      if (/社区|打卡|书友/i.test(fullReply)) {
-        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">💬 书友社区</a>');
+      if (/社区|打卡|书友|community|reader/i.test(fullReply)) {
+        pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/" target="_blank">💬 ' + (isEn ? 'Community' : '书友社区') + '</a>');
       }
       if (pills.length > 0) {
-        linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">直达卡片：</span>' + pills.join('');
+        linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">' + (isEn ? 'Direct links: ' : '直达卡片：') + '</span>' + pills.join('');
         aiEl.appendChild(linksWrap);
       }
       log.scrollTop = log.scrollHeight;

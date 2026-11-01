@@ -97,20 +97,16 @@
                 {{- end }}
 
                 {{- $lang := .Lang}}
-                {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
-                {{- with site.Home.AllTranslations }}
+                {{- $trans := $.AllTranslations }}
+                {{- if not $trans }}{{ $trans = site.Home.AllTranslations }}{{ end }}
+                {{- with $trans }}
                 <ul class="lang-switch">
-                    {{- if $separator }}<li>|</li>{{ end }}
                     {{- range . -}}
                     {{- if ne $lang .Lang }}
                     <li>
-                        <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
-                            aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
-                            {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
-                            {{- .Language.LanguageName | emojify -}}
-                            {{- else }}
-                            {{- .Lang | title -}}
-                            {{- end -}}
+                        <a href="{{- .Permalink -}}" class="zen-lang-pill" title="{{ if eq .Lang "en" }}Switch to English{{ else }}切换至中文{{ end }}" aria-label="{{ if eq .Lang "en" }}Switch to English{{ else }}切换至中文{{ end }}">
+                            <span class="zen-lang-globe">🌐</span>
+                            <span>{{ if eq .Lang "en" }}EN{{ else }}中文{{ end }}</span>
                         </a>
                     </li>
                     {{- end -}}
