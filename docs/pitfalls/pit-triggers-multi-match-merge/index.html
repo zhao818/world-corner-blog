@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html lang="zh" dir="auto">
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由 | 世界一隅</title>
-<meta name="keywords" content="">
-<meta name="description" content="症状
+<!doctype html><html lang=zh dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>TRIGGERS 多场景同时命中时只读第一条，漏了后续路由 | 世界一隅</title><meta name=keywords content><meta name=description content='症状
 
 你看到什么？
-用户说&quot;审计五件套&quot;来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
+
+用户说"审计五件套"来审计一个 Excel 文件。这是一个数据录入项目，TRIGGERS.md 有两条路由同时命中：
 
 &ldquo;审计五件套 / 跑审计&rdquo; → 加载 audit-four-piece.md
 &ldquo;数据录入项目&rdquo; → 加载 audit-four-piece-data.md、excel-com-audit.md、data-cross-verify.md
 
-但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒&quot;我记得优化过你的记忆啊，为什么还做不到&quot;——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
+但实际操作中只读了第一条（通用版），漏了数据版三条。用户提醒"我记得优化过你的记忆啊，为什么还做不到"——因为之前已经修过这个问题，但触发匹配逻辑没改彻底。
 后果：跑完审计流程后，数据特有的坑（收支=明细交叉验证、实发=应发检查、Excel COM 修复模式）全部没做。
 根因
 
 到底为什么出问题？
 
-匹配策略是&quot;命中即停&quot;：扫到第一个匹配行就停下来加载了，没继续往下扫
+
+匹配策略是"命中即停"：扫到第一个匹配行就停下来加载了，没继续往下扫
 没有 OR → AND 的思维转换：多条路由匹配同一任务时，取的文件应该是并集（AND），不是第一个命中（OR）
 TRIGGERS 表设计有盲区：通用路由和专用路由分开写，但加载逻辑没做合并
-事后没自检：加载完文件后没问自己&quot;用户说的是审计&#43;Excel，我有没有读 Excel 相关的路由？&quot;
+事后没自检：加载完文件后没问自己"用户说的是审计+Excel，我有没有读 Excel 相关的路由？"
 
 修复
 
 怎么做？
-匹配策略改为&quot;全量扫描 &#43; AND 合并&quot;：
+
+匹配策略改为"全量扫描 + AND 合并"：
 输入：用户消息关键词
 匹配：扫描 TRIGGERS.md 全部行，收集所有匹配的路由
 合并：取所有匹配路由的并集

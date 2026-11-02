@@ -7,83 +7,9 @@ Gmail 的红点、Telegram 群聊的未读、RSS 阅读器的计数、Slack 的�
 这不是信息过载。这是信息碎尸——你的注意力被拆成 87 块，扔进了 87 个不同的桶里。每块都不够深，无法形成认知。
 所以我在想：能不能反过来？不主动去「消费」信息，而是让信息自己汇聚到一个地方。等我有认知带宽的时候，一次性深潜处理。
 于是有了 内容缓冲池（Content Buffer Pool）。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-05-01 12:40:00 +0800 +0800'>2026年5月1日</span>&nbsp;·&nbsp;Tianbing Zhao</footer>
-  <a class="entry-link" aria-label="post link to 自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？" href="https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/"></a>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2026 <a href="https://worldcorner.xyz/">世界一隅</a></span>
-    <span>
-        由
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-        驱动
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    if (mybutton) {
-        window.addEventListener('scroll', function () {
-            if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-                mybutton.style.visibility = "visible";
-                mybutton.style.opacity = "1";
-            } else {
-                mybutton.style.visibility = "hidden";
-                mybutton.style.opacity = "0";
-            }
-        });
-    }
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-</html>
+...</p></div><footer class=entry-footer><span title='2026-05-01 12:40:00 +0800 CST'>2026年5月1日</span>&nbsp;·&nbsp;Tianbing Zhao</footer><a class=entry-link aria-label="post link to 自动化生存指南：如何用 Python 构建你的专属「内容缓冲池」？" href=https://worldcorner.xyz/posts/tooling/content-buffer-pool-design/></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://worldcorner.xyz/>世界一隅</a></span>
+<span>由
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
+驱动</span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");mybutton&&window.addEventListener("scroll",function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")})</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
