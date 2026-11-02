@@ -265,6 +265,7 @@
   var isEn = {{ if $isEn }}true{{ else }}false{{ end }};
   var AI_API = 'https://api.worldcorner.xyz/community/api/ai';
   var conversationHistory = [];
+  var isZenBusy = false;
   window.lastZenQuery = '';
 
   // 1. 随身听切书与异常监听
@@ -274,8 +275,10 @@
     document.getElementById('zen-player-title').textContent = title;
     document.getElementById('zen-player-badge').textContent = duration;
     var audio = document.getElementById('zen-mini-audio');
-    audio.src = src;
-    audio.play().catch(function() {});
+    if (audio) {
+      audio.src = src;
+      audio.play().catch(function() {});
+    }
   };
 
   var miniAudio = document.getElementById('zen-mini-audio');
@@ -286,31 +289,34 @@
     });
   }
 
-  // 2. 快捷 Prompt 触发与失败重试
+  // 2. 快捷 Prompt 触发与失败重试 (带繁忙锁保护)
   window.sendZenPrompt = function(promptText) {
-    document.getElementById('zen-ai-input').value = promptText;
+    if (isZenBusy) return;
+    var input = document.getElementById('zen-ai-input');
+    if (input) input.value = promptText;
     triggerZenAI();
   };
 
   window.retryLastZenPrompt = function() {
-    if (window.lastZenQuery) {
-      document.getElementById('zen-ai-input').value = window.lastZenQuery;
-      triggerZenAI();
-    }
+    if (isZenBusy || !window.lastZenQuery) return;
+    triggerZenAI(true);
   };
 
   // 3. 关闭对话面板
   window.closeZenAI = function() {
     var d = document.getElementById('zen-ai-dialogue');
-    d.style.display = 'none';
+    if (d) d.style.display = 'none';
   };
 
-  // 4. 触发 AI 流式对话
-  window.triggerZenAI = function() {
+  // 4. 触发 AI 流式对话 (支持防并发锁、IME组词过滤、失败单份历史与流中断保留)
+  window.triggerZenAI = function(isRetry) {
+    if (isZenBusy) return;
+
     var input = document.getElementById('zen-ai-input');
-    var query = input.value.trim();
+    var query = isRetry ? (window.lastZenQuery || (input ? input.value.trim() : '')) : (input ? input.value.trim() : '');
     if (!query) return;
 
+    isZenBusy = true;
     window.lastZenQuery = query;
 
     var dialogueBox = document.getElementById('zen-ai-dialogue');
@@ -319,17 +325,19 @@
     var statusMsg = document.getElementById('zen-ai-status-msg');
     var sendBtn = document.getElementById('zen-ai-send');
 
-    dialogueBox.style.display = 'block';
-    pulse.style.display = 'inline-block';
-    statusMsg.textContent = isEn ? 'AI is reflecting on your inquiry...' : 'AI 正在结合全书体系深度思考...';
-    sendBtn.disabled = true;
+    if (dialogueBox) dialogueBox.style.display = 'block';
+    if (pulse) pulse.style.display = 'inline-block';
+    if (statusMsg) statusMsg.textContent = isEn ? 'AI is reflecting on your inquiry...' : 'AI 正在结合全书体系深度思考...';
+    if (sendBtn) sendBtn.disabled = true;
 
-    // 渲染用户提问
-    var userEl = document.createElement('div');
-    userEl.className = 'zen-ai-msg user';
-    userEl.textContent = query;
-    log.appendChild(userEl);
-    input.value = '';
+    // 渲染用户提问 (重试时不重复添加用户气泡)
+    if (!isRetry && log) {
+      var userEl = document.createElement('div');
+      userEl.className = 'zen-ai-msg user';
+      userEl.textContent = query;
+      log.appendChild(userEl);
+      if (input) input.value = '';
+    }
 
     // 焦虑缓解轮播文案（紧扣九书体系，实事求是，不夸大假检索）
     var COMFORT_TEXTS = isEn ? [
@@ -360,7 +368,7 @@
       '</div>' +
       '<div class="zen-ai-thought-container"></div>' +
       '<div class="zen-ai-streaming-text"></div>';
-    log.appendChild(aiEl);
+    if (log) log.appendChild(aiEl);
 
     var waitingWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
     var comfortEl = aiEl.querySelector('.zen-ai-comfort-text');
@@ -371,6 +379,8 @@
     var fullThought = '';
     var fullReply = '';
     var streamError = null;
+    var streamCompleted = false;
+    var hasEnded = false;
 
     // 动态舒适文案定时器（每 2.2 秒平滑淡入淡出切换）
     var comfortTimer = setInterval(function() {
@@ -402,9 +412,23 @@
       }
     }
 
-    log.scrollTop = log.scrollHeight;
+    if (log) log.scrollTop = log.scrollHeight;
 
-    conversationHistory.push({ role: 'user', content: query });
+    // 对话历史维护 (重试时复用已有单份 user message，不产生重复)
+    if (!isRetry) {
+      conversationHistory.push({ role: 'user', content: query });
+    } else {
+      var lastMsg = conversationHistory[conversationHistory.length - 1];
+      if (!lastMsg || lastMsg.role !== 'user' || lastMsg.content !== query) {
+        while (conversationHistory.length > 0 && conversationHistory[conversationHistory.length - 1].role === 'assistant') {
+          conversationHistory.pop();
+        }
+        var currentLast = conversationHistory[conversationHistory.length - 1];
+        if (!currentLast || currentLast.role !== 'user' || currentLast.content !== query) {
+          conversationHistory.push({ role: 'user', content: query });
+        }
+      }
+    }
     if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
 
     fetch(AI_API, {
@@ -442,7 +466,7 @@
             try {
               var parsed = JSON.parse(jsonStr);
 
-              // 显式捕获后端错误事件 (P1 缺陷修复)
+              // 显式捕获后端错误事件
               if (parsed.e) {
                 streamError = parsed.e;
               }
@@ -451,7 +475,7 @@
               if (parsed.t) {
                 stopWaitingUX();
                 if (!thoughtBox) {
-                  statusMsg.textContent = isEn ? '✦ Deep thinking in progress...' : '✦ 正在深入思考推演...';
+                  if (statusMsg) statusMsg.textContent = isEn ? '✦ Deep thinking in progress...' : '✦ 正在深入思考推演...';
                   thoughtBox = document.createElement('details');
                   thoughtBox.className = 'zen-ai-thought-box';
                   thoughtBox.setAttribute('open', '');
@@ -466,9 +490,11 @@
                   thoughtBody = thoughtBox.querySelector('.zen-ai-thought-body');
                 }
                 fullThought += parsed.t;
-                thoughtBody.textContent = fullThought;
-                thoughtBody.scrollTop = thoughtBody.scrollHeight;
-                log.scrollTop = log.scrollHeight;
+                if (thoughtBody) {
+                  thoughtBody.textContent = fullThought;
+                  thoughtBody.scrollTop = thoughtBody.scrollHeight;
+                }
+                if (log) log.scrollTop = log.scrollHeight;
               }
 
               // 正文增量下发
@@ -479,13 +505,14 @@
                   var st = thoughtBox.querySelector('.zen-ai-thought-status');
                   if (st) st.textContent = isEn ? 'Thinking process completed (click to expand)' : '思考推演已完成 (点击展开)';
                 }
-                statusMsg.textContent = isEn ? '✦ Flowing thoughts...' : '✦ 正在输出思想回答...';
+                if (statusMsg) statusMsg.textContent = isEn ? '✦ Flowing thoughts...' : '✦ 正在输出思想回答...';
                 fullReply += parsed.d;
                 textSpan.innerHTML = formatZenText(fullReply);
-                log.scrollTop = log.scrollHeight;
+                if (log) log.scrollTop = log.scrollHeight;
               }
 
               if (parsed.done) {
+                streamCompleted = true;
                 handleStreamEnd();
                 return;
               }
@@ -496,27 +523,43 @@
       }
 
       function handleStreamEnd() {
+        if (hasEnded) return;
+        hasEnded = true;
         stopWaitingUX();
-        pulse.style.display = 'none';
-        sendBtn.disabled = false;
+        isZenBusy = false;
+        if (pulse) pulse.style.display = 'none';
+        if (sendBtn) sendBtn.disabled = false;
 
-        // 若正文完全为空且发生错误或空响应：展示友好错误与重试按钮
+        // 若正文完全为空（发生错误或空响应）：展示友好错误与重试按钮
         if (!fullReply.trim()) {
-          statusMsg.textContent = isEn ? '⚠️ Thinking interrupted' : '⚠️ 思考中断，未获取到有效回答';
+          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Thinking interrupted' : '⚠️ 思考中断，未获取到有效回答';
           var errMsg = streamError || (isEn ? 'Connection timeout or no response' : '思考服务响应异常或未返回内容');
-          textSpan.innerHTML = '<div class="zen-ai-error-notice">' +
+          var errBox = document.createElement('div');
+          errBox.className = 'zen-ai-error-notice';
+          errBox.innerHTML = 
             '<span>' + (isEn ? 'Interrupted: ' : '生成中断：') + errMsg + '</span>' +
-            '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>' +
-            '</div>';
-          log.scrollTop = log.scrollHeight;
+            '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+          aiEl.appendChild(errBox);
+          if (log) log.scrollTop = log.scrollHeight;
           return;
         }
 
-        // 正常回答完成
-        statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
-        if (streamError) {
-          textSpan.innerHTML += '<div class="zen-ai-partial-notice">' + (isEn ? '✦ Answer ended prematurely (' + streamError + ')' : '✦ 回答中途断开（' + streamError + '）') + '</div>';
+        // 若正文不为空，但未收到协议完成标志 (streamCompleted == false) 或存在流错误 (streamError)
+        if (!streamCompleted || streamError) {
+          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Stream interrupted' : '⚠️ 回答中途断开';
+          var reason = streamError || (isEn ? 'stream ended prematurely' : '传输提前结束，未收到结束信号');
+          var partialBox = document.createElement('div');
+          partialBox.className = 'zen-ai-error-notice';
+          partialBox.innerHTML = 
+            '<span>' + (isEn ? 'Answer interrupted: ' : '回答中途断开：') + reason + '</span>' +
+            '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+          aiEl.appendChild(partialBox);
+          if (log) log.scrollTop = log.scrollHeight;
+          return;
         }
+
+        // 正常回答完成 (streamCompleted === true && !streamError)
+        if (statusMsg) statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
         conversationHistory.push({ role: 'assistant', content: fullReply });
 
         // 智能生成真实已验证的快捷跳转药丸 (杜绝404与虚构路径)
@@ -542,20 +585,31 @@
           linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">' + (isEn ? 'Direct links: ' : '直达卡片：') + '</span>' + pills.join('');
           aiEl.appendChild(linksWrap);
         }
-        log.scrollTop = log.scrollHeight;
+        if (log) log.scrollTop = log.scrollHeight;
       }
 
       return readChunk();
     }).catch(function(err) {
+      if (hasEnded) return;
+      hasEnded = true;
       stopWaitingUX();
-      statusMsg.textContent = isEn ? '⚠️ Connection interrupted' : '⚠️ 对话遇阻，已切换重试提示';
-      pulse.style.display = 'none';
-      sendBtn.disabled = false;
-      textSpan.innerHTML = '<div class="zen-ai-error-notice">' +
-        '<span>' + (isEn ? 'Network error: ' : '网络请求失败：') + (err.message || 'Timeout') + '</span>' +
-        '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>' +
-        '</div>';
-      log.scrollTop = log.scrollHeight;
+      isZenBusy = false;
+      if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Connection interrupted' : '⚠️ 对话遇阻，已切换重试提示';
+      if (pulse) pulse.style.display = 'none';
+      if (sendBtn) sendBtn.disabled = false;
+
+      var errMsg = err.message || (isEn ? 'Timeout' : '网络中断');
+      var errNotice = document.createElement('div');
+      errNotice.className = 'zen-ai-error-notice';
+      errNotice.innerHTML = 
+        '<span>' + (isEn ? 'Network error: ' : '网络请求失败：') + errMsg + '</span>' +
+        '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+
+      if (fullReply && fullReply.trim()) {
+        textSpan.innerHTML = formatZenText(fullReply);
+      }
+      aiEl.appendChild(errNotice);
+      if (log) log.scrollTop = log.scrollHeight;
     });
   };
 
@@ -573,13 +627,19 @@
       .replace(/\n/g, '<br>');
   }
 
-  // 回车键发送
-  document.getElementById('zen-ai-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      triggerZenAI();
-    }
-  });
+  // 回车键发送 (支持防并发与中文输入法组词过滤)
+  var inputEl = document.getElementById('zen-ai-input');
+  if (inputEl) {
+    inputEl.addEventListener('keydown', function(e) {
+      if (e.isComposing || e.keyCode === 229) return;
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (!isZenBusy) {
+          triggerZenAI();
+        }
+      }
+    });
+  }
 })();
 </script>
 {{- end }}
