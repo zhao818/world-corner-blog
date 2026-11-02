@@ -76,8 +76,8 @@
 <script>
 (function() {
   try {
-    var title = {{ .Title | jsonify }};
-    var url = {{ .RelPermalink | jsonify }};
+    var title = {{ .Title }};
+    var url = {{ .RelPermalink }};
     if (title && url) {
       localStorage.setItem('zen_last_read', JSON.stringify({
         title: title,

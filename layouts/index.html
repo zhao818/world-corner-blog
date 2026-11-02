@@ -46,7 +46,7 @@
   <div class="zen-instant-head">
     <div class="zen-instant-badge">
       <span>🎧</span>
-      <span>{{ if $isEn }}Instant Listen · 3-Min Experience{{ else }}今日短试听 · 首次体验{{ end }}</span>
+      <span>{{ if $isEn }}Instant Listen · Guide summary{{ else }}今日短试听 · 导读概括{{ end }}</span>
     </div>
     <!-- 断点续播按钮 (localStorage检测到上次进度时由JS展示) -->
     <button type="button" id="zen-resume-pill" class="zen-resume-pill" style="display:none" onclick="resumeZenAudio()">
@@ -163,7 +163,7 @@
   <div id="zen-reading-resume-card" class="zen-reading-resume-card" style="display:none">
     <span class="zen-resume-icon">📖</span>
     <span class="zen-resume-text" id="zen-reading-resume-text"></span>
-    <a href="#" id="zen-reading-resume-link" class="zen-resume-go">{{ if $isEn }}Continue reading →{{ else }}接着上次读 →{{ end }}</a>
+    <a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}" id="zen-reading-resume-link" class="zen-resume-go">{{ if $isEn }}Back to it →{{ else }}回到这篇 →{{ end }}</a>
   </div>
 
   <div class="zen-gateway-grid">
@@ -205,24 +205,32 @@
       </div>
     </a>
 
-    <!-- 指南 3: 向外与向内安顿 -->
-    <a href="{{ if $isEn }}/en/posts/systems-thinking/outward-and-inward/{{ else }}/posts/systems-thinking/outward-and-inward/{{ end }}" class="zen-gateway-card">
+    <!-- 指南 3 -->
+    {{ if $isEn }}
+    <a href="/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/" class="zen-gateway-card">
       <div class="zen-gateway-badge-row">
-        <span class="zen-gateway-tag">{{ if $isEn }}Inner Settlement{{ else }}内心安顿{{ end }}</span>
-        <span class="zen-gateway-time">⏱️ 12 {{ if $isEn }}mins{{ else }}分钟{{ end }}</span>
+        <span class="zen-gateway-tag">Systems Engineering</span>
+        <span class="zen-gateway-time">⏱️ 12 mins</span>
       </div>
-      <h3 class="zen-gateway-title">{{ if $isEn }}Inward and Outward: Anchoring Inner Order in the Algorithmic Age{{ else }}人生的向外与向内：在算法时代安顿自身秩序{{ end }}</h3>
+      <h3 class="zen-gateway-title">The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project</h3>
       <div class="zen-gateway-meta">
-        <div class="zen-gateway-target">
-          <strong>{{ if $isEn }}For whom: {{ else }}适合谁：{{ end }}</strong>
-          {{ if $isEn }}Those weary of endless external competition, seeking genuine psychological peace{{ else }}物质条件尚可但常感虚无迷茫、向外追逐疲惫的人{{ end }}
-        </div>
-        <div class="zen-gateway-gain">
-          <strong>{{ if $isEn }}Takeaway: {{ else }}读完能获得：{{ end }}</strong>
-          {{ if $isEn }}Clarify the divide between chasing external validation and nurturing inner calm{{ else }}厘清向外追逐与向内安顿的底层差异，建立内心秩序柱石{{ end }}
-        </div>
+        <div class="zen-gateway-target"><strong>For whom: </strong>Anyone whose carefully made plans keep failing under pressure</div>
+        <div class="zen-gateway-gain"><strong>Takeaway: </strong>See how a real project collapses, and how to read the warning signs earlier</div>
       </div>
     </a>
+    {{ else }}
+    <a href="/posts/systems-thinking/outward-and-inward/" class="zen-gateway-card">
+      <div class="zen-gateway-badge-row">
+        <span class="zen-gateway-tag">内心安顿</span>
+        <span class="zen-gateway-time">⏱️ 12 分钟</span>
+      </div>
+      <h3 class="zen-gateway-title">人生的向外与向内：在算法时代安顿自身秩序</h3>
+      <div class="zen-gateway-meta">
+        <div class="zen-gateway-target"><strong>适合谁：</strong>物质条件尚可但常感虚无迷茫、向外追逐疲惫的人</div>
+        <div class="zen-gateway-gain"><strong>读完能获得：</strong>厘清向外追逐与向内安顿的差异，建立内心秩序</div>
+      </div>
+    </a>
+    {{ end }}
   </div>
 </div>
 
@@ -398,6 +406,23 @@
       }
     });
 
+    function saveZenProgress(init) {
+      try {
+        var raw = localStorage.getItem('zen_last_audio');
+        var d = raw ? JSON.parse(raw) : null;
+        if (!d || !d.src || d.src.indexOf(miniAudio.getAttribute('src') || '') === -1 && init) {
+          var t = document.getElementById('zen-player-title');
+          var q = document.getElementById('zen-player-quote');
+          d = { title: t ? t.textContent : '', src: miniAudio.getAttribute('src'), quote: q ? q.textContent.trim() : '', time: 0 };
+        }
+        d.time = Math.floor(miniAudio.currentTime || 0);
+        localStorage.setItem('zen_last_audio', JSON.stringify(d));
+      } catch(e) {}
+    }
+    miniAudio.addEventListener('play', function() { saveZenProgress(true); });
+    miniAudio.addEventListener('pause', function() { saveZenProgress(false); });
+    window.addEventListener('pagehide', function() { if (miniAudio.currentTime > 0) saveZenProgress(false); });
+
     miniAudio.addEventListener('error', function() {
       var quoteEl = document.getElementById('zen-player-quote');
       if (quoteEl) quoteEl.textContent = isEn ? 'Audio temporarily unavailable' : '音频暂不可播，请稍后刷新重试';
@@ -451,12 +476,14 @@
       var savedRead = localStorage.getItem('zen_last_read');
       if (savedRead) {
         var rData = JSON.parse(savedRead);
-        if (rData.title && rData.url) {
+        rData.url = String(rData.url || '').replace(/^["'\s]+|["'\s]+$/g, '');
+        rData.title = String(rData.title || '').replace(/^["'\s]+|["'\s]+$/g, '');
+        if (rData.title && rData.url && rData.url.charAt(0) === '/') {
           var card = document.getElementById('zen-reading-resume-card');
           var text = document.getElementById('zen-reading-resume-text');
           var link = document.getElementById('zen-reading-resume-link');
           if (card && text && link) {
-            text.textContent = (isEn ? 'Last read: ' : '接着上次读: ') + rData.title;
+            text.textContent = (isEn ? 'Last visited: ' : '上次浏览: ') + rData.title;
             link.href = rData.url;
             card.style.display = 'flex';
           }
@@ -818,7 +845,7 @@
           '<details style="display:inline;margin-left:auto;">' +
             '<summary class="zen-ai-action-btn" style="list-style:none;cursor:pointer;">🔍 ' + (isEn ? 'Sources' : '依据与出处') + ' ▾</summary>' +
             '<div style="margin-top:6px;font-size:12px;color:var(--zen-ink-muted);line-height:1.6;background:var(--zen-bg-subtle);padding:6px 10px;border-radius:6px;">' +
-              (isEn ? 'Based on the Nine Books system (Inner Happiness, Inner Cultivation, Ladder of Civilization, Into the Fields) and practical engineering lessons.' : '推演依据来源于世界一隅九书主线体系（《幸福的内在》《内心的修炼》《文明的阶梯》《走向田间》）及踩坑实战复盘。') +
+              (isEn ? 'General background only (not a citation of specific passages): this site\'s Nine Books system (Inner Happiness, Inner Cultivation, Ladder of Civilization, Into the Fields) and practical engineering lessons.' : '仅为思想背景说明，非对具体章节的引用：本站九书主线体系（《幸福的内在》《内心的修炼》《文明的阶梯》《走向田间》）及踩坑实战复盘。') +
             '</div>' +
           '</details>';
         aiEl.appendChild(actionsBar);
