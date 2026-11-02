@@ -266,6 +266,9 @@
   var AI_API = 'https://api.worldcorner.xyz/community/api/ai';
   var conversationHistory = [];
   var isZenBusy = false;
+  var turnCount = 0;
+  var turnRegistry = {};
+  var lastTurnId = null;
   window.lastZenQuery = '';
 
   // 1. 随身听切书与异常监听
@@ -289,17 +292,28 @@
     });
   }
 
-  // 2. 快捷 Prompt 触发与失败重试 (带繁忙锁保护)
+  // 2. 快捷 Prompt 触发与失败重试 (带繁忙锁保护与每轮Turn精准绑定)
   window.sendZenPrompt = function(promptText) {
     if (isZenBusy) return;
     var input = document.getElementById('zen-ai-input');
     if (input) input.value = promptText;
-    triggerZenAI();
+    triggerZenAI(false);
+  };
+
+  window.retryZenTurn = function(targetTurnId) {
+    if (isZenBusy) return;
+    triggerZenAI(true, targetTurnId);
   };
 
   window.retryLastZenPrompt = function() {
-    if (isZenBusy || !window.lastZenQuery) return;
-    triggerZenAI(true);
+    if (isZenBusy) return;
+    if (lastTurnId && turnRegistry[lastTurnId]) {
+      triggerZenAI(true, lastTurnId);
+    } else {
+      var input = document.getElementById('zen-ai-input');
+      var q = window.lastZenQuery || (input ? input.value.trim() : '');
+      if (q) triggerZenAI(false);
+    }
   };
 
   // 3. 关闭对话面板
@@ -308,36 +322,72 @@
     if (d) d.style.display = 'none';
   };
 
-  // 4. 触发 AI 流式对话 (支持防并发锁、IME组词过滤、失败单份历史与流中断保留)
-  window.triggerZenAI = function(isRetry) {
+  // 4. 触发 AI 流式对话 (支持每轮精确重试快照、防并发锁、IME组词过滤与流中断保留)
+  window.triggerZenAI = function(isRetry, targetTurnId) {
     if (isZenBusy) return;
 
     var input = document.getElementById('zen-ai-input');
-    var query = isRetry ? (window.lastZenQuery || (input ? input.value.trim() : '')) : (input ? input.value.trim() : '');
-    if (!query) return;
-
-    isZenBusy = true;
-    window.lastZenQuery = query;
-
-    var dialogueBox = document.getElementById('zen-ai-dialogue');
     var log = document.getElementById('zen-ai-log');
+    var dialogueBox = document.getElementById('zen-ai-dialogue');
     var pulse = document.getElementById('zen-ai-pulse');
     var statusMsg = document.getElementById('zen-ai-status-msg');
     var sendBtn = document.getElementById('zen-ai-send');
+
+    var turnId;
+    var query;
+    var messagesToSend;
+    var aiEl = null;
+
+    if (!isRetry) {
+      query = input ? input.value.trim() : '';
+      if (!query) return;
+
+      turnId = ++turnCount;
+      lastTurnId = turnId;
+      window.lastZenQuery = query;
+
+      // 清理未成功的末尾悬空用户提问，保证会话交替
+      while (conversationHistory.length > 0 && conversationHistory[conversationHistory.length - 1].role === 'user') {
+        conversationHistory.pop();
+      }
+      conversationHistory.push({ role: 'user', content: query });
+      if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
+
+      messagesToSend = conversationHistory.slice();
+      turnRegistry[turnId] = {
+        query: query,
+        messages: messagesToSend.slice(),
+        aiEl: null
+      };
+
+      // 渲染用户提问气泡
+      if (log) {
+        var userEl = document.createElement('div');
+        userEl.className = 'zen-ai-msg user';
+        userEl.textContent = query;
+        log.appendChild(userEl);
+        if (input) input.value = '';
+      }
+    } else {
+      turnId = targetTurnId || lastTurnId;
+      var turn = turnRegistry[turnId];
+      if (turn) {
+        query = turn.query;
+        messagesToSend = turn.messages.slice();
+        aiEl = turn.aiEl;
+      } else {
+        query = window.lastZenQuery || (input ? input.value.trim() : '');
+        if (!query) return;
+        messagesToSend = conversationHistory.slice();
+      }
+    }
+
+    isZenBusy = true;
 
     if (dialogueBox) dialogueBox.style.display = 'block';
     if (pulse) pulse.style.display = 'inline-block';
     if (statusMsg) statusMsg.textContent = isEn ? 'AI is reflecting on your inquiry...' : 'AI 正在结合全书体系深度思考...';
     if (sendBtn) sendBtn.disabled = true;
-
-    // 渲染用户提问 (重试时不重复添加用户气泡)
-    if (!isRetry && log) {
-      var userEl = document.createElement('div');
-      userEl.className = 'zen-ai-msg user';
-      userEl.textContent = query;
-      log.appendChild(userEl);
-      if (input) input.value = '';
-    }
 
     // 焦虑缓解轮播文案（紧扣九书体系，实事求是，不夸大假检索）
     var COMFORT_TEXTS = isEn ? [
@@ -351,24 +401,42 @@
     ];
     var comfortIndex = 0;
 
-    // 助手回答容器（等待微光骨架 + 思考推演折叠栏 + 流式正文区）
-    var aiEl = document.createElement('div');
-    aiEl.className = 'zen-ai-msg assistant';
-    aiEl.innerHTML = 
-      '<div class="zen-ai-waiting-wrap">' +
-        '<div class="zen-ai-waiting-badge">' +
-          '<span class="zen-ai-sparkle">✦</span>' +
-          '<span class="zen-ai-comfort-text">' + COMFORT_TEXTS[0] + '</span>' +
+    // 助手回答容器：重试时若原卡片仍在DOM中，就地复用原卡片；否则新建
+    if (!aiEl || !aiEl.parentNode) {
+      aiEl = document.createElement('div');
+      aiEl.className = 'zen-ai-msg assistant';
+      aiEl.innerHTML = 
+        '<div class="zen-ai-waiting-wrap">' +
+          '<div class="zen-ai-waiting-badge">' +
+            '<span class="zen-ai-sparkle">✦</span>' +
+            '<span class="zen-ai-comfort-text">' + COMFORT_TEXTS[0] + '</span>' +
+          '</div>' +
+          '<div class="zen-ai-shimmer-box">' +
+            '<div class="zen-ai-shimmer-line" style="width: 82%;"></div>' +
+            '<div class="zen-ai-shimmer-line" style="width: 95%;"></div>' +
+            '<div class="zen-ai-shimmer-line" style="width: 60%;"></div>' +
+          '</div>' +
         '</div>' +
-        '<div class="zen-ai-shimmer-box">' +
-          '<div class="zen-ai-shimmer-line" style="width: 82%;"></div>' +
-          '<div class="zen-ai-shimmer-line" style="width: 95%;"></div>' +
-          '<div class="zen-ai-shimmer-line" style="width: 60%;"></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="zen-ai-thought-container"></div>' +
-      '<div class="zen-ai-streaming-text"></div>';
-    if (log) log.appendChild(aiEl);
+        '<div class="zen-ai-thought-container"></div>' +
+        '<div class="zen-ai-streaming-text"></div>';
+      if (log) log.appendChild(aiEl);
+    } else {
+      // 复用已有卡片：移除旧错误提示，重置文本与等待动效
+      var oldErr = aiEl.querySelector('.zen-ai-error-notice');
+      if (oldErr) oldErr.remove();
+      var oldLinks = aiEl.querySelector('.zen-ai-links-wrap');
+      if (oldLinks) oldLinks.remove();
+      var oldThoughts = aiEl.querySelector('.zen-ai-thought-container');
+      if (oldThoughts) oldThoughts.innerHTML = '';
+      var sText = aiEl.querySelector('.zen-ai-streaming-text');
+      if (sText) sText.innerHTML = '';
+      var wWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
+      if (wWrap) wWrap.style.display = 'block';
+    }
+
+    if (turnRegistry[turnId]) {
+      turnRegistry[turnId].aiEl = aiEl;
+    }
 
     var waitingWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
     var comfortEl = aiEl.querySelector('.zen-ai-comfort-text');
@@ -414,28 +482,11 @@
 
     if (log) log.scrollTop = log.scrollHeight;
 
-    // 对话历史维护 (重试时复用已有单份 user message，不产生重复)
-    if (!isRetry) {
-      conversationHistory.push({ role: 'user', content: query });
-    } else {
-      var lastMsg = conversationHistory[conversationHistory.length - 1];
-      if (!lastMsg || lastMsg.role !== 'user' || lastMsg.content !== query) {
-        while (conversationHistory.length > 0 && conversationHistory[conversationHistory.length - 1].role === 'assistant') {
-          conversationHistory.pop();
-        }
-        var currentLast = conversationHistory[conversationHistory.length - 1];
-        if (!currentLast || currentLast.role !== 'user' || currentLast.content !== query) {
-          conversationHistory.push({ role: 'user', content: query });
-        }
-      }
-    }
-    if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
-
     fetch(AI_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        messages: conversationHistory,
+        messages: messagesToSend,
         stream: true,
         tab: 'ai',
         lang: isEn ? 'en' : 'zh'
@@ -538,7 +589,7 @@
           errBox.className = 'zen-ai-error-notice';
           errBox.innerHTML = 
             '<span>' + (isEn ? 'Interrupted: ' : '生成中断：') + errMsg + '</span>' +
-            '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+            '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
           aiEl.appendChild(errBox);
           if (log) log.scrollTop = log.scrollHeight;
           return;
@@ -552,7 +603,7 @@
           partialBox.className = 'zen-ai-error-notice';
           partialBox.innerHTML = 
             '<span>' + (isEn ? 'Answer interrupted: ' : '回答中途断开：') + reason + '</span>' +
-            '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+            '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
           aiEl.appendChild(partialBox);
           if (log) log.scrollTop = log.scrollHeight;
           return;
@@ -560,7 +611,12 @@
 
         // 正常回答完成 (streamCompleted === true && !streamError)
         if (statusMsg) statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
-        conversationHistory.push({ role: 'assistant', content: fullReply });
+        
+        // 若为最新轮次，写入多轮历史；若为历史轮次重试，不污染破坏后续轮次
+        if (turnId === lastTurnId) {
+          conversationHistory.push({ role: 'assistant', content: fullReply });
+          if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
+        }
 
         // 智能生成真实已验证的快捷跳转药丸 (杜绝404与虚构路径)
         var linksWrap = document.createElement('div');
@@ -603,7 +659,7 @@
       errNotice.className = 'zen-ai-error-notice';
       errNotice.innerHTML = 
         '<span>' + (isEn ? 'Network error: ' : '网络请求失败：') + errMsg + '</span>' +
-        '<button type="button" class="zen-ai-retry-btn" onclick="retryLastZenPrompt()">' + (isEn ? 'Retry' : '重新生成') + '</button>';
+        '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
 
       if (fullReply && fullReply.trim()) {
         textSpan.innerHTML = formatZenText(fullReply);
@@ -635,7 +691,7 @@
       if (e.key === 'Enter') {
         e.preventDefault();
         if (!isZenBusy) {
-          triggerZenAI();
+          triggerZenAI(false);
         }
       }
     });
