@@ -1,87 +1,160 @@
 {{ define "main" }}
+{{- $isEn := eq .Lang "en" -}}
 {{- $books := site.Data.audiobook.books -}}
 {{- $st := site.GetPage "posts/systems-thinking" -}}
 {{- $ln := site.GetPage "posts/learning" -}}
 {{- $tl := site.GetPage "posts/tooling" -}}
 {{- $pt := site.GetPage "pitfalls" -}}
 
+<!-- 1. 顶部 Hero：一句核心介绍 -->
 <section class="about-hero">
   <span class="hero-vein" aria-hidden="true"></span>
-  <p class="about-kicker">ABOUT · 关于世界一隅</p>
-  <h1>世界一隅</h1>
-  <p class="about-slogan">在算法洪流中,守护清醒的微光。</p>
-  <p class="about-intro">这里不追热点,不喊速成。它是一套关于认知能量与理性生活的实践笔记——主张慢思考、深阅读、跨学科,在信息过载与注意力碎片的时代,重新建立属于自己的一份内在秩序。</p>
+  <p class="about-kicker">{{ if $isEn }}ABOUT · WORLD CORNER{{ else }}ABOUT · 关于世界一隅{{ end }}</p>
+  <h1>{{ if $isEn }}World Corner{{ else }}世界一隅{{ end }}</h1>
+  <p class="about-slogan">{{ if $isEn }}In the flood of algorithms, guard a flicker of clarity.{{ else }}在算法洪流中，守护清醒的微光。{{ end }}</p>
+  <p class="about-intro">
+    {{ if $isEn }}
+    No chasing trends, no quick-fix promises. This is a practical notebook on cognitive energy, inner cultivation, and systems thinking—advocating slow reflection, deep reading, and interdisciplinary inquiry to reconstruct one's own inner order in an age of fragmented attention.
+    {{ else }}
+    这里不追热点，不喊速成。它是一套关于认知能量与理性生活的实践笔记——主张慢思考、深阅读、系统审视，在信息过载与注意力碎片的时代，重新建立属于自己的一份内在秩序。
+    {{ end }}
+  </p>
 </section>
 
-<div class="about-body">
-  <div class="about-narrative">
-    <section class="about-card">
-      <h2><span class="card-no">01</span> 作者</h2>
-      <p class="signature">美好需要创造 <span class="sig-en">· Tianbing Zhao</span></p>
-      <p>写技术,也写哲学。从 DeepSeek 的商业格局拆到维特根斯坦临终的那句话,从 AI 时代的学习方法,讲到内心的九关修炼。</p>
-      <p>「美好需要创造」是这个站的署名,也是公众号与五本有声书背后的名字。作者相信:真正的进步,始于优化自己的认知操作系统——而不是无限放大外部的欲望。</p>
-    </section>
-
-    <section class="about-card">
-      <h2><span class="card-no">02</span> 认知能量工程是什么</h2>
-      <p>站点的副标题,来自一场针对现代人心智状态的系统实验——「内在文明:认知能量工程」。</p>
-      <p>外部世界已经进化到信息时代,内在操作系统却仍运行在古老版本上:专注力破碎、情绪被消耗、刷着刷着就空虚。这场实验想做的,是把认知当成可以被理解、被优化的系统,在算法洪流中守护并壮大属于自己的内在秩序。</p>
-      <p>系统的思维、真实的方法、亲手踩过的坑——这就是本站的全部内容。</p>
-    </section>
-  </div>
-
-  <aside class="about-rail">
-    <div class="rail-card">
-      <h3>站点地图</h3>
-      <ul class="rail-map">
-        <li><a href="/posts/systems-thinking/">系统思维</a><em>{{ len $st.RegularPages }} 篇</em></li>
-        <li><a href="/posts/learning/">学习方法</a><em>{{ len $ln.RegularPages }} 篇</em></li>
-        <li><a href="/posts/tooling/">效率工具</a><em>{{ len $tl.RegularPages }} 篇</em></li>
-        <li><a href="/pitfalls/">踩坑宝典</a><em>{{ len $pt.RegularPages }} 篇</em></li>
-        <li><a href="/collections/">合集</a><em>公众号</em></li>
-        <li><a href="/audiobook/">听书</a><em>5 本</em></li>
-        <li><a href="/app/">小程序</a><em>灵魂之觅</em></li>
-        <li><a href="/assets/">资产</a><em>80 项</em></li>
-        <li><a href="/skills/">技能</a><em>62 项</em></li>
-      </ul>
-    </div>
-    <div class="rail-card">
-      <h3>联系</h3>
-      <p>tianbingzhao1@gmail.com</p>
-      <p><a href="/collections/">公众号专辑与全部账号 →</a></p>
-    </div>
-  </aside>
-</div>
-
+<!-- 2. 核心心智四部曲：阅读路径 -->
 <section class="about-books">
   <div class="books-head">
-    <span class="books-tag">四本书 + 时代观察</span>
-    <h2>先看到,再去修,走向田间</h2>
-    <p class="books-lead">四本书,是一条路上的四步——《幸福的内在》负责「看到」,《内心的修炼》负责「去修」,《文明的阶梯》负责「方向」,《走向田间》负责「喂养」。四本都各有声书,都能在线阅读。另有一篇《信任危机·前置条件论》,不在这条路上——它是独立的方法论沉淀,时代观察:辨利弊、避坑、借势。</p>
+    <span class="books-tag">{{ if $isEn }}CORE TETRALOGY · MENTAL JOURNEY{{ else }}核心心智四部曲 · 一条向内的路{{ end }}</span>
+    <h2>{{ if $isEn }}From Seeing to Practicing, Toward the Soil{{ else }}先看到，再去修，走向田间{{ end }}</h2>
+    <p class="books-lead">
+      {{ if $isEn }}
+      Four books outline four sequential milestones: <em>The Inner Architecture of Happiness</em> diagnoses emptiness and guides "seeing"; <em>Inner Cultivation</em> offers nine disciplines for "doing"; <em>The Ladder of Civilization</em> points the "direction"; <em>Into the Fields</em> redirects energy from extraction back to "nourishment". All four include full continuous audiobooks and web readers.
+      {{ else }}
+      四本书，是一条路上的四步——《幸福的内在》负责「看到」，《内心的修炼》负责「去修」，《文明的阶梯》负责「方向」，《走向田间》负责「喂养与转向」。四本都各有声书整本连播，均支持在线清爽阅读。
+      {{ end }}
+    </p>
   </div>
   <div class="books-grid">
     {{- range $books }}
+    {{- if or (eq .id "xingfu") (eq .id "neixin") (eq .id "wenming") (eq .id "xiangjian") }}
     <a class="book-tile" href="{{ .read_href }}">
       <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
       <div class="book-tile-txt">
         <h3>{{ .title }}</h3>
-        <p class="book-tile-sub">{{ index (dict "xingfu" "现象诊断书 · 讲「看到」" "neixin" "修行操作书 · 讲「去修」" "wenming" "纲领与地图 · 讲「方向」" "xinqian" "时代观察 · 方法论 · 不并入主线") .id | default "转向 · 讲「喂养」" }}</p>
+        <p class="book-tile-sub">
+          {{ if eq .id "xingfu" }}
+            {{ if $isEn }}Diagnosis · Seeing{{ else }}现象诊断书 · 讲「看到」{{ end }}
+          {{ else if eq .id "neixin" }}
+            {{ if $isEn }}Practice Guide · Doing{{ else }}修行操作书 · 讲「去修」{{ end }}
+          {{ else if eq .id "wenming" }}
+            {{ if $isEn }}Compass & Map · Direction{{ else }}纲领与地图 · 讲「方向」{{ end }}
+          {{ else if eq .id "xiangjian" }}
+            {{ if $isEn }}Turning Point · Nourishment{{ else }}转向与回归 · 讲「喂养」{{ end }}
+          {{ end }}
+        </p>
         <p class="book-tile-desc">{{ .desc }}</p>
-        <span class="book-tile-go">在线阅读 →</span>
+        <span class="book-tile-go">{{ if $isEn }}Read online →{{ else }}在线阅读 →{{ end }}</span>
       </div>
     </a>
+    {{- end }}
     {{- end }}
   </div>
 </section>
 
+<!-- 3. 时代观察：信任危机五部曲专题 -->
+<section class="about-books" style="margin-top: 24px; padding-top: 24px; border-top: 1px dashed var(--border);">
+  <div class="books-head">
+    <span class="books-tag" style="border-color: rgba(36,75,62,0.4); color: var(--zen-pine);">{{ if $isEn }}ERA OBSERVATION · TRUST CRISIS SPECIAL{{ else }}时代观察 · 信任危机系列专题{{ end }}</span>
+    <h2>{{ if $isEn }}Trust Series: Game, Contracts, and Ethical Ground{{ else }}信任危机五部曲：博弈、契约与底牌{{ end }}</h2>
+    <p class="books-lead">
+      {{ if $isEn }}
+      Independent from the inner mental path—this is a methodological archive of era observations: diagnosing how trust is eroded under recommendation algorithms, identifying pitfalls, and finding strategic solid ground for individuals in times of uncertainty.
+      {{ else }}
+      不在这条向内安顿的心智主线上——它是独立的方法论沉淀，时代观察：直面算法与技术时代微观信任的瓦解、契约困境与商业收割，辨利弊、避坑、借势，落到个体该如何在不确定中安身立命。
+      {{ end }}
+    </p>
+  </div>
+  <div class="books-grid">
+    {{- range $books }}
+    {{- if or (eq .id "xinqian") (eq .id "qunti") (eq .id "benyuan") (eq .id "lunli") (eq .id "buyi") }}
+    <a class="book-tile" href="{{ .read_href }}">
+      <img src="{{ .cover }}" alt="《{{ .title }}》封面" loading="lazy">
+      <div class="book-tile-txt">
+        <h3>{{ .title }}</h3>
+        <p class="book-tile-sub" style="color: var(--zen-pine);">
+          {{ if eq .id "xinqian" }}
+            {{ if $isEn }}Prerequisites · Core Framework{{ else }}时代观察 · 前置条件论 · 总纲{{ end }}
+          {{ else if eq .id "qunti" }}
+            {{ if $isEn }}Group Dynamics · Game Theory{{ else }}时代观察 · 群体侧微观博弈{{ end }}
+          {{ else if eq .id "benyuan" }}
+            {{ if $isEn }}Origin of Trust · Evolution{{ else }}时代观察 · 信任本源与契约根基{{ end }}
+          {{ else if eq .id "lunli" }}
+            {{ if $isEn }}Ethics in AI Era · Boundaries{{ else }}时代观察 · 技术时代的伦理重构{{ end }}
+          {{ else if eq .id "buyi" }}
+            {{ if $isEn }}Battle Lessons · Addendum{{ else }}时代观察 · 实操避坑指南与补遗{{ end }}
+          {{ end }}
+        </p>
+        <p class="book-tile-desc">{{ .desc }}</p>
+        <span class="book-tile-go">{{ if $isEn }}Read online →{{ else }}在线阅读 →{{ end }}</span>
+      </div>
+    </a>
+    {{- end }}
+    {{- end }}
+  </div>
+</section>
+
+<!-- 4. 作者与心路 -->
+<div class="about-body" style="margin-top: 24px;">
+  <div class="about-narrative">
+    <section class="about-card">
+      <h2><span class="card-no">03</span> {{ if $isEn }}Author & Purpose{{ else }}作者与初心{{ end }}</h2>
+      <p class="signature">{{ if $isEn }}Beauty Requires Creation · Tianbing Zhao{{ else }}美好需要创造 <span class="sig-en">· Tianbing Zhao</span>{{ end }}</p>
+      <p>{{ if $isEn }}Writing technology, writing philosophy. From software architecture, AI commercial dynamics to Wittgenstein's final words; from cognitive learning methods in the AI era to the nine stages of inner cultivation.{{ else }}写技术，也写哲学。从工程架构与大模型商业格局，拆到维特根斯坦与王阳明；从 AI 时代的学习方法跃迁，讲到内心的九关修炼。{{ end }}</p>
+      <p>{{ if $isEn }}“Beauty Requires Creation” is the site's author name, and the mind behind 9 full-length audiobooks (4 core mental works + 5 era trust observations). The author believes true human progress starts with upgrading one's inner operating system—not infinitely inflating external desires.{{ else }}「美好需要创造」是这个站的署名，也是全站 9 部双轨原声有声书（4 部心智主线 + 5 部时代观察）背后的名字。作者相信：真正的进步，始于优化自己的认知操作系统——而不是无限放大外部的欲望。{{ end }}</p>
+    </section>
+
+    <section class="about-card">
+      <h2><span class="card-no">04</span> {{ if $isEn }}What is Cognitive Energy Engineering?{{ else }}认知能量工程是什么{{ end }}</h2>
+      <p>{{ if $isEn }}The subtitle of this website originates from a systematic experiment on modern mental health: “Inner Civilization: Cognitive Energy Engineering”.{{ else }}站点的副标题，来自一场针对现代人心智状态的系统实验——「内在文明：认知能量工程」。{{ end }}</p>
+      <p>{{ if $isEn }}The external world has surged into the information explosion era, yet our inner operating system still runs on ancient versions: fragmented attention, drained emotions, and hollow exhaustion after endless scrolling. This project treats cognition as an understandable, optimizable system, guarding and strengthening personal inner order amid the algorithmic flood.{{ else }}外部世界已经进化到信息时代，内在操作系统却仍运行在古老版本上：专注力破碎、情绪被消耗、刷着刷着就空虚。这场实验想做的，是把认知当成可以被理解、被优化的系统，在算法洪流中守护并壮大属于自己的内在秩序。{{ end }}</p>
+    </section>
+  </div>
+
+  <!-- 5. 右侧联系与站点地图 -->
+  <aside class="about-rail">
+    <div class="rail-card">
+      <h3>{{ if $isEn }}Site Navigation Atlas{{ else }}站点地图{{ end }}</h3>
+      <ul class="rail-map">
+        <li><a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}">{{ if $isEn }}Systems Thinking{{ else }}系统思维{{ end }}</a><em>{{ len $st.RegularPages }} 篇</em></li>
+        <li><a href="{{ if $isEn }}/en/posts/learning/{{ else }}/posts/learning/{{ end }}">{{ if $isEn }}Learning Methods{{ else }}学习方法{{ end }}</a><em>{{ len $ln.RegularPages }} 篇</em></li>
+        <li><a href="{{ if $isEn }}/en/posts/tooling/{{ else }}/posts/tooling/{{ end }}">{{ if $isEn }}Productivity Tooling{{ else }}效率工具{{ end }}</a><em>{{ len $tl.RegularPages }} 篇</em></li>
+        <li><a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典{{ end }}</a><em>{{ len $pt.RegularPages }} 篇</em></li>
+        <li><a href="/audiobook/">{{ if $isEn }}9 Audiobooks Hall{{ else }}听书馆连播{{ end }}</a><em>9 部全集</em></li>
+        <li><a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank">{{ if $isEn }}Soul Search 36{{ else }}灵魂36问{{ end }}</a><em>互动</em></li>
+        <li><a href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">{{ if $isEn }}Reader Community{{ else }}书友社区{{ end }}</a><em>打卡</em></li>
+        <li><a href="{{ if $isEn }}/en/collections/{{ else }}/collections/{{ end }}">{{ if $isEn }}Collections{{ else }}合集专栏{{ end }}</a><em>公众号</em></li>
+        <li><a href="{{ if $isEn }}/assets/{{ else }}/assets/{{ end }}">{{ if $isEn }}Assets{{ else }}资产目录{{ end }}</a><em>80 项</em></li>
+        <li><a href="{{ if $isEn }}/skills/{{ else }}/skills/{{ end }}">{{ if $isEn }}Skills{{ else }}技能总表{{ end }}</a><em>62 项</em></li>
+      </ul>
+    </div>
+    <div class="rail-card">
+      <h3>{{ if $isEn }}Contact & Connect{{ else }}联系与连接{{ end }}</h3>
+      <p>tianbingzhao1@gmail.com</p>
+      <p><a href="{{ if $isEn }}/en/collections/{{ else }}/collections/{{ end }}">{{ if $isEn }}Official Wechat & Channels →{{ else }}公众号专辑与全部账号 →{{ end }}</a></p>
+      <p><a href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">{{ if $isEn }}Join Reader Community →{{ else }}加入书友交流打卡 →{{ end }}</a></p>
+    </div>
+  </aside>
+</div>
+
+<!-- 6. 衍生交互小程序 -->
 <section class="about-app">
   <div class="app-tile">
     <div class="app-tile-txt">
-      <span class="app-tag">小程序</span>
-      <h2>灵魂之觅</h2>
-      <p class="app-tile-slogan">36 个问题,照见彼此,照见自己。</p>
-      <p class="app-tile-desc">两个人隔屏回答 36 个由浅入深的问题,答案成对出现——照见的不是配对,是各自的灵魂底色。</p>
-      <a class="app-tile-go" href="/app/">看看怎么用 →</a>
+      <span class="app-tag">{{ if $isEn }}MINI PROGRAM{{ else }}小程序{{ end }}</span>
+      <h2>{{ if $isEn }}Soul Search (36 Questions){{ else }}灵魂之觅{{ end }}</h2>
+      <p class="app-tile-slogan">{{ if $isEn }}36 questions to reflect upon each other and ourselves.{{ else }}36 个问题，照见彼此，照见自己。{{ end }}</p>
+      <p class="app-tile-desc">{{ if $isEn }}Answer 36 progressively introspective questions from across the screen. Answers appear in pairs—revealing not compatibility, but each person's core soul colors.{{ else }}两个人隔屏回答 36 个由浅入深的问题，答案成对出现——照见的不是配对，是各自的灵魂底色。{{ end }}</p>
+      <a class="app-tile-go" href="/app/">{{ if $isEn }}Learn more →{{ else }}看看怎么用 →{{ end }}</a>
     </div>
     <img class="app-tile-qr" src="/qr/linghunzhimi-code.jpg" alt="灵魂之觅小程序码" loading="lazy">
   </div>

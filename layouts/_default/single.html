@@ -72,4 +72,21 @@
 
 {{ partial "section-nav-row.html" . }}
 
+
+<script>
+(function() {
+  try {
+    var title = {{ .Title | jsonify }};
+    var url = {{ .RelPermalink | jsonify }};
+    if (title && url) {
+      localStorage.setItem('zen_last_read', JSON.stringify({
+        title: title,
+        url: url,
+        time: Date.now()
+      }));
+    }
+  } catch(e) {}
+})();
+</script>
+
 {{- end }}{{/* end main */}}

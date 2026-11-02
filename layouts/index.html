@@ -1,62 +1,139 @@
 {{- define "main" }}
 {{- $isEn := eq .Lang "en" -}}
-{{- $all := site.RegularPages }}
-{{- $sysSec := site.GetPage "posts/systems-thinking" }}
-{{- $learnSec := site.GetPage "posts/learning" }}
-{{- $toolSec := site.GetPage "posts/tooling" }}
-{{- $eraSec := site.GetPage "posts/era-observation" }}
-{{- $pitfallSec := site.GetPage "pitfalls" }}
+{{- $all := site.RegularPages -}}
+{{- $sysSec := site.GetPage "posts/systems-thinking" -}}
+{{- $learnSec := site.GetPage "posts/learning" -}}
+{{- $toolSec := site.GetPage "posts/tooling" -}}
+{{- $eraSec := site.GetPage "posts/era-observation" -}}
+{{- $pitfallSec := site.GetPage "pitfalls" -}}
 
 {{- /* 1. 统一入口 · 主视觉 Hero */ -}}
 <div class="zen-portal-hero">
-  <div class="zen-hero-eyebrow">{{ if $isEn }}🌱 World Corner · Unified Digital Garden{{ else }}🌱 世界一隅 · 统一数字庭院{{ end }}</div>
+  <div class="zen-hero-eyebrow">{{ if $isEn }}🌱 World Corner · Quiet Digital Garden{{ else }}🌱 世界一隅 · 清醒与安顿的数字庭院{{ end }}</div>
   <h1>{{ if $isEn }}In the flood of algorithms, <span class="zen-accent">guard a flicker of clarity</span>{{ else }}在算法洪流中，<span class="zen-accent">守护清醒的微光</span>{{ end }}</h1>
   <p class="zen-hero-sub">{{ if $isEn }}Understand an inquiry, listen to an audiobook, turn thoughts into today's step · 9 audiobooks & practical debriefs{{ else }}读懂一个困惑，听一段好书，把想法变成今天的一步 · 聚合九书原声、灵魂内省与实战避坑{{ end }}</p>
 </div>
 
-{{- /* 2. AI 优先探索交互区 (AI-First Explorer) */ -}}
+{{- /* 2. 三大核心动词入口 (收拢6个胶囊为3个明确动词，说明文字13.5px无截断) */ -}}
+<div class="zen-core-verbs-grid">
+  <a href="#zen-instant-listen" class="zen-verb-card highlight" onclick="highlightInstantListen(event)">
+    <div class="zen-verb-icon">🎧</div>
+    <div class="zen-verb-body">
+      <div class="zen-verb-title">{{ if $isEn }}Listen to a Section{{ else }}听一段书{{ end }}</div>
+      <div class="zen-verb-desc">{{ if $isEn }}3-min instant listen or full continuous play · Calm your mind{{ else }}打开即听 · 3分钟短试听或9部全集连播{{ end }}</div>
+    </div>
+  </a>
+
+  <a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank" class="zen-verb-card highlight">
+    <div class="zen-verb-icon">🔮</div>
+    <div class="zen-verb-body">
+      <div class="zen-verb-title">{{ if $isEn }}Clarify an Inquiry{{ else }}想清一个问题{{ end }}</div>
+      <div class="zen-verb-desc">{{ if $isEn }}Soul 36 Questions · Reflect upon your soul colors{{ else }}灵魂36问 · 摆脱情绪内耗，照见内心底色{{ end }}</div>
+    </div>
+  </a>
+
+  <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-verb-card">
+    <div class="zen-verb-icon">⚠️</div>
+    <div class="zen-verb-body">
+      <div class="zen-verb-title">{{ if $isEn }}Solve a Pitfall{{ else }}解决一个难题{{ end }}</div>
+      <div class="zen-verb-desc">{{ if $isEn }}Pitfall Treasury · Real engineering & cognitive lessons{{ else }}踩坑宝典 · 实战复盘，避开技术与认知弯路{{ end }}</div>
+    </div>
+  </a>
+</div>
+
+{{- /* 3. 即刻收获模块 (首屏内即听即读体验 · 450px内见收获) */ -}}
+<div class="zen-instant-listen-card" id="zen-instant-listen">
+  <div class="zen-instant-head">
+    <div class="zen-instant-badge">
+      <span>🎧</span>
+      <span>{{ if $isEn }}Instant Listen · 3-Min Experience{{ else }}今日短试听 · 首次体验{{ end }}</span>
+    </div>
+    <!-- 断点续播按钮 (localStorage检测到上次进度时由JS展示) -->
+    <button type="button" id="zen-resume-pill" class="zen-resume-pill" style="display:none" onclick="resumeZenAudio()">
+      ▶ {{ if $isEn }}Resume last listen{{ else }}继续上次收听{{ end }}
+    </button>
+  </div>
+
+  <div class="zen-instant-title" id="zen-player-title">{{ if $isEn }}《Inner Cultivation · Prologue》: Why do you still feel empty after a busy day?{{ else }}《内心的修炼·序言》：为什么你忙碌了一整天，依然觉得空虚？{{ end }}</div>
+  <blockquote class="zen-instant-quote" id="zen-player-quote">
+    {{ if $isEn }}“Outward striving has no finish line; inward settlement requires only pausing for one step today.”{{ else }}“向外追逐没有止境，向内安顿只需在今天停下一步。”{{ end }}
+  </blockquote>
+
+  <!-- 真实音频播放器 -->
+  <audio id="zen-mini-audio" class="zen-player-audio" controls preload="none" src="/audio/neixin/01.mp3"></audio>
+
+  <!-- 4首精选短试听切换 -->
+  <div class="zen-book-chips">
+    <button type="button" class="zen-book-chip active" 
+            onclick="switchZenTrack(this, '{{ if $isEn }}《Inner Cultivation · Prologue》{{ else }}《内心的修炼·序言》{{ end }}', '{{ if $isEn }}Prologue 03:19{{ else }}序言 03:19{{ end }}', '/audio/neixin/01.mp3', '{{ if $isEn }}“Outward striving has no finish line; inward settlement requires only pausing for one step today.”{{ else }}“向外追逐没有止境，向内安顿只需在今天停下一步。”{{ end }}')">
+      🧘 {{ if $isEn }}Inner Cultivation (03:19){{ else }}内心的修炼 (03:19){{ end }}
+    </button>
+    <button type="button" class="zen-book-chip" 
+            onclick="switchZenTrack(this, '{{ if $isEn }}《The Inner Architecture of Happiness》{{ else }}《幸福的内在·思想之光》{{ end }}', '{{ if $isEn }}Ch 01 04:12{{ else }}第一章 04:12{{ end }}', '/audio/happiness.mp3', '{{ if $isEn }}“True happiness is not stacking external accolades, but internal self-consistency.”{{ else }}“真正的幸福不是外在条件的堆叠，而是内在秩序的自洽。”{{ end }}')">
+      🌿 {{ if $isEn }}Inner Happiness (Highlights){{ else }}幸福的内在 (全集/精选){{ end }}
+    </button>
+    <button type="button" class="zen-book-chip" 
+            onclick="switchZenTrack(this, '{{ if $isEn }}《The Ladder of Civilization》{{ else }}《文明的阶梯·序言》{{ end }}', '{{ if $isEn }}Prologue 03:45{{ else }}序言 03:45{{ end }}', '/audio/civilization.mp3', '{{ if $isEn }}“Every leap of civilization begins with sheltering the quiet spark of an individual.”{{ else }}“文明的每一步跃迁，始于对个体微光的尊重与呵护。”{{ end }}')">
+      🪜 {{ if $isEn }}Civilization Ladder{{ else }}文明的阶梯 (全集){{ end }}
+    </button>
+    <button type="button" class="zen-book-chip" 
+            onclick="switchZenTrack(this, '{{ if $isEn }}《Into the Fields》{{ else }}《走向田间·序言》{{ end }}', '{{ if $isEn }}Prologue 03:30{{ else }}序言 03:30{{ end }}', '/audio/xiangjian.mp3', '{{ if $isEn }}“Pivot away from hollow exhaustion, and feed your warmth to real soil.”{{ else }}“从虚耗的争夺中转向，把时间与深情喂养给真实的土地。”{{ end }}')">
+      🌱 {{ if $isEn }}Into the Fields{{ else }}走向田间 (全集){{ end }}
+    </button>
+  </div>
+  
+  <div class="zen-instant-foot">
+    <a href="/audiobook/" class="zen-instant-link">
+      <span>{{ if $isEn }}🎧 Enter 9 Audiobooks Hall for full continuous play →{{ else }}🎧 进入听书馆收听 9 部全集整本连播 →{{ end }}</span>
+    </a>
+  </div>
+</div>
+
+{{- /* 4. AI 优先探索交互区 (自然邀请 · 示例外置 · 聊一聊) */ -}}
 <div class="zen-ai-container" id="zen-ai-box">
   <div class="zen-ai-header">
     <div class="zen-ai-title">
       <span>🤖</span>
       <span>{{ if $isEn }}Chat with World Corner{{ else }}和世界一隅聊一聊{{ end }}</span>
     </div>
-    <span class="zen-ai-tag">{{ if $isEn }}Thought Companion{{ else }}向内安顿 · 思想伴侣{{ end }}</span>
+    <span class="zen-ai-tag">{{ if $isEn }}Thought Companion · Inward Settlement{{ else }}向内安顿 · 思想伴侣{{ end }}</span>
   </div>
 
-  <div class="zen-ai-input-wrap">
-    <input type="text" id="zen-ai-input" class="zen-ai-input" 
-           placeholder="{{ if $isEn }}e.g.: Busy all day, why do I still feel empty? Or ask about audiobooks & pitfall lessons...{{ else }}例如：忙了一天，为什么还是觉得空？或向 AI 探讨九书思想与避坑经验...{{ end }}" 
-           autocomplete="off" />
-    <button type="button" id="zen-ai-send" class="zen-ai-send-btn" onclick="triggerZenAI()">
-      <span>{{ if $isEn }}Explore{{ else }}探索{{ end }}</span>
-      <span>✦</span>
-    </button>
-  </div>
-
-  <!-- 启发式快捷引导药丸 (精炼为3个核心问题，减小纵向屏占比) -->
+  <!-- 外置启发式 Prompt 引导胶囊 (完整显示，不遮挡截断，自然邀请) -->
+  <div class="zen-ai-invite-label">{{ if $isEn }}You can share your thoughts directly or click an invitation below:{{ else }}你可以直接倾诉，或点击下方邀请开启对话：{{ end }}</div>
   <div class="zen-prompts-row">
     {{ if $isEn }}
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Busy all day, why do I still feel empty?')">
+      💬 "Busy all day, why do I still feel empty?"
+    </button>
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('How to identify pseudo-rest vs genuine energy recovery?')">
+      🌿 "How to identify pseudo-rest vs true recovery?"
+    </button>
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please pick an introspective question from the 36 Soul Inquiries for my state of mind, and offer a gentle commentary.')">
-      🔮 A Soul Inquiry
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please recommend a core essay on systems thinking and cognitive energy from this site, explaining its insights.')">
-      📖 Systems Thinking Highlight
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please introduce the audiobook Inner Happiness: why does material abundance often bring inner emptiness?')">
-      🎧 Guide: "Inner Happiness"
+      🔮 "Pick an introspective inquiry from Soul 36"
     </button>
     {{ else }}
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('忙了一天，为什么还是觉得空？')">
+      💬 “忙了一天，为什么还是觉得空？”
+    </button>
+    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('如何识别假性休息与真实回血？')">
+      🌿 “如何识别假性休息与真实回血？”
+    </button>
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('请从灵魂36问中为我挑选一道最适合当下内省的思考题，并给予温和导读。')">
-      🔮 抽取一道灵魂内省题
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('请推荐一篇站内关于系统思维与认知能量的核心深度文章，并说明其洞见。')">
-      📖 推荐系统思维好文
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('请导读有声书《幸福的内在》，为什么物质丰富了人反而越来越空？')">
-      🎧 导读《幸福的内在》
+      🔮 “从36问中抽一道内省思考题”
     </button>
     {{ end }}
+  </div>
+
+  <!-- 舒适两至三行输入框与清晰「聊一聊」按钮 -->
+  <div class="zen-ai-input-wrap">
+    <textarea id="zen-ai-input" class="zen-ai-textarea" rows="2"
+              placeholder="{{ if $isEn }}Share your dilemma, state of mind, or inquire about the Nine Books philosophy...{{ else }}输入你想探讨的困惑、当下心境，或探讨九书体系与实战避坑...{{ end }}"
+              autocomplete="off"></textarea>
+    <button type="button" id="zen-ai-send" class="zen-ai-send-btn" onclick="triggerZenAI(false)">
+      <span>{{ if $isEn }}Chat{{ else }}聊一聊{{ end }}</span>
+      <span>✦</span>
+    </button>
   </div>
 
   <!-- 流式对话输出面板 -->
@@ -64,7 +141,7 @@
     <div class="zen-ai-dialogue-top">
       <div class="zen-ai-status-text">
         <span class="zen-ai-pulsing-dot" id="zen-ai-pulse"></span>
-        <span id="zen-ai-status-msg">{{ if $isEn }}Thinking & retrieving...{{ else }}正在思考与检索...{{ end }}</span>
+        <span id="zen-ai-status-msg">{{ if $isEn }}Thinking & reflecting...{{ else }}正在思考与检索...{{ end }}</span>
       </div>
       <button type="button" class="zen-ai-clear-btn" onclick="closeZenAI()">{{ if $isEn }}Close ✕{{ else }}收起对话 ✕{{ end }}</button>
     </div>
@@ -72,194 +149,185 @@
   </div>
 </div>
 
-{{- /* 3. 极简高频快捷胶囊入口 (Core Capsules) */ -}}
-<div class="zen-capsules-grid">
-  <a href="/audiobook/" class="zen-capsule-card highlight">
-    <div class="zen-capsule-icon">🎧</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}9 Audiobooks Player{{ else }}九书随身听{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Continuous play · Instant listen{{ else }}整本连播 · 打开即听{{ end }}</div>
+{{- /* 5. 带新人入门的精选内容 (3篇精炼认知基建 · 明确适合谁与收获) */ -}}
+<div class="zen-gateway-section">
+  <div class="zen-gateway-header">
+    <div>
+      <h2><span>📚</span> {{ if $isEn }}Gateway Guides · Rebuild Inner Order{{ else }}新人入门 · 认知基建精选{{ end }}</h2>
+      <p class="zen-gateway-sub">{{ if $isEn }}Three foundational guides to begin with: identify friction, master real rest, anchor yourself{{ else }}从这三篇开始，读懂向内安顿与系统思维：辨识内耗、真实回血、安顿自心{{ end }}</p>
     </div>
-  </a>
+    <a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}" class="zen-wing-more">{{ if $isEn }}All essays ({{ len $all }}) →{{ else }}全部文章 ({{ len $all }}) →{{ end }}</a>
+  </div>
 
-  <a href="https://api.worldcorner.xyz/community/?tab=soul" class="zen-capsule-card highlight">
-    <div class="zen-capsule-icon">🔮</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}Soul Search 36{{ else }}灵魂之觅 36问{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Mindful contemplation · Introspection{{ else }}静心观照 · 深度内省{{ end }}</div>
-    </div>
-  </a>
+  <!-- 接着上次读提示条 (若存在localStorage) -->
+  <div id="zen-reading-resume-card" class="zen-reading-resume-card" style="display:none">
+    <span class="zen-resume-icon">📖</span>
+    <span class="zen-resume-text" id="zen-reading-resume-text"></span>
+    <a href="#" id="zen-reading-resume-link" class="zen-resume-go">{{ if $isEn }}Continue reading →{{ else }}接着上次读 →{{ end }}</a>
+  </div>
 
-  <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-capsule-card">
-    <div class="zen-capsule-icon">⚠️</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Real battle lessons · Avoid traps{{ else }}实战经验 · 少走弯路{{ end }}</div>
-    </div>
-  </a>
+  <div class="zen-gateway-grid">
+    <!-- 指南 1: 假性休息与能量失血 -->
+    <a href="{{ if $isEn }}/en/posts/systems-thinking/pseudo-rest-cognitive-drain/{{ else }}/posts/systems-thinking/pseudo-rest-cognitive-drain/{{ end }}" class="zen-gateway-card">
+      <div class="zen-gateway-badge-row">
+        <span class="zen-gateway-tag">{{ if $isEn }}Systems Thinking{{ else }}系统思维{{ end }}</span>
+        <span class="zen-gateway-time">⏱️ 8 {{ if $isEn }}mins{{ else }}分钟{{ end }}</span>
+      </div>
+      <h3 class="zen-gateway-title">{{ if $isEn }}Why Do Modern People Feel More Exhausted After Resting?{{ else }}为什么现代人越休息越累？「能量失血」才是最大的骗局{{ end }}</h3>
+      <div class="zen-gateway-meta">
+        <div class="zen-gateway-target">
+          <strong>{{ if $isEn }}For whom: {{ else }}适合谁：{{ end }}</strong>
+          {{ if $isEn }}Exhausted by work yet drained by phone scrolling; unable to truly relax{{ else }}身心俱疲但刷手机更累、难以真正放松的人{{ end }}
+        </div>
+        <div class="zen-gateway-gain">
+          <strong>{{ if $isEn }}Takeaway: {{ else }}读完能获得：{{ end }}</strong>
+          {{ if $isEn }}Identify "pseudo-rest" & cognitive leakage; master 3 actions for genuine energy recovery{{ else }}辨识“假性休息”与被动消耗，掌握真实恢复心力的方法{{ end }}
+        </div>
+      </div>
+    </a>
 
-  <a href="https://api.worldcorner.xyz/community/?tab=book" class="zen-capsule-card">
-    <div class="zen-capsule-icon">💬</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}Reader Community{{ else }}书友社区{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Reading, landscapes, pastoral check-ins{{ else }}看书·风景·田园打卡{{ end }}</div>
-    </div>
-  </a>
+    <!-- 指南 2: 学习的本质内核重建 -->
+    <a href="{{ if $isEn }}/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/{{ else }}/posts/learning/2026-05-01-learning-as-kernel-reconstruction/{{ end }}" class="zen-gateway-card">
+      <div class="zen-gateway-badge-row">
+        <span class="zen-gateway-tag">{{ if $isEn }}Cognitive Foundation{{ else }}认知跃迁{{ end }}</span>
+        <span class="zen-gateway-time">⏱️ 10 {{ if $isEn }}mins{{ else }}分钟{{ end }}</span>
+      </div>
+      <h3 class="zen-gateway-title">{{ if $isEn }}The Essence of Learning is Re-indexing the Mind{{ else }}学习的本质，是为内心「重新索引」——AI时代的底层内核{{ end }}</h3>
+      <div class="zen-gateway-meta">
+        <div class="zen-gateway-target">
+          <strong>{{ if $isEn }}For whom: {{ else }}适合谁：{{ end }}</strong>
+          {{ if $isEn }}Overwhelmed by AI buzz and fragmented info; struggling with cognitive anxiety{{ else }}面对海量AI信息与碎片资讯感到认知过载的人{{ end }}
+        </div>
+        <div class="zen-gateway-gain">
+          <strong>{{ if $isEn }}Takeaway: {{ else }}读完能获得：{{ end }}</strong>
+          {{ if $isEn }}Transform from a passive info consumer into an intentional cognitive architect{{ else }}从被动信息消费者，转向以自我为中心的认知构建者{{ end }}
+        </div>
+      </div>
+    </a>
 
-  <a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}" class="zen-capsule-card">
-    <div class="zen-capsule-icon">📚</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}Thought Library{{ else }}思想文库{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Systems thinking · Cognitive leap{{ else }}系统思维 · 认知跃迁{{ end }}</div>
-    </div>
-  </a>
-
-  <a href="/app/" class="zen-capsule-card">
-    <div class="zen-capsule-icon">📱</div>
-    <div class="zen-capsule-body">
-      <div class="zen-capsule-title">{{ if $isEn }}WeChat Mini Program{{ else }}微信小程序{{ end }}</div>
-      <div class="zen-capsule-desc">{{ if $isEn }}Inner Cultivation · Always with you{{ else }}内心的修炼 · 随身随行{{ end }}</div>
-    </div>
-  </a>
+    <!-- 指南 3: 向外与向内安顿 -->
+    <a href="{{ if $isEn }}/en/posts/systems-thinking/outward-and-inward/{{ else }}/posts/systems-thinking/outward-and-inward/{{ end }}" class="zen-gateway-card">
+      <div class="zen-gateway-badge-row">
+        <span class="zen-gateway-tag">{{ if $isEn }}Inner Settlement{{ else }}内心安顿{{ end }}</span>
+        <span class="zen-gateway-time">⏱️ 12 {{ if $isEn }}mins{{ else }}分钟{{ end }}</span>
+      </div>
+      <h3 class="zen-gateway-title">{{ if $isEn }}Inward and Outward: Anchoring Inner Order in the Algorithmic Age{{ else }}人生的向外与向内：在算法时代安顿自身秩序{{ end }}</h3>
+      <div class="zen-gateway-meta">
+        <div class="zen-gateway-target">
+          <strong>{{ if $isEn }}For whom: {{ else }}适合谁：{{ end }}</strong>
+          {{ if $isEn }}Those weary of endless external competition, seeking genuine psychological peace{{ else }}物质条件尚可但常感虚无迷茫、向外追逐疲惫的人{{ end }}
+        </div>
+        <div class="zen-gateway-gain">
+          <strong>{{ if $isEn }}Takeaway: {{ else }}读完能获得：{{ end }}</strong>
+          {{ if $isEn }}Clarify the divide between chasing external validation and nurturing inner calm{{ else }}厘清向外追逐与向内安顿的底层差异，建立内心秩序柱石{{ end }}
+        </div>
+      </div>
+    </a>
+  </div>
 </div>
 
-{{- /* 4. 精选双翼流 (Twin-Wing Curated Stream) */ -}}
-<div class="zen-twin-wings">
-  <!-- 📚 左翼：精选深思文章 -->
-  <div class="zen-wing-card">
-    <div class="zen-wing-head">
-      <h2><span>📚</span> {{ if $isEn }}Curated Reflections · Cognitive Foundation{{ else }}精选深思 · 认知基建{{ end }}</h2>
-      <a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}" class="zen-wing-more">{{ if $isEn }}Browse all ({{ len $all }}) →{{ else }}浏览全部 ({{ len $all }}) →{{ end }}</a>
+{{- /* 6. 轻量实战与最新速递 (轻量排版列表 · 消除卡片疲劳) */ -}}
+<div class="zen-light-stream">
+  <div class="zen-light-col">
+    <div class="zen-light-head">
+      <h3><span>📝</span> {{ if $isEn }}Recent Thought Notes{{ else }}近期深思笔记{{ end }}</h3>
+      <a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}" class="zen-light-more">{{ if $isEn }}More essays →{{ else }}更多笔记 →{{ end }}</a>
     </div>
-    <div class="zen-article-list">
-      {{- $featured := slice -}}
-      {{- if $sysSec }}{{ range first 2 $sysSec.RegularPages }}{{ $featured = $featured | append . }}{{ end }}{{ end -}}
-      {{- if $learnSec }}{{ range first 1 $learnSec.RegularPages }}{{ $featured = $featured | append . }}{{ end }}{{ end -}}
-      {{- if $eraSec }}{{ range first 1 $eraSec.RegularPages }}{{ $featured = $featured | append . }}{{ end }}{{ end -}}
-      {{- if eq (len $featured) 0 }}{{ $featured = first 4 $all.ByDate.Reverse }}{{ end -}}
+    <div class="zen-light-list">
+      {{- $recentPosts := slice -}}
+      {{- if $sysSec }}{{ range first 2 $sysSec.RegularPages }}{{ $recentPosts = $recentPosts | append . }}{{ end }}{{ end -}}
+      {{- if $eraSec }}{{ range first 1 $eraSec.RegularPages }}{{ $recentPosts = $recentPosts | append . }}{{ end }}{{ end -}}
+      {{- if eq (len $recentPosts) 0 }}{{ $recentPosts = first 3 $all.ByDate.Reverse }}{{ end -}}
 
-      {{- range $featured }}
-      <a href="{{ .RelPermalink }}" class="zen-article-item">
-        <div class="zen-article-meta">
-          <span class="zen-meta-tag">{{ with .Params.categories }}{{ index . 0 }}{{ else }}{{ if $isEn }}Reflection{{ else }}深思{{ end }}{{ end }}</span>
-          <span class="zen-meta-date">{{ .Date.Format "2006-01-02" }}</span>
+      {{- range $recentPosts }}
+      <a href="{{ .RelPermalink }}" class="zen-light-item">
+        <div class="zen-light-item-meta">
+          <span class="zen-light-tag">{{ with .Params.categories }}{{ index . 0 }}{{ else }}{{ if $isEn }}Note{{ else }}笔记{{ end }}{{ end }}</span>
+          <span class="zen-light-date">{{ .Date.Format "2006-01-02" }}</span>
         </div>
-        <div class="zen-article-title">{{ .Title }}</div>
-        <div class="zen-article-desc">{{ .Summary | default .Description | plainify | truncate 85 }}</div>
+        <div class="zen-light-item-title">{{ .Title }}</div>
       </a>
       {{- end }}
     </div>
   </div>
 
-  <!-- 🎧 右翼：随身听迷你控制台 & ⚠️ 最新踩坑 -->
-  <div class="zen-wing-card">
-    <div class="zen-wing-head">
-      <h2><span>🎧</span> {{ if $isEn }}Audiobook Console · Listen & Explore{{ else }}随身听台 · 边逛边听{{ end }}</h2>
-      <a href="/audiobook/" class="zen-wing-more">{{ if $isEn }}Full library →{{ else }}听书馆全集 →{{ end }}</a>
+  <div class="zen-light-col">
+    <div class="zen-light-head">
+      <h3><span>⚠️</span> {{ if $isEn }}Latest Pitfalls & Debriefs{{ else }}实战踩坑与经验速报{{ end }}</h3>
+      <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-light-more">{{ if $isEn }}All pitfalls →{{ else }}全部避坑 →{{ end }}</a>
     </div>
-
-    <!-- 迷你播放盒 (直连真实音频，零404坏链) -->
-    <div class="zen-player-box">
-      <div class="zen-player-top">
-        <span class="zen-player-current" id="zen-player-title">{{ if $isEn }}The Inner Architecture of Happiness{{ else }}《幸福的内在》{{ end }}</span>
-        <span class="zen-player-duration" id="zen-player-badge">{{ if $isEn }}Full 2 hrs 05 mins{{ else }}连播 2小时05分{{ end }}</span>
-      </div>
-      <audio id="zen-mini-audio" class="zen-player-audio" controls preload="none" src="/audio/happiness.mp3"></audio>
-      
-      <!-- 快捷切换书目 -->
-      <div class="zen-book-chips">
-        <button type="button" class="zen-book-chip active" 
-                onclick="switchZenTrack(this, '{{ if $isEn }}The Inner Architecture of Happiness{{ else }}《幸福的内在》{{ end }}', '{{ if $isEn }}Full 2 hrs 05 mins{{ else }}连播 2小时05分{{ end }}', '/audio/happiness.mp3')">
-          🌿 {{ if $isEn }}Inner Happiness{{ else }}幸福的内在{{ end }}
-        </button>
-        <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '{{ if $isEn }}The Ladder of Civilization{{ else }}《文明的阶梯》{{ end }}', '{{ if $isEn }}Full 39 mins{{ else }}连播 39分{{ end }}', '/audio/civilization.mp3')">
-          🪜 {{ if $isEn }}Civilization Ladder{{ else }}文明的阶梯{{ end }}
-        </button>
-        <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '{{ if $isEn }}Into the Fields{{ else }}《走向田间》{{ end }}', '{{ if $isEn }}Full 1 hr 15 mins{{ else }}连播 1小时15分{{ end }}', '/audio/xiangjian.mp3')">
-          🌱 {{ if $isEn }}Into the Fields{{ else }}走向田间{{ end }}
-        </button>
-        <button type="button" class="zen-book-chip" 
-                onclick="switchZenTrack(this, '{{ if $isEn }}Inner Cultivation (Prologue){{ else }}《内心的修炼·序言》{{ end }}', '{{ if $isEn }}Prologue 03:19{{ else }}序言 03:19{{ end }}', '/audio/neixin/01.mp3')">
-          🧘 {{ if $isEn }}Inner Cultivation{{ else }}内心的修炼{{ end }}
-        </button>
-      </div>
-    </div>
-
-    <!-- ⚠️ 踩坑速报 -->
-    <div class="zen-wing-head" style="margin-top:20px;padding-top:12px;border-top:1px dashed var(--zen-border)">
-      <h2><span>⚠️</span> {{ if $isEn }}Latest Pitfalls · Debriefs{{ else }}踩坑速报 · 实战复盘{{ end }}</h2>
-      <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-wing-more">{{ if $isEn }}All pitfalls →{{ else }}全部避坑 →{{ end }}</a>
-    </div>
-    <div class="zen-pitfall-list">
+    <div class="zen-light-list">
       {{- if $pitfallSec }}
         {{- range first 3 $pitfallSec.RegularPages }}
-        <a href="{{ .RelPermalink }}" class="zen-pitfall-link">
-          <span class="zen-pitfall-title">{{ .Title }}</span>
-          <span class="zen-pitfall-badge">{{ if $isEn }}Pitfall{{ else }}避坑{{ end }}</span>
+        <a href="{{ .RelPermalink }}" class="zen-light-item">
+          <div class="zen-light-item-meta">
+            <span class="zen-light-tag pitfall">{{ if $isEn }}Pitfall{{ else }}避坑实战{{ end }}</span>
+            <span class="zen-light-date">{{ .Date.Format "2006-01-02" }}</span>
+          </div>
+          <div class="zen-light-item-title">{{ .Title }}</div>
         </a>
         {{- end }}
-      {{- else }}
-        <a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}" class="zen-pitfall-link">
-          <span class="zen-pitfall-title">{{ if $isEn }}Browse full development & engineering pitfall guides{{ else }}查看开发与工程实战全套踩坑宝典{{ end }}</span>
-          <span class="zen-pitfall-badge">{{ if $isEn }}Quick{{ else }}速查{{ end }}</span>
-        </a>
       {{- end }}
     </div>
   </div>
 </div>
 
-{{- /* 5. 全站紧凑优雅站点地图 (Zen Site Atlas · 聚合13个历史分类) */ -}}
-<div class="zen-site-atlas">
-  <div class="zen-atlas-header">
-    <h3>🧭 {{ if $isEn }}Site Navigation Atlas{{ else }}全站功能索引地图{{ end }}</h3>
-    <p>{{ if $isEn }}All 13 core domains organized seamlessly, quick to access{{ else }}原 13 大栏目有序收敛，随取随查，无一遗漏{{ end }}</p>
+{{- /* 7. 全站完整功能索引地图 (默认在移动端折叠 · 减轻视觉疲劳) */ -}}
+<details class="zen-atlas-collapsible" id="zen-atlas-details" open>
+  <summary class="zen-atlas-summary">
+    <div class="zen-atlas-summary-title">
+      <span>🧭</span>
+      <span>{{ if $isEn }}Site Navigation Atlas (13 domains){{ else }}全站 13 大栏目功能索引地图{{ end }}</span>
+    </div>
+    <span class="zen-atlas-toggle-hint">{{ if $isEn }}Toggle view ▾{{ else }}点击展开 / 折叠 ▾{{ end }}</span>
+  </summary>
+
+  <div class="zen-site-atlas">
+    <div class="zen-atlas-grid">
+      <div class="zen-atlas-col">
+        <h4><span>📖</span> {{ if $isEn }}Intellectual Core{{ else }}思想书房{{ end }}</h4>
+        <ul>
+          <li><a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}">{{ if $isEn }}Systems Thinking{{ else }}系统思维 (8篇){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/posts/learning/{{ else }}/posts/learning/{{ end }}">{{ if $isEn }}Learning Methods{{ else }}学习方法 (3篇){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/posts/tooling/{{ else }}/posts/tooling/{{ end }}">{{ if $isEn }}Productivity Tooling{{ else }}效率工具 (2篇){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/collections/{{ else }}/collections/{{ end }}">{{ if $isEn }}Featured Collections{{ else }}精选合集 (专题){{ end }}</a></li>
+        </ul>
+      </div>
+
+      <div class="zen-atlas-col">
+        <h4><span>🎧</span> {{ if $isEn }}Audio & Reflection{{ else }}声音与内省{{ end }}</h4>
+        <ul>
+          <li><a href="/audiobook/">{{ if $isEn }}9 Audiobooks Hall{{ else }}有声书馆 (双轨9部){{ end }}</a></li>
+          <li><a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank">{{ if $isEn }}Soul Search (36 Questions){{ else }}灵魂之觅 (36问){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/posts/era-observation/{{ else }}/posts/era-observation/{{ end }}">{{ if $isEn }}Era Observations{{ else }}时代观察 (深思){{ end }}</a></li>
+          <li><a href="/app/">{{ if $isEn }}Mini Program · Inner Cultivation{{ else }}小程序 · 内心的修炼{{ end }}</a></li>
+        </ul>
+      </div>
+
+      <div class="zen-atlas-col">
+        <h4><span>🛠️</span> {{ if $isEn }}Practice & Assets{{ else }}实战与资产{{ end }}</h4>
+        <ul>
+          <li><a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典 (实战复盘){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/skills/{{ else }}/skills/{{ end }}">{{ if $isEn }}Skills Index (62 entries){{ else }}技能总表 (62项){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/assets/{{ else }}/assets/{{ end }}">{{ if $isEn }}Project Assets (80 items){{ else }}项目资产 (80项目录){{ end }}</a></li>
+          <li><a href="https://api.worldcorner.xyz" target="_blank">{{ if $isEn }}API Gateway{{ else }}API 开放网关{{ end }}</a></li>
+        </ul>
+      </div>
+
+      <div class="zen-atlas-col">
+        <h4><span>🌐</span> {{ if $isEn }}Community & About{{ else }}站点与连接{{ end }}</h4>
+        <ul>
+          <li><a href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">{{ if $isEn }}Reader Community (Check-ins){{ else }}书友社区 (互动打卡){{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/search/{{ else }}/search/{{ end }}">{{ if $isEn }}Site Fast Search{{ else }}全站极速搜索{{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}">{{ if $isEn }}Chronological Archives{{ else }}时光归档一览{{ end }}</a></li>
+          <li><a href="{{ if $isEn }}/en/about/{{ else }}/about/{{ end }}">{{ if $isEn }}About Author & World Corner{{ else }}关于作者与世界一隅{{ end }}</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="zen-atlas-grid">
-    <div class="zen-atlas-col">
-      <h4><span>📖</span> {{ if $isEn }}Intellectual Core{{ else }}思想书房{{ end }}</h4>
-      <ul>
-        <li><a href="{{ if $isEn }}/en/posts/systems-thinking/{{ else }}/posts/systems-thinking/{{ end }}">{{ if $isEn }}Systems Thinking{{ else }}系统思维 (8篇){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/posts/learning/{{ else }}/posts/learning/{{ end }}">{{ if $isEn }}Learning Methods{{ else }}学习方法 (3篇){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/posts/tooling/{{ else }}/posts/tooling/{{ end }}">{{ if $isEn }}Productivity Tooling{{ else }}效率工具 (2篇){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/collections/{{ else }}/collections/{{ end }}">{{ if $isEn }}Featured Collections{{ else }}精选合集 (专题){{ end }}</a></li>
-      </ul>
-    </div>
+</details>
 
-    <div class="zen-atlas-col">
-      <h4><span>🎧</span> {{ if $isEn }}Audio & Reflection{{ else }}声音与内省{{ end }}</h4>
-      <ul>
-        <li><a href="/audiobook/">{{ if $isEn }}9 Audiobooks Hall{{ else }}有声书馆 (双轨9部){{ end }}</a></li>
-        <li><a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank">{{ if $isEn }}Soul Search (36 Questions){{ else }}灵魂之觅 (36问){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/posts/era-observation/{{ else }}/posts/era-observation/{{ end }}">{{ if $isEn }}Era Observations{{ else }}时代观察 (深思){{ end }}</a></li>
-        <li><a href="/app/">{{ if $isEn }}Mini Program · Inner Cultivation{{ else }}小程序 · 内心的修炼{{ end }}</a></li>
-      </ul>
-    </div>
-
-    <div class="zen-atlas-col">
-      <h4><span>🛠️</span> {{ if $isEn }}Practice & Assets{{ else }}实战与资产{{ end }}</h4>
-      <ul>
-        <li><a href="{{ if $isEn }}/en/pitfalls/{{ else }}/pitfalls/{{ end }}">{{ if $isEn }}Pitfall Treasury{{ else }}踩坑宝典 (实战复盘){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/skills/{{ else }}/skills/{{ end }}">{{ if $isEn }}Skills Index (62 entries){{ else }}技能总表 (62项){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/assets/{{ else }}/assets/{{ end }}">{{ if $isEn }}Project Assets (80 items){{ else }}项目资产 (80项目录){{ end }}</a></li>
-        <li><a href="https://api.worldcorner.xyz" target="_blank">{{ if $isEn }}API Gateway{{ else }}API 开放网关{{ end }}</a></li>
-      </ul>
-    </div>
-
-    <div class="zen-atlas-col">
-      <h4><span>🌐</span> {{ if $isEn }}Community & About{{ else }}站点与连接{{ end }}</h4>
-      <ul>
-        <li><a href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">{{ if $isEn }}Reader Community (Check-ins){{ else }}书友社区 (互动打卡){{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/search/{{ else }}/search/{{ end }}">{{ if $isEn }}Site Fast Search{{ else }}全站极速搜索{{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/archives/{{ else }}/archives/{{ end }}">{{ if $isEn }}Chronological Archives{{ else }}时光归档一览{{ end }}</a></li>
-        <li><a href="{{ if $isEn }}/en/about/{{ else }}/about/{{ end }}">{{ if $isEn }}About Author & World Corner{{ else }}关于作者与世界一隅{{ end }}</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-{{- /* 6. 统一入口 AI 与随身听前端交互引擎脚本 */ -}}
+{{- /* 8. 统一入口 AI 与随身听前端交互引擎脚本 */ -}}
 <script>
 (function() {
   var isEn = {{ if $isEn }}true{{ else }}false{{ end }};
@@ -271,28 +339,147 @@
   var lastTurnId = null;
   window.lastZenQuery = '';
 
-  // 1. 随身听切书与异常监听
-  window.switchZenTrack = function(btn, title, duration, src) {
+  // 1. 平滑锚点与即刻体验聚焦
+  window.highlightInstantListen = function(e) {
+    var target = document.getElementById('zen-instant-listen');
+    if (target) {
+      if (e) e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.add('pulse-highlight');
+      setTimeout(function() {
+        target.classList.remove('pulse-highlight');
+      }, 1400);
+    }
+  };
+
+  // 2. 随身听切书与断点续播持久化
+  window.switchZenTrack = function(btn, title, duration, src, quote) {
     document.querySelectorAll('.zen-book-chip').forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    document.getElementById('zen-player-title').textContent = title;
-    document.getElementById('zen-player-badge').textContent = duration;
+    if (btn) btn.classList.add('active');
+    
+    var titleEl = document.getElementById('zen-player-title');
+    var quoteEl = document.getElementById('zen-player-quote');
+    if (titleEl) titleEl.textContent = title;
+    if (quoteEl && quote) quoteEl.textContent = quote;
+
     var audio = document.getElementById('zen-mini-audio');
     if (audio) {
       audio.src = src;
       audio.play().catch(function() {});
     }
+
+    try {
+      localStorage.setItem('zen_last_audio', JSON.stringify({
+        title: title,
+        duration: duration,
+        src: src,
+        quote: quote || '',
+        time: 0
+      }));
+    } catch(e) {}
   };
 
   var miniAudio = document.getElementById('zen-mini-audio');
   if (miniAudio) {
+    // 监听播放进度，节流存储
+    var lastSaveTime = 0;
+    miniAudio.addEventListener('timeupdate', function() {
+      var now = Date.now();
+      if (now - lastSaveTime > 2500) {
+        lastSaveTime = now;
+        try {
+          var saved = localStorage.getItem('zen_last_audio');
+          if (saved) {
+            var data = JSON.parse(saved);
+            data.time = Math.floor(miniAudio.currentTime);
+            localStorage.setItem('zen_last_audio', JSON.stringify(data));
+          }
+        } catch(e) {}
+      }
+    });
+
     miniAudio.addEventListener('error', function() {
-      var badge = document.getElementById('zen-player-badge');
-      if (badge) badge.textContent = isEn ? 'Load failed' : '音频暂不可播';
+      var quoteEl = document.getElementById('zen-player-quote');
+      if (quoteEl) quoteEl.textContent = isEn ? 'Audio temporarily unavailable' : '音频暂不可播，请稍后刷新重试';
     });
   }
 
-  // 2. 快捷 Prompt 触发与失败重试 (带繁忙锁保护与每轮Turn精准绑定)
+  // 恢复上次收听
+  window.resumeZenAudio = function() {
+    try {
+      var saved = localStorage.getItem('zen_last_audio');
+      if (!saved) return;
+      var data = JSON.parse(saved);
+      if (!data.src) return;
+
+      var titleEl = document.getElementById('zen-player-title');
+      var quoteEl = document.getElementById('zen-player-quote');
+      if (titleEl) titleEl.textContent = data.title;
+      if (quoteEl && data.quote) quoteEl.textContent = data.quote;
+
+      var audio = document.getElementById('zen-mini-audio');
+      if (audio) {
+        audio.src = data.src;
+        audio.currentTime = data.time || 0;
+        audio.play().catch(function() {});
+      }
+    } catch(e) {}
+  };
+
+  // 3. 检查断点记忆 (播放 & 阅读)
+  function checkZenResumptions() {
+    // 检查音频记忆
+    try {
+      var savedAudio = localStorage.getItem('zen_last_audio');
+      if (savedAudio) {
+        var aData = JSON.parse(savedAudio);
+        if (aData.time && aData.time > 5) {
+          var resumePill = document.getElementById('zen-resume-pill');
+          if (resumePill) {
+            var m = Math.floor(aData.time / 60);
+            var s = aData.time % 60;
+            var timeStr = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+            resumePill.textContent = '▶ ' + (isEn ? 'Resume: ' : '继续收听: ') + aData.title + ' (' + timeStr + ')';
+            resumePill.style.display = 'inline-block';
+          }
+        }
+      }
+    } catch(e) {}
+
+    // 检查阅读记忆
+    try {
+      var savedRead = localStorage.getItem('zen_last_read');
+      if (savedRead) {
+        var rData = JSON.parse(savedRead);
+        if (rData.title && rData.url) {
+          var card = document.getElementById('zen-reading-resume-card');
+          var text = document.getElementById('zen-reading-resume-text');
+          var link = document.getElementById('zen-reading-resume-link');
+          if (card && text && link) {
+            text.textContent = (isEn ? 'Last read: ' : '接着上次读: ') + rData.title;
+            link.href = rData.url;
+            card.style.display = 'flex';
+          }
+        }
+      }
+    } catch(e) {}
+
+    // 移动端默认折叠全站索引地图 (省去300px滚动，减少疲劳)
+    if (window.innerWidth <= 768) {
+      var atlasDetails = document.getElementById('zen-atlas-details');
+      if (atlasDetails) {
+        atlasDetails.removeAttribute('open');
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkZenResumptions);
+  } else {
+    checkZenResumptions();
+  }
+
+  // 4. 快捷 Prompt 触发与失败重试
   window.sendZenPrompt = function(promptText) {
     if (isZenBusy) return;
     var input = document.getElementById('zen-ai-input');
@@ -316,13 +503,45 @@
     }
   };
 
-  // 3. 关闭对话面板
+  // 5. 关闭对话面板
   window.closeZenAI = function() {
     var d = document.getElementById('zen-ai-dialogue');
     if (d) d.style.display = 'none';
   };
 
-  // 4. 触发 AI 流式对话 (支持每轮精确重试快照、防并发锁、IME组词过滤与流中断保留)
+  // 6. 复制回答到剪贴板
+  window.copyZenAnswer = function(btn) {
+    var msgCard = btn.closest('.zen-ai-msg');
+    if (!msgCard) return;
+    var textEl = msgCard.querySelector('.zen-ai-streaming-text');
+    var textToCopy = textEl ? textEl.innerText : '';
+    if (!textToCopy) return;
+
+    navigator.clipboard.writeText(textToCopy).then(function() {
+      var originalHtml = btn.innerHTML;
+      btn.innerHTML = '✓ ' + (isEn ? 'Copied' : '已复制');
+      btn.style.borderColor = 'var(--zen-pine)';
+      btn.style.color = 'var(--zen-pine)';
+      setTimeout(function() {
+        btn.innerHTML = originalHtml;
+        btn.style.borderColor = '';
+        btn.style.color = '';
+      }, 2000);
+    }).catch(function() {
+      btn.textContent = isEn ? 'Copy failed' : '复制失败';
+    });
+  };
+
+  // 7. 继续追问聚焦输入框
+  window.focusZenAIInput = function() {
+    var input = document.getElementById('zen-ai-input');
+    if (input) {
+      input.focus();
+      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  // 8. 触发 AI 流式对话 (支持每轮精确重试快照、防并发锁、IME组词过滤与流中断保留)
   window.triggerZenAI = function(isRetry, targetTurnId) {
     if (isZenBusy) return;
 
@@ -346,7 +565,6 @@
       lastTurnId = turnId;
       window.lastZenQuery = query;
 
-      // 清理未成功的末尾悬空用户提问，保证会话交替
       while (conversationHistory.length > 0 && conversationHistory[conversationHistory.length - 1].role === 'user') {
         conversationHistory.pop();
       }
@@ -360,7 +578,6 @@
         aiEl: null
       };
 
-      // 渲染用户提问气泡
       if (log) {
         var userEl = document.createElement('div');
         userEl.className = 'zen-ai-msg user';
@@ -389,7 +606,6 @@
     if (statusMsg) statusMsg.textContent = isEn ? 'AI is reflecting on your inquiry...' : 'AI 正在结合全书体系深度思考...';
     if (sendBtn) sendBtn.disabled = true;
 
-    // 焦虑缓解轮播文案（紧扣九书体系，实事求是，不夸大假检索）
     var COMFORT_TEXTS = isEn ? [
       'Reflecting through the Nine Books framework...',
       'Organizing clear mental models and actionable steps...',
@@ -401,7 +617,6 @@
     ];
     var comfortIndex = 0;
 
-    // 助手回答容器：重试时若原卡片仍在DOM中，就地复用原卡片；否则新建
     if (!aiEl || !aiEl.parentNode) {
       aiEl = document.createElement('div');
       aiEl.className = 'zen-ai-msg assistant';
@@ -421,9 +636,10 @@
         '<div class="zen-ai-streaming-text"></div>';
       if (log) log.appendChild(aiEl);
     } else {
-      // 复用已有卡片：移除旧错误提示，重置文本与等待动效
       var oldErr = aiEl.querySelector('.zen-ai-error-notice');
       if (oldErr) oldErr.remove();
+      var oldActions = aiEl.querySelector('.zen-ai-actions-bar');
+      if (oldActions) oldActions.remove();
       var oldLinks = aiEl.querySelector('.zen-ai-links-wrap');
       if (oldLinks) oldLinks.remove();
       var oldThoughts = aiEl.querySelector('.zen-ai-thought-container');
@@ -450,7 +666,6 @@
     var streamCompleted = false;
     var hasEnded = false;
 
-    // 动态舒适文案定时器（每 2.2 秒平滑淡入淡出切换）
     var comfortTimer = setInterval(function() {
       if (!comfortEl || !waitingWrap || waitingWrap.style.display === 'none') {
         clearInterval(comfortTimer);
@@ -507,7 +722,7 @@
           }
           buffer += decoder.decode(chunk.value, { stream: true });
           var lines = buffer.split('\n');
-          buffer = lines.pop(); // 保留未闭合行
+          buffer = lines.pop();
 
           for (var i = 0; i < lines.length; i++) {
             var line = lines[i].trim();
@@ -517,12 +732,10 @@
             try {
               var parsed = JSON.parse(jsonStr);
 
-              // 显式捕获后端错误事件
               if (parsed.e) {
                 streamError = parsed.e;
               }
 
-              // 思考推演流式支持
               if (parsed.t) {
                 stopWaitingUX();
                 if (!thoughtBox) {
@@ -541,22 +754,13 @@
                   thoughtBody = thoughtBox.querySelector('.zen-ai-thought-body');
                 }
                 fullThought += parsed.t;
-                if (thoughtBody) {
-                  thoughtBody.textContent = fullThought;
-                  thoughtBody.scrollTop = thoughtBody.scrollHeight;
-                }
+                if (thoughtBody) thoughtBody.innerHTML = formatZenText(fullThought);
                 if (log) log.scrollTop = log.scrollHeight;
               }
 
-              // 正文增量下发
               if (parsed.d) {
                 stopWaitingUX();
-                if (thoughtBox && thoughtBox.hasAttribute('open')) {
-                  thoughtBox.removeAttribute('open'); // 正文出现时优雅折叠思考卡片
-                  var st = thoughtBox.querySelector('.zen-ai-thought-status');
-                  if (st) st.textContent = isEn ? 'Thinking process completed (click to expand)' : '思考推演已完成 (点击展开)';
-                }
-                if (statusMsg) statusMsg.textContent = isEn ? '✦ Flowing thoughts...' : '✦ 正在输出思想回答...';
+                if (statusMsg) statusMsg.textContent = isEn ? '✦ Streaming answer...' : '✦ 正在回复中...';
                 fullReply += parsed.d;
                 textSpan.innerHTML = formatZenText(fullReply);
                 if (log) log.scrollTop = log.scrollHeight;
@@ -564,10 +768,8 @@
 
               if (parsed.done) {
                 streamCompleted = true;
-                handleStreamEnd();
-                return;
               }
-            } catch (err) {}
+            } catch(e) {}
           }
           return readChunk();
         });
@@ -581,26 +783,17 @@
         if (pulse) pulse.style.display = 'none';
         if (sendBtn) sendBtn.disabled = false;
 
-        // 若正文完全为空（发生错误或空响应）：展示友好错误与重试按钮
-        if (!fullReply.trim()) {
-          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Thinking interrupted' : '⚠️ 思考中断，未获取到有效回答';
-          var errMsg = streamError || (isEn ? 'Connection timeout or no response' : '思考服务响应异常或未返回内容');
-          var errBox = document.createElement('div');
-          errBox.className = 'zen-ai-error-notice';
-          errBox.innerHTML = 
-            '<span>' + (isEn ? 'Interrupted: ' : '生成中断：') + errMsg + '</span>' +
-            '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
-          aiEl.appendChild(errBox);
-          if (log) log.scrollTop = log.scrollHeight;
-          return;
+        if (thoughtBox) {
+          var tStatus = thoughtBox.querySelector('.zen-ai-thought-status');
+          if (tStatus) tStatus.textContent = isEn ? 'Thinking completed' : '思考推演已收敛';
+          thoughtBox.removeAttribute('open');
         }
 
-        // 若正文不为空，但未收到协议完成标志 (streamCompleted == false) 或存在流错误 (streamError)
-        if (!streamCompleted || streamError) {
-          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Stream interrupted' : '⚠️ 回答中途断开';
-          var reason = streamError || (isEn ? 'stream ended prematurely' : '传输提前结束，未收到结束信号');
+        if (streamError || !streamCompleted) {
+          var reason = streamError || (isEn ? 'Connection dropped' : '连接中断或未完整输出');
+          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Output interrupted' : '⚠️ 回答未完整，可点击重新生成';
           var partialBox = document.createElement('div');
-          partialBox.className = 'zen-ai-error-notice';
+          partialBox.className = 'zen-ai-partial-notice';
           partialBox.innerHTML = 
             '<span>' + (isEn ? 'Answer interrupted: ' : '回答中途断开：') + reason + '</span>' +
             '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
@@ -609,16 +802,28 @@
           return;
         }
 
-        // 正常回答完成 (streamCompleted === true && !streamError)
-        if (statusMsg) statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续提问';
+        if (statusMsg) statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续倾诉或展开依据';
         
-        // 若为最新轮次，写入多轮历史；若为历史轮次重试，不污染破坏后续轮次
         if (turnId === lastTurnId) {
           conversationHistory.push({ role: 'assistant', content: fullReply });
           if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
         }
 
-        // 智能生成真实已验证的快捷跳转药丸 (杜绝404与虚构路径)
+        // 快捷操作工具条：复制、出处依据、继续追问
+        var actionsBar = document.createElement('div');
+        actionsBar.className = 'zen-ai-actions-bar';
+        actionsBar.innerHTML = 
+          '<button type="button" class="zen-ai-action-btn" onclick="copyZenAnswer(this)">📋 ' + (isEn ? 'Copy' : '复制回答') + '</button>' +
+          '<button type="button" class="zen-ai-action-btn" onclick="focusZenAIInput()">💬 ' + (isEn ? 'Continue' : '继续追问') + '</button>' +
+          '<details style="display:inline;margin-left:auto;">' +
+            '<summary class="zen-ai-action-btn" style="list-style:none;cursor:pointer;">🔍 ' + (isEn ? 'Sources' : '依据与出处') + ' ▾</summary>' +
+            '<div style="margin-top:6px;font-size:12px;color:var(--zen-ink-muted);line-height:1.6;background:var(--zen-bg-subtle);padding:6px 10px;border-radius:6px;">' +
+              (isEn ? 'Based on the Nine Books system (Inner Happiness, Inner Cultivation, Ladder of Civilization, Into the Fields) and practical engineering lessons.' : '推演依据来源于世界一隅九书主线体系（《幸福的内在》《内心的修炼》《文明的阶梯》《走向田间》）及踩坑实战复盘。') +
+            '</div>' +
+          '</details>';
+        aiEl.appendChild(actionsBar);
+
+        // 真实链接直达药丸
         var linksWrap = document.createElement('div');
         linksWrap.className = 'zen-ai-links-wrap';
         var pills = [];
@@ -669,7 +874,6 @@
     });
   };
 
-  // 简易 Markdown 格式化
   function formatZenText(str) {
     if (!str) return '';
     var escaped = str
@@ -683,12 +887,11 @@
       .replace(/\n/g, '<br>');
   }
 
-  // 回车键发送 (支持防并发与中文输入法组词过滤)
   var inputEl = document.getElementById('zen-ai-input');
   if (inputEl) {
     inputEl.addEventListener('keydown', function(e) {
       if (e.isComposing || e.keyCode === 229) return;
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         if (!isZenBusy) {
           triggerZenAI(false);
