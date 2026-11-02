@@ -4,32 +4,106 @@
 <span></span><span></span><span></span></button></div></div><ul id=menu><li><a href=https://worldcorner.xyz/search/ title="搜索 (Alt + /)" accesskey=/ class="nav-btn nav-menu-search"><span>搜索</span></a></li></ul></nav></header><script>function toggleNav(){var e=document.querySelector(".nav-toggle"),t=document.body.classList.toggle("nav-open");e&&e.setAttribute("aria-expanded",t?"true":"false")}document.addEventListener("click",function(e){if(!document.body.classList.contains("nav-open"))return;e.target.closest&&e.target.closest("#menu a")&&toggleNav()})</script><main class=main><header class=page-header><h1>DeepSeek</h1></header><article class="post-entry tag-entry"><header class=entry-header><h2>DeepSeek分水岭</h2></header><div class=entry-content><p>开篇：这是一篇迟到了四个月的文章。不是不想写——是形势一直在变。但有些问题，不会因为你不看就消失。
 🔴 DeepSeek最大的敌人不是OpenAI，不是Kimi——是自己。
 7月20日，V4仍未正式发布。这已经是第三次延期。
-从春节前拖到5月，从5月推到7月中旬，从7月中旬变成了"灰度测试中"。
-每一次延期都有"技术原因"——适配华为昇腾芯片，重写了超200个核心算子。听起来很硬核。但真正让人揪心的，不是V4本身——而是藏在延期背后的那个更根本的问题。
+从春节前拖到5月，从5月推到7月中旬，从7月中旬变成了&#34;灰度测试中&#34;。
+每一次延期都有&#34;技术原因&#34;——适配华为昇腾芯片，重写了超200个核心算子。听起来很硬核。但真正让人揪心的，不是V4本身——而是藏在延期背后的那个更根本的问题。
 一、看得见的战场：三方角力 先看清局面。
-Kimi K3 已经杀出来了。综合推理能力略高于V4 Pro，价格高出约一个数量级（K3输出$15/百万tokens，V4 Pro仅$0.87）。不是"天壤之别"，更像"95分和80分"。
-✦ 但AI竞赛从来不是"谁更聪明"——是"谁能让更多人用得起"。
+Kimi K3 已经杀出来了。综合推理能力略高于V4 Pro，价格高出约一个数量级（K3输出$15/百万tokens，V4 Pro仅$0.87）。不是&#34;天壤之别&#34;，更像&#34;95分和80分&#34;。
+✦ 但AI竞赛从来不是&#34;谁更聪明&#34;——是&#34;谁能让更多人用得起&#34;。
 Reasonix（第三方开源项目，非DeepSeek官方）标星1.8万，已被DeepSeek API文档收录。它的杀手锏是极致省钱：围绕前缀缓存做深度优化，单日435M token，缓存命中率99.82%，费用从61美元降至12美元。
-而真正的"暗雷"是 OpenCode：一个开源AI编程助手，插件整合40多种免费模型（含英伟达免费API）。月活从65万飙至650万，GitHub星标16.1万。
-🟡 转发给做AI的朋友：OpenCode的威胁在于——它让DeepSeek模型沦为"可随时替换的备胎"。低价护城河，正在被瓦解。
+而真正的&#34;暗雷&#34;是 OpenCode：一个开源AI编程助手，插件整合40多种免费模型（含英伟达免费API）。月活从65万飙至650万，GitHub星标16.1万。
+🟡 转发给做AI的朋友：OpenCode的威胁在于——它让DeepSeek模型沦为&#34;可随时替换的备胎&#34;。低价护城河，正在被瓦解。
 二、裂缝在哪里？ 三个战场，DeepSeek同时在打。
 三条战线：①V4模型发布（华为昇腾适配）②Harness智能体框架（对标Claude Code）③自研AI推理芯片。
 问题不是方向错了——而是同时推进三件事，资源被分散，每一条线都不及预期。
 “目标正确，执行失速。” 这是对DeepSeek目前状态最精准的概括。
 战略节奏出了三个问题：
 目标定得太满、太急 时间评估过于乐观 多条战线在抢同一批顶尖人才 目前还有半年左右的窗口期。不是来自Kimi（太贵）或OpenAI/Claude（中国用户有天然门槛），而是来自用户耐心——用户不会永远等下去。
-三、最本质的问题：管理 到这里我们分析的是"外因"。但真正的问题，在内不在外。
+三、最本质的问题：管理 到这里我们分析的是&#34;外因&#34;。但真正的问题，在内不在外。
 V4的反复延期，表面是技术问题，深层是管理问题：
-优先级不清晰 资源调配不合理 跨部门协同不到位 决策链路过长 这不是"技术不行"，是"组织能力"追不上"业务野心"。
+优先级不清晰 资源调配不合理 跨部门协同不到位 决策链路过长 这不是&#34;技术不行&#34;，是&#34;组织能力&#34;追不上&#34;业务野心&#34;。
 DeepSeek的创始人梁文锋是顶尖技术天才——但技术能力与管理能力是两套完全不同的逻辑。
-✦ 技术天才擅长"解决技术问题"，管理高手擅长"整合资源、凝聚人心、把控节奏"。
+✦ 技术天才擅长&#34;解决技术问题&#34;，管理高手擅长&#34;整合资源、凝聚人心、把控节奏&#34;。
 一个人能带50人，不代表能带1000人。
 这无关能力高下，而是角色错位。
 四、人才：真正的暗流 从2025下半年至今，DeepSeek核心研发的流失触目惊心：
 姓名 角色 去向 罗福莉 V2核心开发者 → 小米，MiMo大模型负责人 郭达雅 R1核心研究员 → 字节跳动，Agent负责人 王炳宣 第一代大模型核心作者 → 腾讯混元团队 阮翀 多模态负责人 已离职 魏浩然 OCR核心作者 已离职 覆盖基座模型、推理、多模态、OCR四条核心技术路线。
-...</p></div><footer class=entry-footer><span title='2026-07-23 00:00:00 +0000 UTC'>2026年7月23日</span>&nbsp;·&nbsp;Tianbing Zhao</footer><a class=entry-link aria-label="post link to DeepSeek分水岭" href=https://worldcorner.xyz/posts/systems-thinking/2026-07-23-deepseek-watershed/></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://worldcorner.xyz/>世界一隅</a></span>
-<span>由
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a>
-驱动</span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");mybutton&&window.addEventListener("scroll",function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")})</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-07-23 00:00:00 +0000 UTC'>2026年7月23日</span>&nbsp;·&nbsp;Tianbing Zhao</footer>
+  <a class="entry-link" aria-label="post link to DeepSeek分水岭" href="https://worldcorner.xyz/posts/systems-thinking/2026-07-23-deepseek-watershed/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/">世界一隅</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    if (mybutton) {
+        window.addEventListener('scroll', function () {
+            if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+                mybutton.style.visibility = "visible";
+                mybutton.style.opacity = "1";
+            } else {
+                mybutton.style.visibility = "hidden";
+                mybutton.style.opacity = "0";
+            }
+        });
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>
