@@ -58,6 +58,9 @@
   <blockquote class="zen-instant-quote" id="zen-player-quote">
     {{ if $isEn }}“Outward striving has no finish line; inward settlement requires only pausing for one step today.”{{ else }}“向外追逐没有止境，向内安顿只需在今天停下一步。”{{ end }}
   </blockquote>
+  <div class="zen-instant-source" id="zen-player-source">
+    {{ if $isEn }}✦ Guide Core Synthesis · Echoes from <em>Inner Cultivation (Prologue)</em> &amp; <em>Outward Striving and Inward Settlement</em>{{ else }}✦ 导读核心提炼 · 意蕴源自《内心的修炼·序言》与《人生的向外与向内》{{ end }}
+  </div>
 
   <!-- 真实音频播放器 -->
   <audio id="zen-mini-audio" class="zen-player-audio" controls preload="none" src="/audio/neixin/01.mp3"></audio>
@@ -65,19 +68,19 @@
   <!-- 4首精选短试听切换 -->
   <div class="zen-book-chips">
     <button type="button" class="zen-book-chip active" 
-            onclick="switchZenTrack(this, '{{ if $isEn }}《Inner Cultivation · Prologue》{{ else }}《内心的修炼·序言》{{ end }}', '{{ if $isEn }}Prologue 03:19{{ else }}序言 03:19{{ end }}', '/audio/neixin/01.mp3', '{{ if $isEn }}“Outward striving has no finish line; inward settlement requires only pausing for one step today.”{{ else }}“向外追逐没有止境，向内安顿只需在今天停下一步。”{{ end }}')">
+            onclick="switchZenTrack(this, '{{ if $isEn }}《Inner Cultivation · Prologue》{{ else }}《内心的修炼·序言》{{ end }}', '{{ if $isEn }}Prologue 03:19{{ else }}序言 03:19{{ end }}', '/audio/neixin/01.mp3', '{{ if $isEn }}“Outward striving has no finish line; inward settlement requires only pausing for one step today.”{{ else }}“向外追逐没有止境，向内安顿只需在今天停下一步。”{{ end }}', '{{ if $isEn }}✦ Guide Core Synthesis · Echoes from <em>Inner Cultivation (Prologue)</em> &amp; <em>Outward Striving and Inward Settlement</em>{{ else }}✦ 导读核心提炼 · 意蕴源自《内心的修炼·序言》与《人生的向外与向内》{{ end }}')">
       🧘 {{ if $isEn }}Inner Cultivation (03:19){{ else }}内心的修炼 (03:19){{ end }}
     </button>
     <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '{{ if $isEn }}《The Inner Architecture of Happiness》{{ else }}《幸福的内在·思想之光》{{ end }}', '{{ if $isEn }}Ch 01 04:12{{ else }}第一章 04:12{{ end }}', '/audio/happiness.mp3', '{{ if $isEn }}“True happiness is not stacking external accolades, but internal self-consistency.”{{ else }}“真正的幸福不是外在条件的堆叠，而是内在秩序的自洽。”{{ end }}')">
+            onclick="switchZenTrack(this, '{{ if $isEn }}《The Inner Architecture of Happiness》{{ else }}《幸福的内在·思想之光》{{ end }}', '{{ if $isEn }}Ch 01 04:12{{ else }}第一章 04:12{{ end }}', '/audio/happiness.mp3', '{{ if $isEn }}“True happiness is not stacking external accolades, but internal self-consistency.”{{ else }}“真正的幸福不是外在条件的堆叠，而是内在秩序的自洽。”{{ end }}', '{{ if $isEn }}✦ Guide Core Synthesis · Echoes from <em>The Inner Architecture of Happiness (Ch 01 Light of Thought)</em>{{ else }}✦ 导读核心提炼 · 意蕴源自《幸福的内在·第一章 思想之光》{{ end }}')">
       🌿 {{ if $isEn }}Inner Happiness (Highlights){{ else }}幸福的内在 (全集/精选){{ end }}
     </button>
     <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '{{ if $isEn }}《The Ladder of Civilization》{{ else }}《文明的阶梯·序言》{{ end }}', '{{ if $isEn }}Prologue 03:45{{ else }}序言 03:45{{ end }}', '/audio/civilization.mp3', '{{ if $isEn }}“Every leap of civilization begins with sheltering the quiet spark of an individual.”{{ else }}“文明的每一步跃迁，始于对个体微光的尊重与呵护。”{{ end }}')">
+            onclick="switchZenTrack(this, '{{ if $isEn }}《The Ladder of Civilization》{{ else }}《文明的阶梯·序言》{{ end }}', '{{ if $isEn }}Prologue 03:45{{ else }}序言 03:45{{ end }}', '/audio/civilization.mp3', '{{ if $isEn }}“Every leap of civilization begins with sheltering the quiet spark of an individual.”{{ else }}“文明的每一步跃迁，始于对个体微光的尊重与呵护。”{{ end }}', '{{ if $isEn }}✦ Guide Core Synthesis · Echoes from <em>The Ladder of Civilization (Prologue Spark &amp; Order)</em>{{ else }}✦ 导读核心提炼 · 意蕴源自《文明的阶梯·序言 微光与秩序》{{ end }}')">
       🪜 {{ if $isEn }}Civilization Ladder{{ else }}文明的阶梯 (全集){{ end }}
     </button>
     <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '{{ if $isEn }}《Into the Fields》{{ else }}《走向田间·序言》{{ end }}', '{{ if $isEn }}Prologue 03:30{{ else }}序言 03:30{{ end }}', '/audio/xiangjian.mp3', '{{ if $isEn }}“Pivot away from hollow exhaustion, and feed your warmth to real soil.”{{ else }}“从虚耗的争夺中转向，把时间与深情喂养给真实的土地。”{{ end }}')">
+            onclick="switchZenTrack(this, '{{ if $isEn }}《Into the Fields》{{ else }}《走向田间·序言》{{ end }}', '{{ if $isEn }}Prologue 03:30{{ else }}序言 03:30{{ end }}', '/audio/xiangjian.mp3', '{{ if $isEn }}“Pivot away from hollow exhaustion, and feed your warmth to real soil.”{{ else }}“从虚耗的争夺中转向，把时间与深情喂养给真实的土地。”{{ end }}', '{{ if $isEn }}✦ Guide Core Synthesis · Echoes from <em>Into the Fields (Prologue Pivot &amp; Nurture)</em>{{ else }}✦ 导读核心提炼 · 意蕴源自《走向田间·序言 转向与喂养》{{ end }}')">
       🌱 {{ if $isEn }}Into the Fields{{ else }}走向田间 (全集){{ end }}
     </button>
   </div>
@@ -361,14 +364,16 @@
   };
 
   // 2. 随身听切书与断点续播持久化
-  window.switchZenTrack = function(btn, title, duration, src, quote) {
+  window.switchZenTrack = function(btn, title, duration, src, quote, source) {
     document.querySelectorAll('.zen-book-chip').forEach(function(b) { b.classList.remove('active'); });
     if (btn) btn.classList.add('active');
     
     var titleEl = document.getElementById('zen-player-title');
     var quoteEl = document.getElementById('zen-player-quote');
+    var sourceEl = document.getElementById('zen-player-source');
     if (titleEl) titleEl.textContent = title;
     if (quoteEl && quote) quoteEl.textContent = quote;
+    if (sourceEl && source) sourceEl.innerHTML = source;
 
     var audio = document.getElementById('zen-mini-audio');
     if (audio) {
@@ -382,6 +387,7 @@
         duration: duration,
         src: src,
         quote: quote || '',
+        source: source || (sourceEl ? sourceEl.innerHTML : ''),
         time: 0
       }));
     } catch(e) {}
@@ -410,10 +416,17 @@
       try {
         var raw = localStorage.getItem('zen_last_audio');
         var d = raw ? JSON.parse(raw) : null;
-        if (!d || !d.src || d.src.indexOf(miniAudio.getAttribute('src') || '') === -1 && init) {
+        if (!d || !d.src || (d.src.indexOf(miniAudio.getAttribute('src') || '') === -1 && init)) {
           var t = document.getElementById('zen-player-title');
           var q = document.getElementById('zen-player-quote');
-          d = { title: t ? t.textContent : '', src: miniAudio.getAttribute('src'), quote: q ? q.textContent.trim() : '', time: 0 };
+          var s = document.getElementById('zen-player-source');
+          d = {
+            title: t ? t.textContent : '',
+            src: miniAudio.getAttribute('src'),
+            quote: q ? q.textContent.trim() : '',
+            source: s ? s.innerHTML : '',
+            time: 0
+          };
         }
         d.time = Math.floor(miniAudio.currentTime || 0);
         localStorage.setItem('zen_last_audio', JSON.stringify(d));
@@ -439,8 +452,10 @@
 
       var titleEl = document.getElementById('zen-player-title');
       var quoteEl = document.getElementById('zen-player-quote');
+      var sourceEl = document.getElementById('zen-player-source');
       if (titleEl) titleEl.textContent = data.title;
       if (quoteEl && data.quote) quoteEl.textContent = data.quote;
+      if (sourceEl && data.source) sourceEl.innerHTML = data.source;
 
       var audio = document.getElementById('zen-mini-audio');
       if (audio) {
