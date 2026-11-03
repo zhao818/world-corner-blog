@@ -142,7 +142,31 @@
   width: 28px !important;
   padding: 0 !important;
   margin: 0 2px !important;
+  border: 1px solid var(--zen-border) !important;
   border-radius: 999px !important;
+  background: var(--zen-bg-card) !important;
+  color: var(--zen-ink-body) !important;
+  box-shadow: 0 1px 3px rgba(36, 75, 62, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+#theme-toggle:hover {
+  border-color: var(--zen-pine) !important;
+  color: var(--zen-pine) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(36, 75, 62, 0.08);
+}
+.dark #theme-toggle {
+  background: var(--zen-bg-subtle) !important;
+  border-color: var(--zen-border) !important;
+  color: var(--zen-pine) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.dark #theme-toggle:hover {
+  background: var(--zen-pine) !important;
+  color: #141816 !important;
+  border-color: var(--zen-pine) !important;
+  box-shadow: 0 2px 8px rgba(95, 203, 167, 0.24);
 }
 .nav-toggle {
   margin: 0 0 0 4px !important;
@@ -307,6 +331,17 @@
 .zen-resume-pill:hover {
   background: var(--zen-amber);
   color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(217, 130, 43, 0.2);
+}
+.dark .zen-resume-pill {
+  background: var(--zen-amber-light);
+  color: var(--zen-amber);
+  border-color: rgba(240, 163, 85, 0.35);
+}
+.dark .zen-resume-pill:hover {
+  background: var(--zen-amber);
+  color: #141816 !important;
+  box-shadow: 0 2px 8px rgba(240, 163, 85, 0.25);
 }
 .zen-instant-title {
   font-size: 16.5px;
@@ -352,6 +387,7 @@
   color: #141816 !important;
   font-weight: 700;
   border-color: var(--zen-pine);
+  box-shadow: 0 2px 8px rgba(95, 203, 167, 0.22);
 }
 .zen-player-audio {
   width: 100%;
@@ -390,6 +426,7 @@
   color: #FFFFFF;
   border-color: var(--zen-pine);
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(36, 75, 62, 0.18);
 }
 .zen-instant-foot {
   margin-top: 12px;
@@ -519,25 +556,38 @@
   gap: 5px;
   background: var(--zen-pine);
   color: #FFFFFF;
-  border: none;
-  padding: 8px 16px;
+  border: 1px solid transparent;
+  padding: 8px 18px;
   border-radius: var(--zen-radius-pill);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(36, 75, 62, 0.16);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   flex-shrink: 0;
   margin-bottom: 2px;
 }
 .zen-ai-send-btn:hover {
-  background: var(--zen-amber);
+  background: var(--zen-pine-hover);
+  box-shadow: 0 4px 14px rgba(36, 75, 62, 0.24);
   transform: translateY(-1px);
 }
 .zen-ai-send-btn:disabled {
   opacity: 0.6;
   cursor: wait;
   transform: none;
+}
+.dark .zen-ai-send-btn {
+  background: var(--zen-pine);
+  color: #141816 !important;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(95, 203, 167, 0.22);
+}
+.dark .zen-ai-send-btn:hover {
+  background: var(--zen-pine-hover);
+  color: #141816 !important;
+  box-shadow: 0 4px 16px rgba(127, 224, 192, 0.32);
 }
 
 /* AI 对话流式展开区域 */
@@ -752,6 +802,18 @@
 .zen-ai-action-btn:hover {
   border-color: var(--zen-pine);
   color: var(--zen-pine);
+  background: var(--zen-pine-light);
+  transform: translateY(-1px);
+}
+.dark .zen-ai-action-btn {
+  background: var(--zen-bg-subtle);
+  border-color: var(--zen-border);
+  color: var(--zen-ink-body);
+}
+.dark .zen-ai-action-btn:hover {
+  border-color: var(--zen-pine);
+  color: var(--zen-pine);
+  background: var(--zen-pine-light);
 }
 .zen-ai-links-wrap {
   display: flex;
@@ -778,6 +840,17 @@
   background: var(--zen-pine);
   color: #FFFFFF;
   border-color: var(--zen-pine);
+}
+.dark .zen-ai-link-pill {
+  background: var(--zen-bg-subtle);
+  border-color: var(--zen-border);
+  color: var(--zen-pine);
+}
+.dark .zen-ai-link-pill:hover {
+  background: var(--zen-pine);
+  color: #141816 !important;
+  border-color: var(--zen-pine);
+  box-shadow: 0 2px 8px rgba(95, 203, 167, 0.22);
 }
 
 /* ============================================================
@@ -1076,19 +1149,33 @@
   margin-top: 6px;
 }
 .zen-ai-retry-btn {
-  background: #D9534F;
-  color: #FFFFFF;
-  border: none;
+  background: rgba(217, 83, 79, 0.1);
+  color: #D9534F;
+  border: 1px solid rgba(217, 83, 79, 0.35);
   border-radius: var(--zen-radius-pill);
   padding: 3px 12px;
   font-size: 12px;
   cursor: pointer;
   font-weight: 600;
   white-space: nowrap;
-  transition: opacity 0.15s;
+  transition: all 0.2s ease;
 }
 .zen-ai-retry-btn:hover {
-  opacity: 0.85;
+  background: #D9534F;
+  color: #FFFFFF;
+  border-color: #D9534F;
+  transform: translateY(-1px);
+}
+.dark .zen-ai-retry-btn {
+  background: rgba(235, 107, 103, 0.15);
+  color: #F87171;
+  border-color: rgba(248, 113, 113, 0.4);
+}
+.dark .zen-ai-retry-btn:hover {
+  background: #F87171;
+  color: #141816;
+  border-color: #F87171;
+  box-shadow: 0 2px 8px rgba(248, 113, 113, 0.25);
 }
 .zen-ai-partial-notice {
   font-size: 12px;
@@ -1229,4 +1316,49 @@
     width: 100%;
     box-sizing: border-box;
   }
+}
+
+/* ============================================================
+   全站分页器微卡胶囊系统 (PaperMod 原生深色按钮重塑)
+   ============================================================ */
+.pagination {
+  margin: 36px 0 20px !important;
+  gap: 12px;
+  align-items: center;
+}
+.pagination a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--zen-bg-card) !important;
+  color: var(--zen-pine) !important;
+  border: 1px solid var(--zen-border) !important;
+  border-radius: var(--zen-radius-pill) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  padding: 6px 20px !important;
+  line-height: 24px !important;
+  box-shadow: 0 2px 6px rgba(36, 75, 62, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-decoration: none !important;
+}
+.pagination a:hover {
+  background: var(--zen-pine) !important;
+  color: #FFFFFF !important;
+  border-color: var(--zen-pine) !important;
+  box-shadow: 0 4px 12px rgba(36, 75, 62, 0.18) !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+.dark .pagination a {
+  background: var(--zen-bg-subtle) !important;
+  color: var(--zen-pine) !important;
+  border-color: var(--zen-border) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+.dark .pagination a:hover {
+  background: var(--zen-pine) !important;
+  color: #141816 !important;
+  border-color: var(--zen-pine) !important;
+  box-shadow: 0 4px 14px rgba(95, 203, 167, 0.26) !important;
 }
