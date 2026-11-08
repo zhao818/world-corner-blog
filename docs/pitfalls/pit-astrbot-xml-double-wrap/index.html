@@ -9,12 +9,10 @@
 <meta name="description" content="症状
 
 你看到什么？
-
 AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。
 根因
 
 到底为什么出问题？
-
 callback 函数把 AI 结果用 create_reply() 转成完整 XML 存入 cached_xml：
 # callback 函数中
 reply_xml = str(create_reply(result, msg))
@@ -32,13 +30,11 @@ def _reply_text(text: str) -&gt; str:
 微信收到嵌套 XML → 无法解析 → 静默丢弃。
 修复
 
-怎么做？
-
-所有从 cached_xml 取出的分支不调用 _reply_text()，直接用 _maybe_encrypt() 返回原生 XML。涉及 3 个分支：">
+怎么做？">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-astrbot-xml-double-wrap/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e53662ca65a43b43a338b1189cf5df9fa388352db9e506fd30ea2cef25d2db6f.css" integrity="sha256-5TZiymWkO0OjOLEYnPXfn6OINS255Qb9MOos7yXS228=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -255,12 +251,10 @@ def _reply_text(text: str) -&gt; str:
 <meta property="og:description" content="症状
 
 你看到什么？
-
 AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。
 根因
 
 到底为什么出问题？
-
 callback 函数把 AI 结果用 create_reply() 转成完整 XML 存入 cached_xml：
 # callback 函数中
 reply_xml = str(create_reply(result, msg))
@@ -278,9 +272,7 @@ def _reply_text(text: str) -&gt; str:
 微信收到嵌套 XML → 无法解析 → 静默丢弃。
 修复
 
-怎么做？
-
-所有从 cached_xml 取出的分支不调用 _reply_text()，直接用 _maybe_encrypt() 返回原生 XML。涉及 3 个分支：" />
+怎么做？" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://worldcorner.xyz/pitfalls/pit-astrbot-xml-double-wrap/" /><meta property="article:section" content="pitfalls" />
 <meta property="article:published_time" content="2026-06-13T00:00:00+00:00" />
@@ -292,12 +284,10 @@ def _reply_text(text: str) -&gt; str:
 <meta name="twitter:description" content="症状
 
 你看到什么？
-
 AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。
 根因
 
 到底为什么出问题？
-
 callback 函数把 AI 结果用 create_reply() 转成完整 XML 存入 cached_xml：
 # callback 函数中
 reply_xml = str(create_reply(result, msg))
@@ -315,9 +305,7 @@ def _reply_text(text: str) -&gt; str:
 微信收到嵌套 XML → 无法解析 → 静默丢弃。
 修复
 
-怎么做？
-
-所有从 cached_xml 取出的分支不调用 _reply_text()，直接用 _maybe_encrypt() 返回原生 XML。涉及 3 个分支："/>
+怎么做？"/>
 
 
 <script type="application/ld+json">
@@ -346,7 +334,7 @@ def _reply_text(text: str) -&gt; str:
   "@type": "BlogPosting",
   "headline": "AstrBot 公众号被动回复 XML 二次包装导致微信无法解析",
   "name": "AstrBot 公众号被动回复 XML 二次包装导致微信无法解析",
-  "description": "症状 你看到什么？\nAstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。\n根因 到底为什么出问题？\ncallback 函数把 AI 结果用 create_reply() 转成完整 XML 存入 cached_xml：\n# callback 函数中 reply_xml = str(create_reply(result, msg)) state[\u0026#34;cached_xml\u0026#34;].append(reply_xml) 存储的内容已经是完整 XML：\n\u0026lt;xml\u0026gt; \u0026lt;ToUserName\u0026gt;\u0026lt;![CDATA[ofqGA2NNjQOqZL3snP_mzNQrGQLM]]\u0026gt;\u0026lt;\/ToUserName\u0026gt; \u0026lt;FromUserName\u0026gt;\u0026lt;![CDATA[gh_bd189357a403]]\u0026gt;\u0026lt;\/FromUserName\u0026gt; \u0026lt;Content\u0026gt;\u0026lt;![CDATA[你好，我是AI助手]]\u0026gt;\u0026lt;\/Content\u0026gt; \u0026lt;\/xml\u0026gt; 但 handle_callback 从 cached_xml 取出后，又用 _reply_text() 再包装一次：\ndef _reply_text(text: str) -\u0026gt; str: reply_obj = create_reply(text, msg) # 把完整 XML 当作文本再包装 ... 微信收到嵌套 XML → 无法解析 → 静默丢弃。\n修复 怎么做？\n所有从 cached_xml 取出的分支不调用 _reply_text()，直接用 _maybe_encrypt() 返回原生 XML。涉及 3 个分支：\n",
+  "description": "症状 你看到什么？\nAstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 wx buffer hit on trigger 和 wx first window timeout 正常打印，cached_xml 里有值。但用户手机端永远看不到回复。无任何报错日志——微信静默丢弃了回复。\n根因 到底为什么出问题？\ncallback 函数把 AI 结果用 create_reply() 转成完整 XML 存入 cached_xml：\n# callback 函数中 reply_xml = str(create_reply(result, msg)) state[\u0026#34;cached_xml\u0026#34;].append(reply_xml) 存储的内容已经是完整 XML：\n\u0026lt;xml\u0026gt; \u0026lt;ToUserName\u0026gt;\u0026lt;![CDATA[ofqGA2NNjQOqZL3snP_mzNQrGQLM]]\u0026gt;\u0026lt;\/ToUserName\u0026gt; \u0026lt;FromUserName\u0026gt;\u0026lt;![CDATA[gh_bd189357a403]]\u0026gt;\u0026lt;\/FromUserName\u0026gt; \u0026lt;Content\u0026gt;\u0026lt;![CDATA[你好，我是AI助手]]\u0026gt;\u0026lt;\/Content\u0026gt; \u0026lt;\/xml\u0026gt; 但 handle_callback 从 cached_xml 取出后，又用 _reply_text() 再包装一次：\ndef _reply_text(text: str) -\u0026gt; str: reply_obj = create_reply(text, msg) # 把完整 XML 当作文本再包装 ... 微信收到嵌套 XML → 无法解析 → 静默丢弃。\n修复 怎么做？\n",
   "keywords": [
     
   ],
@@ -456,39 +444,36 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p>
-</blockquote>
+<p>你看到什么？</p></blockquote>
 <p>AstrBot 微信公众号被动回复模式：AI 正常生成回复，日志显示 <code>wx buffer hit on trigger</code> 和 <code>wx first window timeout</code> 正常打印，<code>cached_xml</code> 里有值。但用户手机端<strong>永远看不到回复</strong>。无任何报错日志——微信静默丢弃了回复。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p>
-</blockquote>
+<p>到底为什么出问题？</p></blockquote>
 <p><code>callback</code> 函数把 AI 结果用 <code>create_reply()</code> 转成<strong>完整 XML</strong> 存入 <code>cached_xml</code>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># callback 函数中</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># callback 函数中</span>
 </span></span><span style="display:flex;"><span>reply_xml <span style="color:#f92672">=</span> str(create_reply(result, msg))
 </span></span><span style="display:flex;"><span>state[<span style="color:#e6db74">&#34;cached_xml&#34;</span>]<span style="color:#f92672">.</span>append(reply_xml)
 </span></span></code></pre></div><p>存储的内容已经是完整 XML：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;xml&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;xml&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ToUserName&gt;</span><span style="color:#75715e">&lt;![CDATA[ofqGA2NNjQOqZL3snP_mzNQrGQLM]]&gt;</span><span style="color:#f92672">&lt;/ToUserName&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;FromUserName&gt;</span><span style="color:#75715e">&lt;![CDATA[gh_bd189357a403]]&gt;</span><span style="color:#f92672">&lt;/FromUserName&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Content&gt;</span><span style="color:#75715e">&lt;![CDATA[你好，我是AI助手]]&gt;</span><span style="color:#f92672">&lt;/Content&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xml&gt;</span>
 </span></span></code></pre></div><p>但 <code>handle_callback</code> 从 <code>cached_xml</code> 取出后，又用 <code>_reply_text()</code> <strong>再包装一次</strong>：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_reply_text</span>(text: str) <span style="color:#f92672">-&gt;</span> str:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_reply_text</span>(text: str) <span style="color:#f92672">-&gt;</span> str:
 </span></span><span style="display:flex;"><span>    reply_obj <span style="color:#f92672">=</span> create_reply(text, msg)  <span style="color:#75715e"># 把完整 XML 当作文本再包装</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
 </span></span></code></pre></div><p>微信收到嵌套 XML → 无法解析 → 静默丢弃。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p>
-</blockquote>
+<p>怎么做？</p></blockquote>
 <p>所有从 <code>cached_xml</code> 取出的分支<strong>不调用 <code>_reply_text()</code></strong>，直接用 <code>_maybe_encrypt()</code> 返回原生 XML。涉及 3 个分支：</p>
 <ul>
 <li><code>wx buffer hit on trigger</code></li>
 <li><code>wx buffer hit on retry window</code></li>
 <li><code>wx buffer hit immediately</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ❌ 修复前：二次包装</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># ❌ 修复前：二次包装</span>
 </span></span><span style="display:flex;"><span>cached_xml <span style="color:#f92672">=</span> state[<span style="color:#e6db74">&#34;cached_xml&#34;</span>]<span style="color:#f92672">.</span>popleft()
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_reply_text(cached_xml)  <span style="color:#75715e"># 又包一层！</span>
 </span></span><span style="display:flex;"><span>
@@ -497,8 +482,7 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_maybe_encrypt(cached_xml, nonce, timestamp)  <span style="color:#75715e"># 原样返回</span>
 </span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p>
-</blockquote>
+<p>下次怎么不踩？</p></blockquote>
 <ol>
 <li><strong>缓存 XML 时标记包装状态</strong>：存的时候标注 <code>is_wrapped=True</code>，取的时候检查</li>
 <li><strong>包装函数加幂等保护</strong>：<code>create_reply()</code> 检测输入是否已包含 <code>&lt;xml&gt;</code> 标签，拒绝二次包装</li>
