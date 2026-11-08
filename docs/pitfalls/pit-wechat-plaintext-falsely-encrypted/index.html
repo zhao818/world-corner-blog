@@ -9,10 +9,12 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 微信后台配置为「明文模式」。修复了 XML 二次包装后，日志无报错、AI 正常生成回复、cached_xml 有值——但用户手机端仍然看不到任何自动回复。表现和 XML 嵌套完全一样，给排查造成极大困扰。
 根因
 
 到底为什么出问题？
+
 _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在：
 def _maybe_encrypt(self, xml, nonce, timestamp):
     if xml and &#34;&lt;Encrypt&gt;&#34; not in xml and nonce and timestamp:
@@ -22,6 +24,7 @@ def _maybe_encrypt(self, xml, nonce, timestamp):
 修复
 
 怎么做？
+
 两层防护：
 第一层：明文模式分支中置空 nonce/timestamp：
 if not msg_signature:
@@ -32,8 +35,8 @@ if not msg_signature:
 第二层：增加类级别 _is_encrypted 标志：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-wechat-plaintext-falsely-encrypted/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e53662ca65a43b43a338b1189cf5df9fa388352db9e506fd30ea2cef25d2db6f.css" integrity="sha256-5TZiymWkO0OjOLEYnPXfn6OINS255Qb9MOos7yXS228=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -250,10 +253,12 @@ if not msg_signature:
 <meta property="og:description" content="症状
 
 你看到什么？
+
 微信后台配置为「明文模式」。修复了 XML 二次包装后，日志无报错、AI 正常生成回复、cached_xml 有值——但用户手机端仍然看不到任何自动回复。表现和 XML 嵌套完全一样，给排查造成极大困扰。
 根因
 
 到底为什么出问题？
+
 _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在：
 def _maybe_encrypt(self, xml, nonce, timestamp):
     if xml and &#34;&lt;Encrypt&gt;&#34; not in xml and nonce and timestamp:
@@ -263,6 +268,7 @@ def _maybe_encrypt(self, xml, nonce, timestamp):
 修复
 
 怎么做？
+
 两层防护：
 第一层：明文模式分支中置空 nonce/timestamp：
 if not msg_signature:
@@ -282,10 +288,12 @@ if not msg_signature:
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 微信后台配置为「明文模式」。修复了 XML 二次包装后，日志无报错、AI 正常生成回复、cached_xml 有值——但用户手机端仍然看不到任何自动回复。表现和 XML 嵌套完全一样，给排查造成极大困扰。
 根因
 
 到底为什么出问题？
+
 _maybe_encrypt() 函数不关心当前模式，只检查 nonce 和 timestamp 是否存在：
 def _maybe_encrypt(self, xml, nonce, timestamp):
     if xml and &#34;&lt;Encrypt&gt;&#34; not in xml and nonce and timestamp:
@@ -295,6 +303,7 @@ def _maybe_encrypt(self, xml, nonce, timestamp):
 修复
 
 怎么做？
+
 两层防护：
 第一层：明文模式分支中置空 nonce/timestamp：
 if not msg_signature:
@@ -403,6 +412,12 @@ if not msg_signature:
         </div>
         <ul id="menu">
             <li>
+                <a href="https://worldcorner.xyz/graph/" title="星图"
+                class="nav-btn nav-menu-graph">
+                    <span>星图</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
@@ -435,29 +450,32 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>微信后台配置为「明文模式」。修复了 XML 二次包装后，日志无报错、AI 正常生成回复、<code>cached_xml</code> 有值——但用户手机端仍然看不到任何自动回复。表现和 XML 嵌套完全一样，给排查造成极大困扰。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <p><code>_maybe_encrypt()</code> 函数不关心当前模式，只检查 <code>nonce</code> 和 <code>timestamp</code> 是否存在：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_maybe_encrypt</span>(self, xml, nonce, timestamp):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_maybe_encrypt</span>(self, xml, nonce, timestamp):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> xml <span style="color:#f92672">and</span> <span style="color:#e6db74">&#34;&lt;Encrypt&gt;&#34;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> xml <span style="color:#f92672">and</span> nonce <span style="color:#f92672">and</span> timestamp:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>crypto<span style="color:#f92672">.</span>encrypt_message(xml, nonce, timestamp)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> xml <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;success&#34;</span>
 </span></span></code></pre></div><p><strong>微信在明文模式下的 POST 请求 URL 中仍然携带 <code>nonce</code> 和 <code>timestamp</code> 参数</strong>（用于 URL 签名验证，不是加解密），所以条件 <code>nonce and timestamp</code> 为真 → 执行加密 → 微信收到 <code>&lt;Encrypt&gt;</code> 标签的密文 → 明文模式下无法解析 → 静默丢弃 → 用户永远看不到回复。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p></blockquote>
+<p>怎么做？</p>
+</blockquote>
 <p>两层防护：</p>
 <p><strong>第一层</strong>：明文模式分支中置空 nonce/timestamp：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> msg_signature:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> msg_signature:
 </span></span><span style="display:flex;"><span>    logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;明文模式，直接解析消息。&#34;</span>)
 </span></span><span style="display:flex;"><span>    msg <span style="color:#f92672">=</span> parse_message(data<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>))
 </span></span><span style="display:flex;"><span>    nonce <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>       <span style="color:#75715e"># ← 置空，跳过加密</span>
 </span></span><span style="display:flex;"><span>    timestamp <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>   <span style="color:#75715e"># ← 置空，跳过加密</span>
 </span></span></code></pre></div><p><strong>第二层</strong>：增加类级别 <code>_is_encrypted</code> 标志：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># __init__ 中</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># __init__ 中</span>
 </span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>_is_encrypted: bool <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># handle_callback 中</span>
@@ -469,7 +487,8 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 任一个为 False 就跳过加密</span>
 </span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>加密函数必须显式检查模式</strong>：不能只靠 nonce/timestamp 是否存在——它们在明文模式下也存在</li>
 <li><strong>写测试覆盖四种场景</strong>：明文模式 / 安全模式 / 占位符 / 修复前复现</li>

@@ -9,6 +9,7 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
 结果：
 
@@ -20,6 +21,7 @@
 
 到底为什么出问题？
 
+
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
 命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
@@ -28,6 +30,7 @@
 修复
 
 具体步骤。
+
 # 1. 先查 GitHub 上已有的仓库
 gh repo list zhao818 --limit 50
 
@@ -44,8 +47,8 @@ gh repo list zhao818 --limit 50
 删除多余仓库后，重新配置镜像：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-gitee-duplicate-repo-check/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e53662ca65a43b43a338b1189cf5df9fa388352db9e506fd30ea2cef25d2db6f.css" integrity="sha256-5TZiymWkO0OjOLEYnPXfn6OINS255Qb9MOos7yXS228=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -262,6 +265,7 @@ gh repo list zhao818 --limit 50
 <meta property="og:description" content="症状
 
 你看到什么？
+
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
 结果：
 
@@ -273,6 +277,7 @@ gh repo list zhao818 --limit 50
 
 到底为什么出问题？
 
+
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
 命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
@@ -281,6 +286,7 @@ gh repo list zhao818 --limit 50
 修复
 
 具体步骤。
+
 # 1. 先查 GitHub 上已有的仓库
 gh repo list zhao818 --limit 50
 
@@ -306,6 +312,7 @@ gh repo list zhao818 --limit 50
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 pitfall-knowledge-base 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 claude-memory 仓库，功能完全重叠——claude-memory 本身就是踩坑知识库。
 结果：
 
@@ -317,6 +324,7 @@ gh repo list zhao818 --limit 50
 
 到底为什么出问题？
 
+
 不查就建：建仓库前没跑 gh repo list zhao818 或登录 Gitee 看已有仓库
 命名冲动：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠
 平台不统一：GitHub 一个名、Gitee 一个名，镜像对不齐
@@ -325,6 +333,7 @@ gh repo list zhao818 --limit 50
 修复
 
 具体步骤。
+
 # 1. 先查 GitHub 上已有的仓库
 gh repo list zhao818 --limit 50
 
@@ -439,6 +448,12 @@ gh repo list zhao818 --limit 50
         </div>
         <ul id="menu">
             <li>
+                <a href="https://worldcorner.xyz/graph/" title="星图"
+                class="nav-btn nav-menu-graph">
+                    <span>星图</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
@@ -471,7 +486,8 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>踩坑共享平台需要 Gitee 镜像。在 Gitee 上新建了 <code>pitfall-knowledge-base</code> 仓库，配置了 GitHub → Gitee 镜像同步。后来发现用户早就有 <code>claude-memory</code> 仓库，功能完全重叠——<code>claude-memory</code> 本身就是踩坑知识库。</p>
 <p>结果：</p>
 <ul>
@@ -481,7 +497,8 @@ document.addEventListener('click', function (e) {
 </ul>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <ol>
 <li><strong>不查就建</strong>：建仓库前没跑 <code>gh repo list zhao818</code> 或登录 Gitee 看已有仓库</li>
 <li><strong>命名冲动</strong>：想了一个&quot;好听的名字&quot;就建了，没考虑是否和已有仓库功能重叠</li>
@@ -490,8 +507,9 @@ document.addEventListener('click', function (e) {
 </ol>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>具体步骤。</p></blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. 先查 GitHub 上已有的仓库</span>
+<p>具体步骤。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. 先查 GitHub 上已有的仓库</span>
 </span></span><span style="display:flex;"><span>gh repo list zhao818 --limit <span style="color:#ae81ff">50</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. 再查 Gitee 上已有的仓库</span>
@@ -505,12 +523,13 @@ document.addEventListener('click', function (e) {
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># GitHub: zhao818/claude-memory</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Gitee:  Zhaotianbibg1/claude-memory  ← 对齐</span>
 </span></span></code></pre></div><p>删除多余仓库后，重新配置镜像：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Gitee 仓库设置 → 镜像仓库管理 → 添加镜像</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Gitee 仓库设置 → 镜像仓库管理 → 添加镜像</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 源: https://github.com/zhao818/claude-memory.git</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 目标: https://gitee.com/Zhaotianbibg1/claude-memory.git</span>
 </span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>建仓库前三问</strong>：
 <ul>

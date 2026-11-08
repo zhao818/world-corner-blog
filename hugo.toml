@@ -13,7 +13,13 @@ defaultContentLanguage = 'zh'
 [markup.goldmark.renderer]
   unsafe = true
 
-# ---- 极简沉浸式顶部导航（主页统揽全站，顶部仅保留极速搜索）----
+# ---- 沉浸式顶部导航（搜索 + 知识星图）----
+[[menu.main]]
+  name = "星图"
+  url = "/graph/"
+  weight = 90
+  identifier = "menu-graph"
+
 [[menu.main]]
   name = "搜索"
   url = "/search/"
@@ -42,7 +48,13 @@ defaultContentLanguage = 'zh'
       [languages.en.params.label]
         text = 'World Corner'
 
-  # 英文顶部菜单（纯净极简搜索）
+  # 英文顶部菜单
+  [[languages.en.menu.main]]
+    name = "Graph"
+    url = "/en/graph/"
+    weight = 90
+    identifier = "menu-graph"
+
   [[languages.en.menu.main]]
     name = "Search"
     url = "/en/search/"

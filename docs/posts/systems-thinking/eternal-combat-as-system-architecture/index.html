@@ -9,8 +9,8 @@
 <meta name="description" content="深夜，你躺在床上，拇指无意识地上滑——一个短视频，下一个，再下一个。你的瞳孔在蓝光中扩张，多巴胺像被捏住脖子的水管一样持续喷涌。你感到愉悦，是的——但你不知道的是，你的系统正在被 DDoS 攻击。">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/posts/systems-thinking/eternal-combat-as-system-architecture/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e53662ca65a43b43a338b1189cf5df9fa388352db9e506fd30ea2cef25d2db6f.css" integrity="sha256-5TZiymWkO0OjOLEYnPXfn6OINS255Qb9MOos7yXS228=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -275,8 +275,8 @@
   "articleBody": "一、开机：你已身处战场 深夜，你躺在床上，拇指无意识地上滑——一个短视频，下一个，再下一个。你的瞳孔在蓝光中扩张，多巴胺像被捏住脖子的水管一样持续喷涌。你感到愉悦，是的——但你不知道的是，你的系统正在被 DDoS 攻击。\n我不是在比喻。\n你的注意力——这个时代最稀缺的计算资源——正在被每秒数千次的请求轰炸。每一条推送都是一个精心构造的 SYN 包，占满你的认知连接队列。你不觉得自己在战斗，因为和平年代的特征就是：攻击不来自远方的大炮，而来自你口袋里的振动器。\n人们常说战争时代的旦夕祸福，却对和平年代的安稳趋之若鹜。但真相是——和平，只不过是一场负载均衡做得更好的战争。肉体消灭被替换为灵魂规训，剧烈爆炸坍缩为隐性内耗。\n从系统架构的角度看，这从未改变：资源有限，而争夺永恒。 只不过过去的攻击是 DDoS，现在的是 Slowloris——慢到你以为服务器本就该这样。\n二、快乐：一场蓄谋已久的栈溢出 大众把痛苦视为系统崩溃的信号，把快乐当做正常运行的标准。这是认知架构上最危险的 bug。\n你要理解一件事：一切基于外界刺激的快乐，本质上是系统在接受不受信任的输入。\n让我给你讲一个栈溢出攻击的故事——你会发现它和你的快乐长得一模一样。\n一个正常的程序调用函数时，会在内存栈上压入返回地址。攻击者做的事很简单：往栈里写远超设计容量的数据，直到返回地址被覆盖成攻击者想要跳转的恶意代码入口。程序以为自己在正常执行——它确实在执行，但控制权早已不归它。\n你的快乐机制是完全相同的栈溢出。\n每一次放纵——一顿暴食、一次熬夜刷剧、一场无节制的消费——你都在往生命的栈里压入越界的负荷。栈的设计之初，本是为了短暂存储临时数据。但当你持续压入超出设计容量的快乐数据，最终覆盖掉的，是那个指向\u0026quot;自我控制\u0026quot;的返回地址。\n放纵，是放大了的自私。\n为什么？因为每一个压入栈的快乐字节，都在抢占其他进程的资源。放纵就是进程对自己说：\u0026ldquo;我的优先级最高，其他线程都让开。\u0026rdquo; 于是 CPU 调度器（你的意识）把所有时间片分配给了这个进程。\n自私，是一切争斗的根源。\n当 A 进程占用了 B 进程必需的资源——而资源的总量有限——争斗便开始了。这不是道德问题，是系统设计的必然。两个进程无法同时占用同一个内存地址。\n争斗，引发无法稀释的仇恨。\n在操作系统中，这叫死锁（deadlock）。两个进程各持有一把锁，都在等待对方释放。没有调度器介入，它们永远僵持。人心之间的仇恨，机制一模一样：你不退，我不让，仇恨的引用计数只增不减。\n而仇恨，终将引向万物同寂的毁灭。\n系统崩溃了。内核 panic，所有进程被强制终止。没有人赢——因为在这场争夺中，资源本身被消耗殆尽。\n这就是快乐那条看似无伤大雅的逻辑链，最终指向的终点。\n快乐不是不好——不安全地快乐，才是在栈里写不受信任的输入。\n三、内核态与用户态：你选择了哪个保护环？ 在操作系统的世界里，CPU 提供了多个特权级——通常叫 Ring 0 到 Ring 3。\nRing 0 是内核态。在这里运行的代码，拥有对硬件的完全控制权。它可以读写所有内存地址，掌控中断，管理进程调度。它清醒，因为它必须清醒——任何错误都可能导致整个系统崩溃。\nRing 3 是用户态。你的浏览器、游戏、视频播放器都跑在这里。它们被一个叫做\u0026quot;虚拟地址空间\u0026quot;的沙箱包裹着——以为自己拥有整个内存，但其实看到的只是内核精心构建的映射。\n大多数人一生都活在用户态。\n你以为自己是自由的——你可以点开任何 App，买任何东西，表达任何观点——但你的\u0026quot;自由\u0026quot;被三个机制框得死死的：\n虚拟内存映射：你以为看到的是全部真相，其实只是内核让你看到的视图。 系统调用过滤：每一个\u0026quot;重要决定\u0026quot;都经过层层中介的许可——算法推荐、广告投放、社交压力——它们为你做好了选择，你只是调用了一个预设的 API。 权限隔离：你从未触及过真正的底层——你从未问过：我为什么想要这个？我的欲望是真的，还是来自某个精心设计的推送策略？ 而造物主——或者说生命底层的那套设计——并没有让所有人都拥有相同的权限。\n在波澜壮阔的磨难或平庸如水的日常中，有人流向了真善美的清澈，有人沉沦于浑噩与盲从。\n这不是命运的随机分配。这是资源分配策略的差异——生命的调度器把有限的内存分配给了不同的优先级赛道。\n清醒者——那些启动了内核态的人——并不是跑得更快的进程。他们是换了保护环运行的进程。他们看到了完整的地址空间，理解自己为什么在那里，知道什么资源是真正稀缺的。\n沉睡者——始终停留在用户态的进程——最大的问题不是选择错误。问题是：他们不知道自己在用户态里。\n四、守微光：在 Slowloris 攻击中维持内核稳定 如果一切快乐都可能是栈溢出，如果永恒争斗是系统架构的底层约束，那我们还能做什么？\n答案很朴素，朴素到容易被淹没在喧嚣之中：维持内核稳定。\n你不必消除所有攻击——那不可能。资源争夺是系统设计的内建约束，就像无法删除操作系统的调度器。你要做的，是在持续的低强度攻击中，保持内核的清醒。\n1. 给栈加上 canary 编译器有一种防护机制叫栈金丝雀（stack canary）——在压入返回地址之前，先压入一个随机值作为哨兵。在函数返回时，检查哨兵值是否被篡改。如果变了，说明栈已被溢出，系统立即终止进程。\n你的金丝雀是什么？\n是那句在你感到极致快乐时冒出来的警惕。是那个让你在放纵之前停下一秒钟的疑问：\u0026ldquo;这股快感，来自内核还是来自外部注入？\u0026rdquo;\n2. 拒绝慢速攻击 Slowloris 攻击最大的威胁不在于流量大，而在于它慢到服务器监测系统以为一切正常——它只是在慢慢打开连接，永不关闭。\n日常的平庸和温水效应就是这样运作的。你不是一天堕落的，你只是在每一天里，慢慢打开了一个不需要关闭的连接。日复一日，连接池满了，真正的请求被拒绝了，但你不觉得痛——因为一切都很\u0026quot;正常\u0026quot;。\n打破它的方法是设置连接超时： 每天划出一块不受外界输入的纯时间。不刷手机，不阅读，不消费任何内容。就只是存在。这是连接池清理。\n3. 切换保护环 要看清\u0026quot;快乐假象\u0026quot;的真相，需要的不是更多的信息，而是权限提升。\n当你发现自己的欲望，与其说是发自内心的选择，不如说是对某个推送策略的响应时——你已经在从用户态向内核态转移了。这一步不需要任何外部工具。只需要一个行为：每当想要什么的时候，追问\u0026quot;这是系统调用，还是内核指令？\u0026quot;\n真正的内核态，不是逃离冲突——冲突永恒，这是系统架构的底层约束。真正的高贵，是在看清了\u0026quot;温水青蛙\u0026quot;的骗局后，依然选择在那隐性的硝烟中，守住那一抹清醒的微光。\n因为你一旦进入内核态，那些攻击就不再能直接篡改你的返回地址。\n你知道自己为什么在这里。\n你知道什么值得占用你的有限算力。\n你知道每一滴多巴胺喷涌的背后，是哪个进程在调用资源。\n并且，你选择了守护。\n如果系统终究要面对资源枯竭——如果生命注定在消耗中走向终焉——那么这种\u0026quot;永恒争斗\u0026quot;的意义是什么？\n意义不在争斗的终点，而在你以什么权限级经历这场争斗。\n用户态的经历者死于流沙。内核态的经历者，死于清醒。\n后者，是一种荣耀。\n",
   "wordCount" : "99",
   "inLanguage": "zh",
-  "datePublished": "2026-05-02 22:30:00 \u002b0800 \u002b0800",
-  "dateModified": "2026-05-02 22:30:00 \u002b0800 \u002b0800",
+  "datePublished": "2026-05-02 22:30:00 \u002b0800 CST",
+  "dateModified": "2026-05-02 22:30:00 \u002b0800 CST",
   "author":{
     "@type": "Person",
     "name": "Tianbing Zhao"
@@ -340,6 +340,12 @@
         </div>
         <ul id="menu">
             <li>
+                <a href="https://worldcorner.xyz/graph/" title="星图"
+                class="nav-btn nav-menu-graph">
+                    <span>星图</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
@@ -372,7 +378,7 @@ document.addEventListener('click', function (e) {
     <div class="post-description">
       深夜，你躺在床上，拇指无意识地上滑——一个短视频，下一个，再下一个。你的瞳孔在蓝光中扩张，多巴胺像被捏住脖子的水管一样持续喷涌。你感到愉悦，是的——但你不知道的是，你的系统正在被 DDoS 攻击。
     </div>
-    <div class="post-meta"><span title='2026-05-02 22:30:00 +0800 +0800'>2026年5月2日</span>&nbsp;·&nbsp;Tianbing Zhao
+    <div class="post-meta"><span title='2026-05-02 22:30:00 +0800 CST'>2026年5月2日</span>&nbsp;·&nbsp;Tianbing Zhao
 
 </div>
   </header> <div class="toc">
@@ -485,7 +491,376 @@ document.addEventListener('click', function (e) {
       <li><a href="https://worldcorner.xyz/tags/%E8%A7%89%E9%86%92/">觉醒</a></li>
       <li><a href="https://worldcorner.xyz/tags/%E4%BA%BA%E7%94%9F%E6%9E%B6%E6%9E%84/">人生架构</a></li>
     </ul>
-  </footer>
+  </footer><div class="zen-knowledge-web" id="zen-knowledge-web" data-url="/posts/systems-thinking/eternal-combat-as-system-architecture/" data-lang="zh" style="display:none">
+  
+  <div class="zen-web-header">
+    <div class="zen-web-title-wrap">
+      <span class="zen-web-icon" id="zen-web-header-icon">🔗</span>
+      <h3 class="zen-web-title" id="zen-web-header-title">
+        思维交织 · 反向链接与知识共鸣
+      </h3>
+      <span class="zen-web-badge" id="zen-web-count-badge">0</span>
+    </div>
+    <a href="/graph/?focus=%2fposts%2fsystems-thinking%2feternal-combat-as-system-architecture%2f" class="zen-web-graph-btn" title="在全站知识星图中查看本文脉络">
+      <span>🌌 知识星图</span>
+      <span class="zen-web-arrow">→</span>
+    </a>
+  </div>
+
+  
+  <div id="zen-backlinks-section" style="display:none">
+    <div class="zen-sub-label">被以下篇章引用与延伸探讨：</div>
+    <div class="zen-backlinks-grid" id="zen-backlinks-list"></div>
+  </div>
+
+  
+  <div id="zen-related-section" style="display:none">
+    <div class="zen-sub-label">同频星宿 · 深度关联探讨：</div>
+    <div class="zen-related-grid" id="zen-related-list"></div>
+  </div>
+</div>
+
+<style>
+ 
+.zen-knowledge-web {
+  margin: 32px 0 24px;
+  padding: 24px 22px;
+  background: var(--zen-bg-card, #ffffff);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+:root[data-theme="dark"] .zen-knowledge-web,
+body.dark .zen-knowledge-web {
+  background: var(--zen-bg-card, #1a201d);
+  border-color: var(--zen-border, rgba(95, 203, 167, 0.18));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.zen-web-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--zen-border, rgba(36, 75, 62, 0.1));
+  margin-bottom: 16px;
+}
+
+.zen-web-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zen-web-icon {
+  font-size: 1.25rem;
+}
+
+.zen-web-title {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--zen-pine, #244b3e);
+  letter-spacing: -0.01em;
+}
+
+:root[data-theme="dark"] .zen-web-title,
+body.dark .zen-web-title {
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-web-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(36, 75, 62, 0.08);
+  color: var(--zen-pine, #244b3e);
+}
+
+:root[data-theme="dark"] .zen-web-badge,
+body.dark .zen-web-badge {
+  background: rgba(95, 203, 167, 0.15);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-web-graph-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: 20px;
+  background: rgba(36, 75, 62, 0.06);
+  color: var(--zen-pine, #244b3e);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.15));
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.zen-web-graph-btn:hover {
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .zen-web-graph-btn,
+body.dark .zen-web-graph-btn {
+  background: rgba(95, 203, 167, 0.12);
+  color: var(--zen-mint, #5FCBA7);
+  border-color: rgba(95, 203, 167, 0.25);
+}
+
+:root[data-theme="dark"] .zen-web-graph-btn:hover,
+body.dark .zen-web-graph-btn:hover {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816 !important;
+}
+
+.zen-sub-label {
+  font-size: 0.8rem;
+  color: var(--zen-sub, #6b7a73);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .zen-sub-label,
+body.dark .zen-sub-label {
+  color: #9cb1a7;
+}
+
+.zen-backlinks-grid, .zen-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.zen-bl-card {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--zen-bg-subtle, rgba(36, 75, 62, 0.03));
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.08));
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.zen-bl-card:hover {
+  border-color: var(--zen-pine, #244b3e);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme="dark"] .zen-bl-card,
+body.dark .zen-bl-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(95, 203, 167, 0.12);
+}
+
+:root[data-theme="dark"] .zen-bl-card:hover,
+body.dark .zen-bl-card:hover {
+  border-color: var(--zen-mint, #5FCBA7);
+  background: rgba(95, 203, 167, 0.06);
+}
+
+.zen-bl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+}
+
+.zen-bl-sec {
+  font-weight: 600;
+  color: var(--zen-pine, #244b3e);
+  background: rgba(36, 75, 62, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] .zen-bl-sec,
+body.dark .zen-bl-sec {
+  color: var(--zen-mint, #5FCBA7);
+  background: rgba(95, 203, 167, 0.15);
+}
+
+.zen-bl-date {
+  color: var(--zen-sub, #7b8882);
+}
+
+.zen-bl-title {
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  color: var(--zen-text, #2c3330);
+}
+
+:root[data-theme="dark"] .zen-bl-title,
+body.dark .zen-bl-title {
+  color: #e2e8e5;
+}
+
+.zen-bl-excerpt {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--zen-sub, #6b7a73);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-style: italic;
+}
+
+:root[data-theme="dark"] .zen-bl-excerpt,
+body.dark .zen-bl-excerpt {
+  color: #9cb1a7;
+}
+
+.zen-rel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.zen-rel-tag {
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--zen-sub, #6b7a73);
+}
+
+:root[data-theme="dark"] .zen-rel-tag,
+body.dark .zen-rel-tag {
+  background: rgba(255, 255, 255, 0.06);
+  color: #a0b2aa;
+}
+</style>
+
+<script>
+(function() {
+  var container = document.getElementById('zen-knowledge-web');
+  if (!container) return;
+  var targetUrl = container.getAttribute('data-url');
+  var isEn = container.getAttribute('data-lang') === 'en';
+  if (!targetUrl) return;
+
+  function norm(u) {
+    return (u || '').replace(/\/+$/, '') + '/';
+  }
+
+  var currentNorm = norm(targetUrl);
+
+  function render(data) {
+    if (!data) return;
+    var backlinksMap = data.backlinks || {};
+    var relatedMap = data.related || {};
+
+    var myBacklinks = backlinksMap[currentNorm] || [];
+    var myRelated = relatedMap[currentNorm] || [];
+
+    
+    if (myBacklinks.length === 0) {
+      for (var k in backlinksMap) {
+        if (k.indexOf(currentNorm) !== -1 || currentNorm.indexOf(k) !== -1) {
+          myBacklinks = backlinksMap[k];
+          break;
+        }
+      }
+    }
+    if (myRelated.length === 0) {
+      for (var rk in relatedMap) {
+        if (rk.indexOf(currentNorm) !== -1 || currentNorm.indexOf(rk) !== -1) {
+          myRelated = relatedMap[rk];
+          break;
+        }
+      }
+    }
+
+    var hasBacklinks = myBacklinks && myBacklinks.length > 0;
+    var hasRelated = myRelated && myRelated.length > 0;
+
+    if (!hasBacklinks && !hasRelated) {
+      return; 
+    }
+
+    var badge = document.getElementById('zen-web-count-badge');
+    var blSec = document.getElementById('zen-backlinks-section');
+    var blList = document.getElementById('zen-backlinks-list');
+    var relSec = document.getElementById('zen-related-section');
+    var relList = document.getElementById('zen-related-list');
+
+    var totalCount = (hasBacklinks ? myBacklinks.length : 0) + (hasRelated ? myRelated.length : 0);
+    if (badge) badge.textContent = totalCount;
+
+    if (hasBacklinks && blSec && blList) {
+      blSec.style.display = 'block';
+      var blHtml = '';
+      myBacklinks.forEach(function(item) {
+        blHtml += '<a href="' + item.sourceUrl + '" class="zen-bl-card">' +
+          '<div class="zen-bl-top">' +
+            '<span class="zen-bl-sec">' + (item.sourceSection || (isEn ? 'Article' : '思考')) + '</span>' +
+            '<span class="zen-bl-date">' + (item.sourceDate || '') + '</span>' +
+          '</div>' +
+          '<div class="zen-bl-title">' + item.sourceTitle + '</div>' +
+          (item.excerpt ? '<div class="zen-bl-excerpt">“' + item.excerpt + '”</div>' : '') +
+        '</a>';
+      });
+      blList.innerHTML = blHtml;
+    }
+
+    if (hasRelated && relSec && relList) {
+      relSec.style.display = 'block';
+      var relHtml = '';
+      myRelated.forEach(function(rel) {
+        var tagsHtml = '';
+        if (rel.tags && rel.tags.length > 0) {
+          tagsHtml = '<div class="zen-rel-tags">' +
+            rel.tags.map(function(t) { return '<span class="zen-rel-tag">#' + t + '</span>'; }).join('') +
+          '</div>';
+        }
+        relHtml += '<a href="' + rel.url + '" class="zen-bl-card">' +
+          '<div class="zen-bl-top">' +
+            '<span class="zen-bl-sec">' + (rel.section || (isEn ? 'Related' : '关联')) + '</span>' +
+            '<span class="zen-bl-date">' + (rel.date || '') + '</span>' +
+          '</div>' +
+          '<div class="zen-bl-title">' + rel.title + '</div>' +
+          tagsHtml +
+        '</a>';
+      });
+      relList.innerHTML = relHtml;
+    }
+
+    container.style.display = 'block';
+  }
+
+  
+  if (window.zenGraphData) {
+    render(window.zenGraphData);
+  } else {
+    fetch('/data/graph-data.json')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        window.zenGraphData = data;
+        render(data);
+      })
+      .catch(function(err) {
+        
+      });
+  }
+})();
+</script>
+
 <section class="tipbox" aria-label="赞赏支持">
   <div class="tip-lead">
     <span class="tip-badge"><span class="tip-badge-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></span>
@@ -792,6 +1167,9 @@ document.addEventListener('click', function (e) {
 
 
 <nav class="section-nav-row" aria-label="专栏导航">
+    <a href="https://worldcorner.xyz/graph/" class="nav-btn nav-menu-graph">
+      星图
+    </a>
     <a href="https://worldcorner.xyz/search/" class="nav-btn nav-menu-search">
       搜索
     </a>

@@ -1,0 +1,510 @@
+{{- define "main" }}
+{{- $isEn := eq .Lang "en" -}}
+
+<div class="zen-graph-page-wrap">
+  <!-- 页面题头 -->
+  <header class="zen-graph-page-header">
+    <div class="zen-graph-eyebrow">{{ if $isEn }}🌌 Digital Garden · Interconnected Thought Constellation{{ else }}🌌 数字庭院 · 网状思维星图与知识拓扑{{ end }}</div>
+    <h1 class="zen-graph-title">{{ if $isEn }}Thought Constellation &amp; Knowledge Graph{{ else }}思想星图 · 全站知识网络{{ end }}</h1>
+    <p class="zen-graph-sub">
+      {{ if $isEn }}
+      Explore the web of 480+ essays, audiobooks, and pitfall debriefs. Drag to navigate, scroll to zoom, click nodes to inspect connections.
+      {{ else }}
+      像星宿一样漫游 480+ 篇九书原声、认知基建与实战避坑。支持鼠标拖拽平移、滚轮缩放、点击节点速览详情与互链关系。
+      {{ end }}
+    </p>
+  </header>
+
+  <!-- 工具栏与筛选胶囊 -->
+  <div class="zen-graph-toolbar">
+    <div class="zen-graph-search-wrap">
+      <span class="zen-graph-search-icon">🔍</span>
+      <input type="text" id="zen-graph-search" class="zen-graph-search-input" 
+             placeholder="{{ if $isEn }}Search nodes, concepts, or tags…{{ else }}搜索思想星宿、核心概念或标签…{{ end }}" 
+             autocomplete="off" />
+    </div>
+
+    <!-- 快捷分类筛选药丸 -->
+    <div class="zen-graph-filters">
+      <button type="button" class="zen-filter-chip active" data-filter="all">{{ if $isEn }}All{{ else }}全部{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="systems-thinking">{{ if $isEn }}Systems Thinking{{ else }}系统思维{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="era-observation">{{ if $isEn }}Era Observation{{ else }}时代观察{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="learning">{{ if $isEn }}Cognitive Growth{{ else }}认知成长{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="tooling">{{ if $isEn }}Tools &amp; Pipeline{{ else }}效率工具{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="civilization-ladder">{{ if $isEn }}Civilization{{ else }}文明阶梯{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="pitfalls">{{ if $isEn }}Pitfalls{{ else }}工程避坑{{ end }}</button>
+      <button type="button" class="zen-filter-chip" data-filter="tag">{{ if $isEn }}Tags Only{{ else }}仅看标签{{ end }}</button>
+    </div>
+
+    <div class="zen-graph-stats-wrap">
+      <span id="zen-graph-stats" class="zen-graph-stats-badge">正在连结星图...</span>
+    </div>
+  </div>
+
+  <!-- 主画布容器 -->
+  <div class="zen-graph-viewport" id="zen-graph-container">
+    <canvas id="zen-graph-canvas"></canvas>
+
+    <!-- 浮动视角微调控制器 -->
+    <div class="zen-graph-floating-controls">
+      <button type="button" id="zen-graph-zoomin" class="zen-ctrl-btn" title="{{ if $isEn }}Zoom In{{ else }}放大{{ end }}">+</button>
+      <button type="button" id="zen-graph-zoomout" class="zen-ctrl-btn" title="{{ if $isEn }}Zoom Out{{ else }}缩小{{ end }}">−</button>
+      <button type="button" id="zen-graph-reset" class="zen-ctrl-btn" title="{{ if $isEn }}Reset View{{ else }}重置视角{{ end }}">⟲</button>
+      <button type="button" id="zen-graph-toggletags" class="zen-ctrl-btn active" title="{{ if $isEn }}Toggle Tag Nodes{{ else }}显示/隐藏标签节点{{ end }}">🏷️</button>
+    </div>
+
+    <!-- 节点详情侧边抽屉 -->
+    <aside class="zen-graph-drawer" id="zen-graph-drawer">
+      <button type="button" class="zen-drawer-close-btn" id="zen-drawer-close" aria-label="Close">✕</button>
+      <div class="zen-drawer-header">
+        <span class="zen-drawer-sec" id="zen-drawer-sec">思想节点</span>
+        <span class="zen-drawer-date" id="zen-drawer-date"></span>
+      </div>
+      <h2 class="zen-drawer-title" id="zen-drawer-title">节点详情</h2>
+      <p class="zen-drawer-desc" id="zen-drawer-desc"></p>
+
+      <a href="#" id="zen-drawer-link" class="zen-drawer-primary-btn" style="display:none">
+        <span>{{ if $isEn }}Read Full Essay{{ else }}进入阅读全文{{ end }}</span>
+        <span>→</span>
+      </a>
+
+      <div class="zen-drawer-connections">
+        <div class="zen-drawer-conn-title">{{ if $isEn }}Directly connected nodes:{{ else }}邻近连结与思想延展：{{ end }}</div>
+        <ul class="zen-drawer-nb-list" id="zen-drawer-neighbors"></ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<style>
+/* 知识星图全屏交互样式 */
+.zen-graph-page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px 40px;
+}
+
+.zen-graph-page-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.zen-graph-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--zen-pine, #244b3e);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+:root[data-theme="dark"] .zen-graph-eyebrow,
+body.dark .zen-graph-eyebrow {
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-graph-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--zen-text, #1a221f);
+  letter-spacing: -0.02em;
+}
+
+:root[data-theme="dark"] .zen-graph-title,
+body.dark .zen-graph-title {
+  color: #f0f5f2;
+}
+
+.zen-graph-sub {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--zen-sub, #6b7a73);
+}
+
+:root[data-theme="dark"] .zen-graph-sub,
+body.dark .zen-graph-sub {
+  color: #a0b2aa;
+}
+
+/* 工具栏 */
+.zen-graph-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--zen-bg-card, #ffffff);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+:root[data-theme="dark"] .zen-graph-toolbar,
+body.dark .zen-graph-toolbar {
+  background: var(--zen-bg-card, #1a201d);
+  border-color: var(--zen-border, rgba(95, 203, 167, 0.18));
+}
+
+.zen-graph-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--zen-bg-subtle, rgba(36, 75, 62, 0.04));
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 20px;
+  padding: 4px 12px;
+  flex: 1;
+  min-width: 220px;
+  max-width: 320px;
+}
+
+:root[data-theme="dark"] .zen-graph-search-wrap,
+body.dark .zen-graph-search-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(95, 203, 167, 0.2);
+}
+
+.zen-graph-search-icon {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.zen-graph-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.86rem;
+  width: 100%;
+  color: inherit;
+}
+
+.zen-graph-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.zen-filter-chip {
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  background: transparent;
+  color: var(--zen-sub, #6b7a73);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zen-filter-chip:hover {
+  background: rgba(36, 75, 62, 0.06);
+  color: var(--zen-pine, #244b3e);
+}
+
+.zen-filter-chip.active {
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff;
+  border-color: var(--zen-pine, #244b3e);
+}
+
+:root[data-theme="dark"] .zen-filter-chip {
+  color: #a0b2aa;
+  border-color: rgba(95, 203, 167, 0.18);
+}
+
+:root[data-theme="dark"] .zen-filter-chip:hover {
+  background: rgba(95, 203, 167, 0.1);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+:root[data-theme="dark"] .zen-filter-chip.active {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816;
+  border-color: var(--zen-mint, #5FCBA7);
+  font-weight: 600;
+}
+
+.zen-graph-stats-badge {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: rgba(36, 75, 62, 0.06);
+  color: var(--zen-pine, #244b3e);
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .zen-graph-stats-badge,
+body.dark .zen-graph-stats-badge {
+  background: rgba(95, 203, 167, 0.12);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+/* 画布视口 */
+.zen-graph-viewport {
+  position: relative;
+  width: 100%;
+  height: 680px;
+  background: var(--zen-bg-card, #ffffff);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:root[data-theme="dark"] .zen-graph-viewport,
+body.dark .zen-graph-viewport {
+  background: var(--zen-bg-card, #161c19);
+  border-color: var(--zen-border, rgba(95, 203, 167, 0.18));
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+#zen-graph-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 浮动控制工具 */
+.zen-graph-floating-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.zen-ctrl-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.15));
+  background: var(--zen-bg-card, #ffffff);
+  color: var(--zen-pine, #244b3e);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.zen-ctrl-btn:hover {
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+:root[data-theme="dark"] .zen-ctrl-btn,
+body.dark .zen-ctrl-btn {
+  background: #1e2622;
+  color: var(--zen-mint, #5FCBA7);
+  border-color: rgba(95, 203, 167, 0.25);
+}
+
+:root[data-theme="dark"] .zen-ctrl-btn:hover,
+body.dark .zen-ctrl-btn:hover {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816;
+}
+
+/* 抽屉速览面板 */
+.zen-graph-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  max-width: 85%;
+  background: var(--zen-bg-card, #ffffff);
+  border-left: 1px solid var(--zen-border, rgba(36, 75, 62, 0.14));
+  padding: 24px 20px;
+  overflow-y: auto;
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.08);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+:root[data-theme="dark"] .zen-graph-drawer,
+body.dark .zen-graph-drawer {
+  background: #1a221f;
+  border-color: rgba(95, 203, 167, 0.2);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.4);
+}
+
+.zen-graph-drawer.open {
+  transform: translateX(0);
+}
+
+.zen-drawer-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  color: var(--zen-sub, #8b9992);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.zen-drawer-close-btn:hover {
+  color: var(--zen-text, #1a221f);
+}
+
+.zen-drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.zen-drawer-sec {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(36, 75, 62, 0.08);
+  color: var(--zen-pine, #244b3e);
+}
+
+:root[data-theme="dark"] .zen-drawer-sec,
+body.dark .zen-drawer-sec {
+  background: rgba(95, 203, 167, 0.15);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-drawer-date {
+  font-size: 0.75rem;
+  color: var(--zen-sub, #8b9992);
+}
+
+.zen-drawer-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 12px;
+  color: var(--zen-text, #1a221f);
+}
+
+:root[data-theme="dark"] .zen-drawer-title,
+body.dark .zen-drawer-title {
+  color: #f0f5f2;
+}
+
+.zen-drawer-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--zen-sub, #6b7a73);
+  margin-bottom: 20px;
+}
+
+:root[data-theme="dark"] .zen-drawer-desc,
+body.dark .zen-drawer-desc {
+  color: #a0b2aa;
+}
+
+.zen-drawer-primary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  box-shadow: 0 2px 8px rgba(36, 75, 62, 0.2);
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.zen-drawer-primary-btn:hover {
+  background: #1b3a30;
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .zen-drawer-primary-btn,
+body.dark .zen-drawer-primary-btn {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816 !important;
+  box-shadow: 0 2px 10px rgba(95, 203, 167, 0.25);
+}
+
+:root[data-theme="dark"] .zen-drawer-primary-btn:hover,
+body.dark .zen-drawer-primary-btn:hover {
+  background: #7FE0C0;
+}
+
+.zen-drawer-connections {
+  border-top: 1px solid var(--zen-border, rgba(36, 75, 62, 0.1));
+  padding-top: 16px;
+}
+
+.zen-drawer-conn-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--zen-sub, #6b7a73);
+  margin-bottom: 10px;
+}
+
+.zen-drawer-nb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zen-drawer-nb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(36, 75, 62, 0.04);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.zen-drawer-nb-item:hover {
+  background: rgba(36, 75, 62, 0.1);
+  color: var(--zen-pine, #244b3e);
+  transform: translateX(3px);
+}
+
+:root[data-theme="dark"] .zen-drawer-nb-item,
+body.dark .zen-drawer-nb-item {
+  background: rgba(255, 255, 255, 0.04);
+  color: #d1ded8;
+}
+
+:root[data-theme="dark"] .zen-drawer-nb-item:hover,
+body.dark .zen-drawer-nb-item:hover {
+  background: rgba(95, 203, 167, 0.12);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-drawer-nb-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+
+<script src="/js/zen-graph.js"></script>
+
+{{- end }}

@@ -143,6 +143,11 @@
     <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/collections/"/>
   </url>
   <url>
+    <loc>https://worldcorner.xyz/en/graph/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/graph/"/>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/graph/"/>
+  </url>
+  <url>
     <loc>https://worldcorner.xyz/en/search/</loc>
     <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/search/"/>
     <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/search/"/>

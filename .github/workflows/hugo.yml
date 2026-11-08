@@ -33,6 +33,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: 生成知识拓扑与反向链接
+        run: |
+          pip install pyyaml
+          python3 scripts/build_knowledge_graph.py
       - name: 构建 Hugo 到 docs/
         run: |
           hugo -d docs --cleanDestinationDir

@@ -9,11 +9,13 @@
 <meta name="description" content="症状
 
 你看到什么？
+
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
 实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。
 根因
 
 到底为什么出问题？
+
 核心矛盾：当前会话的 $HOME 是 /c/Users/zhaot（Windows 侧），但 Write 工具把 /home/zhaotianbing/ 路径解析到了 WSL 原生 Linux 文件系统。
 Bash 工具：$HOME → /c/Users/zhaot → ~/claude-memory → /c/Users/zhaot/claude-memory ✅
 Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤立 ❌
@@ -21,11 +23,12 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
 修复
 
 怎么做？
+
 在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/pitfalls/pit-wsl-write-tool-path-failure/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e53662ca65a43b43a338b1189cf5df9fa388352db9e506fd30ea2cef25d2db6f.css" integrity="sha256-5TZiymWkO0OjOLEYnPXfn6OINS255Qb9MOos7yXS228=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
@@ -242,11 +245,13 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
 <meta property="og:description" content="症状
 
 你看到什么？
+
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
 实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。
 根因
 
 到底为什么出问题？
+
 核心矛盾：当前会话的 $HOME 是 /c/Users/zhaot（Windows 侧），但 Write 工具把 /home/zhaotianbing/ 路径解析到了 WSL 原生 Linux 文件系统。
 Bash 工具：$HOME → /c/Users/zhaot → ~/claude-memory → /c/Users/zhaot/claude-memory ✅
 Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤立 ❌
@@ -254,6 +259,7 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
 修复
 
 怎么做？
+
 在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://worldcorner.xyz/pitfalls/pit-wsl-write-tool-path-failure/" /><meta property="article:section" content="pitfalls" />
@@ -266,11 +272,13 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
 <meta name="twitter:description" content="症状
 
 你看到什么？
+
 用 Write 工具写文件到 ~/claude-memory/pitfalls/xxx.md（或用绝对路径 /home/zhaotianbing/claude-memory/...），工具报告成功，无报错。但 ls ~/claude-memory/pitfalls/ 看不到新文件。
 实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。
 根因
 
 到底为什么出问题？
+
 核心矛盾：当前会话的 $HOME 是 /c/Users/zhaot（Windows 侧），但 Write 工具把 /home/zhaotianbing/ 路径解析到了 WSL 原生 Linux 文件系统。
 Bash 工具：$HOME → /c/Users/zhaot → ~/claude-memory → /c/Users/zhaot/claude-memory ✅
 Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤立 ❌
@@ -278,6 +286,7 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
 修复
 
 怎么做？
+
 在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具："/>
 
 
@@ -307,11 +316,11 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
   "@type": "BlogPosting",
   "headline": "WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致",
   "name": "WSL 环境下 Claude Code Write 工具和 Bash 工具路径空间不一致",
-  "description": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nBash 工具：$HOME → \/c\/Users\/zhaot → ~\/claude-memory → \/c\/Users\/zhaot\/claude-memory ✅ Write 工具：\/home\/zhaotianbing\/claude-memory → WSL 原生 FS → 文件孤立 ❌ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\n",
+  "description": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nBash 工具：$HOME → \/c\/Users\/zhaot → ~\/claude-memory → \/c\/Users\/zhaot\/claude-memory ✅\rWrite 工具：\/home\/zhaotianbing\/claude-memory → WSL 原生 FS → 文件孤立 ❌ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\n",
   "keywords": [
     
   ],
-  "articleBody": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nBash 工具：$HOME → \/c\/Users\/zhaot → ~\/claude-memory → \/c\/Users\/zhaot\/claude-memory ✅ Write 工具：\/home\/zhaotianbing\/claude-memory → WSL 原生 FS → 文件孤立 ❌ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\ncat \u0026gt; ~\/claude-memory\/pitfalls\/new-file.md \u0026lt;\u0026lt; \u0026#39;EOF\u0026#39; 文件内容... EOF 或者先确认 $HOME 的实际位置，再决定路径：\necho $HOME # 看当前是 \/c\/Users\/zhaot 还是 \/home\/zhaotianbing realpath ~\/claude-memory # 确认仓库实际位置 怎么避免 下次怎么不踩？\nWSL 项目优先 Bash 写入：cat \u0026gt; file \u0026lt;\u0026lt; \u0027EOF\u0027 永远正确 写后必验证：Write\/写操作后立刻 ls 确认文件出现 不要假设路径：~ 可能指向 \/c\/Users\/zhaot 而非 \/home\/zhaotianbing 记住金句：Write 说\u0026quot;成功\u0026quot;不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写 ",
+  "articleBody": "症状 你看到什么？\n用 Write 工具写文件到 ~\/claude-memory\/pitfalls\/xxx.md（或用绝对路径 \/home\/zhaotianbing\/claude-memory\/...），工具报告成功，无报错。但 ls ~\/claude-memory\/pitfalls\/ 看不到新文件。\n实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。\n根因 到底为什么出问题？\n核心矛盾：当前会话的 $HOME 是 \/c\/Users\/zhaot（Windows 侧），但 Write 工具把 \/home\/zhaotianbing\/ 路径解析到了 WSL 原生 Linux 文件系统。\nBash 工具：$HOME → \/c\/Users\/zhaot → ~\/claude-memory → \/c\/Users\/zhaot\/claude-memory ✅\rWrite 工具：\/home\/zhaotianbing\/claude-memory → WSL 原生 FS → 文件孤立 ❌ 两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。\n修复 怎么做？\n在 WSL 环境创建文件时，用 Bash 的 cat heredoc 写入，不走 Write 工具：\ncat \u0026gt; ~\/claude-memory\/pitfalls\/new-file.md \u0026lt;\u0026lt; \u0026#39;EOF\u0026#39; 文件内容... EOF 或者先确认 $HOME 的实际位置，再决定路径：\necho $HOME # 看当前是 \/c\/Users\/zhaot 还是 \/home\/zhaotianbing realpath ~\/claude-memory # 确认仓库实际位置 怎么避免 下次怎么不踩？\nWSL 项目优先 Bash 写入：cat \u0026gt; file \u0026lt;\u0026lt; \u0027EOF\u0027 永远正确 写后必验证：Write\/写操作后立刻 ls 确认文件出现 不要假设路径：~ 可能指向 \/c\/Users\/zhaot 而非 \/home\/zhaotianbing 记住金句：Write 说\u0026quot;成功\u0026quot;不代表文件在你以为的地方。WSL 有两个文件系统——Windows 侧和 Linux 侧——Write 和 Bash 各走各的路径解析。写完不验证 = 写了等于没写 ",
   "wordCount" : "124",
   "inLanguage": "zh",
   "datePublished": "2026-06-13 00:00:00 \u002b0000 UTC",
@@ -379,6 +388,12 @@ Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤�
         </div>
         <ul id="menu">
             <li>
+                <a href="https://worldcorner.xyz/graph/" title="星图"
+                class="nav-btn nav-menu-graph">
+                    <span>星图</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
                 class="nav-btn nav-menu-search">
                     <span>搜索</span>
@@ -411,29 +426,33 @@ document.addEventListener('click', function (e) {
   <div class="pitfall-body">
     <h2 id="症状">症状</h2>
 <blockquote>
-<p>你看到什么？</p></blockquote>
+<p>你看到什么？</p>
+</blockquote>
 <p>用 <code>Write</code> 工具写文件到 <code>~/claude-memory/pitfalls/xxx.md</code>（或用绝对路径 <code>/home/zhaotianbing/claude-memory/...</code>），工具报告成功，无报错。但 <code>ls ~/claude-memory/pitfalls/</code> 看不到新文件。</p>
 <p>实际上本次会话就复现了：5 篇新踩坑用 Write 工具写完后，Bash 下全部找不到。最后用 Bash 重新写入才正确落盘。</p>
 <h2 id="根因">根因</h2>
 <blockquote>
-<p>到底为什么出问题？</p></blockquote>
+<p>到底为什么出问题？</p>
+</blockquote>
 <p>核心矛盾：<strong>当前会话的 <code>$HOME</code> 是 <code>/c/Users/zhaot</code>（Windows 侧），但 <code>Write</code> 工具把 <code>/home/zhaotianbing/</code> 路径解析到了 WSL 原生 Linux 文件系统</strong>。</p>
 <pre tabindex="0"><code>Bash 工具：$HOME → /c/Users/zhaot → ~/claude-memory → /c/Users/zhaot/claude-memory ✅
 Write 工具：/home/zhaotianbing/claude-memory → WSL 原生 FS → 文件孤立 ❌
 </code></pre><p>两个工具的路径空间不一致 → Write 写入的位置和 Bash 读写的位置不同。Read 工具走了不同的解析路径所以能读到 Write 写的文件，但 Bash 看不到。</p>
 <h2 id="修复">修复</h2>
 <blockquote>
-<p>怎么做？</p></blockquote>
+<p>怎么做？</p>
+</blockquote>
 <p>在 WSL 环境创建文件时，用 <code>Bash</code> 的 cat heredoc 写入，不走 <code>Write</code> 工具：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &gt; ~/claude-memory/pitfalls/new-file.md <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &gt; ~/claude-memory/pitfalls/new-file.md <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">文件内容...
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
 </span></span></code></pre></div><p>或者先确认 <code>$HOME</code> 的实际位置，再决定路径：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $HOME                    <span style="color:#75715e"># 看当前是 /c/Users/zhaot 还是 /home/zhaotianbing</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $HOME                    <span style="color:#75715e"># 看当前是 /c/Users/zhaot 还是 /home/zhaotianbing</span>
 </span></span><span style="display:flex;"><span>realpath ~/claude-memory      <span style="color:#75715e"># 确认仓库实际位置</span>
 </span></span></code></pre></div><h2 id="怎么避免">怎么避免</h2>
 <blockquote>
-<p>下次怎么不踩？</p></blockquote>
+<p>下次怎么不踩？</p>
+</blockquote>
 <ol>
 <li><strong>WSL 项目优先 Bash 写入</strong>：<code>cat &gt; file &lt;&lt; 'EOF'</code> 永远正确</li>
 <li><strong>写后必验证</strong>：Write/写操作后立刻 <code>ls</code> 确认文件出现</li>

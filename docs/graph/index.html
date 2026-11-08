@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>知识星图 | 世界一隅</title>
+<meta name="keywords" content="">
+<meta name="description" content="世界一隅网状知识拓扑与思维脉络，像星宿一样探索九书原声、认知基建与实战避坑">
+<meta name="author" content="Tianbing Zhao">
+<link rel="canonical" href="https://worldcorner.xyz/graph/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8841f7af836d56b8e4c1c7e3da313a9937d331867b4c22122125895334d7bb22.css" integrity="sha256-iEH3r4NtVrjkwcfj2jE6mTfTMYZ7TCISISWJUzTXuyI=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://worldcorner.xyz/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://worldcorner.xyz/apple-touch-icon.png">
+<link rel="mask-icon" href="https://worldcorner.xyz/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://worldcorner.xyz/graph/">
+<link rel="alternate" hreflang="en" href="https://worldcorner.xyz/en/graph/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" /><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "世界一隅",
+  "alternateName": "认知能量工程",
+  "url": "https:\/\/worldcorner.xyz\/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/images/mark.svg"
+    }
+  }
+}
+</script>
+<script>
+(function () {
+  function init() {
+    var content = document.querySelector('.post-content') || document.querySelector('.pitfall-single');
+    if (!content) return;
+    var titleEl = document.querySelector('.post-title') || content.querySelector('h1');
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2);
+    var target = lang === 'en' ? 'zh' : 'en';
+    var S = {
+      btn: "🌐 AI 翻译",
+      back: "↩ 返回原文",
+      loading: "AI 翻译中…长文约需一分钟",
+      done: "AI 译文（机器翻译，仅供参考 · 由 worldcorner API 提供）",
+      fail: "翻译失败，请稍后再试"
+    };
+    var API = 'https://api.worldcorner.xyz/community/api/translate';
+    var btn = document.createElement('button');
+    btn.className = 'ai-tr-btn';
+    btn.type = 'button';
+    btn.textContent = S.btn;
+    document.body.appendChild(btn);
+
+    var panel = document.createElement('div');
+    panel.className = 'ai-tr-panel';
+    panel.hidden = true;
+    if (content.parentNode) content.parentNode.insertBefore(panel, content.nextSibling);
+
+    var state = 'orig';
+    var cache = null;
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function toHtml(t) {
+      return t.split(/\n\n+/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('');
+    }
+    function call(text) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, target: target })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j.error) throw new Error(j.error);
+        return j.translated;
+      });
+    }
+    function withRetry(fn, n) {
+      var p = fn();
+      for (var i = 0; i < (n || 1); i++) {
+        p = p.catch(function () { return new Promise(function (res) { setTimeout(res, 1500); }).then(fn); });
+      }
+      return p;
+    }
+    
+
+    function splitClient(text, max) {
+      var paras = text.split(/\n\n+/);
+      var chunks = [];
+      var buf = '';
+      for (var i = 0; i < paras.length; i++) {
+        var p = paras[i].trim();
+        if (!p) continue;
+        if (p.length > max) {
+          if (buf) { chunks.push(buf); buf = ''; }
+          for (var j = 0; j < p.length; j += max) chunks.push(p.slice(j, j + max));
+          continue;
+        }
+        if (buf && (buf + '\n\n' + p).length > max) { chunks.push(buf); buf = p; }
+        else buf = buf ? buf + '\n\n' + p : p;
+      }
+      if (buf) chunks.push(buf);
+      return chunks;
+    }
+    function fetchAll() {
+      if (cache) {
+        panel.innerHTML = (cache.title ? '<h1 class="ai-tr-title"></h1>' : '') + toHtml(cache.body);
+        if (cache.title) panel.querySelector('.ai-tr-title').textContent = cache.title;
+        var doneNote = document.createElement('p');
+        doneNote.className = 'ai-tr-note';
+        doneNote.textContent = S.done;
+        panel.appendChild(doneNote);
+        return Promise.resolve(cache);
+      }
+      var titleText = titleEl ? titleEl.innerText.trim() : '';
+      var chunks = splitClient(content.innerText.trim(), 650);
+      var results = new Array(chunks.length);
+      var done = 0;
+      var head = titleText ? '<h1 class="ai-tr-title"></h1>' : '';
+      var note = document.createElement('p');
+      note.className = 'ai-tr-note';
+      function render() {
+        var html = head;
+        for (var i = 0; i < results.length; i++) if (results[i]) html += toHtml(results[i]);
+        panel.innerHTML = html;
+        note.textContent = done < chunks.length ? done + '/' + chunks.length + ' · ' + S.loading : S.done;
+        panel.appendChild(note);
+      }
+      if (titleText) {
+        withRetry(function () { return call(titleText); }, 1).then(function (t) {
+          if (state === 'trans') { var h1 = panel.querySelector('.ai-tr-title'); if (h1) h1.textContent = t; }
+        }).catch(function () {});
+      }
+      var idx = 0;
+      function lane() {
+        return new Promise(function (resolve) {
+          function next() {
+            if (idx >= chunks.length) return resolve();
+            var i = idx++;
+            withRetry(function () { return call(chunks[i]); }, 2).then(function (t) {
+              results[i] = t; done++; render(); next();
+            }).catch(function () {
+              results[i] = '⚠ ' + S.fail; done++; render(); next();
+            });
+          }
+          next();
+        });
+      }
+      render();
+      return Promise.all([lane(), lane()]).then(function () {
+        cache = { title: titleText, body: results.join('\n\n') };
+        return cache;
+      });
+    }
+    btn.addEventListener('click', function () {
+      if (state === 'trans') {
+        state = 'orig';
+        panel.hidden = true;
+        content.style.display = '';
+        if (titleEl) titleEl.style.display = '';
+        btn.textContent = S.btn;
+        return;
+      }
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = S.loading;
+      if (state === 'orig') {
+        panel.hidden = false;
+        content.style.display = 'none';
+        if (titleEl) titleEl.style.display = 'none';
+        state = 'trans';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      fetchAll().then(function () {
+        state = 'trans';
+        btn.disabled = false;
+        btn.textContent = S.back;
+      }).catch(function () {
+        btn.disabled = false;
+        btn.textContent = S.btn;
+        panel.innerHTML = '<p class="ai-tr-note">' + esc(S.fail) + '</p>';
+        panel.hidden = false;
+        state = 'orig';
+      });
+    });
+
+    var css = document.createElement('style');
+    css.textContent = [
+      '.ai-tr-btn{position:fixed;right:18px;bottom:18px;z-index:99;padding:9px 14px;border-radius:999px;',
+      'border:1px solid var(--secondary,#999);background:var(--theme,#fafafa);color:var(--primary,#111);',
+      'font-size:14px;cursor:pointer;opacity:.92;box-shadow:0 2px 10px rgba(0,0,0,.15);}',
+      '.ai-tr-btn:hover{opacity:1}',
+      '.ai-tr-btn:disabled{cursor:wait;opacity:.7}',
+      '.ai-tr-panel{border:1px dashed var(--secondary,#bbb);border-radius:8px;padding:18px 22px;margin:24px 0;line-height:1.8}',
+      '.ai-tr-panel[hidden]{display:none}',
+      '.ai-tr-note{font-size:12px;color:var(--secondary,#888);margin:0 0 12px}',
+      '.ai-tr-title{font-size:1.4em;margin:0 0 16px}'
+    ].join('');
+    document.head.appendChild(css);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<meta property="og:title" content="知识星图" />
+<meta property="og:description" content="世界一隅网状知识拓扑与思维脉络，像星宿一样探索九书原声、认知基建与实战避坑" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://worldcorner.xyz/graph/" /><meta property="article:section" content="" />
+
+<meta property="og:site_name" content="世界一隅" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:title" content="知识星图"/>
+<meta name="twitter:description" content="世界一隅网状知识拓扑与思维脉络，像星宿一样探索九书原声、认知基建与实战避坑"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "知识星图",
+      "item": "https://worldcorner.xyz/graph/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "知识星图",
+  "name": "知识星图",
+  "description": "世界一隅网状知识拓扑与思维脉络，像星宿一样探索九书原声、认知基建与实战避坑",
+  "keywords": [
+    
+  ],
+  "articleBody": "",
+  "wordCount" : "0",
+  "inLanguage": "zh",
+  "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
+  "dateModified": "0001-01-01 00:00:00 \u002b0000 UTC",
+  "author":{
+    "@type": "Person",
+    "name": "Tianbing Zhao"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https:\/\/worldcorner.xyz\/graph\/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "世界一隅",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https:\/\/worldcorner.xyz\/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://worldcorner.xyz/" accesskey="h" title="世界一隅 (Alt + H)">
+                <img src="https://worldcorner.xyz/images/mark.svg" alt="" aria-label="logo"
+                    height="32">世界一隅</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch">
+                    <li>
+                        <a href="https://worldcorner.xyz/en/graph/" class="zen-lang-pill" title="Switch to English" aria-label="Switch to English">
+                            <span class="zen-lang-globe">🌐</span>
+                            <span>EN</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" onclick="toggleNav()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://worldcorner.xyz/graph/" title="星图"
+                class="nav-btn nav-menu-graph">
+                    <span class="active">星图</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://worldcorner.xyz/search/" title="搜索 (Alt &#43; /)" accesskey=/
+                class="nav-btn nav-menu-search">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<script>
+function toggleNav() {
+    var b = document.querySelector('.nav-toggle');
+    var open = document.body.classList.toggle('nav-open');
+    if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+document.addEventListener('click', function (e) {
+    if (!document.body.classList.contains('nav-open')) return;
+    if (e.target.closest && e.target.closest('#menu a')) toggleNav();
+});
+</script>
+<main class="main"><div class="zen-graph-page-wrap">
+  
+  <header class="zen-graph-page-header">
+    <div class="zen-graph-eyebrow">🌌 数字庭院 · 网状思维星图与知识拓扑</div>
+    <h1 class="zen-graph-title">思想星图 · 全站知识网络</h1>
+    <p class="zen-graph-sub">
+      
+      像星宿一样漫游 480+ 篇九书原声、认知基建与实战避坑。支持鼠标拖拽平移、滚轮缩放、点击节点速览详情与互链关系。
+      
+    </p>
+  </header>
+
+  
+  <div class="zen-graph-toolbar">
+    <div class="zen-graph-search-wrap">
+      <span class="zen-graph-search-icon">🔍</span>
+      <input type="text" id="zen-graph-search" class="zen-graph-search-input" 
+             placeholder="搜索思想星宿、核心概念或标签…" 
+             autocomplete="off" />
+    </div>
+
+    
+    <div class="zen-graph-filters">
+      <button type="button" class="zen-filter-chip active" data-filter="all">全部</button>
+      <button type="button" class="zen-filter-chip" data-filter="systems-thinking">系统思维</button>
+      <button type="button" class="zen-filter-chip" data-filter="era-observation">时代观察</button>
+      <button type="button" class="zen-filter-chip" data-filter="learning">认知成长</button>
+      <button type="button" class="zen-filter-chip" data-filter="tooling">效率工具</button>
+      <button type="button" class="zen-filter-chip" data-filter="civilization-ladder">文明阶梯</button>
+      <button type="button" class="zen-filter-chip" data-filter="pitfalls">工程避坑</button>
+      <button type="button" class="zen-filter-chip" data-filter="tag">仅看标签</button>
+    </div>
+
+    <div class="zen-graph-stats-wrap">
+      <span id="zen-graph-stats" class="zen-graph-stats-badge">正在连结星图...</span>
+    </div>
+  </div>
+
+  
+  <div class="zen-graph-viewport" id="zen-graph-container">
+    <canvas id="zen-graph-canvas"></canvas>
+
+    
+    <div class="zen-graph-floating-controls">
+      <button type="button" id="zen-graph-zoomin" class="zen-ctrl-btn" title="放大">+</button>
+      <button type="button" id="zen-graph-zoomout" class="zen-ctrl-btn" title="缩小">−</button>
+      <button type="button" id="zen-graph-reset" class="zen-ctrl-btn" title="重置视角">⟲</button>
+      <button type="button" id="zen-graph-toggletags" class="zen-ctrl-btn active" title="显示/隐藏标签节点">🏷️</button>
+    </div>
+
+    
+    <aside class="zen-graph-drawer" id="zen-graph-drawer">
+      <button type="button" class="zen-drawer-close-btn" id="zen-drawer-close" aria-label="Close">✕</button>
+      <div class="zen-drawer-header">
+        <span class="zen-drawer-sec" id="zen-drawer-sec">思想节点</span>
+        <span class="zen-drawer-date" id="zen-drawer-date"></span>
+      </div>
+      <h2 class="zen-drawer-title" id="zen-drawer-title">节点详情</h2>
+      <p class="zen-drawer-desc" id="zen-drawer-desc"></p>
+
+      <a href="#" id="zen-drawer-link" class="zen-drawer-primary-btn" style="display:none">
+        <span>进入阅读全文</span>
+        <span>→</span>
+      </a>
+
+      <div class="zen-drawer-connections">
+        <div class="zen-drawer-conn-title">邻近连结与思想延展：</div>
+        <ul class="zen-drawer-nb-list" id="zen-drawer-neighbors"></ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<style>
+ 
+.zen-graph-page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px 40px;
+}
+
+.zen-graph-page-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.zen-graph-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--zen-pine, #244b3e);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+:root[data-theme="dark"] .zen-graph-eyebrow,
+body.dark .zen-graph-eyebrow {
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-graph-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--zen-text, #1a221f);
+  letter-spacing: -0.02em;
+}
+
+:root[data-theme="dark"] .zen-graph-title,
+body.dark .zen-graph-title {
+  color: #f0f5f2;
+}
+
+.zen-graph-sub {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--zen-sub, #6b7a73);
+}
+
+:root[data-theme="dark"] .zen-graph-sub,
+body.dark .zen-graph-sub {
+  color: #a0b2aa;
+}
+
+ 
+.zen-graph-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--zen-bg-card, #ffffff);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+:root[data-theme="dark"] .zen-graph-toolbar,
+body.dark .zen-graph-toolbar {
+  background: var(--zen-bg-card, #1a201d);
+  border-color: var(--zen-border, rgba(95, 203, 167, 0.18));
+}
+
+.zen-graph-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--zen-bg-subtle, rgba(36, 75, 62, 0.04));
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 20px;
+  padding: 4px 12px;
+  flex: 1;
+  min-width: 220px;
+  max-width: 320px;
+}
+
+:root[data-theme="dark"] .zen-graph-search-wrap,
+body.dark .zen-graph-search-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(95, 203, 167, 0.2);
+}
+
+.zen-graph-search-icon {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.zen-graph-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.86rem;
+  width: 100%;
+  color: inherit;
+}
+
+.zen-graph-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.zen-filter-chip {
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  background: transparent;
+  color: var(--zen-sub, #6b7a73);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zen-filter-chip:hover {
+  background: rgba(36, 75, 62, 0.06);
+  color: var(--zen-pine, #244b3e);
+}
+
+.zen-filter-chip.active {
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff;
+  border-color: var(--zen-pine, #244b3e);
+}
+
+:root[data-theme="dark"] .zen-filter-chip {
+  color: #a0b2aa;
+  border-color: rgba(95, 203, 167, 0.18);
+}
+
+:root[data-theme="dark"] .zen-filter-chip:hover {
+  background: rgba(95, 203, 167, 0.1);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+:root[data-theme="dark"] .zen-filter-chip.active {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816;
+  border-color: var(--zen-mint, #5FCBA7);
+  font-weight: 600;
+}
+
+.zen-graph-stats-badge {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: rgba(36, 75, 62, 0.06);
+  color: var(--zen-pine, #244b3e);
+  font-weight: 500;
+}
+
+:root[data-theme="dark"] .zen-graph-stats-badge,
+body.dark .zen-graph-stats-badge {
+  background: rgba(95, 203, 167, 0.12);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+ 
+.zen-graph-viewport {
+  position: relative;
+  width: 100%;
+  height: 680px;
+  background: var(--zen-bg-card, #ffffff);
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.12));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+:root[data-theme="dark"] .zen-graph-viewport,
+body.dark .zen-graph-viewport {
+  background: var(--zen-bg-card, #161c19);
+  border-color: var(--zen-border, rgba(95, 203, 167, 0.18));
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+#zen-graph-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+ 
+.zen-graph-floating-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.zen-ctrl-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--zen-border, rgba(36, 75, 62, 0.15));
+  background: var(--zen-bg-card, #ffffff);
+  color: var(--zen-pine, #244b3e);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.zen-ctrl-btn:hover {
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+:root[data-theme="dark"] .zen-ctrl-btn,
+body.dark .zen-ctrl-btn {
+  background: #1e2622;
+  color: var(--zen-mint, #5FCBA7);
+  border-color: rgba(95, 203, 167, 0.25);
+}
+
+:root[data-theme="dark"] .zen-ctrl-btn:hover,
+body.dark .zen-ctrl-btn:hover {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816;
+}
+
+ 
+.zen-graph-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 360px;
+  max-width: 85%;
+  background: var(--zen-bg-card, #ffffff);
+  border-left: 1px solid var(--zen-border, rgba(36, 75, 62, 0.14));
+  padding: 24px 20px;
+  overflow-y: auto;
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.08);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+:root[data-theme="dark"] .zen-graph-drawer,
+body.dark .zen-graph-drawer {
+  background: #1a221f;
+  border-color: rgba(95, 203, 167, 0.2);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.4);
+}
+
+.zen-graph-drawer.open {
+  transform: translateX(0);
+}
+
+.zen-drawer-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  color: var(--zen-sub, #8b9992);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.zen-drawer-close-btn:hover {
+  color: var(--zen-text, #1a221f);
+}
+
+.zen-drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.zen-drawer-sec {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(36, 75, 62, 0.08);
+  color: var(--zen-pine, #244b3e);
+}
+
+:root[data-theme="dark"] .zen-drawer-sec,
+body.dark .zen-drawer-sec {
+  background: rgba(95, 203, 167, 0.15);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-drawer-date {
+  font-size: 0.75rem;
+  color: var(--zen-sub, #8b9992);
+}
+
+.zen-drawer-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 12px;
+  color: var(--zen-text, #1a221f);
+}
+
+:root[data-theme="dark"] .zen-drawer-title,
+body.dark .zen-drawer-title {
+  color: #f0f5f2;
+}
+
+.zen-drawer-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--zen-sub, #6b7a73);
+  margin-bottom: 20px;
+}
+
+:root[data-theme="dark"] .zen-drawer-desc,
+body.dark .zen-drawer-desc {
+  color: #a0b2aa;
+}
+
+.zen-drawer-primary-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--zen-pine, #244b3e);
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.92rem;
+  box-shadow: 0 2px 8px rgba(36, 75, 62, 0.2);
+  transition: all 0.2s ease;
+  margin-bottom: 24px;
+}
+
+.zen-drawer-primary-btn:hover {
+  background: #1b3a30;
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] .zen-drawer-primary-btn,
+body.dark .zen-drawer-primary-btn {
+  background: var(--zen-mint, #5FCBA7);
+  color: #141816 !important;
+  box-shadow: 0 2px 10px rgba(95, 203, 167, 0.25);
+}
+
+:root[data-theme="dark"] .zen-drawer-primary-btn:hover,
+body.dark .zen-drawer-primary-btn:hover {
+  background: #7FE0C0;
+}
+
+.zen-drawer-connections {
+  border-top: 1px solid var(--zen-border, rgba(36, 75, 62, 0.1));
+  padding-top: 16px;
+}
+
+.zen-drawer-conn-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--zen-sub, #6b7a73);
+  margin-bottom: 10px;
+}
+
+.zen-drawer-nb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zen-drawer-nb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(36, 75, 62, 0.04);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.zen-drawer-nb-item:hover {
+  background: rgba(36, 75, 62, 0.1);
+  color: var(--zen-pine, #244b3e);
+  transform: translateX(3px);
+}
+
+:root[data-theme="dark"] .zen-drawer-nb-item,
+body.dark .zen-drawer-nb-item {
+  background: rgba(255, 255, 255, 0.04);
+  color: #d1ded8;
+}
+
+:root[data-theme="dark"] .zen-drawer-nb-item:hover,
+body.dark .zen-drawer-nb-item:hover {
+  background: rgba(95, 203, 167, 0.12);
+  color: var(--zen-mint, #5FCBA7);
+}
+
+.zen-drawer-nb-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+
+<script src="/js/zen-graph.js"></script>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2026 <a href="https://worldcorner.xyz/">世界一隅</a></span>
+    <span>
+        由
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        驱动
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    if (mybutton) {
+        window.addEventListener('scroll', function () {
+            if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+                mybutton.style.visibility = "visible";
+                mybutton.style.opacity = "1";
+            } else {
+                mybutton.style.visibility = "hidden";
+                mybutton.style.opacity = "0";
+            }
+        });
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+</html>

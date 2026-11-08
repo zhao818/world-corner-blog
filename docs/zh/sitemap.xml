@@ -82,12 +82,6 @@
     <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/posts/era-observation/2026-08-31-trust-crisis-group-side/"/>
   </url>
   <url>
-    <loc>https://worldcorner.xyz/posts/civilization-ladder/</loc>
-    <lastmod>2026-08-27T00:00:00+00:00</lastmod>
-    <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/posts/civilization-ladder/"/>
-    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/posts/civilization-ladder/"/>
-  </url>
-  <url>
     <loc>https://worldcorner.xyz/tags/ai/</loc>
     <lastmod>2026-07-23T00:00:00+00:00</lastmod>
   </url>
@@ -454,6 +448,16 @@
     <loc>https://worldcorner.xyz/audiobook/</loc>
   </url>
   <url>
+    <loc>https://worldcorner.xyz/posts/civilization-ladder/</loc>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/posts/civilization-ladder/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/posts/civilization-ladder/"/>
+  </url>
+  <url>
     <loc>https://worldcorner.xyz/assets/</loc>
+  </url>
+  <url>
+    <loc>https://worldcorner.xyz/graph/</loc>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/graph/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/graph/"/>
   </url>
 </urlset>
