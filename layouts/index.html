@@ -102,9 +102,15 @@
     <span class="zen-ai-tag">{{ if $isEn }}Thought Companion · Inward Settlement{{ else }}向内安顿 · 思想伴侣{{ end }}</span>
   </div>
 
-  <!-- 外置启发式 Prompt 引导胶囊 (完整显示，不遮挡截断，自然邀请) -->
-  <div class="zen-ai-invite-label">{{ if $isEn }}You can share your thoughts directly or click an invitation below:{{ else }}你可以直接倾诉，或点击下方邀请开启对话：{{ end }}</div>
-  <div class="zen-prompts-row">
+  <!-- 外置启发式 Prompt 引导胶囊 (支持时段自适应、足迹感知与换一组灵感) -->
+  <div class="zen-ai-invite-row">
+    <div class="zen-ai-invite-label">{{ if $isEn }}You can share your thoughts directly or click an invitation below:{{ else }}你可以直接倾诉，或点击下方邀请开启对话：{{ end }}</div>
+    <button type="button" class="zen-ai-refresh-btn" id="zen-ai-refresh-btn" onclick="rotateZenPrompts()" title="{{ if $isEn }}Shuffle prompt suggestions{{ else }}换一组启发提问{{ end }}">
+      <span class="zen-ai-refresh-icon">↻</span>
+      <span>{{ if $isEn }}Shuffle ↻{{ else }}换一组 ↻{{ end }}</span>
+    </button>
+  </div>
+  <div class="zen-prompts-row" id="zen-prompts-row">
     {{ if $isEn }}
     <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Busy all day, why do I still feel empty?')">
       💬 "Busy all day, why do I still feel empty?"
@@ -516,9 +522,210 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', checkZenResumptions);
+    document.addEventListener('DOMContentLoaded', function() {
+      checkZenResumptions();
+      initZenDynamicPrompts();
+    });
   } else {
     checkZenResumptions();
+    initZenDynamicPrompts();
+  }
+
+  // 3.5 动态智能 Prompt 分发引擎 (时境感知 + 足迹联动 + 灵魂题库 + 换一组)
+  var zenRotateIndex = 0;
+  var PROMPT_BANKS = {
+    zh: {
+      time: {
+        morning: [
+          { icon: '🌅', text: '清晨容易陷入对一天琐事的焦虑，九书有什么晨间定心法？', q: '清晨容易陷入对一天琐事的焦虑，九书有什么晨间定心法？' },
+          { icon: '☕', text: '新的一天开启前，如何为自己的精力设定防消耗边界？', q: '新的一天开启前，如何为自己的精力设定防消耗边界？' }
+        ],
+        day: [
+          { icon: '🌿', text: '忙了一整天，如何识别自己是真累还是假性疲惫？', q: '忙了一天，如何识别自己是真累还是假性疲惫？什么是真实回血？' },
+          { icon: '⚡', text: '在多任务与各种打扰之间，如何守住深度思考的能量场？', q: '在多任务与各种打扰之间，如何守住深度思考的能量场？' }
+        ],
+        evening: [
+          { icon: '🌙', text: '忙了一天为什么还是觉得空？九书是如何解读这种空虚的？', q: '忙了一天，为什么还是觉得空？九书是如何解读这种空虚的？' },
+          { icon: '🕯️', text: '晚上卸下社会角色后，九书推荐如何完成真实的精神回血？', q: '晚上卸下社会角色后，九书推荐如何完成真实的精神回血？' }
+        ],
+        night: [
+          { icon: '🌌', text: '夜深了容易反复精神内耗，如何把注意力从外部收回内心？', q: '夜深了容易反复精神内耗，如何把注意力从外部收回内心？' },
+          { icon: '🕯️', text: '睡前思绪纷乱停不下来，九书有什么睡前内省安顿的心法？', q: '睡前思绪纷乱停不下来，九书有什么睡前内省安顿的心法？' }
+        ]
+      },
+      footprints: {
+        system: [
+          { icon: '🧭', text: '关于系统思维：日常生活中如何看清因果回路，而非头痛医头？', q: '在日常生活和决策中，如何应用系统思维看清底层因果回路，避免陷入头痛医头的局部优化？' },
+          { icon: '📐', text: '系统性卡点：当一个问题反复出现，通常是哪个隐含变量被忽略了？', q: '当生活或工作中的一个难题反复出现，从系统动力学来看通常是哪个隐含变量被忽略了？' }
+        ],
+        energy: [
+          { icon: '🌿', text: '认知回血：为什么躺平刷手机反而更累？什么是真正的深度休息？', q: '为什么下班后刷短视频和躺平反而让人更累？认知能量体系中推荐的真实回血方法是什么？' },
+          { icon: '🔋', text: '能量止损：如何在充满不确定性的环境中，切断无谓的精神内耗？', q: '如何在充满不确定性的环境中切断无谓的内耗，把心力聚焦在自己能掌控的核心上？' }
+        ],
+        inner: [
+          { icon: '🧘', text: '向内安顿：“向外追逐没有止境”，在快节奏现实中如何停下一步？', q: '《内心的修炼》说“向外追逐没有止境，向内安顿只需在今天停下一步”，在现实快节奏中普通人该如何真正做到？' },
+          { icon: '🌱', text: '精神角落：在追求世俗目标的同时，怎样守护自己内在的真实安宁？', q: '在追求世俗目标的同时，怎样守护自己内在的真实安宁？' }
+        ],
+        pitfalls: [
+          { icon: '🛠️', text: '实战避坑：在数字化或做事过程中，最隐蔽的“假效率陷阱”是什么？', q: '在追求效率或技术数字化的过程中，最容易掉入哪些自欺欺人的“假效率陷阱”？' },
+          { icon: '💡', text: '走出迷茫：如何区分“伪需求导致的折腾”与“真正创造价值的行动”？', q: '如何区分伪需求带来的虚假忙碌与真正创造长期价值的行动？' }
+        ],
+        defaultNew: [
+          { icon: '📚', text: '初次相遇：世界一隅的九书体系，我该先从哪一本入门？', q: '我是第一次来到世界一隅，面对九书庞大的思想体系，建议我从哪一本开始读起？' },
+          { icon: '🌱', text: '探索心法：世界一隅常提的“向内安顿”到底指什么？', q: '世界一隅常提到的“向内安顿”到底指什么？它与普通的心理慰藉有何不同？' }
+        ]
+      },
+      soul36: [
+        { icon: '🔮', text: '灵魂抽题：“如果剥离所有社会身份，你最珍视的核心是什么？”', q: '请从《灵魂36问》为我导读这道题：“如果剥离所有社会身份、职位与外在成就，你最珍视的核心是什么？”' },
+        { icon: '🔮', text: '灵魂抽题：“最近哪一次决定，真正顺从了你内心的诚实？”', q: '请从《灵魂36问》为我导读这道题：“最近哪一次决定，真正顺从了你内心的诚实而非外界的期待？”' },
+        { icon: '🔮', text: '灵魂抽题：“你正在为何种‘虚假的安全感’持续消耗生命？”', q: '请从《灵魂36问》为我导读这道题：“你是否正在为何种虚假的安全感持续消耗真实的生命力？九书如何破局？”' },
+        { icon: '🔮', text: '灵魂抽题：“如果今天是你生命重置的起点，你会立刻放下什么？”', q: '请从《灵魂36问》为我导读这道题：“如果今天是你生命重置的起点，你会立刻放下什么重担？”' },
+        { icon: '🔮', text: '灵魂抽题：“你上一次感受到全然专注与踏实，是在什么时候？”', q: '请从《灵魂36问》为我导读这道题：“你上一次感受到全然专注与踏实是在什么时候？那种状态因何而来？”' }
+      ],
+      rotatePool: [
+        { icon: '🎯', text: '认知跃迁：如何从被动应对生活，转变为主动设计人生系统？', q: '如何从被动应对外部环境，转变为主动设计自己的人生与能量系统？' },
+        { icon: '🌊', text: '接纳脆弱：面对生活中的失控与无力感，九书提供了怎样的哲学视角？', q: '面对生活中的不可抗力与失控感，九书提供了怎样的认知框架来安放脆弱？' },
+        { icon: '🕊️', text: '关系边界：如何在亲密或职场关系中，既保持同理心又不被情绪吞噬？', q: '如何在人际关系中既保持深度同理心，又守住不被他人情绪过度消耗的健康边界？' },
+        { icon: '💡', text: '关于选择：当面临两难困境时，如何听见来自潜意识深处的微弱声音？', q: '当面临两难甚至多难困境时，如何拨开理性算计的迷雾，听见内心真实的抉择？' }
+      ]
+    },
+    en: {
+      time: {
+        morning: [
+          { icon: '🌅', text: 'Morning clarity: How to declutter mental anxiety before the day starts?', q: 'Morning clarity: How can I declutter mental anxiety and set an inner anchor before the day starts?' },
+          { icon: '☕', text: 'Starting today: How to establish energetic boundaries against over-depletion?', q: 'Before diving into today demands, how can I establish healthy boundaries to prevent energy drain?' }
+        ],
+        day: [
+          { icon: '🌿', text: 'Midday pause: How to distinguish pseudo-fatigue from true depletion?', q: 'Midday pause: How can I identify whether my tiredness is pseudo-fatigue or genuine physical depletion?' },
+          { icon: '⚡', text: 'Deep focus: Amid fragmented pings, how to protect energy for deep work?', q: 'Amid continuous pings and fragmented tasks, how can I preserve energy for meaningful deep work?' }
+        ],
+        evening: [
+          { icon: '🌙', text: 'Unwinding tonight: How to genuinely recharge after shedding social roles?', q: 'After a demanding workday, what are the most restorative ways to achieve true emotional recovery?' },
+          { icon: '💬', text: 'Busy all day, why do I still feel empty inside at night?', q: 'Busy all day, why do I still feel empty? How does the Nine Books philosophy interpret this modern void?' }
+        ],
+        night: [
+          { icon: '🌌', text: 'Midnight quiet: How to soothe mental overthinking and settle inward?', q: 'Late at night when thoughts race, how can I gently withdraw attention from external judgments?' },
+          { icon: '🕯️', text: 'Bedtime reflection: How to find a quiet mental sanctuary before sleep?', q: 'Before sleeping, how can I practice quiet introspection to release tension and settle my mind?' }
+        ]
+      },
+      footprints: {
+        system: [
+          { icon: '🧭', text: 'Systems thinking: How to see underlying causal loops instead of patching symptoms?', q: 'In life and problem solving, how can I use systems thinking to identify fundamental feedback loops?' },
+          { icon: '📐', text: 'Recurring bottlenecks: Which invisible feedback variable is usually ignored?', q: 'When a recurring obstacle keeps returning, which latent variable is commonly overlooked?' }
+        ],
+        energy: [
+          { icon: '🌿', text: 'Cognitive energy: Why does passive scrolling drain us, and what is true rest?', q: 'Why does mindless screen scrolling leave us more exhausted, and what constitutes true active rest?' },
+          { icon: '🔋', text: 'Energy conservation: How to cut off unnecessary mental friction under uncertainty?', q: 'How can I cut off internal friction and refocus mental energy on what is truly within my control?' }
+        ],
+        inner: [
+          { icon: '🧘', text: 'Inward sanctuary: In a relentless world, how do we take the first step inward?', q: 'The Inner Cultivation states outward chasing has no end, settling inward takes just one pause today. How to practice this?' },
+          { icon: '🌱', text: 'Inner balance: How to pursue worldly progress without losing inner quietude?', q: 'How can one pursue meaningful worldly goals while fiercely safeguarding authentic inner peace?' }
+        ],
+        pitfalls: [
+          { icon: '🛠️', text: 'Real-world pitfalls: What are the most deceptive efficiency traps today?', q: 'In modern work and digital tools, what are the most deceptive pseudo-efficiency traps?' },
+          { icon: '💡', text: 'Discerning action: How to separate superficial hustle from enduring value?', q: 'How do we distinguish pseudo-demands from actions that compound genuine, long-term value?' }
+        ],
+        defaultNew: [
+          { icon: '📚', text: 'First encounter: Which of the Nine Books is the best starting doorway for me?', q: 'I am visiting World Corner for the first time. Where should I begin exploring the Nine Books?' },
+          { icon: '🌱', text: 'Guiding inquiry: What does settling inward actually mean in practice?', q: 'What does World Corner mean by settling inward, and how does it differ from fleeting comfort?' }
+        ]
+      },
+      soul36: [
+        { icon: '🔮', text: 'Soul 36 Inquiry: "Stripped of all social labels, what remains your core?"', q: 'Please guide me on this Soul 36 Inquiry: "Stripped of all social titles, status, and achievements, what is your essence?"' },
+        { icon: '🔮', text: 'Soul 36 Inquiry: "Which recent decision honored your radical inner honesty?"', q: 'Please guide me on this Soul 36 Inquiry: "Which recent decision honored your radical inner honesty rather than expectations?"' },
+        { icon: '🔮', text: 'Soul 36 Inquiry: "What illusory security is draining your life energy?"', q: 'Please guide me on this Soul 36 Inquiry: "What illusory form of safety is quietly draining your authentic vitality?"' },
+        { icon: '🔮', text: 'Soul 36 Inquiry: "If life reset today, what heavy burden would you discard?"', q: 'Please guide me on this Soul 36 Inquiry: "If today were a fresh beginning, what obsolete burden would you discard immediately?"' }
+      ],
+      rotatePool: [
+        { icon: '🎯', text: 'Life architecture: How to shift from reacting to life to architecting your system?', q: 'How can one transition from passively reacting to life circumstances to proactively architecting their life system?' },
+        { icon: '🌊', text: 'Embracing vulnerability: How does philosophy reframe helplessness and change?', q: 'When confronting uncontrollable external disruptions, what philosophical framework helps hold vulnerability?' },
+        { icon: '🕊️', text: 'Relational boundaries: How to maintain deep empathy without emotional burnout?', q: 'How can we practice compassionate presence while sustaining resilient personal boundaries?' }
+      ]
+    }
+  };
+
+  function getZenActiveSlot() {
+    var h = new Date().getHours();
+    if (h >= 5 && h < 10) return 'morning';
+    if (h >= 10 && h < 18) return 'day';
+    if (h >= 18 && h < 23) return 'evening';
+    return 'night';
+  }
+
+  function getZenFootprintCategory() {
+    try {
+      var r = localStorage.getItem('zen_last_read') || '';
+      var a = localStorage.getItem('zen_last_audio') || '';
+      var combined = (r + ' ' + a).toLowerCase();
+      if (/系统|回路|system|杠杆|变量/.test(combined)) return 'system';
+      if (/能量|休息|回血|内耗|energy|rest/.test(combined)) return 'energy';
+      if (/修炼|向内|幸福|安顿|inner|quiet/.test(combined)) return 'inner';
+      if (/避坑|踩坑|效率|pitfall|tool/.test(combined)) return 'pitfalls';
+    } catch(e) {}
+    return 'defaultNew';
+  }
+
+  function renderZenPrompts(prompts) {
+    var container = document.getElementById('zen-prompts-row');
+    if (!container || !prompts || !prompts.length) return;
+    
+    container.innerHTML = '';
+    for (var i = 0; i < prompts.length; i++) {
+      var item = prompts[i];
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'zen-prompt-btn';
+      btn.setAttribute('data-zen-q', item.q);
+      btn.onclick = function() {
+        var query = this.getAttribute('data-zen-q');
+        if (query) window.sendZenPrompt(query);
+      };
+      btn.textContent = item.icon + ' ' + (isEn ? '"' : '“') + item.text + (isEn ? '"' : '”');
+      container.appendChild(btn);
+    }
+    container.classList.remove('zen-prompts-fade');
+    void container.offsetWidth;
+    container.classList.add('zen-prompts-fade');
+  }
+
+  window.rotateZenPrompts = function() {
+    zenRotateIndex++;
+    var bank = isEn ? PROMPT_BANKS.en : PROMPT_BANKS.zh;
+    var slot = getZenActiveSlot();
+    var fpCat = getZenFootprintCategory();
+
+    var timeArr = bank.time[slot] || bank.time.day;
+    var fpArr = bank.footprints[fpCat] || bank.footprints.defaultNew;
+    var soulArr = bank.soul36;
+    var rotArr = bank.rotatePool;
+
+    var p1, p2, p3;
+    if (zenRotateIndex % 2 === 1) {
+      p1 = rotArr[zenRotateIndex % rotArr.length];
+      p2 = timeArr[zenRotateIndex % timeArr.length];
+      p3 = soulArr[(zenRotateIndex + 1) % soulArr.length];
+    } else {
+      p1 = timeArr[zenRotateIndex % timeArr.length];
+      p2 = fpArr[zenRotateIndex % fpArr.length];
+      p3 = soulArr[(zenRotateIndex + 2) % soulArr.length];
+    }
+    renderZenPrompts([p1, p2, p3]);
+  };
+
+  function initZenDynamicPrompts() {
+    var bank = isEn ? PROMPT_BANKS.en : PROMPT_BANKS.zh;
+    var slot = getZenActiveSlot();
+    var fpCat = getZenFootprintCategory();
+
+    var timeArr = bank.time[slot] || bank.time.day;
+    var fpArr = bank.footprints[fpCat] || bank.footprints.defaultNew;
+    var soulArr = bank.soul36;
+
+    var p1 = timeArr[Math.floor(Math.random() * timeArr.length)];
+    var p2 = fpArr[Math.floor(Math.random() * fpArr.length)];
+    var p3 = soulArr[Math.floor(Math.random() * soulArr.length)];
+
+    renderZenPrompts([p1, p2, p3]);
   }
 
   // 4. 快捷 Prompt 触发与失败重试

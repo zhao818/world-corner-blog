@@ -3,7 +3,7 @@
   {{- $section := .CurrentSection }}
   {{- $pages := $section.Pages }}
   {{- if gt (len $pages) 1 }}
-    {{- $sectionClass := path.Base $section.File.Dir }}
+    {{- $sectionClass := "default" }}{{- with $section.File }}{{ $sectionClass = path.Base .Dir }}{{ else }}{{ $sectionClass = $section.Section | default "default" }}{{ end }}
     {{- $currentPermalink := .Permalink }}
     <aside class="series-sidebar">
       <div class="series-sidebar-header">

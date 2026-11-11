@@ -486,17 +486,74 @@
   color: var(--zen-amber);
   font-weight: 600;
 }
+.zen-ai-invite-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .zen-ai-invite-label {
   font-size: 13px;
   color: var(--zen-ink-muted);
-  margin-bottom: 8px;
   line-height: 1.4;
+}
+.zen-ai-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-pill);
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--zen-pine);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(36, 75, 62, 0.04);
+}
+.zen-ai-refresh-btn:hover {
+  background: var(--zen-pine-light);
+  border-color: var(--zen-pine);
+  transform: translateY(-1px);
+}
+.zen-ai-refresh-btn:hover .zen-ai-refresh-icon {
+  transform: rotate(180deg);
+}
+.zen-ai-refresh-icon {
+  display: inline-block;
+  font-size: 12.5px;
+  line-height: 1;
+  transition: transform 0.35s ease;
+}
+.dark .zen-ai-refresh-btn {
+  background: var(--zen-bg-subtle);
+  color: var(--zen-pine);
+  border-color: var(--zen-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.dark .zen-ai-refresh-btn:hover {
+  background: var(--zen-pine);
+  color: #141816 !important;
+  border-color: var(--zen-pine);
 }
 .zen-prompts-row {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 12px;
+  transition: opacity 0.2s ease;
+}
+.zen-prompts-fade {
+  animation: zenPromptFade 0.25s ease-out;
+}
+@keyframes zenPromptFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .zen-prompt-btn {
   background: var(--zen-bg-subtle);

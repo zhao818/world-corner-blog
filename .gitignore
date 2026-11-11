@@ -40,3 +40,9 @@ fonts-chars.txt
 .obsidian/workspace-mobile.json
 .obsidian/cache/
 .obsidian/.trash/
+
+# Editor and AI tooling
+.claude/
+.copilot/
+copilot/
+.smart-env/
