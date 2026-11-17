@@ -13,7 +13,13 @@ defaultContentLanguage = 'zh'
 [markup.goldmark.renderer]
   unsafe = true
 
-# ---- 沉浸式顶部导航（搜索 + 知识星图）----
+# ---- 沉浸式顶部导航（静室 + 搜索 + 知识星图）----
+[[menu.main]]
+  name = "静室"
+  url = "/inner/"
+  weight = 85
+  identifier = "menu-inner"
+
 [[menu.main]]
   name = "星图"
   url = "/graph/"
@@ -49,6 +55,12 @@ defaultContentLanguage = 'zh'
         text = 'World Corner'
 
   # 英文顶部菜单
+  [[languages.en.menu.main]]
+    name = "Sanctuary"
+    url = "/en/inner/"
+    weight = 85
+    identifier = "menu-inner"
+
   [[languages.en.menu.main]]
     name = "Graph"
     url = "/en/graph/"
