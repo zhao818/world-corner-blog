@@ -10,7 +10,7 @@
 <meta name="description" content="Guarding a flicker of clarity in the flood of algorithms.">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/en/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d49c1aaf29637bdf3a195bdd23338411e0fe4d8ddcfb3ed12dfb1ed4540cbd42.css" integrity="sha256-1Jwarylje986GVvdIzOEEeD&#43;TY3c&#43;z7RLfse1FQMvUI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e6845fdde9b013140da5c590aec634ef3f63fc867a9d99d9e840f2628c9b9b3b.css" integrity="sha256-5oRf3emwExQNpcWQrsY07z9j/IZ6nZnZ6EDyYoybmzs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -128,6 +128,12 @@
         </div>
         <ul id="menu">
             <li>
+                <a href="https://worldcorner.xyz/en/inner/" title="Sanctuary"
+                class="nav-btn nav-menu-inner">
+                    <span>Sanctuary</span>
+                </a>
+            </li>
+            <li>
                 <a href="https://worldcorner.xyz/en/graph/" title="Graph"
                 class="nav-btn nav-menu-graph">
                     <span>Graph</span>
@@ -153,1099 +159,740 @@ document.addEventListener('click', function (e) {
     if (e.target.closest && e.target.closest('#menu a')) toggleNav();
 });
 </script>
-<main class="main"><div class="zen-portal-hero">
-  <div class="zen-hero-eyebrow">🌱 World Corner · Quiet Digital Garden</div>
-  <h1>In the flood of algorithms, <span class="zen-accent">guard a flicker of clarity</span></h1>
-  <p class="zen-hero-sub">Understand an inquiry, listen to an audiobook, turn thoughts into today's step · 9 audiobooks & practical debriefs</p>
-</div><div class="zen-core-verbs-grid">
-  <a href="#zen-instant-listen" class="zen-verb-card highlight" onclick="highlightInstantListen(event)">
-    <div class="zen-verb-icon">🎧</div>
-    <div class="zen-verb-body">
-      <div class="zen-verb-title">Listen to a Section</div>
-      <div class="zen-verb-desc">3-min instant listen or full continuous play · Calm your mind</div>
-    </div>
-  </a>
-
-  <a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank" class="zen-verb-card highlight">
-    <div class="zen-verb-icon">🔮</div>
-    <div class="zen-verb-body">
-      <div class="zen-verb-title">Clarify an Inquiry</div>
-      <div class="zen-verb-desc">Soul 36 Questions · Reflect upon your soul colors</div>
-    </div>
-  </a>
-
-  <a href="/en/pitfalls/" class="zen-verb-card">
-    <div class="zen-verb-icon">⚠️</div>
-    <div class="zen-verb-body">
-      <div class="zen-verb-title">Solve a Pitfall</div>
-      <div class="zen-verb-desc">Pitfall Treasury · Real engineering & cognitive lessons</div>
-    </div>
-  </a>
-</div><div class="zen-instant-listen-card" id="zen-instant-listen">
-  <div class="zen-instant-head">
-    <div class="zen-instant-badge">
-      <span>🎧</span>
-      <span>Instant Listen · Guide summary</span>
-    </div>
-    
-    <button type="button" id="zen-resume-pill" class="zen-resume-pill" style="display:none" onclick="resumeZenAudio()">
-      ▶ Resume last listen
-    </button>
-  </div>
-
-  <div class="zen-instant-title" id="zen-player-title">《Inner Cultivation · Prologue》: Why do you still feel empty after a busy day?</div>
-  <blockquote class="zen-instant-quote" id="zen-player-quote">
-    “Outward striving has no finish line; inward settlement requires only pausing for one step today.”
-  </blockquote>
-  <div class="zen-instant-source" id="zen-player-source">
-    ✦ Guide Core Synthesis · Echoes from <em>Inner Cultivation (Prologue)</em> &amp; <em>Outward Striving and Inward Settlement</em>
-  </div>
-
-  
-  <audio id="zen-mini-audio" class="zen-player-audio" controls preload="none" src="/audio/neixin/01.mp3"></audio>
-
-  
-  <div class="zen-book-chips">
-    <button type="button" class="zen-book-chip active" 
-            onclick="switchZenTrack(this, '《Inner Cultivation · Prologue》', 'Prologue 03:19', '/audio/neixin/01.mp3', '“Outward striving has no finish line; inward settlement requires only pausing for one step today.”', '✦ Guide Core Synthesis · Echoes from <em>Inner Cultivation (Prologue)</em> &amp; <em>Outward Striving and Inward Settlement</em>')">
-      🧘 Inner Cultivation (03:19)
-    </button>
-    <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '《The Inner Architecture of Happiness》', 'Ch 01 04:12', '/audio/happiness.mp3', '“True happiness is not stacking external accolades, but internal self-consistency.”', '✦ Guide Core Synthesis · Echoes from <em>The Inner Architecture of Happiness (Ch 01 Light of Thought)</em>')">
-      🌿 Inner Happiness (Highlights)
-    </button>
-    <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '《The Ladder of Civilization》', 'Prologue 03:45', '/audio/civilization.mp3', '“Every leap of civilization begins with sheltering the quiet spark of an individual.”', '✦ Guide Core Synthesis · Echoes from <em>The Ladder of Civilization (Prologue Spark &amp; Order)</em>')">
-      🪜 Civilization Ladder
-    </button>
-    <button type="button" class="zen-book-chip" 
-            onclick="switchZenTrack(this, '《Into the Fields》', 'Prologue 03:30', '/audio/xiangjian.mp3', '“Pivot away from hollow exhaustion, and feed your warmth to real soil.”', '✦ Guide Core Synthesis · Echoes from <em>Into the Fields (Prologue Pivot &amp; Nurture)</em>')">
-      🌱 Into the Fields
-    </button>
-  </div>
-  
-  <div class="zen-instant-foot">
-    <a href="/audiobook/" class="zen-instant-link">
-      <span>🎧 Enter 9 Audiobooks Hall for full continuous play →</span>
-    </a>
-  </div>
-</div><div class="zen-ai-container" id="zen-ai-box">
-  <div class="zen-ai-header">
-    <div class="zen-ai-title">
-      <span>🤖</span>
-      <span>Chat with World Corner</span>
-    </div>
-    <span class="zen-ai-tag">Thought Companion · Inward Settlement</span>
-  </div>
-
-  
-  <div class="zen-ai-invite-row">
-    <div class="zen-ai-invite-label">You can share your thoughts directly or click an invitation below:</div>
-    <button type="button" class="zen-ai-refresh-btn" id="zen-ai-refresh-btn" onclick="rotateZenPrompts()" title="Shuffle prompt suggestions">
-      <span class="zen-ai-refresh-icon">↻</span>
-      <span>Shuffle ↻</span>
-    </button>
-  </div>
-  <div class="zen-prompts-row" id="zen-prompts-row">
-    
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Busy all day, why do I still feel empty?')">
-      💬 "Busy all day, why do I still feel empty?"
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('How to identify pseudo-rest vs genuine energy recovery?')">
-      🌿 "How to identify pseudo-rest vs true recovery?"
-    </button>
-    <button type="button" class="zen-prompt-btn" onclick="sendZenPrompt('Please pick an introspective question from the 36 Soul Inquiries for my state of mind, and offer a gentle commentary.')">
-      🔮 "Pick an introspective inquiry from Soul 36"
-    </button>
-    
-  </div>
-
-  
-  <div class="zen-ai-input-wrap">
-    <textarea id="zen-ai-input" class="zen-ai-textarea" rows="2"
-              placeholder="Share your dilemma, state of mind, or inquire about the Nine Books philosophy..."
-              autocomplete="off"></textarea>
-    <button type="button" id="zen-ai-send" class="zen-ai-send-btn" onclick="triggerZenAI(false)">
-      <span>Chat</span>
-      <span>✦</span>
-    </button>
-  </div>
-
-  
-  <div class="zen-ai-dialogue-box" id="zen-ai-dialogue" style="display:none">
-    <div class="zen-ai-dialogue-top">
-      <div class="zen-ai-status-text">
-        <span class="zen-ai-pulsing-dot" id="zen-ai-pulse"></span>
-        <span id="zen-ai-status-msg">Thinking & reflecting...</span>
+<main class="main"><div class="wc-plaza-wrap"><section class="wc-plaza-hero">
+    <div class="wc-hero-left">
+      <div class="wc-eyebrow">
+        <span>🌍</span>
+        <span>World Corner · Scenery &amp; Reading Plaza</span>
       </div>
-      <button type="button" class="zen-ai-clear-btn" onclick="closeZenAI()">Close ✕</button>
+      <h1 class="wc-hero-title">
+        A view, a book, a quiet corner for passersby
+      </h1>
+      <p class="wc-hero-sub">
+        
+        Browse real landscapes and reading corners shared from everywhere, leave a line in the comments, or snap what is in front of you.
+        
+      </p>
     </div>
-    <div class="zen-ai-log" id="zen-ai-log"></div>
-  </div>
-</div><div class="zen-gateway-section">
-  <div class="zen-gateway-header">
-    <div>
-      <h2><span>📚</span> Gateway Guides · Rebuild Inner Order</h2>
-      <p class="zen-gateway-sub">Three foundational guides to begin with: identify friction, master real rest, anchor yourself</p>
-    </div>
-    <a href="/en/archives/" class="zen-wing-more">All essays (12) →</a>
-  </div>
 
-  
-  <div id="zen-reading-resume-card" class="zen-reading-resume-card" style="display:none">
-    <span class="zen-resume-icon">📖</span>
-    <span class="zen-resume-text" id="zen-reading-resume-text"></span>
-    <a href="/en/archives/" id="zen-reading-resume-link" class="zen-resume-go">Back to it →</a>
-  </div>
-
-  <div class="zen-gateway-grid">
-    
-    <a href="/en/posts/systems-thinking/pseudo-rest-cognitive-drain/" class="zen-gateway-card">
-      <div class="zen-gateway-badge-row">
-        <span class="zen-gateway-tag">Systems Thinking</span>
-        <span class="zen-gateway-time">⏱️ 8 mins</span>
-      </div>
-      <h3 class="zen-gateway-title">Why Do Modern People Feel More Exhausted After Resting?</h3>
-      <div class="zen-gateway-meta">
-        <div class="zen-gateway-target">
-          <strong>For whom: </strong>
-          Exhausted by work yet drained by phone scrolling; unable to truly relax
-        </div>
-        <div class="zen-gateway-gain">
-          <strong>Takeaway: </strong>
-          Identify "pseudo-rest" & cognitive leakage; master 3 actions for genuine energy recovery
-        </div>
-      </div>
-    </a>
-
-    
-    <a href="/en/posts/learning/2026-05-01-learning-as-kernel-reconstruction/" class="zen-gateway-card">
-      <div class="zen-gateway-badge-row">
-        <span class="zen-gateway-tag">Cognitive Foundation</span>
-        <span class="zen-gateway-time">⏱️ 10 mins</span>
-      </div>
-      <h3 class="zen-gateway-title">The Essence of Learning is Re-indexing the Mind</h3>
-      <div class="zen-gateway-meta">
-        <div class="zen-gateway-target">
-          <strong>For whom: </strong>
-          Overwhelmed by AI buzz and fragmented info; struggling with cognitive anxiety
-        </div>
-        <div class="zen-gateway-gain">
-          <strong>Takeaway: </strong>
-          Transform from a passive info consumer into an intentional cognitive architect
-        </div>
-      </div>
-    </a>
-
-    
-    
-    <a href="/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/" class="zen-gateway-card">
-      <div class="zen-gateway-badge-row">
-        <span class="zen-gateway-tag">Systems Engineering</span>
-        <span class="zen-gateway-time">⏱️ 12 mins</span>
-      </div>
-      <h3 class="zen-gateway-title">The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project</h3>
-      <div class="zen-gateway-meta">
-        <div class="zen-gateway-target"><strong>For whom: </strong>Anyone whose carefully made plans keep failing under pressure</div>
-        <div class="zen-gateway-gain"><strong>Takeaway: </strong>See how a real project collapses, and how to read the warning signs earlier</div>
-      </div>
-    </a>
-    
-  </div>
-</div><div class="zen-light-stream">
-  <div class="zen-light-col">
-    <div class="zen-light-head">
-      <h3><span>📝</span> Recent Thought Notes</h3>
-      <a href="/en/posts/systems-thinking/" class="zen-light-more">More essays →</a>
-    </div>
-    <div class="zen-light-list">
-      <a href="/en/posts/systems-thinking/pseudo-rest-cognitive-drain/" class="zen-light-item">
-        <div class="zen-light-item-meta">
-          <span class="zen-light-tag">Note</span>
-          <span class="zen-light-date">2026-05-18</span>
-        </div>
-        <div class="zen-light-item-title">Why Does Modern Rest Leave You More Exhausted? “Energy Hemorrhage” Is the Biggest Scam</div>
-      </a>
-      <a href="/en/posts/systems-thinking/2026-03-28-the-crisis-before-the-monsoon/" class="zen-light-item">
-        <div class="zen-light-item-meta">
-          <span class="zen-light-tag">Note</span>
-          <span class="zen-light-date">2026-03-28</span>
-        </div>
-        <div class="zen-light-item-title">The System Breakdown Before the Monsoon: A Mathematical Autopsy of an EPC Project</div>
-      </a>
-      <a href="/en/posts/era-observation/2026-09-07-pseudo-demand/" class="zen-light-item">
-        <div class="zen-light-item-meta">
-          <span class="zen-light-tag">Note</span>
-          <span class="zen-light-date">2026-09-07</span>
-        </div>
-        <div class="zen-light-item-title">Pseudo-Demand: The “Want” That Was Mass-Produced for You</div>
+    <div class="wc-hero-right">
+      <div id="wc-user-area"></div>
+      <a href="/en/inner/" class="wc-inner-link">
+        <span>🕯️</span>
+        <span>Inner Sanctuary →</span>
       </a>
     </div>
+  </section><div class="wc-toolbar">
+    <div class="wc-filter-pills" id="wc-filters">
+      <button type="button" class="wc-pill on" data-f="all" onclick="wcSetFilter('all')">
+        ✦ All
+      </button>
+      <button type="button" class="wc-pill" data-f="scenery" onclick="wcSetFilter('scenery')">
+        🏞️ Scenery
+      </button>
+      <button type="button" class="wc-pill" data-f="book" onclick="wcSetFilter('book')">
+        📖 Reading
+      </button>
+    </div>
+
+    <button type="button" class="wc-share-btn" onclick="wcOpenPublish()">
+      <span>📷</span>
+      <span>Share a Photo</span>
+    </button>
+  </div><div class="wc-topic-bar" id="wc-topic-bar" style="display:none">
+    <span id="wc-topic-text"></span>
+    <button type="button" class="wc-topic-clear" onclick="wcClearTopic()">
+      ✕ Clear
+    </button>
+  </div><div id="wc-wall-status" class="wc-loading">Loading scenery &amp; reading corners…</div>
+  <div class="wc-wall" id="wc-wall"></div><section class="wc-sanctuary-cta">
+    <div class="wc-sanctuary-text">
+      <h2>Want to walk a little deeper?</h2>
+      <p>
+        
+        Behind this photo wall sits the quieter core of World Corner: 9 original audiobooks, Soul 36 Questions, essays on systems thinking &amp; inner order, and an AI reading companion.
+        
+      </p>
+    </div>
+    <a href="/en/inner/" class="wc-sanctuary-btn">
+      <span>Enter Inner Sanctuary →</span>
+    </a>
+  </section>
+</div><div class="wc-modal-mask" id="wc-detail-modal" onclick="if(event.target===this)wcCloseDetail()">
+  <div class="wc-modal-box wide">
+    <div class="wc-modal-head">
+      <div id="wc-d-author" style="display:flex;align-items:center;gap:9px;"></div>
+      <button type="button" class="wc-close-x" onclick="wcCloseDetail()" aria-label="Close">✕</button>
+    </div>
+    <div id="wc-d-body"></div>
   </div>
-
-  <div class="zen-light-col">
-    <div class="zen-light-head">
-      <h3><span>⚠️</span> Latest Pitfalls & Debriefs</h3>
-      <a href="/en/pitfalls/" class="zen-light-more">All pitfalls →</a>
+</div><div class="wc-modal-mask" id="wc-pub-modal" onclick="if(event.target===this)wcClosePublish()">
+  <div class="wc-modal-box">
+    <div class="wc-modal-head">
+      <h3 class="wc-modal-title">📷 Share a Scenery or Reading Corner</h3>
+      <button type="button" class="wc-close-x" onclick="wcClosePublish()" aria-label="Close">✕</button>
     </div>
-    <div class="zen-light-list">
+
+    <div class="wc-type-switch" id="wc-pub-types">
+      <button type="button" class="wc-type-opt on" data-pt="scenery" onclick="wcSetPubType('scenery')">
+        🏞️ Scenery
+      </button>
+      <button type="button" class="wc-type-opt" data-pt="book" onclick="wcSetPubType('book')">
+        📖 Reading
+      </button>
     </div>
-  </div>
-</div><details class="zen-atlas-collapsible" id="zen-atlas-details" open>
-  <summary class="zen-atlas-summary">
-    <div class="zen-atlas-summary-title">
-      <span>🧭</span>
-      <span>Site Navigation Atlas (13 domains)</span>
-    </div>
-    <span class="zen-atlas-toggle-hint">Toggle view ▾</span>
-  </summary>
 
-  <div class="zen-site-atlas">
-    <div class="zen-atlas-grid">
-      <div class="zen-atlas-col">
-        <h4><span>📖</span> Intellectual Core</h4>
-        <ul>
-          <li><a href="/en/posts/systems-thinking/">Systems Thinking</a></li>
-          <li><a href="/en/posts/learning/">Learning Methods</a></li>
-          <li><a href="/en/posts/tooling/">Productivity Tooling</a></li>
-          <li><a href="/en/collections/">Featured Collections</a></li>
-        </ul>
-      </div>
+    <label class="wc-field-label" id="wc-pub-img-label">Photos (up to 3, ≤ 8MB each)</label>
+    <label class="wc-upload-zone" for="wc-pub-files">
+      <span>🖼️</span>
+      <span>Click to choose photos from your device</span>
+    </label>
+    <input id="wc-pub-files" type="file" accept="image/*" multiple style="display:none" onchange="wcHandleFiles(this)">
+    <div class="wc-previews" id="wc-pub-previews"></div>
 
-      <div class="zen-atlas-col">
-        <h4><span>🎧</span> Audio & Reflection</h4>
-        <ul>
-          <li><a href="/audiobook/">9 Audiobooks Hall</a></li>
-          <li><a href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank">Soul Search (36 Questions)</a></li>
-          <li><a href="/en/posts/era-observation/">Era Observations</a></li>
-          <li><a href="/app/">Mini Program · Inner Cultivation</a></li>
-        </ul>
-      </div>
+    <label class="wc-field-label" id="wc-pub-topic-label"></label>
+    <input id="wc-pub-topic" class="wc-input" autocomplete="off">
 
-      <div class="zen-atlas-col">
-        <h4><span>🛠️</span> Practice & Assets</h4>
-        <ul>
-          <li><a href="/en/pitfalls/">Pitfall Treasury</a></li>
-          <li><a href="/skills/">Skills Index (62 entries)</a></li>
-          <li><a href="/assets/">Project Assets (80 items)</a></li>
-          <li><a href="https://api.worldcorner.xyz" target="_blank">API Gateway</a></li>
-        </ul>
-      </div>
+    <label class="wc-field-label">One line of thought or book quote</label>
+    <textarea id="wc-pub-feeling" class="wc-textarea" rows="3" placeholder="What caught your eye, or a line from the page…"></textarea>
 
-      <div class="zen-atlas-col">
-        <h4><span>🌐</span> Community & About</h4>
-        <ul>
-          <li><a href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">Reader Community (Check-ins)</a></li>
-          <li><a href="/en/search/">Site Fast Search</a></li>
-          <li><a href="/en/archives/">Chronological Archives</a></li>
-          <li><a href="/en/about/">About Author & World Corner</a></li>
-        </ul>
-      </div>
+    <details style="margin-top:12px;">
+      <summary style="font-size:12.5px;color:var(--zen-ink-muted);cursor:pointer;">More optional details (reading spot / quote / longer note)</summary>
+      <label class="wc-field-label">Where are you? (optional)</label>
+      <input id="wc-pub-spot" class="wc-input" placeholder="e.g. Window desk, City park, Dali">
+      <label class="wc-field-label">Book quote / highlight (optional)</label>
+      <input id="wc-pub-quote" class="wc-input" placeholder="A sentence worth keeping…">
+    </details>
+
+    <div class="wc-msg" id="wc-pub-msg"></div>
+    <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:10px;">
+      <button type="button" class="wc-mini-btn" onclick="wcClosePublish()">Cancel</button>
+      <button type="button" class="wc-primary-btn amber" id="wc-pub-submit" onclick="wcSubmitPost()">Publish Share</button>
     </div>
   </div>
-</details><script>
+</div><div class="wc-modal-mask" id="wc-auth-modal" onclick="if(event.target===this)wcCloseAuth()">
+  <div class="wc-modal-box" style="max-width:420px;">
+    <div class="wc-modal-head">
+      <h3 class="wc-modal-title">Account · Free Sign Up</h3>
+      <button type="button" class="wc-close-x" onclick="wcCloseAuth()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="wc-auth-tabs">
+      <button type="button" class="wc-auth-tab on" id="wc-tab-login" onclick="wcSetAuthMode('login')">Login</button>
+      <button type="button" class="wc-auth-tab" id="wc-tab-reg" onclick="wcSetAuthMode('reg')">Free Sign Up</button>
+    </div>
+
+    <div id="wc-auth-hint" style="font-size:12.5px;color:var(--zen-ink-muted);margin-bottom:8px;"></div>
+
+    <label class="wc-field-label">Username (2–20 chars)</label>
+    <input id="wc-a-user" class="wc-input" autocomplete="username">
+
+    <label class="wc-field-label">Password (min 6 chars)</label>
+    <input id="wc-a-pass" class="wc-input" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')wcAuthSubmit()">
+
+    <div id="wc-a-reg-extra" style="display:none">
+      <label class="wc-field-label">Nickname (shown on your shares)</label>
+      <input id="wc-a-nick" class="wc-input" placeholder="Optional, defaults to username" onkeydown="if(event.key==='Enter')wcAuthSubmit()">
+    </div>
+
+    <div class="wc-msg" id="wc-a-msg"></div>
+    <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:10px;">
+      <button type="button" class="wc-primary-btn" id="wc-a-go" onclick="wcAuthSubmit()">Login</button>
+    </div>
+  </div>
+</div><div class="wc-lightbox" id="wc-lightbox" onclick="wcCloseLightbox()">
+  <img id="wc-lightbox-img" src="" alt="preview">
+</div>
+
+<script>
 (function() {
   var isEn = true;
-  var AI_API = 'https://api.worldcorner.xyz/community/api/ai';
-  var conversationHistory = [];
-  var isZenBusy = false;
-  var turnCount = 0;
-  var turnRegistry = {};
-  var lastTurnId = null;
-  window.lastZenQuery = '';
+  var API_ORIGIN = 'https://api.worldcorner.xyz';
+  var API_BASE = API_ORIGIN + '/community';
+  var AVA = ['#244B3E', '#D9822B', '#4B6B8A', '#7E5E8E', '#9B4F4F', '#3C7A69'];
 
-  
-  window.highlightInstantListen = function(e) {
-    var target = document.getElementById('zen-instant-listen');
-    if (target) {
-      if (e) e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      target.classList.add('pulse-highlight');
-      setTimeout(function() {
-        target.classList.remove('pulse-highlight');
-      }, 1400);
-    }
-  };
+  var posts = [];
+  var filterType = 'all';
+  var topicFilter = '';
+  var user = null;
+  var authMode = 'login';
+  var pendingPublish = false;
+  var pubType = 'scenery';
+  var pubImgs = [];
+  var uploadingCount = 0;
+  var activeDetailId = null;
+  var likedSet = new Set();
+  try {
+    likedSet = new Set(JSON.parse(localStorage.getItem('cc_liked') || '[]'));
+  } catch (e) {}
 
-  
-  window.switchZenTrack = function(btn, title, duration, src, quote, source) {
-    document.querySelectorAll('.zen-book-chip').forEach(function(b) { b.classList.remove('active'); });
-    if (btn) btn.classList.add('active');
-    
-    var titleEl = document.getElementById('zen-player-title');
-    var quoteEl = document.getElementById('zen-player-quote');
-    var sourceEl = document.getElementById('zen-player-source');
-    if (titleEl) titleEl.textContent = title;
-    if (quoteEl && quote) quoteEl.textContent = quote;
-    if (sourceEl && source) sourceEl.innerHTML = source;
-
-    var audio = document.getElementById('zen-mini-audio');
-    if (audio) {
-      audio.src = src;
-      audio.play().catch(function() {});
-    }
-
-    try {
-      localStorage.setItem('zen_last_audio', JSON.stringify({
-        title: title,
-        duration: duration,
-        src: src,
-        quote: quote || '',
-        source: source || (sourceEl ? sourceEl.innerHTML : ''),
-        time: 0
-      }));
-    } catch(e) {}
-  };
-
-  var miniAudio = document.getElementById('zen-mini-audio');
-  if (miniAudio) {
-    
-    var lastSaveTime = 0;
-    miniAudio.addEventListener('timeupdate', function() {
-      var now = Date.now();
-      if (now - lastSaveTime > 2500) {
-        lastSaveTime = now;
-        try {
-          var saved = localStorage.getItem('zen_last_audio');
-          if (saved) {
-            var data = JSON.parse(saved);
-            data.time = Math.floor(miniAudio.currentTime);
-            localStorage.setItem('zen_last_audio', JSON.stringify(data));
-          }
-        } catch(e) {}
-      }
-    });
-
-    function saveZenProgress(init) {
-      try {
-        var raw = localStorage.getItem('zen_last_audio');
-        var d = raw ? JSON.parse(raw) : null;
-        if (!d || !d.src || (d.src.indexOf(miniAudio.getAttribute('src') || '') === -1 && init)) {
-          var t = document.getElementById('zen-player-title');
-          var q = document.getElementById('zen-player-quote');
-          var s = document.getElementById('zen-player-source');
-          d = {
-            title: t ? t.textContent : '',
-            src: miniAudio.getAttribute('src'),
-            quote: q ? q.textContent.trim() : '',
-            source: s ? s.innerHTML : '',
-            time: 0
-          };
-        }
-        d.time = Math.floor(miniAudio.currentTime || 0);
-        localStorage.setItem('zen_last_audio', JSON.stringify(d));
-      } catch(e) {}
-    }
-    miniAudio.addEventListener('play', function() { saveZenProgress(true); });
-    miniAudio.addEventListener('pause', function() { saveZenProgress(false); });
-    window.addEventListener('pagehide', function() { if (miniAudio.currentTime > 0) saveZenProgress(false); });
-
-    miniAudio.addEventListener('error', function() {
-      var quoteEl = document.getElementById('zen-player-quote');
-      if (quoteEl) quoteEl.textContent = isEn ? 'Audio temporarily unavailable' : '音频暂不可播，请稍后刷新重试';
+  function esc(s) {
+    return String(s || '').replace(/[&<>"]/g, function(c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
     });
   }
 
-  
-  window.resumeZenAudio = function() {
-    try {
-      var saved = localStorage.getItem('zen_last_audio');
-      if (!saved) return;
-      var data = JSON.parse(saved);
-      if (!data.src) return;
-
-      var titleEl = document.getElementById('zen-player-title');
-      var quoteEl = document.getElementById('zen-player-quote');
-      var sourceEl = document.getElementById('zen-player-source');
-      if (titleEl) titleEl.textContent = data.title;
-      if (quoteEl && data.quote) quoteEl.textContent = data.quote;
-      if (sourceEl && data.source) sourceEl.innerHTML = data.source;
-
-      var audio = document.getElementById('zen-mini-audio');
-      if (audio) {
-        audio.src = data.src;
-        audio.currentTime = data.time || 0;
-        audio.play().catch(function() {});
-      }
-    } catch(e) {}
-  };
-
-  
-  function checkZenResumptions() {
-    
-    try {
-      var savedAudio = localStorage.getItem('zen_last_audio');
-      if (savedAudio) {
-        var aData = JSON.parse(savedAudio);
-        if (aData.time && aData.time > 5) {
-          var resumePill = document.getElementById('zen-resume-pill');
-          if (resumePill) {
-            var m = Math.floor(aData.time / 60);
-            var s = aData.time % 60;
-            var timeStr = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-            resumePill.textContent = '▶ ' + (isEn ? 'Resume: ' : '继续收听: ') + aData.title + ' (' + timeStr + ')';
-            resumePill.style.display = 'inline-block';
-          }
-        }
-      }
-    } catch(e) {}
-
-    
-    try {
-      var savedRead = localStorage.getItem('zen_last_read');
-      if (savedRead) {
-        var rData = JSON.parse(savedRead);
-        rData.url = String(rData.url || '').replace(/^["'\s]+|["'\s]+$/g, '');
-        rData.title = String(rData.title || '').replace(/^["'\s]+|["'\s]+$/g, '');
-        if (rData.title && rData.url && rData.url.charAt(0) === '/') {
-          var card = document.getElementById('zen-reading-resume-card');
-          var text = document.getElementById('zen-reading-resume-text');
-          var link = document.getElementById('zen-reading-resume-link');
-          if (card && text && link) {
-            text.textContent = (isEn ? 'Last visited: ' : '上次浏览: ') + rData.title;
-            link.href = rData.url;
-            card.style.display = 'flex';
-          }
-        }
-      }
-    } catch(e) {}
-
-    
-    if (window.innerWidth <= 768) {
-      var atlasDetails = document.getElementById('zen-atlas-details');
-      if (atlasDetails) {
-        atlasDetails.removeAttribute('open');
-      }
-    }
+  function resolveImg(u) {
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u)) return u;
+    if (u.charAt(0) === '/') return API_ORIGIN + u;
+    return API_BASE + '/' + u;
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      checkZenResumptions();
-      initZenDynamicPrompts();
+  function apiFetch(path, opts) {
+    opts = opts || {};
+    var headers = Object.assign({}, opts.headers || {});
+    if (!(opts.body instanceof ArrayBuffer) && !headers['Content-Type']) {
+      headers['Content-Type'] = 'application/json';
+    }
+    var tok = '';
+    try { tok = localStorage.getItem('cc_token') || ''; } catch (e) {}
+    if (tok) headers['Authorization'] = 'Bearer ' + tok;
+    opts.headers = headers;
+    return fetch(API_BASE + path, opts).then(function(r) {
+      return r.json().then(function(j) {
+        if (r.status === 401 && user) {
+          user = null;
+          drawUser();
+        }
+        return j;
+      });
     });
-  } else {
-    checkZenResumptions();
-    initZenDynamicPrompts();
   }
 
-  
-  var zenRotateIndex = 0;
-  var PROMPT_BANKS = {
-    zh: {
-      time: {
-        morning: [
-          { icon: '🌅', text: '清晨容易陷入对一天琐事的焦虑，九书有什么晨间定心法？', q: '清晨容易陷入对一天琐事的焦虑，九书有什么晨间定心法？' },
-          { icon: '☕', text: '新的一天开启前，如何为自己的精力设定防消耗边界？', q: '新的一天开启前，如何为自己的精力设定防消耗边界？' }
-        ],
-        day: [
-          { icon: '🌿', text: '忙了一整天，如何识别自己是真累还是假性疲惫？', q: '忙了一天，如何识别自己是真累还是假性疲惫？什么是真实回血？' },
-          { icon: '⚡', text: '在多任务与各种打扰之间，如何守住深度思考的能量场？', q: '在多任务与各种打扰之间，如何守住深度思考的能量场？' }
-        ],
-        evening: [
-          { icon: '🌙', text: '忙了一天为什么还是觉得空？九书是如何解读这种空虚的？', q: '忙了一天，为什么还是觉得空？九书是如何解读这种空虚的？' },
-          { icon: '🕯️', text: '晚上卸下社会角色后，九书推荐如何完成真实的精神回血？', q: '晚上卸下社会角色后，九书推荐如何完成真实的精神回血？' }
-        ],
-        night: [
-          { icon: '🌌', text: '夜深了容易反复精神内耗，如何把注意力从外部收回内心？', q: '夜深了容易反复精神内耗，如何把注意力从外部收回内心？' },
-          { icon: '🕯️', text: '睡前思绪纷乱停不下来，九书有什么睡前内省安顿的心法？', q: '睡前思绪纷乱停不下来，九书有什么睡前内省安顿的心法？' }
-        ]
-      },
-      footprints: {
-        system: [
-          { icon: '🧭', text: '关于系统思维：日常生活中如何看清因果回路，而非头痛医头？', q: '在日常生活和决策中，如何应用系统思维看清底层因果回路，避免陷入头痛医头的局部优化？' },
-          { icon: '📐', text: '系统性卡点：当一个问题反复出现，通常是哪个隐含变量被忽略了？', q: '当生活或工作中的一个难题反复出现，从系统动力学来看通常是哪个隐含变量被忽略了？' }
-        ],
-        energy: [
-          { icon: '🌿', text: '认知回血：为什么躺平刷手机反而更累？什么是真正的深度休息？', q: '为什么下班后刷短视频和躺平反而让人更累？认知能量体系中推荐的真实回血方法是什么？' },
-          { icon: '🔋', text: '能量止损：如何在充满不确定性的环境中，切断无谓的精神内耗？', q: '如何在充满不确定性的环境中切断无谓的内耗，把心力聚焦在自己能掌控的核心上？' }
-        ],
-        inner: [
-          { icon: '🧘', text: '向内安顿：“向外追逐没有止境”，在快节奏现实中如何停下一步？', q: '《内心的修炼》说“向外追逐没有止境，向内安顿只需在今天停下一步”，在现实快节奏中普通人该如何真正做到？' },
-          { icon: '🌱', text: '精神角落：在追求世俗目标的同时，怎样守护自己内在的真实安宁？', q: '在追求世俗目标的同时，怎样守护自己内在的真实安宁？' }
-        ],
-        pitfalls: [
-          { icon: '🛠️', text: '实战避坑：在数字化或做事过程中，最隐蔽的“假效率陷阱”是什么？', q: '在追求效率或技术数字化的过程中，最容易掉入哪些自欺欺人的“假效率陷阱”？' },
-          { icon: '💡', text: '走出迷茫：如何区分“伪需求导致的折腾”与“真正创造价值的行动”？', q: '如何区分伪需求带来的虚假忙碌与真正创造长期价值的行动？' }
-        ],
-        defaultNew: [
-          { icon: '📚', text: '初次相遇：世界一隅的九书体系，我该先从哪一本入门？', q: '我是第一次来到世界一隅，面对九书庞大的思想体系，建议我从哪一本开始读起？' },
-          { icon: '🌱', text: '探索心法：世界一隅常提的“向内安顿”到底指什么？', q: '世界一隅常提到的“向内安顿”到底指什么？它与普通的心理慰藉有何不同？' }
-        ]
-      },
-      soul36: [
-        { icon: '🔮', text: '灵魂抽题：“如果剥离所有社会身份，你最珍视的核心是什么？”', q: '请从《灵魂36问》为我导读这道题：“如果剥离所有社会身份、职位与外在成就，你最珍视的核心是什么？”' },
-        { icon: '🔮', text: '灵魂抽题：“最近哪一次决定，真正顺从了你内心的诚实？”', q: '请从《灵魂36问》为我导读这道题：“最近哪一次决定，真正顺从了你内心的诚实而非外界的期待？”' },
-        { icon: '🔮', text: '灵魂抽题：“你正在为何种‘虚假的安全感’持续消耗生命？”', q: '请从《灵魂36问》为我导读这道题：“你是否正在为何种虚假的安全感持续消耗真实的生命力？九书如何破局？”' },
-        { icon: '🔮', text: '灵魂抽题：“如果今天是你生命重置的起点，你会立刻放下什么？”', q: '请从《灵魂36问》为我导读这道题：“如果今天是你生命重置的起点，你会立刻放下什么重担？”' },
-        { icon: '🔮', text: '灵魂抽题：“你上一次感受到全然专注与踏实，是在什么时候？”', q: '请从《灵魂36问》为我导读这道题：“你上一次感受到全然专注与踏实是在什么时候？那种状态因何而来？”' }
-      ],
-      rotatePool: [
-        { icon: '🎯', text: '认知跃迁：如何从被动应对生活，转变为主动设计人生系统？', q: '如何从被动应对外部环境，转变为主动设计自己的人生与能量系统？' },
-        { icon: '🌊', text: '接纳脆弱：面对生活中的失控与无力感，九书提供了怎样的哲学视角？', q: '面对生活中的不可抗力与失控感，九书提供了怎样的认知框架来安放脆弱？' },
-        { icon: '🕊️', text: '关系边界：如何在亲密或职场关系中，既保持同理心又不被情绪吞噬？', q: '如何在人际关系中既保持深度同理心，又守住不被他人情绪过度消耗的健康边界？' },
-        { icon: '💡', text: '关于选择：当面临两难困境时，如何听见来自潜意识深处的微弱声音？', q: '当面临两难甚至多难困境时，如何拨开理性算计的迷雾，听见内心真实的抉择？' }
-      ]
-    },
-    en: {
-      time: {
-        morning: [
-          { icon: '🌅', text: 'Morning clarity: How to declutter mental anxiety before the day starts?', q: 'Morning clarity: How can I declutter mental anxiety and set an inner anchor before the day starts?' },
-          { icon: '☕', text: 'Starting today: How to establish energetic boundaries against over-depletion?', q: 'Before diving into today demands, how can I establish healthy boundaries to prevent energy drain?' }
-        ],
-        day: [
-          { icon: '🌿', text: 'Midday pause: How to distinguish pseudo-fatigue from true depletion?', q: 'Midday pause: How can I identify whether my tiredness is pseudo-fatigue or genuine physical depletion?' },
-          { icon: '⚡', text: 'Deep focus: Amid fragmented pings, how to protect energy for deep work?', q: 'Amid continuous pings and fragmented tasks, how can I preserve energy for meaningful deep work?' }
-        ],
-        evening: [
-          { icon: '🌙', text: 'Unwinding tonight: How to genuinely recharge after shedding social roles?', q: 'After a demanding workday, what are the most restorative ways to achieve true emotional recovery?' },
-          { icon: '💬', text: 'Busy all day, why do I still feel empty inside at night?', q: 'Busy all day, why do I still feel empty? How does the Nine Books philosophy interpret this modern void?' }
-        ],
-        night: [
-          { icon: '🌌', text: 'Midnight quiet: How to soothe mental overthinking and settle inward?', q: 'Late at night when thoughts race, how can I gently withdraw attention from external judgments?' },
-          { icon: '🕯️', text: 'Bedtime reflection: How to find a quiet mental sanctuary before sleep?', q: 'Before sleeping, how can I practice quiet introspection to release tension and settle my mind?' }
-        ]
-      },
-      footprints: {
-        system: [
-          { icon: '🧭', text: 'Systems thinking: How to see underlying causal loops instead of patching symptoms?', q: 'In life and problem solving, how can I use systems thinking to identify fundamental feedback loops?' },
-          { icon: '📐', text: 'Recurring bottlenecks: Which invisible feedback variable is usually ignored?', q: 'When a recurring obstacle keeps returning, which latent variable is commonly overlooked?' }
-        ],
-        energy: [
-          { icon: '🌿', text: 'Cognitive energy: Why does passive scrolling drain us, and what is true rest?', q: 'Why does mindless screen scrolling leave us more exhausted, and what constitutes true active rest?' },
-          { icon: '🔋', text: 'Energy conservation: How to cut off unnecessary mental friction under uncertainty?', q: 'How can I cut off internal friction and refocus mental energy on what is truly within my control?' }
-        ],
-        inner: [
-          { icon: '🧘', text: 'Inward sanctuary: In a relentless world, how do we take the first step inward?', q: 'The Inner Cultivation states outward chasing has no end, settling inward takes just one pause today. How to practice this?' },
-          { icon: '🌱', text: 'Inner balance: How to pursue worldly progress without losing inner quietude?', q: 'How can one pursue meaningful worldly goals while fiercely safeguarding authentic inner peace?' }
-        ],
-        pitfalls: [
-          { icon: '🛠️', text: 'Real-world pitfalls: What are the most deceptive efficiency traps today?', q: 'In modern work and digital tools, what are the most deceptive pseudo-efficiency traps?' },
-          { icon: '💡', text: 'Discerning action: How to separate superficial hustle from enduring value?', q: 'How do we distinguish pseudo-demands from actions that compound genuine, long-term value?' }
-        ],
-        defaultNew: [
-          { icon: '📚', text: 'First encounter: Which of the Nine Books is the best starting doorway for me?', q: 'I am visiting World Corner for the first time. Where should I begin exploring the Nine Books?' },
-          { icon: '🌱', text: 'Guiding inquiry: What does settling inward actually mean in practice?', q: 'What does World Corner mean by settling inward, and how does it differ from fleeting comfort?' }
-        ]
-      },
-      soul36: [
-        { icon: '🔮', text: 'Soul 36 Inquiry: "Stripped of all social labels, what remains your core?"', q: 'Please guide me on this Soul 36 Inquiry: "Stripped of all social titles, status, and achievements, what is your essence?"' },
-        { icon: '🔮', text: 'Soul 36 Inquiry: "Which recent decision honored your radical inner honesty?"', q: 'Please guide me on this Soul 36 Inquiry: "Which recent decision honored your radical inner honesty rather than expectations?"' },
-        { icon: '🔮', text: 'Soul 36 Inquiry: "What illusory security is draining your life energy?"', q: 'Please guide me on this Soul 36 Inquiry: "What illusory form of safety is quietly draining your authentic vitality?"' },
-        { icon: '🔮', text: 'Soul 36 Inquiry: "If life reset today, what heavy burden would you discard?"', q: 'Please guide me on this Soul 36 Inquiry: "If today were a fresh beginning, what obsolete burden would you discard immediately?"' }
-      ],
-      rotatePool: [
-        { icon: '🎯', text: 'Life architecture: How to shift from reacting to life to architecting your system?', q: 'How can one transition from passively reacting to life circumstances to proactively architecting their life system?' },
-        { icon: '🌊', text: 'Embracing vulnerability: How does philosophy reframe helplessness and change?', q: 'When confronting uncontrollable external disruptions, what philosophical framework helps hold vulnerability?' },
-        { icon: '🕊️', text: 'Relational boundaries: How to maintain deep empathy without emotional burnout?', q: 'How can we practice compassionate presence while sustaining resilient personal boundaries?' }
-      ]
-    }
-  };
-
-  function getZenActiveSlot() {
-    var h = new Date().getHours();
-    if (h >= 5 && h < 10) return 'morning';
-    if (h >= 10 && h < 18) return 'day';
-    if (h >= 18 && h < 23) return 'evening';
-    return 'night';
-  }
-
-  function getZenFootprintCategory() {
-    try {
-      var r = localStorage.getItem('zen_last_read') || '';
-      var a = localStorage.getItem('zen_last_audio') || '';
-      var combined = (r + ' ' + a).toLowerCase();
-      if (/系统|回路|system|杠杆|变量/.test(combined)) return 'system';
-      if (/能量|休息|回血|内耗|energy|rest/.test(combined)) return 'energy';
-      if (/修炼|向内|幸福|安顿|inner|quiet/.test(combined)) return 'inner';
-      if (/避坑|踩坑|效率|pitfall|tool/.test(combined)) return 'pitfalls';
-    } catch(e) {}
-    return 'defaultNew';
-  }
-
-  function renderZenPrompts(prompts) {
-    var container = document.getElementById('zen-prompts-row');
-    if (!container || !prompts || !prompts.length) return;
-    
-    container.innerHTML = '';
-    for (var i = 0; i < prompts.length; i++) {
-      var item = prompts[i];
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'zen-prompt-btn';
-      btn.setAttribute('data-zen-q', item.q);
-      btn.onclick = function() {
-        var query = this.getAttribute('data-zen-q');
-        if (query) window.sendZenPrompt(query);
-      };
-      btn.textContent = item.icon + ' ' + (isEn ? '"' : '“') + item.text + (isEn ? '"' : '”');
-      container.appendChild(btn);
-    }
-    container.classList.remove('zen-prompts-fade');
-    void container.offsetWidth;
-    container.classList.add('zen-prompts-fade');
-  }
-
-  window.rotateZenPrompts = function() {
-    zenRotateIndex++;
-    var bank = isEn ? PROMPT_BANKS.en : PROMPT_BANKS.zh;
-    var slot = getZenActiveSlot();
-    var fpCat = getZenFootprintCategory();
-
-    var timeArr = bank.time[slot] || bank.time.day;
-    var fpArr = bank.footprints[fpCat] || bank.footprints.defaultNew;
-    var soulArr = bank.soul36;
-    var rotArr = bank.rotatePool;
-
-    var p1, p2, p3;
-    if (zenRotateIndex % 2 === 1) {
-      p1 = rotArr[zenRotateIndex % rotArr.length];
-      p2 = timeArr[zenRotateIndex % timeArr.length];
-      p3 = soulArr[(zenRotateIndex + 1) % soulArr.length];
+  function drawUser() {
+    var box = document.getElementById('wc-user-area');
+    if (!box) return;
+    if (user) {
+      box.innerHTML =
+        '<span class="wc-user-pill" style="cursor:default">👤 ' + esc(user.nickname) + '</span>' +
+        '<button type="button" class="wc-user-logout" onclick="wcLogout()">' + (isEn ? 'Log out' : '退出') + '</button>';
     } else {
-      p1 = timeArr[zenRotateIndex % timeArr.length];
-      p2 = fpArr[zenRotateIndex % fpArr.length];
-      p3 = soulArr[(zenRotateIndex + 2) % soulArr.length];
+      box.innerHTML =
+        '<button type="button" class="wc-user-pill" onclick="wcOpenAuth(\'login\')">' +
+          '<span>' + (isEn ? 'Login / Sign up' : '登录 / 免费注册') + '</span>' +
+        '</button>';
     }
-    renderZenPrompts([p1, p2, p3]);
-  };
-
-  function initZenDynamicPrompts() {
-    var bank = isEn ? PROMPT_BANKS.en : PROMPT_BANKS.zh;
-    var slot = getZenActiveSlot();
-    var fpCat = getZenFootprintCategory();
-
-    var timeArr = bank.time[slot] || bank.time.day;
-    var fpArr = bank.footprints[fpCat] || bank.footprints.defaultNew;
-    var soulArr = bank.soul36;
-
-    var p1 = timeArr[Math.floor(Math.random() * timeArr.length)];
-    var p2 = fpArr[Math.floor(Math.random() * fpArr.length)];
-    var p3 = soulArr[Math.floor(Math.random() * soulArr.length)];
-
-    renderZenPrompts([p1, p2, p3]);
   }
 
-  
-  window.sendZenPrompt = function(promptText) {
-    if (isZenBusy) return;
-    var input = document.getElementById('zen-ai-input');
-    if (input) input.value = promptText;
-    triggerZenAI(false);
-  };
-
-  window.retryZenTurn = function(targetTurnId) {
-    if (isZenBusy) return;
-    triggerZenAI(true, targetTurnId);
-  };
-
-  window.retryLastZenPrompt = function() {
-    if (isZenBusy) return;
-    if (lastTurnId && turnRegistry[lastTurnId]) {
-      triggerZenAI(true, lastTurnId);
-    } else {
-      var input = document.getElementById('zen-ai-input');
-      var q = window.lastZenQuery || (input ? input.value.trim() : '');
-      if (q) triggerZenAI(false);
-    }
-  };
-
-  
-  window.closeZenAI = function() {
-    var d = document.getElementById('zen-ai-dialogue');
-    if (d) d.style.display = 'none';
-  };
-
-  
-  window.copyZenAnswer = function(btn) {
-    var msgCard = btn.closest('.zen-ai-msg');
-    if (!msgCard) return;
-    var textEl = msgCard.querySelector('.zen-ai-streaming-text');
-    var textToCopy = textEl ? textEl.innerText : '';
-    if (!textToCopy) return;
-
-    navigator.clipboard.writeText(textToCopy).then(function() {
-      var originalHtml = btn.innerHTML;
-      btn.innerHTML = '✓ ' + (isEn ? 'Copied' : '已复制');
-      btn.style.borderColor = 'var(--zen-pine)';
-      btn.style.color = 'var(--zen-pine)';
-      setTimeout(function() {
-        btn.innerHTML = originalHtml;
-        btn.style.borderColor = '';
-        btn.style.color = '';
-      }, 2000);
+  function refreshUser() {
+    var tok = '';
+    try { tok = localStorage.getItem('cc_token') || ''; } catch (e) {}
+    if (!tok) { user = null; drawUser(); return; }
+    apiFetch('/api/me').then(function(j) {
+      user = j && j.user ? j.user : null;
+      drawUser();
     }).catch(function() {
-      btn.textContent = isEn ? 'Copy failed' : '复制失败';
+      user = null;
+      drawUser();
+    });
+  }
+
+  window.wcLogout = function() {
+    apiFetch('/api/logout', { method: 'POST' }).catch(function() {});
+    try { localStorage.removeItem('cc_token'); } catch (e) {}
+    user = null;
+    drawUser();
+  };
+
+  window.wcOpenAuth = function(mode, hintText) {
+    wcSetAuthMode(mode || 'login');
+    var hint = document.getElementById('wc-auth-hint');
+    if (hint) {
+      hint.textContent = hintText || (isEn
+        ? 'Browsing, likes and comments are open to everyone. Sign up free (no invite code) to upload photos.'
+        : '浏览、点赞、评论无需登录；免费注册后即可晒图分享（已取消邀请码限制）。');
+    }
+    document.getElementById('wc-a-msg').textContent = '';
+    document.getElementById('wc-auth-modal').classList.add('open');
+    setTimeout(function() { document.getElementById('wc-a-user').focus(); }, 60);
+  };
+
+  window.wcCloseAuth = function() {
+    document.getElementById('wc-auth-modal').classList.remove('open');
+    pendingPublish = false;
+  };
+
+  window.wcSetAuthMode = function(m) {
+    authMode = m === 'reg' ? 'reg' : 'login';
+    document.getElementById('wc-tab-login').classList.toggle('on', authMode === 'login');
+    document.getElementById('wc-tab-reg').classList.toggle('on', authMode === 'reg');
+    document.getElementById('wc-a-reg-extra').style.display = authMode === 'reg' ? 'block' : 'none';
+    document.getElementById('wc-a-go').textContent = authMode === 'reg'
+      ? (isEn ? 'Sign up & Enter' : '免费注册并登录')
+      : (isEn ? 'Login' : '登录');
+  };
+
+  window.wcAuthSubmit = function() {
+    var username = document.getElementById('wc-a-user').value.trim();
+    var password = document.getElementById('wc-a-pass').value;
+    var nickname = document.getElementById('wc-a-nick').value.trim();
+    var msg = document.getElementById('wc-a-msg');
+    msg.textContent = isEn ? 'Please wait…' : '正在提交…';
+
+    var endpoint = authMode === 'reg' ? '/api/register' : '/api/login';
+    var payload = authMode === 'reg'
+      ? { username: username, password: password, nickname: nickname }
+      : { username: username, password: password };
+
+    apiFetch(endpoint, { method: 'POST', body: JSON.stringify(payload) }).then(function(r) {
+      if (r.error) { msg.textContent = r.error; return null; }
+      if (r.token) return r;
+      return apiFetch('/api/login', { method: 'POST', body: JSON.stringify({ username: username, password: password }) });
+    }).then(function(r) {
+      if (!r) return;
+      if (r.error) { msg.textContent = r.error; return; }
+      try { localStorage.setItem('cc_token', r.token); } catch (e) {}
+      user = r.user;
+      drawUser();
+      var shouldPub = pendingPublish;
+      pendingPublish = false;
+      document.getElementById('wc-auth-modal').classList.remove('open');
+      if (shouldPub) wcOpenPublish();
+    }).catch(function() {
+      msg.textContent = isEn ? 'Network error, please try again.' : '网络异常，请稍后再试';
     });
   };
 
-  
-  window.focusZenAIInput = function() {
-    var input = document.getElementById('zen-ai-input');
-    if (input) {
-      input.focus();
-      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  function getCardTypeLabel(p) {
+    if (p.owner_id === 'official-curated') {
+      return isEn ? '✦ Public Scenery' : '✦ 公共景色';
     }
-  };
+    if (p.type === 'book') return isEn ? '📖 Reading' : '📖 读书';
+    return isEn ? '🏞️ Scenery' : '🏞️ 风景';
+  }
 
-  
-  window.triggerZenAI = function(isRetry, targetTurnId) {
-    if (isZenBusy) return;
+  function getCardTag(p) {
+    if (p.type === 'book' && p.book_title) return { icon: '📖', raw: p.book_title, label: '《' + p.book_title + '》' };
+    if (p.spot_name) return { icon: '📍', raw: p.spot_name, label: p.spot_name };
+    if (p.plant_name) return { icon: '🌿', raw: p.plant_name, label: p.plant_name };
+    if (p.district) return { icon: '📍', raw: p.district, label: p.district };
+    return null;
+  }
 
-    var input = document.getElementById('zen-ai-input');
-    var log = document.getElementById('zen-ai-log');
-    var dialogueBox = document.getElementById('zen-ai-dialogue');
-    var pulse = document.getElementById('zen-ai-pulse');
-    var statusMsg = document.getElementById('zen-ai-status-msg');
-    var sendBtn = document.getElementById('zen-ai-send');
+  function renderWall() {
+    var wall = document.getElementById('wc-wall');
+    var status = document.getElementById('wc-wall-status');
+    var list = posts.slice();
 
-    var turnId;
-    var query;
-    var messagesToSend;
-    var aiEl = null;
-
-    if (!isRetry) {
-      query = input ? input.value.trim() : '';
-      if (!query) return;
-
-      turnId = ++turnCount;
-      lastTurnId = turnId;
-      window.lastZenQuery = query;
-
-      while (conversationHistory.length > 0 && conversationHistory[conversationHistory.length - 1].role === 'user') {
-        conversationHistory.pop();
-      }
-      conversationHistory.push({ role: 'user', content: query });
-      if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
-
-      messagesToSend = conversationHistory.slice();
-      turnRegistry[turnId] = {
-        query: query,
-        messages: messagesToSend.slice(),
-        aiEl: null
-      };
-
-      if (log) {
-        var userEl = document.createElement('div');
-        userEl.className = 'zen-ai-msg user';
-        userEl.textContent = query;
-        log.appendChild(userEl);
-        if (input) input.value = '';
-      }
-    } else {
-      turnId = targetTurnId || lastTurnId;
-      var turn = turnRegistry[turnId];
-      if (turn) {
-        query = turn.query;
-        messagesToSend = turn.messages.slice();
-        aiEl = turn.aiEl;
-      } else {
-        query = window.lastZenQuery || (input ? input.value.trim() : '');
-        if (!query) return;
-        messagesToSend = conversationHistory.slice();
-      }
+    if (filterType === 'scenery') {
+      list = list.filter(function(p) { return p.type === 'scenery' || p.type === 'garden'; });
+    } else if (filterType === 'book') {
+      list = list.filter(function(p) { return p.type === 'book'; });
     }
 
-    isZenBusy = true;
+    if (topicFilter) {
+      var q = topicFilter.toLowerCase();
+      list = list.filter(function(p) {
+        return (p.book_title && p.book_title.toLowerCase().indexOf(q) !== -1) ||
+               (p.spot_name && p.spot_name.toLowerCase().indexOf(q) !== -1) ||
+               (p.plant_name && p.plant_name.toLowerCase().indexOf(q) !== -1) ||
+               (p.district && p.district.toLowerCase().indexOf(q) !== -1) ||
+               (p.quote && p.quote.toLowerCase().indexOf(q) !== -1) ||
+               (p.note && p.note.toLowerCase().indexOf(q) !== -1);
+      });
+    }
 
-    if (dialogueBox) dialogueBox.style.display = 'block';
-    if (pulse) pulse.style.display = 'inline-block';
-    if (statusMsg) statusMsg.textContent = isEn ? 'AI is reflecting on your inquiry...' : 'AI 正在结合全书体系深度思考...';
-    if (sendBtn) sendBtn.disabled = true;
+    list.sort(function(a, b) {
+      var ha = (a.images && a.images.length) ? 1 : 0;
+      var hb = (b.images && b.images.length) ? 1 : 0;
+      if (ha !== hb) return hb - ha;
+      return (b.create_time || 0) - (a.create_time || 0);
+    });
 
-    var COMFORT_TEXTS = isEn ? [
-      'Reflecting through the Nine Books framework...',
-      'Organizing clear mental models and actionable steps...',
-      'Condensing thoughts, words will arrive shortly...'
-    ] : [
-      '正在结合九书主线与向内安顿体系推演...',
-      '沉心静气，为您梳理通透的思想模型与行动切入点...',
-      '字句正在凝练，清醒的微光马上启程...'
-    ];
-    var comfortIndex = 0;
+    if (!list.length) {
+      wall.innerHTML = '';
+      status.className = 'wc-empty';
+      status.style.display = 'block';
+      status.textContent = isEn ? 'No shares under this filter yet — be the first to share a photo!' : '这一栏暂时空着，来做第一个晒出照片的人吧 📷';
+      return;
+    }
 
-    if (!aiEl || !aiEl.parentNode) {
-      aiEl = document.createElement('div');
-      aiEl.className = 'zen-ai-msg assistant';
-      aiEl.innerHTML = 
-        '<div class="zen-ai-waiting-wrap">' +
-          '<div class="zen-ai-waiting-badge">' +
-            '<span class="zen-ai-sparkle">✦</span>' +
-            '<span class="zen-ai-comfort-text">' + COMFORT_TEXTS[0] + '</span>' +
-          '</div>' +
-          '<div class="zen-ai-shimmer-box">' +
-            '<div class="zen-ai-shimmer-line" style="width: 82%;"></div>' +
-            '<div class="zen-ai-shimmer-line" style="width: 95%;"></div>' +
-            '<div class="zen-ai-shimmer-line" style="width: 60%;"></div>' +
+    status.style.display = 'none';
+    wall.innerHTML = list.map(function(p) {
+      var imgs = p.images || [];
+      var cover = imgs.length ? resolveImg(imgs[0]) : '';
+      var tagObj = getCardTag(p);
+      var snippet = p.quote ? ('“' + p.quote + '”') : (p.note || '');
+      var isQuote = !!p.quote;
+      var nick = p.nickname || (isEn ? 'Reader' : '书友');
+      var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
+      var badgeCls = p.owner_id === 'official-curated' ? 'official' : (p.type === 'book' ? 'book' : '');
+      var liked = likedSet.has(p.id);
+
+      return '<article class="wc-card" onclick="wcOpenDetail(\'' + esc(p.id) + '\')">' +
+        (cover
+          ? '<div class="wc-card-media"><img src="' + esc(cover) + '" alt="' + esc(tagObj ? tagObj.label : nick) + '" loading="lazy"><span class="wc-badge ' + badgeCls + '">' + esc(getCardTypeLabel(p)) + '</span></div>'
+          : '') +
+        '<div class="wc-card-body">' +
+          (!cover ? '<div style="margin-bottom:8px;font-size:11.5px;font-weight:700;color:var(--zen-amber);">' + esc(getCardTypeLabel(p)) + '</div>' : '') +
+          (tagObj ? '<div class="wc-card-tag" onclick="event.stopPropagation();wcFilterByTopic(\'' + esc(tagObj.raw).replace(/'/g, "\\'") + '\')">' + tagObj.icon + ' ' + esc(tagObj.label) + '</div>' : '') +
+          (snippet ? '<p class="wc-card-snippet ' + (isQuote ? 'is-quote' : '') + '">' + esc(snippet) + '</p>' : '') +
+          '<div class="wc-card-foot">' +
+            '<span class="wc-author">' +
+              '<span class="wc-avatar" style="background:' + avaColor + '">' + esc(nick.charAt(0)) + '</span>' +
+              '<span class="wc-author-name">' + esc(nick) + '</span>' +
+            '</span>' +
+            '<span class="wc-actions">' +
+              '<button type="button" class="wc-stat-btn ' + (liked ? 'liked' : '') + '" onclick="event.stopPropagation();wcLike(\'' + esc(p.id) + '\')">♥ ' + (p.likes || 0) + '</button>' +
+              '<span class="wc-stat-btn">💬 ' + (p.comments || 0) + '</span>' +
+            '</span>' +
           '</div>' +
         '</div>' +
-        '<div class="zen-ai-thought-container"></div>' +
-        '<div class="zen-ai-streaming-text"></div>';
-      if (log) log.appendChild(aiEl);
+      '</article>';
+    }).join('');
+  }
+
+  function loadPosts() {
+    fetch(API_BASE + '/api/posts')
+      .then(function(r) { return r.json(); })
+      .then(function(j) {
+        posts = j.posts || [];
+        renderWall();
+      })
+      .catch(function() {
+        var status = document.getElementById('wc-wall-status');
+        status.className = 'wc-empty';
+        status.textContent = isEn ? 'Failed to load plaza feed. Please refresh.' : '照片墙加载遇到波动，请稍后刷新重试';
+      });
+  }
+
+  window.wcSetFilter = function(f) {
+    filterType = f;
+    document.querySelectorAll('#wc-filters .wc-pill').forEach(function(el) {
+      el.classList.toggle('on', el.getAttribute('data-f') === f);
+    });
+    renderWall();
+  };
+
+  window.wcFilterByTopic = function(t) {
+    topicFilter = t || '';
+    var bar = document.getElementById('wc-topic-bar');
+    var txt = document.getElementById('wc-topic-text');
+    if (topicFilter) {
+      txt.textContent = (isEn ? 'Filtering: ' : '正在看：') + topicFilter;
+      bar.style.display = 'flex';
     } else {
-      var oldErr = aiEl.querySelector('.zen-ai-error-notice');
-      if (oldErr) oldErr.remove();
-      var oldActions = aiEl.querySelector('.zen-ai-actions-bar');
-      if (oldActions) oldActions.remove();
-      var oldLinks = aiEl.querySelector('.zen-ai-links-wrap');
-      if (oldLinks) oldLinks.remove();
-      var oldThoughts = aiEl.querySelector('.zen-ai-thought-container');
-      if (oldThoughts) oldThoughts.innerHTML = '';
-      var sText = aiEl.querySelector('.zen-ai-streaming-text');
-      if (sText) sText.innerHTML = '';
-      var wWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
-      if (wWrap) wWrap.style.display = 'block';
+      bar.style.display = 'none';
     }
+    renderWall();
+  };
 
-    if (turnRegistry[turnId]) {
-      turnRegistry[turnId].aiEl = aiEl;
-    }
+  window.wcClearTopic = function() {
+    wcFilterByTopic('');
+  };
 
-    var waitingWrap = aiEl.querySelector('.zen-ai-waiting-wrap');
-    var comfortEl = aiEl.querySelector('.zen-ai-comfort-text');
-    var thoughtContainer = aiEl.querySelector('.zen-ai-thought-container');
-    var textSpan = aiEl.querySelector('.zen-ai-streaming-text');
-    var thoughtBox = null;
-    var thoughtBody = null;
-    var fullThought = '';
-    var fullReply = '';
-    var streamError = null;
-    var streamCompleted = false;
-    var hasEnded = false;
-
-    var comfortTimer = setInterval(function() {
-      if (!comfortEl || !waitingWrap || waitingWrap.style.display === 'none') {
-        clearInterval(comfortTimer);
-        return;
-      }
-      comfortIndex = (comfortIndex + 1) % COMFORT_TEXTS.length;
-      comfortEl.classList.add('fade-out');
-      setTimeout(function() {
-        if (comfortEl) {
-          comfortEl.textContent = COMFORT_TEXTS[comfortIndex];
-          comfortEl.classList.remove('fade-out');
-          comfortEl.classList.add('fade-in');
-          setTimeout(function() {
-            if (comfortEl) comfortEl.classList.remove('fade-in');
-          }, 300);
-        }
-      }, 250);
-    }, 2200);
-
-    function stopWaitingUX() {
-      if (comfortTimer) {
-        clearInterval(comfortTimer);
-        comfortTimer = null;
-      }
-      if (waitingWrap) {
-        waitingWrap.style.display = 'none';
-      }
-    }
-
-    if (log) log.scrollTop = log.scrollHeight;
-
-    fetch(AI_API, {
+  window.wcLike = function(id) {
+    if (likedSet.has(id)) return;
+    likedSet.add(id);
+    try { localStorage.setItem('cc_liked', JSON.stringify(Array.from(likedSet))); } catch (e) {}
+    posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { likes: (p.likes || 0) + 1 }) : p; });
+    renderWall();
+    if (activeDetailId === id) renderDetailBody(id);
+    fetch(API_BASE + '/api/like', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: messagesToSend,
-        stream: true,
-        tab: 'ai',
-        lang: isEn ? 'en' : 'zh'
-      })
-    }).then(function(res) {
-      if (!res.ok) throw new Error(isEn ? 'Network error (' + res.status + ')' : '网络请求异常 (' + res.status + ')');
-      if (!res.body) throw new Error(isEn ? 'Streaming not supported' : '不支持流式传输');
+      body: JSON.stringify({ postId: id })
+    }).catch(function() {});
+  };
 
-      var reader = res.body.getReader();
-      var decoder = new TextDecoder('utf-8');
-      var buffer = '';
+  window.wcOpenDetail = function(id) {
+    activeDetailId = id;
+    renderDetailBody(id);
+    document.getElementById('wc-detail-modal').classList.add('open');
+    loadDetailComments(id);
+  };
 
-      function readChunk() {
-        return reader.read().then(function(chunk) {
-          if (chunk.done) {
-            handleStreamEnd();
-            return;
-          }
-          buffer += decoder.decode(chunk.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop();
+  window.wcCloseDetail = function() {
+    activeDetailId = null;
+    document.getElementById('wc-detail-modal').classList.remove('open');
+  };
 
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i].trim();
-            if (!line.startsWith('data:')) continue;
-            var jsonStr = line.replace(/^data:\s*/, '');
-            if (!jsonStr) continue;
-            try {
-              var parsed = JSON.parse(jsonStr);
+  function renderDetailBody(id) {
+    var p = posts.find(function(x) { return x.id === id; });
+    if (!p) return;
+    var nick = p.nickname || (isEn ? 'Reader' : '书友');
+    var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
+    document.getElementById('wc-d-author').innerHTML =
+      '<span class="wc-avatar" style="width:32px;height:32px;font-size:14px;background:' + avaColor + '">' + esc(nick.charAt(0)) + '</span>' +
+      '<div><div style="font-weight:700;font-size:14.5px;color:var(--zen-ink-deep)">' + esc(nick) + '</div>' +
+      '<div style="font-size:12px;color:var(--zen-ink-muted)">' + esc(p.district || getCardTypeLabel(p)) + (p.address ? ' · ' + esc(p.address) : '') + '</div></div>';
 
-              if (parsed.e) {
-                streamError = parsed.e;
-              }
+    var tagObj = getCardTag(p);
+    var imgsHtml = (p.images && p.images.length)
+      ? '<div class="wc-detail-imgs">' + p.images.map(function(u) {
+          var full = resolveImg(u);
+          return '<img src="' + esc(full) + '" onclick="wcOpenLightbox(\'' + esc(full).replace(/'/g, "\\'") + '\')" alt="">';
+        }).join('') + '</div>'
+      : '';
+    var liked = likedSet.has(p.id);
 
-              if (parsed.t) {
-                stopWaitingUX();
-                if (!thoughtBox) {
-                  if (statusMsg) statusMsg.textContent = isEn ? '✦ Deep thinking in progress...' : '✦ 正在深入思考推演...';
-                  thoughtBox = document.createElement('details');
-                  thoughtBox.className = 'zen-ai-thought-box';
-                  thoughtBox.setAttribute('open', '');
-                  thoughtBox.innerHTML = 
-                    '<summary class="zen-ai-thought-summary">' +
-                      '<span class="zen-ai-thought-icon">💭</span>' +
-                      '<span class="zen-ai-thought-status">' + (isEn ? 'Thinking process...' : '思考推演中...') + '</span>' +
-                      '<span class="zen-ai-thought-toggle-arrow">▾</span>' +
-                    '</summary>' +
-                    '<div class="zen-ai-thought-body"></div>';
-                  thoughtContainer.appendChild(thoughtBox);
-                  thoughtBody = thoughtBox.querySelector('.zen-ai-thought-body');
-                }
-                fullThought += parsed.t;
-                if (thoughtBody) thoughtBody.innerHTML = formatZenText(fullThought);
-                if (log) log.scrollTop = log.scrollHeight;
-              }
+    document.getElementById('wc-d-body').innerHTML =
+      imgsHtml +
+      (tagObj ? '<div style="margin-bottom:10px;"><span class="wc-card-tag" style="cursor:pointer" onclick="wcFilterByTopic(\'' + esc(tagObj.raw).replace(/'/g, "\\'") + '\');wcCloseDetail()">' + tagObj.icon + ' ' + esc(tagObj.label) + '</span></div>' : '') +
+      (p.quote ? '<div class="wc-detail-quote">“' + esc(p.quote) + '”</div>' : '') +
+      (p.note ? '<div class="wc-detail-note">' + esc(p.note) + '</div>' : '') +
+      (p.tr_note ? '<div class="wc-detail-tr">' + esc(p.tr_note) + '</div>' : '') +
+      '<div class="wc-detail-bar">' +
+        '<button type="button" class="wc-mini-btn ' + (liked ? 'liked' : '') + '" onclick="wcLike(\'' + esc(p.id) + '\')">♥ ' + (isEn ? 'Like' : '赞') + ' (' + (p.likes || 0) + ')</button>' +
+        '<button type="button" class="wc-mini-btn" onclick="wcTranslatePost(\'' + esc(p.id) + '\')">' + (p.tr_note ? (isEn ? '↺ Hide Translation' : '↺ 收起译文') : (isEn ? '🌐 Translate' : '🌐 翻译')) + '</button>' +
+      '</div>' +
+      '<div class="wc-cmts-wrap" id="wc-cmts-box"><div style="font-size:13px;color:var(--zen-ink-muted)">' + (isEn ? 'Loading comments…' : '正在加载评论…') + '</div></div>';
+  }
 
-              if (parsed.d) {
-                stopWaitingUX();
-                if (statusMsg) statusMsg.textContent = isEn ? '✦ Streaming answer...' : '✦ 正在回复中...';
-                fullReply += parsed.d;
-                textSpan.innerHTML = formatZenText(fullReply);
-                if (log) log.scrollTop = log.scrollHeight;
-              }
+  function loadDetailComments(id) {
+    fetch(API_BASE + '/api/comments?postId=' + encodeURIComponent(id))
+      .then(function(r) { return r.json(); })
+      .then(function(j) {
+        var box = document.getElementById('wc-cmts-box');
+        if (!box || activeDetailId !== id) return;
+        var cmts = j.comments || [];
+        var listHtml = cmts.length
+          ? cmts.map(function(c) {
+              return '<div class="wc-cmt-item">' +
+                '<div><span class="wc-cmt-author">' + esc(c.nickname) + '</span><span class="wc-cmt-body" data-cid="' + esc(c.id) + '">' + esc(c.text) + '</span></div>' +
+                '<span class="wc-cmt-tr" onclick="wcTranslateCmt(\'' + esc(c.id) + '\')">🌐</span>' +
+              '</div>';
+            }).join('')
+          : '<div style="font-size:13px;color:var(--zen-ink-muted);padding:6px 0;">' + (isEn ? 'No comments yet — leave a line from your day or book.' : '还没有留言，留下你的一句想法或正在读的书吧。') + '</div>';
 
-              if (parsed.done) {
-                streamCompleted = true;
-              }
-            } catch(e) {}
-          }
-          return readChunk();
-        });
+        var savedNick = '';
+        try { savedNick = localStorage.getItem('cc_guest_nick') || ''; } catch (e) {}
+        var nickInput = user ? '' : '<input id="wc-cmt-nick" class="wc-input wc-cmt-nick" value="' + esc(savedNick) + '" placeholder="' + (isEn ? 'Nickname (opt.)' : '昵称(选填)') + '">';
+
+        box.innerHTML =
+          '<div style="font-size:13px;font-weight:700;color:var(--zen-ink-deep);margin-bottom:6px;">💬 ' + (isEn ? 'Comments' : '留言与共鸣') + ' (' + cmts.length + ')</div>' +
+          listHtml +
+          '<div class="wc-cmt-form">' +
+            nickInput +
+            '<input id="wc-cmt-input" class="wc-input wc-cmt-text" placeholder="' + (isEn ? 'Say something gentle or share a book line…' : '留下一句书摘或心情…') + '" onkeydown="if(event.key===\'Enter\')wcSendCmt(\'' + esc(id) + '\')">' +
+            '<button type="button" class="wc-primary-btn" onclick="wcSendCmt(\'' + esc(id) + '\')">' + (isEn ? 'Send' : '发送') + '</button>' +
+          '</div>';
+      });
+  }
+
+  window.wcSendCmt = function(id) {
+    var inp = document.getElementById('wc-cmt-input');
+    var text = inp ? inp.value.trim() : '';
+    if (!text) return;
+    var nickname = '';
+    if (!user) {
+      var nEl = document.getElementById('wc-cmt-nick');
+      nickname = (nEl ? nEl.value.trim() : '') || (isEn ? 'Passerby' : '过路书友');
+      if (nEl && nEl.value.trim()) {
+        try { localStorage.setItem('cc_guest_nick', nEl.value.trim()); } catch (e) {}
       }
-
-      function handleStreamEnd() {
-        if (hasEnded) return;
-        hasEnded = true;
-        stopWaitingUX();
-        isZenBusy = false;
-        if (pulse) pulse.style.display = 'none';
-        if (sendBtn) sendBtn.disabled = false;
-
-        if (thoughtBox) {
-          var tStatus = thoughtBox.querySelector('.zen-ai-thought-status');
-          if (tStatus) tStatus.textContent = isEn ? 'Thinking completed' : '思考推演已收敛';
-          thoughtBox.removeAttribute('open');
-        }
-
-        if (streamError || !streamCompleted) {
-          var reason = streamError || (isEn ? 'Connection dropped' : '连接中断或未完整输出');
-          if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Output interrupted' : '⚠️ 回答未完整，可点击重新生成';
-          var partialBox = document.createElement('div');
-          partialBox.className = 'zen-ai-partial-notice';
-          partialBox.innerHTML = 
-            '<span>' + (isEn ? 'Answer interrupted: ' : '回答中途断开：') + reason + '</span>' +
-            '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
-          aiEl.appendChild(partialBox);
-          if (log) log.scrollTop = log.scrollHeight;
-          return;
-        }
-
-        if (statusMsg) statusMsg.textContent = isEn ? '✦ Completed · Feel free to ask more' : '✦ 回答完毕 · 可继续倾诉或展开依据';
-        
-        if (turnId === lastTurnId) {
-          conversationHistory.push({ role: 'assistant', content: fullReply });
-          if (conversationHistory.length > 8) conversationHistory = conversationHistory.slice(-8);
-        }
-
-        
-        var actionsBar = document.createElement('div');
-        actionsBar.className = 'zen-ai-actions-bar';
-        actionsBar.innerHTML = 
-          '<button type="button" class="zen-ai-action-btn" onclick="copyZenAnswer(this)">📋 ' + (isEn ? 'Copy' : '复制回答') + '</button>' +
-          '<button type="button" class="zen-ai-action-btn" onclick="focusZenAIInput()">💬 ' + (isEn ? 'Continue' : '继续追问') + '</button>' +
-          '<details style="display:inline;margin-left:auto;">' +
-            '<summary class="zen-ai-action-btn" style="list-style:none;cursor:pointer;">🔍 ' + (isEn ? 'Sources' : '依据与出处') + ' ▾</summary>' +
-            '<div style="margin-top:6px;font-size:12px;color:var(--zen-ink-muted);line-height:1.6;background:var(--zen-bg-subtle);padding:6px 10px;border-radius:6px;">' +
-              (isEn ? 'General background only (not a citation of specific passages): this site\'s Nine Books system (Inner Happiness, Inner Cultivation, Ladder of Civilization, Into the Fields) and practical engineering lessons.' : '仅为思想背景说明，非对具体章节的引用：本站九书主线体系（《幸福的内在》《内心的修炼》《文明的阶梯》《走向田间》）及踩坑实战复盘。') +
-            '</div>' +
-          '</details>';
-        aiEl.appendChild(actionsBar);
-
-        
-        var linksWrap = document.createElement('div');
-        linksWrap.className = 'zen-ai-links-wrap';
-        var pills = [];
-        if (/听书|幸福|内在|文明|田间|音频|audio|happiness|book/i.test(fullReply)) {
-          pills.push('<a class="zen-ai-link-pill" href="/audiobook/">🎧 ' + (isEn ? 'Audiobook Player' : '听书馆连播') + '</a>');
-        }
-        if (/内省|灵魂|问题|36问|soul|introspection/i.test(fullReply)) {
-          pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/?tab=soul" target="_blank">🔮 ' + (isEn ? 'Soul Search 36' : '灵魂36问') + '</a>');
-        }
-        if (/踩坑|避坑|技术|代码|Bug|pitfall|trap|lesson/i.test(fullReply)) {
-          pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/pitfalls/' : '/pitfalls/') + '">⚠️ ' + (isEn ? 'Pitfall Treasury' : '踩坑宝典') + '</a>');
-        }
-        if (/系统思维|认知|学习|system|cognitive/i.test(fullReply)) {
-          pills.push('<a class="zen-ai-link-pill" href="' + (isEn ? '/en/posts/systems-thinking/' : '/posts/systems-thinking/') + '">📚 ' + (isEn ? 'Systems Thinking' : '系统思维专栏') + '</a>');
-        }
-        if (/社区|打卡|书友|community|reader/i.test(fullReply)) {
-          pills.push('<a class="zen-ai-link-pill" href="https://api.worldcorner.xyz/community/?tab=book" target="_blank">💬 ' + (isEn ? 'Community' : '书友社区') + '</a>');
-        }
-        if (pills.length > 0) {
-          linksWrap.innerHTML = '<span style="font-size:12px;color:var(--zen-ink-muted);line-height:22px">' + (isEn ? 'Direct links: ' : '直达卡片：') + '</span>' + pills.join('');
-          aiEl.appendChild(linksWrap);
-        }
-        if (log) log.scrollTop = log.scrollHeight;
-      }
-
-      return readChunk();
-    }).catch(function(err) {
-      if (hasEnded) return;
-      hasEnded = true;
-      stopWaitingUX();
-      isZenBusy = false;
-      if (statusMsg) statusMsg.textContent = isEn ? '⚠️ Connection interrupted' : '⚠️ 对话遇阻，已切换重试提示';
-      if (pulse) pulse.style.display = 'none';
-      if (sendBtn) sendBtn.disabled = false;
-
-      var errMsg = err.message || (isEn ? 'Timeout' : '网络中断');
-      var errNotice = document.createElement('div');
-      errNotice.className = 'zen-ai-error-notice';
-      errNotice.innerHTML = 
-        '<span>' + (isEn ? 'Network error: ' : '网络请求失败：') + errMsg + '</span>' +
-        '<button type="button" class="zen-ai-retry-btn" data-turn-id="' + turnId + '" onclick="retryZenTurn(' + turnId + ')">' + (isEn ? 'Retry' : '重新生成') + '</button>';
-
-      if (fullReply && fullReply.trim()) {
-        textSpan.innerHTML = formatZenText(fullReply);
-      }
-      aiEl.appendChild(errNotice);
-      if (log) log.scrollTop = log.scrollHeight;
+    }
+    inp.disabled = true;
+    apiFetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify({ postId: id, text: text, nickname: nickname })
+    }).then(function() {
+      posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { comments: (p.comments || 0) + 1 }) : p; });
+      renderWall();
+      loadDetailComments(id);
+    }).catch(function() {
+      inp.disabled = false;
     });
   };
 
-  function formatZenText(str) {
-    if (!str) return '';
-    var escaped = str
-      .split('&').join('&amp;')
-      .split('<').join('&lt;')
-      .split('>').join('&gt;');
-    return escaped
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/`([^`]+)`/g, '<code style="background:var(--zen-bg-card);padding:2px 6px;border-radius:4px;border:1px solid var(--zen-border);font-size:0.9em">$1</code>')
-      .replace(/\n\n/g, '<br><br>')
-      .replace(/\n/g, '<br>');
-  }
-
-  var inputEl = document.getElementById('zen-ai-input');
-  if (inputEl) {
-    inputEl.addEventListener('keydown', function(e) {
-      if (e.isComposing || e.keyCode === 229) return;
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        if (!isZenBusy) {
-          triggerZenAI(false);
-        }
+  window.wcTranslatePost = function(id) {
+    var p = posts.find(function(x) { return x.id === id; });
+    if (!p) return;
+    if (p.tr_note) {
+      p.tr_note = null;
+      renderDetailBody(id);
+      loadDetailComments(id);
+      return;
+    }
+    var text = (p.quote ? p.quote + '\n' : '') + (p.note || '');
+    if (!text.trim()) return;
+    p.tr_note = isEn ? 'Translating…' : '正在翻译…';
+    renderDetailBody(id);
+    loadDetailComments(id);
+    fetch(API_BASE + '/api/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text, target: isEn ? 'en' : 'zh' })
+    }).then(function(r) { return r.json(); }).then(function(j) {
+      p.tr_note = j.translated || j.error || '';
+      if (activeDetailId === id) {
+        renderDetailBody(id);
+        loadDetailComments(id);
       }
     });
+  };
+
+  window.wcTranslateCmt = function(cid) {
+    var el = document.querySelector('.wc-cmt-body[data-cid="' + cid + '"]');
+    if (!el) return;
+    if (el.dataset.orig) {
+      el.textContent = el.dataset.orig;
+      delete el.dataset.orig;
+      return;
+    }
+    var orig = el.textContent;
+    el.dataset.orig = orig;
+    el.textContent = isEn ? 'Translating…' : '翻译中…';
+    fetch(API_BASE + '/api/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: orig, target: isEn ? 'en' : 'zh' })
+    }).then(function(r) { return r.json(); }).then(function(j) {
+      el.textContent = j.translated || orig;
+    }).catch(function() {
+      el.textContent = orig;
+    });
+  };
+
+  window.wcOpenLightbox = function(url) {
+    document.getElementById('wc-lightbox-img').src = url;
+    document.getElementById('wc-lightbox').classList.add('open');
+  };
+
+  window.wcCloseLightbox = function() {
+    document.getElementById('wc-lightbox').classList.remove('open');
+  };
+
+   
+  window.wcOpenPublish = function() {
+    if (!user) {
+      pendingPublish = true;
+      wcOpenAuth('reg', isEn
+        ? 'Sign up free in 10 seconds (no invite code) to share your photos!'
+        : '10 秒免费注册即可晒图分享（无需邀请码），注册完会自动回到这里。');
+      return;
+    }
+    wcSetPubType(pubType);
+    document.getElementById('wc-pub-msg').textContent = '';
+    document.getElementById('wc-pub-modal').classList.add('open');
+  };
+
+  window.wcClosePublish = function() {
+    document.getElementById('wc-pub-modal').classList.remove('open');
+  };
+
+  window.wcSetPubType = function(pt) {
+    pubType = pt === 'book' ? 'book' : 'scenery';
+    document.querySelectorAll('#wc-pub-types .wc-type-opt').forEach(function(el) {
+      el.classList.toggle('on', el.getAttribute('data-pt') === pubType);
+    });
+    var lbl = document.getElementById('wc-pub-topic-label');
+    var inp = document.getElementById('wc-pub-topic');
+    if (pubType === 'book') {
+      lbl.textContent = isEn ? 'Book Title' : '正在读的书名';
+      inp.placeholder = isEn ? 'e.g. Walden, The Little Prince' : '如：瓦尔登湖、小王子、沉思录';
+    } else {
+      lbl.textContent = isEn ? 'Place / Scenery Name' : '地点 / 风景名字';
+      inp.placeholder = isEn ? 'e.g. Erhai Lake, Corner Bookstore, Park Bench' : '如：洱海边、街角书店、楼下银杏道';
+    }
+  };
+
+  function drawPreviews() {
+    var box = document.getElementById('wc-pub-previews');
+    box.innerHTML = pubImgs.map(function(u, idx) {
+      return '<div class="wc-prev-item"><img src="' + esc(resolveImg(u)) + '" alt=""><button type="button" class="wc-prev-del" onclick="wcRemoveImg(' + idx + ')">×</button></div>';
+    }).join('');
   }
+
+  window.wcRemoveImg = function(idx) {
+    pubImgs.splice(idx, 1);
+    drawPreviews();
+  };
+
+  window.wcHandleFiles = function(input) {
+    var files = Array.from(input.files || []).slice(0, 3 - pubImgs.length);
+    if (!files.length) return;
+    var msg = document.getElementById('wc-pub-msg');
+    var tok = '';
+    try { tok = localStorage.getItem('cc_token') || ''; } catch (e) {}
+
+    files.forEach(function(file) {
+      if (file.size > 8 * 1024 * 1024) {
+        msg.textContent = isEn ? 'Each image must be ≤ 8MB.' : '单张图片不能超过 8MB';
+        return;
+      }
+      uploadingCount++;
+      msg.textContent = isEn ? 'Uploading photo…' : '正在上传照片…';
+      fetch(API_BASE + '/api/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': file.type || 'image/jpeg',
+          'Authorization': 'Bearer ' + tok
+        },
+        body: file
+      }).then(function(r) { return r.json(); }).then(function(j) {
+        uploadingCount--;
+        if (j.ok && j.url) {
+          pubImgs.push(j.url);
+          drawPreviews();
+          if (uploadingCount === 0) msg.textContent = '';
+        } else {
+          msg.textContent = j.error || (isEn ? 'Upload failed' : '上传失败');
+        }
+      }).catch(function() {
+        uploadingCount--;
+        msg.textContent = isEn ? 'Upload failed' : '上传失败';
+      });
+    });
+    input.value = '';
+  };
+
+  window.wcSubmitPost = function() {
+    var msg = document.getElementById('wc-pub-msg');
+    if (uploadingCount > 0) {
+      msg.textContent = isEn ? 'Still uploading photos, please wait…' : '照片还在上传中，请稍等几秒…';
+      return;
+    }
+    var topic = document.getElementById('wc-pub-topic').value.trim();
+    var feeling = document.getElementById('wc-pub-feeling').value.trim();
+    var spot = document.getElementById('wc-pub-spot').value.trim();
+    var quote = document.getElementById('wc-pub-quote').value.trim();
+
+    if (!topic) {
+      msg.textContent = pubType === 'book'
+        ? (isEn ? 'Please enter a book title.' : '请先写上书名')
+        : (isEn ? 'Please enter a place name.' : '请先写上地点或风景名字');
+      return;
+    }
+    if (!pubImgs.length && !feeling && !quote) {
+      msg.textContent = isEn ? 'Please upload a photo or write one line.' : '请至少传一张照片，或写下一句话感受';
+      return;
+    }
+
+    var btn = document.getElementById('wc-pub-submit');
+    btn.disabled = true;
+    msg.textContent = isEn ? 'Publishing…' : '正在发布…';
+
+    var payload = {
+      type: pubType,
+      bookTitle: pubType === 'book' ? topic : '',
+      spotName: pubType === 'scenery' ? topic : spot,
+      quote: quote,
+      note: feeling,
+      images: pubImgs.slice(),
+      createTime: Date.now()
+    };
+
+    apiFetch('/api/posts', { method: 'POST', body: JSON.stringify(payload) }).then(function(j) {
+      btn.disabled = false;
+      if (j.error) { msg.textContent = j.error; return; }
+      pubImgs = [];
+      drawPreviews();
+      document.getElementById('wc-pub-topic').value = '';
+      document.getElementById('wc-pub-feeling').value = '';
+      document.getElementById('wc-pub-spot').value = '';
+      document.getElementById('wc-pub-quote').value = '';
+      wcClosePublish();
+      loadPosts();
+    }).catch(function() {
+      btn.disabled = false;
+      msg.textContent = isEn ? 'Publish failed, please retry.' : '发布失败，请稍后重试';
+    });
+  };
+
+  refreshUser();
+  loadPosts();
 })();
 </script>
     </main>

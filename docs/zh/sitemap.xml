@@ -443,6 +443,11 @@
     <loc>https://worldcorner.xyz/skills/</loc>
   </url>
   <url>
+    <loc>https://worldcorner.xyz/inner/</loc>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://worldcorner.xyz/en/inner/"/>
+    <xhtml:link rel="alternate" hreflang="zh-cn" href="https://worldcorner.xyz/inner/"/>
+  </url>
+  <url>
     <loc>https://worldcorner.xyz/app/</loc>
   </url>
   <url>
