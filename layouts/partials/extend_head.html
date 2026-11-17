@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
 {{- /* 社交分享卡:微信/微博/TG 等抓取使用的统一品牌封面 */ -}}
-<meta property="og:image" content="{{ site.BaseURL }}images/og-cover.jpg" />
+<meta property="og:image" content="{{ site.BaseURL }}images/{{ if .IsHome }}og-plaza.jpg{{ else }}og-cover.jpg{{ end }}" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 {{- /* twitter:card 已由 templates/twitter_cards.html(项目覆盖)统一输出,避免两条冲突 —— 见 layouts/partials/templates/twitter_cards.html */ -}}
@@ -208,3 +208,4 @@
 })();
 </script>
 {{- end }}
+

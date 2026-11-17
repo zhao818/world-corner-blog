@@ -3,6 +3,7 @@
    保证 twitter:card 只有一条且为 summary_large_image,与 extend_head.html 的 og:image 配套。
    同时消除 extend_head 手动卡片与主题卡片并存导致的重复。 */ -}}
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="{{ "images/og-cover.jpg" | absURL }}" />
+<meta name="twitter:image" content="{{ if .IsHome }}{{ "images/og-plaza.jpg" | absURL }}{{ else }}{{ "images/og-cover.jpg" | absURL }}{{ end }}" />
 <meta name="twitter:title" content="{{ .Title }}"/>
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
+
