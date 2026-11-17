@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>World Corner</title>
 
-<meta name="description" content="Guarding a flicker of clarity in the flood of algorithms.">
+<meta name="description" content="One scenic corner, one good book, a place for passers-by to rest. Share the light and pages in front of you — no invite code, with a quiet sanctuary deeper in.">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/en/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.e6845fdde9b013140da5c590aec634ef3f63fc867a9d99d9e840f2628c9b9b3b.css" integrity="sha256-5oRf3emwExQNpcWQrsY07z9j/IZ6nZnZ6EDyYoybmzs=" rel="preload stylesheet" as="style">
@@ -31,7 +31,7 @@
 
     </style>
 </noscript><meta name="baidu-site-verification" content="codeva-NYTSXhST0l" /><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"><meta property="og:image" content="https://worldcorner.xyz/images/og-plaza.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" /><script type="application/ld+json">
 {
@@ -54,15 +54,17 @@
   }
 }
 </script>
+
 <meta property="og:title" content="World Corner" />
-<meta property="og:description" content="Guarding a flicker of clarity in the flood of algorithms." />
+<meta property="og:description" content="One scenic corner, one good book, a place for passers-by to rest. Share the light and pages in front of you — no invite code, with a quiet sanctuary deeper in." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://worldcorner.xyz/en/" /><meta property="og:site_name" content="世界一隅" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://worldcorner.xyz/images/og-cover.jpg" />
+<meta name="twitter:image" content="https://worldcorner.xyz/images/og-plaza.jpg" />
 <meta name="twitter:title" content="World Corner"/>
-<meta name="twitter:description" content="Guarding a flicker of clarity in the flood of algorithms."/>
+<meta name="twitter:description" content="One scenic corner, one good book, a place for passers-by to rest. Share the light and pages in front of you — no invite code, with a quiet sanctuary deeper in."/>
+
 
 <script type="application/ld+json">
 {
@@ -497,8 +499,21 @@ document.addEventListener('click', function (e) {
       var ha = (a.images && a.images.length) ? 1 : 0;
       var hb = (b.images && b.images.length) ? 1 : 0;
       if (ha !== hb) return hb - ha;
+      var la = a.likes || 0, lb = b.likes || 0;
+      if (la !== lb) return lb - la;
       return (b.create_time || 0) - (a.create_time || 0);
     });
+
+    if (filterType === 'all' && !topicFilter) {
+      var sc = list.filter(function(p) { return p.type !== 'book'; });
+      var bk = list.filter(function(p) { return p.type === 'book'; });
+      var mixed = [];
+      for (var mi = 0; mi < Math.max(sc.length, bk.length); mi++) {
+        if (sc[mi]) mixed.push(sc[mi]);
+        if (bk[mi]) mixed.push(bk[mi]);
+      }
+      list = mixed;
+    }
 
     if (!list.length) {
       wall.innerHTML = '';
@@ -543,18 +558,44 @@ document.addEventListener('click', function (e) {
     }).join('');
   }
 
+  var FALLBACK_POSTS = [
+    { id: 'fb-1', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Erhai Eco-corridor' : '洱海生态廊道', quote: isEn ? 'Look at distant clouds and water, and let your mind come home from the screen.' : '看一眼远处的云和水面，把心从屏幕里收回来。', images: ['/images/plaza/erhai_lake.jpg'], likes: 0, comments: 0, create_time: 5, offline: true },
+    { id: 'fb-2', type: 'book', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Old library long table' : '老图书馆长桌', quote: isEn ? 'One lamp, one long table, quiet strangers around you.' : '一盏台灯、一张长桌，和周围互不打扰的陌生人。', images: ['/images/plaza/library_room.jpg'], likes: 0, comments: 0, create_time: 4, offline: true },
+    { id: 'fb-3', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Yuanyang terraces at dawn' : '元阳晨雾梯田', quote: isEn ? 'The earth never rushes; season by season it fills the fields with sky.' : '大地不争抢时间，一季一季把水田盛满天光。', images: ['/images/plaza/yunnan_terraces.jpg'], likes: 0, comments: 0, create_time: 3, offline: true },
+    { id: 'fb-4', type: 'book', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Coffee and a book' : '一杯咖啡一本书', quote: isEn ? 'Read a few pages, and the day slows down.' : '翻几页书，一天就慢下来了。', images: ['/images/plaza/reading_coffee.jpg'], likes: 0, comments: 0, create_time: 2, offline: true },
+    { id: 'fb-5', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Sunset on the rocks' : '海边日落礁石', quote: isEn ? 'The waves repeat the same rhythm, and somehow that calms you.' : '海浪一直重复相同的节奏，反而让人更容易静下来。', images: ['/images/plaza/ocean_sunset.jpg'], likes: 0, comments: 0, create_time: 1, offline: true }
+  ];
+
+  function showOfflineWall() {
+    posts = FALLBACK_POSTS.slice();
+    renderWall();
+    var status = document.getElementById('wc-wall-status');
+    status.className = 'wc-empty';
+    status.style.display = 'block';
+    status.innerHTML = (isEn ? 'Live feed is unavailable — showing editor picks. ' : '实时内容暂时没加载出来，先看看编辑精选。') +
+      ' <button type="button" class="wc-mini-btn" onclick="wcRetryPosts()">' + (isEn ? 'Retry' : '重试') + '</button>';
+  }
+
+  window.wcRetryPosts = function() {
+    var status = document.getElementById('wc-wall-status');
+    status.className = 'wc-empty';
+    status.style.display = 'block';
+    status.textContent = isEn ? 'Loading…' : '加载中…';
+    loadPosts();
+  };
+
   function loadPosts() {
     fetch(API_BASE + '/api/posts')
-      .then(function(r) { return r.json(); })
+      .then(function(r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json();
+      })
       .then(function(j) {
         posts = j.posts || [];
+        if (!posts.length) { showOfflineWall(); return; }
         renderWall();
       })
-      .catch(function() {
-        var status = document.getElementById('wc-wall-status');
-        status.className = 'wc-empty';
-        status.textContent = isEn ? 'Failed to load plaza feed. Please refresh.' : '照片墙加载遇到波动，请稍后刷新重试';
-      });
+      .catch(function() { showOfflineWall(); });
   }
 
   window.wcSetFilter = function(f) {
@@ -589,11 +630,19 @@ document.addEventListener('click', function (e) {
     posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { likes: (p.likes || 0) + 1 }) : p; });
     renderWall();
     if (activeDetailId === id) renderDetailBody(id);
+    if (/^fb-/.test(id)) { return; }
+    function rollback() {
+      likedSet.delete(id);
+      try { localStorage.setItem('cc_liked', JSON.stringify(Array.from(likedSet))); } catch (e) {}
+      posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { likes: Math.max(0, (p.likes || 0) - 1) }) : p; });
+      renderWall();
+      if (activeDetailId === id) renderDetailBody(id);
+    }
     fetch(API_BASE + '/api/like', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ postId: id })
-    }).catch(function() {});
+    }).then(function(r) { if (!r.ok) rollback(); }).catch(rollback);
   };
 
   window.wcOpenDetail = function(id) {
@@ -607,6 +656,15 @@ document.addEventListener('click', function (e) {
     activeDetailId = null;
     document.getElementById('wc-detail-modal').classList.remove('open');
   };
+
+  function creditFor(p) {
+    var img = (p.images && p.images[0]) || '';
+    var base = isEn ? 'Editor pick. Image from public-licence sources; copyright stays with the original author. ' : '编辑精选。图片来自公共授权素材，版权归原作者所有。';
+    if (/yunnan_terraces/.test(img)) {
+      return isEn ? 'Editor pick. Photo: chensiyuan, Wikimedia Commons, CC BY-SA.' : '编辑精选。摄影：chensiyuan，来源 Wikimedia Commons，CC BY-SA 授权。';
+    }
+    return base + (isEn ? 'Contact us to credit or remove.' : '如需署名或撤下请联系我们。');
+  }
 
   function renderDetailBody(id) {
     var p = posts.find(function(x) { return x.id === id; });
@@ -633,6 +691,7 @@ document.addEventListener('click', function (e) {
       (p.quote ? '<div class="wc-detail-quote">“' + esc(p.quote) + '”</div>' : '') +
       (p.note ? '<div class="wc-detail-note">' + esc(p.note) + '</div>' : '') +
       (p.tr_note ? '<div class="wc-detail-tr">' + esc(p.tr_note) + '</div>' : '') +
+      (p.owner_id === 'official-curated' ? '<div style="margin:10px 0;font-size:12px;color:var(--zen-ink-muted)">' + creditFor(p) + '</div>' : '') +
       '<div class="wc-detail-bar">' +
         '<button type="button" class="wc-mini-btn ' + (liked ? 'liked' : '') + '" onclick="wcLike(\'' + esc(p.id) + '\')">♥ ' + (isEn ? 'Like' : '赞') + ' (' + (p.likes || 0) + ')</button>' +
         '<button type="button" class="wc-mini-btn" onclick="wcTranslatePost(\'' + esc(p.id) + '\')">' + (p.tr_note ? (isEn ? '↺ Hide Translation' : '↺ 收起译文') : (isEn ? '🌐 Translate' : '🌐 翻译')) + '</button>' +
@@ -683,17 +742,25 @@ document.addEventListener('click', function (e) {
         try { localStorage.setItem('cc_guest_nick', nEl.value.trim()); } catch (e) {}
       }
     }
+    if (/^fb-/.test(id)) { return; }
     inp.disabled = true;
+    function failCmt() {
+      var el = document.getElementById('wc-cmt-input');
+      if (el) {
+        el.disabled = false;
+        el.value = text;
+        el.placeholder = isEn ? 'Failed to send — your text is kept, please retry' : '发送失败，内容已保留，请再点一次发送';
+      }
+    }
     apiFetch('/api/comments', {
       method: 'POST',
       body: JSON.stringify({ postId: id, text: text, nickname: nickname })
-    }).then(function() {
+    }).then(function(j) {
+      if (!j || !j.ok) { failCmt(); return; }
       posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { comments: (p.comments || 0) + 1 }) : p; });
       renderWall();
       loadDetailComments(id);
-    }).catch(function() {
-      inp.disabled = false;
-    });
+    }).catch(failCmt);
   };
 
   window.wcTranslatePost = function(id) {

@@ -251,6 +251,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
   else init();
 })();
 </script>
+
 <meta property="og:title" content="Python encoding=&#39;utf-8&#39; 不能自动处理 BOM" />
 <meta property="og:description" content="症状
 
@@ -318,6 +319,7 @@ with open(&#34;config.txt&#34;, encoding=&#34;utf-8-sig&#34;) as f:
 调试编码问题第一招：print(repr(line)) 看原始字符
 如果不想改 encoding，可以手动 line.lstrip(&#39;﻿&#39;)
 "/>
+
 
 
 <script type="application/ld+json">

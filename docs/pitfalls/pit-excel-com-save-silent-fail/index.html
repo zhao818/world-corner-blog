@@ -265,6 +265,7 @@ excel.Quit()
   else init();
 })();
 </script>
+
 <meta property="og:title" content="Excel COM wb.Save() 静默失败，必须用 SaveAs" />
 <meta property="og:description" content="症状
 
@@ -360,6 +361,7 @@ wb.SaveAs(output, FileFormat=51)   # 51 = xlOpenXMLWorkbook (.xlsx)
 wb.Close(SaveChanges=False)        # 已经 SaveAs 过了，不重复保存
 excel.Quit()
 关键参数："/>
+
 
 
 <script type="application/ld+json">

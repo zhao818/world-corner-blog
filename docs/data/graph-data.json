@@ -3176,6 +3176,12 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "type": "link",
+      "weight": 2.0
+    },
+    {
+      "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
@@ -3183,12 +3189,6 @@
     {
       "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "target": "/posts/era-observation/2026-09-02-trust-ethics/",
-      "type": "link",
-      "weight": 2.0
-    },
-    {
-      "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -3224,6 +3224,12 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "type": "link",
+      "weight": 2.0
+    },
+    {
+      "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "type": "link",
       "weight": 2.0
@@ -3231,12 +3237,6 @@
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-02-trust-origin/",
-      "type": "link",
-      "weight": 2.0
-    },
-    {
-      "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -4582,7 +4582,7 @@
         "sourceTitle": "Ethics Is Not Moral Preaching; It Is Trust's Water Supply: Trust · On Ethics",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…le inside the vacuum period act?\n 👉 Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →…",
+        "excerpt": "…👉 [Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →](/posts/era-observation/2026-09-03-trust-ethics-addendum/…",
         "type": "link"
       },
       {
