@@ -3128,13 +3128,13 @@
     },
     {
       "source": "/posts/era-observation/2026-09-07-pseudo-demand/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
+      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "type": "link",
       "weight": 2.0
     },
     {
       "source": "/posts/era-observation/2026-09-07-pseudo-demand/",
-      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
@@ -3176,13 +3176,13 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
     {
       "source": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -3224,12 +3224,6 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
-      "type": "link",
-      "weight": 2.0
-    },
-    {
-      "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
@@ -3237,6 +3231,12 @@
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "type": "link",
+      "weight": 2.0
+    },
+    {
+      "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -3404,13 +3404,13 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-07-pseudo-demand/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
+      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "type": "link",
       "weight": 2.0
     },
     {
       "source": "/en/posts/era-observation/2026-09-07-pseudo-demand/",
-      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
@@ -4590,7 +4590,7 @@
         "sourceTitle": "伦理不是道德说教,是信任的水源:信任·伦理篇",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…人为什么会为“善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
+        "excerpt": "…善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
         "type": "link"
       },
       {

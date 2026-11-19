@@ -10,7 +10,7 @@
 <meta name="description" content="One scenic corner, one good book, a place for passers-by to rest. Share the light and pages in front of you — no invite code, with a quiet sanctuary deeper in.">
 <meta name="author" content="Tianbing Zhao">
 <link rel="canonical" href="https://worldcorner.xyz/en/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c025fa75b28bbaf70e7ca8ab92ec7ffa49d0488f52342472c99df61f019a0a8e.css" integrity="sha256-wCX6dbKLuvcOfKirkux/&#43;knQSI9SNCRyyZ32HwGaCo4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.955656c4f5a47c0a7fb697f7524d59517c77c959d3ca4f44b9ef7ec583ec81f8.css" integrity="sha256-lVZWxPWkfAp/tpf3Uk1ZUXx3yVnTyk9Eue9&#43;xYPsgfg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://worldcorner.xyz/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://worldcorner.xyz/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://worldcorner.xyz/favicon-32x32.png">
@@ -168,11 +168,11 @@ document.addEventListener('click', function (e) {
         <span>World Corner · Scenery &amp; Reading Plaza</span>
       </div>
       <h1 class="wc-hero-title">
-        A view, a book, a quiet corner for passersby
+        Take ten quiet minutes: a real view, a book passage, a breath
       </h1>
       <p class="wc-hero-sub">
         
-        Real landscapes and reading corners shared from everywhere — browse, leave a line, or snap what is in front of you.
+        Done scrolling after work? Browse real landscapes, sourced book excerpts, and 3-minute audio reflections — or share the view in front of you.
         
       </p>
     </div>
@@ -181,7 +181,7 @@ document.addEventListener('click', function (e) {
       <div id="wc-user-area"></div>
       <a href="/en/inner/" class="wc-inner-link">
         <span>🕯️</span>
-        <span>Inner Sanctuary · 9 Audiobooks &amp; Essays →</span>
+        <span>Inner Sanctuary<span class="wc-hide-sm"> · 9 Audiobooks &amp; Essays</span> →</span>
       </a>
     </div>
   </section><div class="wc-toolbar">
@@ -210,6 +210,10 @@ document.addEventListener('click', function (e) {
         </button>
       </div>
 
+      <button type="button" class="wc-sort-cycle" id="wc-sort-cycle" onclick="wcCycleSort()" aria-label="Switch sort order">
+        <span id="wc-sort-cycle-label">✨ Discover ▾</span>
+      </button>
+
       <button type="button" class="wc-shuffle-btn" id="wc-shuffle-btn" onclick="wcShuffleWall()" title="Shuffle next fresh batch">
         <span class="wc-shuffle-icon">↻</span>
         <span>Shuffle</span>
@@ -220,7 +224,7 @@ document.addEventListener('click', function (e) {
         <span>Share a Photo</span>
       </button>
     </div>
-  </div><div class="wc-mood-hint" id="wc-mood-hint" style="display:none"></div><div class="wc-topic-bar" id="wc-topic-bar" style="display:none">
+  </div><div class="wc-mood-hint" id="wc-mood-hint" style="display:none"></div><div class="wc-return-bar" id="wc-return-bar" style="display:none"></div><div class="wc-topic-bar" id="wc-topic-bar" style="display:none">
     <span id="wc-topic-text"></span>
     <button type="button" class="wc-topic-clear" onclick="wcClearTopic()">
       ✕ Clear
@@ -243,13 +247,13 @@ document.addEventListener('click', function (e) {
 </div><div class="wc-modal-mask" id="wc-detail-modal" onclick="if(event.target===this)wcCloseDetail()">
   <div class="wc-modal-box wide" id="wc-detail-box">
     <div class="wc-modal-head">
-      <div id="wc-d-author" style="display:flex;align-items:center;gap:9px;min-width:0;"></div>
-      <div class="wc-detail-head-right">
-        <button type="button" class="wc-nav-btn" id="wc-d-prev" onclick="wcStepDetail(-1)" aria-label="Previous">‹ Prev</button>
-        <span class="wc-nav-counter" id="wc-d-counter"></span>
-        <button type="button" class="wc-nav-btn" id="wc-d-next" onclick="wcStepDetail(1)" aria-label="Next">Next ›</button>
-        <button type="button" class="wc-close-x" onclick="wcCloseDetail()" aria-label="Close">✕</button>
-      </div>
+      <div id="wc-d-author" style="display:flex;align-items:center;gap:9px;min-width:0;flex:1;"></div>
+      <button type="button" class="wc-close-x" onclick="wcCloseDetail()" aria-label="Close">✕</button>
+    </div>
+    <div class="wc-detail-nav-bar" id="wc-detail-nav-bar">
+      <button type="button" class="wc-nav-btn" id="wc-d-prev" onclick="wcStepDetail(-1)" aria-label="Previous">‹ Prev</button>
+      <span class="wc-nav-counter" id="wc-d-counter"></span>
+      <button type="button" class="wc-nav-btn" id="wc-d-next" onclick="wcStepDetail(1)" aria-label="Next">Next ›</button>
     </div>
     <div id="wc-d-body"></div>
   </div>
@@ -374,70 +378,214 @@ document.addEventListener('click', function (e) {
     handwritten_notebook: { a: 'Aaron Burden', l: 'CC0' }
   };
 
+  var CURATED_EN = {
+    'official-scenery-1': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Erhai Eco-corridor',
+      quote: 'Look at distant clouds and water, and let your mind come home from the screen.',
+      note: 'Morning wind along Erhai stays light, joining sky and tree shadows on the water. Which window or tree are you reading beside today? Feel free to leave a sentence you are reading.'
+    },
+    'official-scenery-2': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Yuanyang Terraces at Dawn',
+      quote: 'The earth never rushes; season by season it fills the terraced fields with sky.',
+      note: 'As morning mist drifts across the slope, layers of water terraces open like wide pages. Pause your eyes here for a minute between tasks.'
+    },
+    'official-scenery-3': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Old Library Long Table',
+      book_title: 'Meditations',
+      quote: '“Nowhere can man find a quieter or more untroubled retreat than in his own soul.” — Marcus Aurelius, Meditations IV',
+      note: 'Sitting half an hour in a public reading room surrounded by strangers somehow felt quieter than scrolling at home alone. Stillness rarely comes from locking the world out — it comes from pulling your mind back from noise.'
+    },
+    'official-scenery-4': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Sunset on the Rocks',
+      quote: 'Waves repeat the same calm cadence, making it easier to quiet down.',
+      note: 'Late amber light across coastal rocks is made for closing the laptop and breathing slowly. Which book would you carry down to the shore?'
+    },
+    'official-scenery-5': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Misty Pine Valley',
+      quote: 'Before mountain mist spills over the ridge, it shields the valley from daily clamor.',
+      note: 'First sunlight catches half a sea of pine and cloud. Lifting your gaze toward distant ridges works much like opening a good book — it widens the scale.'
+    },
+    'official-curated-6': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Morning Bamboo Grove',
+      quote: 'Wind through bamboo asks nowhere to go; when early light touches the leaves, the heart clears a little.',
+      note: 'Step into quiet green early in the morning without rushing to check a single message thread.'
+    },
+    'official-curated-7': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Misty Lake Pier',
+      quote: 'Still water mirrors the opening sky; at the end of the wooden dock lies unbroken calm.',
+      note: 'Almost no visitors stand by the lake at seven in the morning — only wooden planks underfoot and soft water lapping.'
+    },
+    'official-curated-8': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Corner Window Cafe',
+      book_title: 'Walden',
+      quote: '“Morning brings back the heroic ages... Morning is when I am awake and there is a dawn in me.” — Henry David Thoreau, Walden',
+      note: 'What drains me most in busy project weeks is waking straight into notifications and task lists. Leaving twenty screen-free minutes by a window with paper pages returns the steering wheel to my own hands.'
+    },
+    'official-curated-9': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Sunlit Wooden Desk',
+      book_title: 'Inner Cultivation',
+      quote: '“Outward striving has no finish line; inward settlement requires only pausing for one step today.” — Inner Cultivation, Prologue',
+      note: 'I wrote this prologue after a stretch of non-stop work that somehow left me emptier each night. Friction often comes not from lack of skill, but from keeping the throttle pressed without letting the engine cool.'
+    },
+    'official-curated-10': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Alpine Meadow & Drifting Clouds',
+      quote: 'Mountain wind sweeps across the green ridge; stand and watch clouds for three minutes and trivial worries shrink.',
+      note: 'Pulling your eyes away from small glass screens toward peaks ten kilometers out quietly restores focus.'
+    },
+    'official-curated-11': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Coastal Cliff Trail',
+      quote: 'Coastline stone stays steady under centuries of salt wind; a person does not have to stay braced every hour.',
+      note: 'Walk a stretch of blue coastal trail and watch the swell untangle stagnant thoughts.'
+    },
+    'official-curated-12': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Corner Independent Bookshop',
+      book_title: 'Sapiens',
+      quote: 'Large-scale human cooperation rests on shared stories and mutual trust — order, law, and markets all stand on shared credibility. — Yuval Noah Harari, Sapiens (Reading Note)',
+      note: 'Re-reading this chapter in a quiet corner bookshop made engineering and life experience click: technical bugs can be traced line by line, whereas broken human trust costs ten times more to rebuild.'
+    },
+    'official-curated-13': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Central Park Shaded Slope',
+      book_title: 'Into the Fields',
+      quote: '“Pivot away from hollow competition, and feed your time and warmth into real soil.” — Into the Fields, Prologue',
+      note: 'Reading outdoors under tree shade reminds you how quickly noisy feed arguments evaporate five minutes after locking your phone — while real trees, honest work, and people beside you keep growing.'
+    },
+    'official-curated-14': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Golden Wheat Field at Dusk',
+      quote: 'When sunset grazes the tips of wheat, the whole day’s fatigue finds a gentle landing spot.',
+      note: 'Evening light never hurries anyone; stand at the field edge and watch golden stalks sway in the breeze.'
+    },
+    'official-curated-15': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Dusk Harbor & Lighthouse',
+      quote: 'Fishing boats settle back into the harbor under dusk wind — the shoreline itself tells you work can wait.',
+      note: 'Walking along the pier as sky dims from amber to slate blue leaves an unexpected sense of steadiness.'
+    },
+    'official-curated-16': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Window Wooden Desk',
+      book_title: 'The Little Prince',
+      quote: '“It is the time you have spent for your rose that makes your rose so important.” — Antoine de Saint-Exupéry, The Little Prince',
+      note: 'At twenty this sounded merely romantic; past thirty it reads like a law of compounded attention. Giving half an evening hour to a real book, walk, or craft outweighs hours of forgettable short clips.'
+    },
+    'official-curated-17': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Rainy Window Cafe at Dusk',
+      book_title: 'The Inner Architecture of Happiness',
+      quote: '“True happiness is not a stack of external trophies, but self-consistent order inside.” — The Inner Architecture of Happiness, Ch. 1',
+      note: 'Delayed by a sudden evening downpour after work, I gained forty quiet minutes indoors. Happiness stays fragile when postponed until every goal is finished; internal alignment settles today first.'
+    },
+    'official-curated-18': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Milky Way Above Pine Ridges',
+      quote: 'Look up at starlight traveling tens of thousands of light-years, and the worry keeping you awake shrinks to scale.',
+      note: 'Late at night we sometimes need a larger horizon to step outside one cramped thought.'
+    },
+    'official-curated-19': {
+      nickname: 'World Corner · Public Scenery',
+      spot_name: 'Old Lantern Alley at Night',
+      quote: 'Warm porch lanterns staying lit late whisper to night walkers: you are not walking alone.',
+      note: 'Stepping off work into an old alley lit by warm amber paper lanterns melts chill away.'
+    },
+    'official-curated-20': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Night Desk Lamp Corner',
+      book_title: 'Origins of Trust',
+      quote: '“Trust is not an abstract moral slogan; it is our existential reliance on the predictability of others’ actions.” — Origins of Trust',
+      note: 'Turning off ceiling glare before sleep for one warm desk lamp helps audit the day cleanly. Most exhaustion in teams or daily life comes from broken expectations — keeping your word removes half the friction.'
+    },
+    'official-curated-21': {
+      nickname: 'World Corner · Reading Nook',
+      spot_name: 'Handwritten Night Journal',
+      book_title: 'The Analects',
+      quote: '“Each day I examine myself on three counts: Have I been faithful in acting for others, trustworthy with friends, and practicing what I learned?” — Confucius, Analects I.4',
+      note: 'Writing three lines by hand with ink slows thought down compared to fast typing. Treat nightly reflection as a clear engineering balance sheet rather than self-blame — verify premises, settle promises, and sleep lightly.'
+    }
+  };
+
+  var BOOK_LINKS = {
+    '内心的修炼': { read: '/read/neixin/', audio: '/audiobook/#book-neixin' },
+    '幸福的内在': { read: '/read/happiness/', audio: '/audiobook/#book-xingfu' },
+    '走向田间': { read: '/read/xiangjian/', audio: '/audiobook/#book-xiangjian' },
+    '信任本源论': { read: '/posts/era-observation/2026-09-02-trust-origin/', audio: '/audiobook/#book-benyuan' }
+  };
+
   var SANCTUARY_DECK = [
     {
       kind: 'audio',
       eyebrow: isEn ? '🎧 Sanctuary Audio · 03:19' : '🎧 静室试听 · 03:19',
-      title: isEn ? 'Why do you still feel empty after a busy day?' : '《内心的修炼·序言》：忙碌一天为什么依然空虚？',
+      title: isEn ? 'Inner Cultivation · Prologue: Why do we feel empty after busy days?' : '《内心的修炼·序言》：忙碌一天为什么依然空虚？',
       quote: isEn ? '“Outward striving has no finish line; inward settlement requires only pausing for one step today.”' : '“向外追逐没有止境，向内安顿只需在今天停下一步。”',
       src: '/audio/neixin/01.mp3',
-      link: '/audiobook/',
-      linkText: isEn ? '9 Audiobooks →' : '听书馆全集 →'
+      link: '/audiobook/#book-neixin',
+      linkText: isEn ? 'Full Book & Audio →' : '听全集 / 读原文 →'
     },
     {
       kind: 'soul',
-      eyebrow: isEn ? '🔮 Soul 36 Inquiries' : '🔮 灵魂 36 问 · 抽一问',
-      title: isEn ? 'Stripped of all external titles, what remains genuinely yours?' : '如果剥离所有社会角色与外在评价，你还剩下什么？',
-      quote: isEn ? 'A quiet self-inquiry helps untangle anxiety when scrolling can no longer soothe you.' : '刷完风景若心头仍有微澜，可以来灵魂之觅抽一道内省题慢慢想。',
-      href: 'https://api.worldcorner.xyz/community/?tab=soul',
-      btnText: isEn ? 'Explore Soul 36 →' : '去灵魂之觅答一题 →'
+      eyebrow: isEn ? '🔮 Soul Inquiry #806' : '🔮 灵魂之觅 · 第 806 问',
+      title: isEn ? 'Why do good habits fail — weak willpower or payment-term mismatch?' : '有没有哪件「明明知道极好却总是无法坚持」的事？',
+      quote: isEn ? 'If failure is not weak willpower but payment-term mismatch, how can you shorten the payout into instant daily feedback?' : '如果坚持不住不是意志力问题而是账期错配，你能如何把远期收益改成当天到账的小反馈？',
+      href: isEn ? 'https://api.worldcorner.xyz/community/?tab=soul&q=806&lang=en' : 'https://api.worldcorner.xyz/community/?tab=soul&q=806',
+      btnText: isEn ? 'Answer Inquiry #806 →' : '直接答这道 #806 题 →'
     },
     {
       kind: 'audio',
-      eyebrow: isEn ? '🌿 Sanctuary Audio · Highlights' : '🌿 静室试听 ·《幸福的内在》',
+      eyebrow: isEn ? '🌿 Sanctuary Audio · Inner Happiness' : '🌿 静室试听 ·《幸福的内在》',
       title: isEn ? 'The Inner Architecture of Happiness' : '真正的幸福不是条件堆叠，而是内在秩序自洽',
-      quote: isEn ? '“True happiness is internal self-consistency built day by day.”' : '“在历史夹缝与意义蒸发感里，向内做好自己的微小秩序基建。”',
+      quote: isEn ? '“True happiness is internal self-consistency built day by day.”' : '“真正的幸福不是外在条件的堆叠，而是内在秩序的自洽。”',
       src: '/audio/happiness.mp3',
-      link: INNER_URL,
-      linkText: isEn ? 'Open Sanctuary →' : '进入静室 →'
+      link: '/audiobook/#book-xingfu',
+      linkText: isEn ? 'Full Book & Audio →' : '听全集 / 读原文 →'
     },
     {
       kind: 'soul',
-      eyebrow: isEn ? '🌾 Essay · Into the Fields' : '🌾 静室长文 ·《走向田间》',
+      eyebrow: isEn ? '🌾 Essay · Into the Fields' : '🌾 原文阅读 ·《走向田间》',
       title: isEn ? 'Pivot away from hollow exhaustion to real nourishment' : '从虚耗的争夺中转向，把注意力喂养给真实生活',
-      quote: isEn ? 'Notes on systems thinking, energy recovery, and staying lucid in an algorithmic age.' : '里面收着九部书、系统思维长文、踩坑实战复盘和一位懂原著的 AI 书友。',
-      href: INNER_URL,
-      btnText: isEn ? 'Walk into Sanctuary →' : '走进静室看看 →'
-    },
-    {
-      kind: 'audio',
-      eyebrow: isEn ? '🌱 Sanctuary Audio · Prologue' : '🌱 静室试听 ·《走向田间》',
-      title: isEn ? 'Feed warmth back into ordinary days' : '把时间与深情留给真实的土地、书页与身边人',
       quote: isEn ? '“Feed your warmth to real soil instead of chasing noise.”' : '“从虚耗的争夺中转向，把时间与深情喂养给真实的土地。”',
-      src: '/audio/xiangjian.mp3',
-      link: '/audiobook/',
-      linkText: isEn ? 'Audiobook Hall →' : '进入听书馆 →'
+      href: isEn ? '/audiobook/#book-xiangjian' : '/read/xiangjian/',
+      btnText: isEn ? 'Open Into the Fields →' : '直接读《走向田间》原文 →'
     },
     {
       kind: 'soul',
-      eyebrow: isEn ? '🔮 Soul Inquiry · Night Mirror' : '🔮 灵魂 36 问 · 查账一念',
-      title: isEn ? 'Are you confusing exhaustion with genuine rest?' : '你是在“真正休息”，还是靠刷手机麻醉疲惫？',
-      quote: isEn ? 'Pause before the next swipe: distinguish active recovery from passive drain.' : '停下来辨一辨假性休息与真实回血，今晚也许能睡得更安稳一些。',
-      href: INNER_URL,
-      btnText: isEn ? 'Read & Chat in Sanctuary →' : '去静室聊一聊 →'
+      eyebrow: isEn ? '📖 Deep Essay · 8 min read' : '📖 长文精读 · 8 分钟',
+      title: isEn ? 'Why Does Modern Rest Leave You More Exhausted?' : '为什么现代人越休息越累？辨识「假性休息」与被动耗能',
+      quote: isEn ? 'Real rest is not turning off work while scrolling on neutral gear — it is reclaiming control of your own rhythm.' : '真正的休息不是停下工作却继续挂着空档耗电，而是夺回对自己身心节奏的控制权。',
+      href: isEn ? '/en/posts/systems-thinking/pseudo-rest-cognitive-drain/' : '/posts/systems-thinking/pseudo-rest-cognitive-drain/',
+      btnText: isEn ? 'Read Full Essay →' : '直接读这篇长文 →'
+    },
+    {
+      kind: 'soul',
+      eyebrow: isEn ? '🔮 Soul Inquiry #807' : '🔮 灵魂之觅 · 第 807 问',
+      title: isEn ? 'What if tonight’s reflection is a balance-sheet audit, not self-blame?' : '如果今晚的自省不是道德记账，而是一次理性查账？',
+      quote: isEn ? 'Were the premises of your decisions true? What false anxiety distorted your weights? Did you rehearse the real cost?' : '你今天做决定的前提是真的吗？权重被哪种虚假焦虑绑架了？行动前的真实代价你预演过没有？',
+      href: isEn ? 'https://api.worldcorner.xyz/community/?tab=soul&q=807&lang=en' : 'https://api.worldcorner.xyz/community/?tab=soul&q=807',
+      btnText: isEn ? 'Answer Inquiry #807 →' : '直接答这道 #807 题 →'
     }
   ];
 
   var PUB_PROMPTS = isEn ? [
-    'Light & shadow by your window right now',
-    'A quiet corner in a park, street, or library',
-    'The page you paused on today — snap the open book',
-    'Evening sky on your walk home tonight'
+    'This week’s theme: one honest sentence you underlined (note book & author)',
+    'Walk-home theme: a spot of light or shadow worth pausing three seconds for',
+    'Light & shadow by your window desk right now',
+    'The page you paused on tonight — snap the open book'
   ] : [
-    '此刻窗外斜照进来的那一束光',
-    '今天刚好停留过的一处树荫、街角或湖边',
-    '正在读的那一页书，和手边的茶或咖啡',
-    '下班路上抬头看到的天色与云'
+    '本期共读：这周划下来的一句真话（注明书名与作者）',
+    '本期共拍：下班路上值得停下三秒钟的一处光影',
+    '此刻窗外斜照进来的那一束光，或手边的茶与书',
+    '今晚正在读的那一页书——顺手写下它为什么停住了你'
   ];
 
   var posts = [];
@@ -456,7 +604,7 @@ document.addEventListener('click', function (e) {
   var pubType = 'scenery';
   var pubItems = [];
   var uploadingCount = 0;
-  var pubPromptIdx = Math.floor(Math.random() * PUB_PROMPTS.length);
+  var pubPromptIdx = 0;
   var activeDetailId = null;
   var miniAudio = null;
   var miniAudioSrc = '';
@@ -758,6 +906,11 @@ document.addEventListener('click', function (e) {
     });
   };
 
+  function displayPost(p) {
+    if (isEn && p && CURATED_EN[p.id]) return Object.assign({}, p, CURATED_EN[p.id]);
+    return p;
+  }
+
   function getCardTypeLabel(p) {
     if (p.owner_id === 'official-curated') {
       return p.type === 'book'
@@ -770,10 +923,18 @@ document.addEventListener('click', function (e) {
   }
 
   function getCardTag(p) {
-    if (p.type === 'book' && p.book_title) return { icon: '📖', raw: p.book_title, label: '《' + p.book_title + '》' };
-    if (p.spot_name) return { icon: '📍', raw: p.spot_name, label: p.spot_name };
-    if (p.plant_name) return { icon: '🌿', raw: p.plant_name, label: p.plant_name };
-    if (p.district) return { icon: '📍', raw: p.district, label: p.district };
+    var dp = displayPost(p);
+    var bt = dp.type === 'book' ? String(dp.book_title || '').trim().replace(/^《|》$/g, '') : '';
+    if (bt) {
+      return {
+        icon: '📖',
+        raw: bt,
+        label: isEn ? bt : ('《' + bt + '》')
+      };
+    }
+    if (dp.spot_name) return { icon: '📍', raw: dp.spot_name, label: dp.spot_name };
+    if (dp.plant_name) return { icon: '🌿', raw: dp.plant_name, label: dp.plant_name };
+    if (dp.district) return { icon: '📍', raw: dp.district, label: dp.district };
     return null;
   }
 
@@ -788,12 +949,15 @@ document.addEventListener('click', function (e) {
     if (topicFilter) {
       var q = topicFilter.toLowerCase();
       list = list.filter(function(p) {
-        return (p.book_title && p.book_title.toLowerCase().indexOf(q) !== -1) ||
-               (p.spot_name && p.spot_name.toLowerCase().indexOf(q) !== -1) ||
-               (p.plant_name && p.plant_name.toLowerCase().indexOf(q) !== -1) ||
-               (p.district && p.district.toLowerCase().indexOf(q) !== -1) ||
-               (p.quote && p.quote.toLowerCase().indexOf(q) !== -1) ||
-               (p.note && p.note.toLowerCase().indexOf(q) !== -1);
+        var dp = displayPost(p);
+        return [p, dp].some(function(x) {
+          return (x.book_title && x.book_title.toLowerCase().indexOf(q) !== -1) ||
+                 (x.spot_name && x.spot_name.toLowerCase().indexOf(q) !== -1) ||
+                 (x.plant_name && x.plant_name.toLowerCase().indexOf(q) !== -1) ||
+                 (x.district && x.district.toLowerCase().indexOf(q) !== -1) ||
+                 (x.quote && x.quote.toLowerCase().indexOf(q) !== -1) ||
+                 (x.note && x.note.toLowerCase().indexOf(q) !== -1);
+        });
       });
     }
 
@@ -834,6 +998,7 @@ document.addEventListener('click', function (e) {
         if (cTime > 0 && Math.abs(now - cTime) < 48 * 3600 * 1000) score += 45;
       }
       if (!seenSnapshot[p.id]) score += 26;
+      if (isEn && CURATED_EN[p.id]) score += 18;
       var pm = getPostMood(p);
       if (pm === moodNow) score += 12;
       else if (adj[pm]) score += 4;
@@ -899,12 +1064,13 @@ document.addEventListener('click', function (e) {
   }
 
   function buildPostCardHtml(p) {
-    var imgs = p.images || [];
+    var dp = displayPost(p);
+    var imgs = dp.images || [];
     var cover = imgs.length ? resolveImg(imgs[0]) : '';
     var tagObj = getCardTag(p);
-    var snippet = p.quote ? ('“' + p.quote + '”') : (p.note || '');
-    var isQuote = !!p.quote;
-    var nick = p.nickname || (isEn ? 'Reader' : '书友');
+    var snippet = dp.quote ? ('“' + dp.quote + '”') : (dp.note || '');
+    var isQuote = !!dp.quote;
+    var nick = dp.nickname || (isEn ? 'Reader' : '书友');
     var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
     var badgeCls = p.owner_id === 'official-curated' ? 'official' : (p.type === 'book' ? 'book' : '');
     var liked = likedSet.has(p.id);
@@ -937,7 +1103,7 @@ document.addEventListener('click', function (e) {
       var playing = miniAudio && !miniAudio.paused && miniAudioSrc === item.src;
       actionHtml =
         '<div class="wc-sc-actions">' +
-          '<button type="button" class="wc-sc-btn" data-act="sc-audio" data-audio-src="' + esc(item.src) + '">' +
+          '<button type="button" class="wc-sc-btn" data-act="sc-audio" data-audio-src="' + esc(item.src) + '" data-audio-title="' + esc(item.title) + '">' +
             (playing ? (isEn ? '❚❚ Pause' : '❚❚ 暂停试听') : (isEn ? '▶ Listen' : '▶ 听一段')) +
           '</button>' +
           '<a href="' + esc(item.link) + '" class="wc-sc-sublink" data-act="sc-link">' + esc(item.linkText) + '</a>' +
@@ -1040,7 +1206,75 @@ document.addEventListener('click', function (e) {
     });
   }
 
-  function wcToggleMiniAudio(src) {
+  function formatSec(sec) {
+    sec = Math.max(0, Math.floor(sec || 0));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function renderReturnBar() {
+    var bar = document.getElementById('wc-return-bar');
+    if (!bar) return;
+    try {
+      if (sessionStorage.getItem('wc_return_dismissed') === '1') {
+        bar.style.display = 'none';
+        return;
+      }
+    } catch (e) {}
+
+    var rData = null, aData = null;
+    try {
+      var rawR = localStorage.getItem('zen_last_read');
+      if (rawR) {
+        var pr = JSON.parse(rawR);
+        var u = String(pr.url || '').replace(/^["'\s]+|["'\s]+$/g, '');
+        var t = String(pr.title || '').replace(/^["'\s]+|["'\s]+$/g, '');
+        if (t && u && u.charAt(0) === '/') rData = { title: t, url: u };
+      }
+    } catch (e) {}
+    try {
+      var rawA = localStorage.getItem('zen_last_audio');
+      if (rawA) {
+        var pa = JSON.parse(rawA);
+        if (pa && pa.src && pa.title) aData = pa;
+      }
+    } catch (e) {}
+
+    if (!rData && !aData) {
+      bar.style.display = 'none';
+      return;
+    }
+
+    var textHtml = '';
+    var extraAudioHtml = '';
+    if (rData) {
+      textHtml = '<span class="wc-return-text">📖 ' + esc(isEn ? 'Continue reading: ' : '上次读到：') +
+        '<a class="wc-return-link" href="' + esc(rData.url) + '">' + esc(rData.title) + ' →</a></span>';
+      if (aData) {
+        extraAudioHtml = '<a class="wc-return-pill" href="' + esc(INNER_URL + '#zen-instant-listen') + '">🎧 ' +
+          esc(isEn ? 'Audio' : '续听') + (aData.time > 5 ? ' ' + formatSec(aData.time) : '') + '</a>';
+      }
+    } else if (aData) {
+      textHtml = '<span class="wc-return-text">🎧 ' + esc(isEn ? 'Continue listening: ' : '上次听到：') +
+        '<a class="wc-return-link" href="' + esc(INNER_URL + '#zen-instant-listen') + '">' + esc(aData.title) +
+        (aData.time > 5 ? ' (' + formatSec(aData.time) + ')' : '') + ' →</a></span>';
+    }
+
+    bar.innerHTML = textHtml +
+      '<span class="wc-return-actions">' + extraAudioHtml +
+        '<button type="button" class="wc-return-close" id="wc-return-close" aria-label="Dismiss">✕</button>' +
+      '</span>';
+    bar.style.display = 'flex';
+    var closeBtn = document.getElementById('wc-return-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        bar.style.display = 'none';
+        try { sessionStorage.setItem('wc_return_dismissed', '1'); } catch (e) {}
+      });
+    }
+  }
+
+  function wcToggleMiniAudio(src, title) {
     if (!src) return;
     if (!miniAudio) {
       miniAudio = new Audio();
@@ -1056,6 +1290,17 @@ document.addEventListener('click', function (e) {
         miniAudioSrc = src;
       }
       miniAudio.play().catch(function() {});
+      try {
+        var prevA = localStorage.getItem('zen_last_audio');
+        var parsedA = prevA ? JSON.parse(prevA) : null;
+        if (!parsedA || parsedA.src !== src) {
+          localStorage.setItem('zen_last_audio', JSON.stringify({
+            title: title || src,
+            src: src,
+            time: 0
+          }));
+        }
+      } catch (e) {}
     }
     syncMiniAudioButtons();
   }
@@ -1069,7 +1314,7 @@ document.addEventListener('click', function (e) {
       var audioBtn = e.target.closest('[data-act="sc-audio"]');
       if (audioBtn) {
         e.preventDefault();
-        wcToggleMiniAudio(audioBtn.getAttribute('data-audio-src'));
+        wcToggleMiniAudio(audioBtn.getAttribute('data-audio-src'), audioBtn.getAttribute('data-audio-title'));
         return;
       }
       var likeBtn = e.target.closest('[data-act="like"]');
@@ -1156,12 +1401,28 @@ document.addEventListener('click', function (e) {
     renderWall(true);
   };
 
+  function syncSortCycleLabel() {
+    var el = document.getElementById('wc-sort-cycle-label');
+    if (!el) return;
+    var map = isEn
+      ? { discover: '✨ Discover ▾', latest: '🕒 Latest ▾', popular: '♥ Popular ▾' }
+      : { discover: '✨ 漫游 ▾', latest: '🕒 最新 ▾', popular: '♥ 热门 ▾' };
+    el.textContent = map[sortMode] || map.discover;
+  }
+
+  window.wcCycleSort = function() {
+    var order = ['discover', 'latest', 'popular'];
+    var idx = order.indexOf(sortMode);
+    wcSetSort(order[(idx + 1) % order.length]);
+  };
+
   window.wcSetSort = function(s) {
     sortMode = s || 'discover';
     visibleCount = PAGE_BATCH;
     document.querySelectorAll('#wc-sorts .wc-sort-pill').forEach(function(el) {
       el.classList.toggle('on', el.getAttribute('data-s') === sortMode);
     });
+    syncSortCycleLabel();
     renderWall(true);
   };
 
@@ -1175,6 +1436,7 @@ document.addEventListener('click', function (e) {
       document.querySelectorAll('#wc-sorts .wc-sort-pill').forEach(function(el) {
         el.classList.toggle('on', el.getAttribute('data-s') === 'discover');
       });
+      syncSortCycleLabel();
     }
     visibleCount = PAGE_BATCH;
     var btn = document.getElementById('wc-shuffle-btn');
@@ -1253,18 +1515,21 @@ document.addEventListener('click', function (e) {
   };
 
   function updateDetailNav() {
+    var navBar = document.getElementById('wc-detail-nav-bar');
     var prevBtn = document.getElementById('wc-d-prev');
     var nextBtn = document.getElementById('wc-d-next');
     var ctr = document.getElementById('wc-d-counter');
     var idx = orderedPosts.findIndex(function(x) { return x.id === activeDetailId; });
     if (idx === -1 || orderedPosts.length <= 1) {
+      if (navBar) navBar.style.display = 'none';
       if (prevBtn) prevBtn.style.display = 'none';
       if (nextBtn) nextBtn.style.display = 'none';
       if (ctr) ctr.textContent = '';
       return;
     }
-    if (prevBtn) { prevBtn.style.display = 'inline-block'; prevBtn.disabled = (idx <= 0); }
-    if (nextBtn) { nextBtn.style.display = 'inline-block'; nextBtn.disabled = (idx >= orderedPosts.length - 1); }
+    if (navBar) navBar.style.display = 'flex';
+    if (prevBtn) { prevBtn.style.display = 'inline-flex'; prevBtn.disabled = (idx <= 0); }
+    if (nextBtn) { nextBtn.style.display = 'inline-flex'; nextBtn.disabled = (idx >= orderedPosts.length - 1); }
     if (ctr) ctr.textContent = (idx + 1) + ' / ' + orderedPosts.length;
   }
 
@@ -1337,33 +1602,50 @@ document.addEventListener('click', function (e) {
   function renderDetailBody(id) {
     var p = posts.find(function(x) { return x.id === id; });
     if (!p) return;
-    var nick = p.nickname || (isEn ? 'Reader' : '书友');
+    var dp = displayPost(p);
+    var nick = dp.nickname || (isEn ? 'Reader' : '书友');
     var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
     document.getElementById('wc-d-author').innerHTML =
       '<span class="wc-avatar" style="width:32px;height:32px;font-size:14px;background:' + avaColor + '">' + esc(nick.charAt(0)) + '</span>' +
       '<div><div style="font-weight:700;font-size:14.5px;color:var(--zen-ink-deep)">' + esc(nick) + '</div>' +
-      '<div style="font-size:12px;color:var(--zen-ink-muted)">' + esc(p.district || getCardTypeLabel(p)) + (p.address ? ' · ' + esc(p.address) : '') + '</div></div>';
+      '<div style="font-size:12px;color:var(--zen-ink-muted)">' + esc(dp.district || getCardTypeLabel(p)) + (dp.address ? ' · ' + esc(dp.address) : '') + '</div></div>';
 
     var tagObj = getCardTag(p);
-    var imgsHtml = (p.images && p.images.length)
-      ? '<div class="wc-detail-imgs">' + p.images.map(function(u) {
+    var imgsHtml = (dp.images && dp.images.length)
+      ? '<div class="wc-detail-imgs">' + dp.images.map(function(u) {
           var full = resolveImg(u);
           return '<img src="' + esc(full) + '" data-lightbox-src="' + esc(full) + '" alt="">';
         }).join('') + '</div>'
       : '';
     var liked = likedSet.has(p.id);
 
+    var bookKey = String(p.book_title || '').trim().replace(/^《|》$/g, '');
+    var bookSrc = BOOK_LINKS[bookKey];
+    var sourceHtml = bookSrc
+      ? '<div class="wc-detail-source">' +
+          '<span>📚 ' + esc(isEn ? 'World Corner Original:' : '出自世界一隅原著：') + '</span>' +
+          '<a href="' + esc(bookSrc.read) + '">' + esc(isEn ? 'Read Original →' : '阅读原文 →') + '</a>' +
+          '<a href="' + esc(bookSrc.audio) + '">' + esc(isEn ? 'Listen Audiobook →' : '收听有声书 →') + '</a>' +
+        '</div>'
+      : '';
+
+    var hasCuratedEn = isEn && !!CURATED_EN[p.id];
+    var trBtnLabel = p.tr_note
+      ? (isEn ? (hasCuratedEn ? '↺ Hide Chinese' : '↺ Hide Translation') : '↺ 收起译文')
+      : (isEn ? (hasCuratedEn ? '🇨🇳 Original Chinese' : '🌐 Translate') : '🌐 翻译');
+
     var dBody = document.getElementById('wc-d-body');
     dBody.innerHTML =
       imgsHtml +
       (tagObj ? '<div style="margin-bottom:10px;"><span class="wc-card-tag" style="cursor:pointer" data-detail-topic="' + esc(tagObj.raw) + '">' + tagObj.icon + ' ' + esc(tagObj.label) + '</span></div>' : '') +
-      (p.quote ? '<div class="wc-detail-quote">“' + esc(p.quote) + '”</div>' : '') +
-      (p.note ? '<div class="wc-detail-note">' + esc(p.note) + '</div>' : '') +
+      (dp.quote ? '<div class="wc-detail-quote">“' + esc(dp.quote) + '”</div>' : '') +
+      (dp.note ? '<div class="wc-detail-note">' + esc(dp.note) + '</div>' : '') +
       (p.tr_note ? '<div class="wc-detail-tr">' + esc(p.tr_note) + '</div>' : '') +
+      sourceHtml +
       (p.owner_id === 'official-curated' ? '<div style="margin:10px 0;font-size:12px;color:var(--zen-ink-muted)">' + creditFor(p) + '</div>' : '') +
       '<div class="wc-detail-bar">' +
         '<button type="button" class="wc-mini-btn ' + (liked ? 'liked' : '') + '" data-detail-like="1" data-like-btn="' + esc(p.id) + '" onclick="wcLike(\'' + esc(p.id) + '\')">♥ ' + (isEn ? 'Like' : '赞') + ' (' + (p.likes || 0) + ')</button>' +
-        '<button type="button" class="wc-mini-btn" onclick="wcTranslatePost(\'' + esc(p.id) + '\')">' + (p.tr_note ? (isEn ? '↺ Hide Translation' : '↺ 收起译文') : (isEn ? '🌐 Translate' : '🌐 翻译')) + '</button>' +
+        '<button type="button" class="wc-mini-btn" onclick="wcTranslatePost(\'' + esc(p.id) + '\')">' + trBtnLabel + '</button>' +
         '<button type="button" class="wc-mini-btn" onclick="wcSharePost(\'' + esc(p.id) + '\', this)">🔗 ' + (isEn ? 'Share link' : '分享这张') + '</button>' +
       '</div>' +
       '<div class="wc-cmts-wrap" id="wc-cmts-box"><div style="font-size:13px;color:var(--zen-ink-muted)">' + (isEn ? 'Loading comments…' : '正在加载评论…') + '</div></div>';
@@ -1485,6 +1767,12 @@ document.addEventListener('click', function (e) {
     }
     var text = (p.quote ? p.quote + '\n' : '') + (p.note || '');
     if (!text.trim()) return;
+    if (isEn && CURATED_EN[p.id]) {
+      p.tr_note = text;
+      renderDetailBody(id);
+      loadDetailComments(id);
+      return;
+    }
     p.tr_note = isEn ? 'Translating…' : '正在翻译…';
     renderDetailBody(id);
     loadDetailComments(id);
@@ -1759,6 +2047,7 @@ document.addEventListener('click', function (e) {
     });
   };
 
+  renderReturnBar();
   refreshUser();
   loadPosts();
 })();
