@@ -15,9 +15,9 @@
       </h1>
       <p class="wc-hero-sub">
         {{ if $isEn }}
-        Browse real landscapes and reading corners shared from everywhere, leave a line in the comments, or snap what is in front of you.
+        Real landscapes and reading corners shared from everywhere — browse, leave a line, or snap what is in front of you.
         {{ else }}
-        看看各地的山海窗景与读书角落，在评论区留下一句正在读的书，或随手晒出你眼前的光影与书页。
+        看看各地的山海窗景与读书角落，在评论区留下一句正在读的书，或随手晒出眼前的光影与书页。
         {{ end }}
       </p>
     </div>
@@ -26,12 +26,12 @@
       <div id="wc-user-area"></div>
       <a href="{{ $innerUrl }}" class="wc-inner-link">
         <span>🕯️</span>
-        <span>{{ if $isEn }}Inner Sanctuary →{{ else }}进入静室 · 深入一隅 →{{ end }}</span>
+        <span>{{ if $isEn }}Inner Sanctuary · 9 Audiobooks &amp; Essays →{{ else }}进入静室 · 原声有声书与长文 →{{ end }}</span>
       </a>
     </div>
   </section>
 
-  {{- /* 2. 筛选与晒图工具栏 */ -}}
+  {{- /* 2. 筛选、动态排序、换一批与晒图工具栏 */ -}}
   <div class="wc-toolbar">
     <div class="wc-filter-pills" id="wc-filters">
       <button type="button" class="wc-pill on" data-f="all" onclick="wcSetFilter('all')">
@@ -45,11 +45,33 @@
       </button>
     </div>
 
-    <button type="button" class="wc-share-btn" onclick="wcOpenPublish()">
-      <span>📷</span>
-      <span>{{ if $isEn }}Share a Photo{{ else }}晒一张{{ end }}</span>
-    </button>
+    <div class="wc-toolbar-right">
+      <div class="wc-sort-pills" id="wc-sorts" role="group" aria-label="Sort order">
+        <button type="button" class="wc-sort-pill on" data-s="discover" onclick="wcSetSort('discover')">
+          {{ if $isEn }}✨ Discover{{ else }}✨ 漫游{{ end }}
+        </button>
+        <button type="button" class="wc-sort-pill" data-s="latest" onclick="wcSetSort('latest')">
+          {{ if $isEn }}🕒 Latest{{ else }}🕒 最新{{ end }}
+        </button>
+        <button type="button" class="wc-sort-pill" data-s="popular" onclick="wcSetSort('popular')">
+          {{ if $isEn }}♥ Popular{{ else }}♥ 热门{{ end }}
+        </button>
+      </div>
+
+      <button type="button" class="wc-shuffle-btn" id="wc-shuffle-btn" onclick="wcShuffleWall()" title="{{ if $isEn }}Shuffle next fresh batch{{ else }}换一组新鲜画面{{ end }}">
+        <span class="wc-shuffle-icon">↻</span>
+        <span>{{ if $isEn }}Shuffle{{ else }}换一批{{ end }}</span>
+      </button>
+
+      <button type="button" class="wc-share-btn" onclick="wcOpenPublish()">
+        <span>📷</span>
+        <span>{{ if $isEn }}Share a Photo{{ else }}晒一张{{ end }}</span>
+      </button>
+    </div>
   </div>
+
+  {{- /* 时段氛围与未看提示行 */ -}}
+  <div class="wc-mood-hint" id="wc-mood-hint" style="display:none"></div>
 
   {{- /* 话题筛选条 */ -}}
   <div class="wc-topic-bar" id="wc-topic-bar" style="display:none">
@@ -59,9 +81,10 @@
     </button>
   </div>
 
-  {{- /* 3. 影像优先照片墙 */ -}}
+  {{- /* 3. 横向顺排瀑布流画刊墙 + 底部分批加载 */ -}}
   <div id="wc-wall-status" class="wc-loading">{{ if $isEn }}Loading scenery &amp; reading corners…{{ else }}正在铺开各地风景与读书角落…{{ end }}</div>
-  <div class="wc-wall" id="wc-wall"></div>
+  <div class="wc-wall-cols" id="wc-wall"></div>
+  <div class="wc-wall-more" id="wc-wall-more" style="display:none"></div>
 
   {{- /* 4. 给懂者的温柔深处通道 */ -}}
   <section class="wc-sanctuary-cta">
@@ -81,23 +104,33 @@
   </section>
 </div>
 
-{{- /* 5. 卡片详情与零门槛评论弹窗 */ -}}
+{{- /* 5. 卡片详情与零门槛评论弹窗（支持左右切换 & 快捷键） */ -}}
 <div class="wc-modal-mask" id="wc-detail-modal" onclick="if(event.target===this)wcCloseDetail()">
-  <div class="wc-modal-box wide">
+  <div class="wc-modal-box wide" id="wc-detail-box">
     <div class="wc-modal-head">
-      <div id="wc-d-author" style="display:flex;align-items:center;gap:9px;"></div>
-      <button type="button" class="wc-close-x" onclick="wcCloseDetail()" aria-label="Close">✕</button>
+      <div id="wc-d-author" style="display:flex;align-items:center;gap:9px;min-width:0;"></div>
+      <div class="wc-detail-head-right">
+        <button type="button" class="wc-nav-btn" id="wc-d-prev" onclick="wcStepDetail(-1)" aria-label="Previous">‹ {{ if $isEn }}Prev{{ else }}上一张{{ end }}</button>
+        <span class="wc-nav-counter" id="wc-d-counter"></span>
+        <button type="button" class="wc-nav-btn" id="wc-d-next" onclick="wcStepDetail(1)" aria-label="Next">{{ if $isEn }}Next{{ else }}下一张{{ end }} ›</button>
+        <button type="button" class="wc-close-x" onclick="wcCloseDetail()" aria-label="Close">✕</button>
+      </div>
     </div>
     <div id="wc-d-body"></div>
   </div>
 </div>
 
-{{- /* 6. 极简「晒一张」发布弹窗 */ -}}
+{{- /* 6. 极简「晒一张」发布弹窗（先写后登 + 前端自动压图 + 轮换引子） */ -}}
 <div class="wc-modal-mask" id="wc-pub-modal" onclick="if(event.target===this)wcClosePublish()">
   <div class="wc-modal-box">
     <div class="wc-modal-head">
       <h3 class="wc-modal-title">{{ if $isEn }}📷 Share a Scenery or Reading Corner{{ else }}📷 晒一张风景或看书瞬间{{ end }}</h3>
       <button type="button" class="wc-close-x" onclick="wcClosePublish()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="wc-pub-prompt">
+      <span id="wc-pub-prompt-text"></span>
+      <button type="button" class="wc-pub-prompt-next" onclick="wcNextPubPrompt()">{{ if $isEn }}Another ↻{{ else }}换一句 ↻{{ end }}</button>
     </div>
 
     <div class="wc-type-switch" id="wc-pub-types">
@@ -109,7 +142,7 @@
       </button>
     </div>
 
-    <label class="wc-field-label" id="wc-pub-img-label">{{ if $isEn }}Photos (up to 3, ≤ 8MB each){{ else }}上传照片（1–3 张，每张 ≤ 8MB）{{ end }}</label>
+    <label class="wc-field-label" id="wc-pub-img-label">{{ if $isEn }}Photos (up to 3, auto-compressed before upload){{ else }}上传照片（1–3 张，前端自动轻量化压缩）{{ end }}</label>
     <label class="wc-upload-zone" for="wc-pub-files">
       <span>🖼️</span>
       <span>{{ if $isEn }}Click to choose photos from your device{{ else }}点击选择照片（风景照 / 书页一角）{{ end }}</span>
@@ -124,12 +157,16 @@
     <textarea id="wc-pub-feeling" class="wc-textarea" rows="3" placeholder="{{ if $isEn }}What caught your eye, or a line from the page…{{ else }}此刻眼前看到的风景，或书中打动你的一句话…{{ end }}"></textarea>
 
     <details style="margin-top:12px;">
-      <summary style="font-size:12.5px;color:var(--zen-ink-muted);cursor:pointer;">{{ if $isEn }}More optional details (reading spot / quote / longer note){{ else }}补充更多细节（选填：阅读地点 / 独立金句）{{ end }}</summary>
+      <summary style="font-size:12.5px;color:var(--zen-ink-muted);cursor:pointer;">{{ if $isEn }}More optional details (reading spot / quote){{ else }}补充更多细节（选填：阅读地点 / 独立金句）{{ end }}</summary>
       <label class="wc-field-label">{{ if $isEn }}Where are you? (optional){{ else }}你在哪里读 / 拍摄点（选填）{{ end }}</label>
       <input id="wc-pub-spot" class="wc-input" placeholder="{{ if $isEn }}e.g. Window desk, City park, Dali{{ else }}如：窗边书桌、市图书馆、洱海边{{ end }}">
       <label class="wc-field-label">{{ if $isEn }}Book quote / highlight (optional){{ else }}独立书摘金句（选填）{{ end }}</label>
       <input id="wc-pub-quote" class="wc-input" placeholder="{{ if $isEn }}A sentence worth keeping…{{ else }}值得留下来的一句原文…{{ end }}">
     </details>
+
+    <div class="wc-pub-auth-note" id="wc-pub-auth-note" style="display:none">
+      {{ if $isEn }}You can pick photos and draft first — a 10-second free sign-up will pop up only when you click Publish.{{ else }}可先挑图写好感受；点击发布时如未登录，10 秒免费注册即可自动提交上墙。{{ end }}
+    </div>
 
     <div class="wc-msg" id="wc-pub-msg"></div>
     <div style="margin-top:16px;display:flex;justify-content:flex-end;gap:10px;">
@@ -140,7 +177,7 @@
 </div>
 
 {{- /* 7. 免费开放注册 / 登录弹窗（无邀请码） */ -}}
-<div class="wc-modal-mask" id="wc-auth-modal" onclick="if(event.target===this)wcCloseAuth()">
+<div class="wc-modal-mask" id="wc-auth-modal" style="z-index:1040;" onclick="if(event.target===this)wcCloseAuth()">
   <div class="wc-modal-box" style="max-width:420px;">
     <div class="wc-modal-head">
       <h3 class="wc-modal-title">{{ if $isEn }}Account · Free Sign Up{{ else }}账号 · 免费开放注册{{ end }}</h3>
@@ -180,24 +217,196 @@
 <script>
 (function() {
   var isEn = {{ if $isEn }}true{{ else }}false{{ end }};
+  var INNER_URL = isEn ? '/en/inner/' : '/inner/';
   var API_ORIGIN = 'https://api.worldcorner.xyz';
   var API_BASE = API_ORIGIN + '/community';
   var AVA = ['#244B3E', '#D9822B', '#4B6B8A', '#7E5E8E', '#9B4F4F', '#3C7A69'];
+  var PAGE_BATCH = 12;
+
+  var CURATED_CREDITS = {
+    yunnan_terraces: { a: 'chensiyuan', l: 'CC BY-SA' },
+    donghu_sunset: { a: 'Александр Байдуков', l: 'CC BY-SA 4.0' },
+    quiet_study: { a: 'Dr. Marcus Gossler', l: 'CC BY-SA 3.0' },
+    balcony_rose: { a: 'Igal Marcelo Zimmt', l: 'CC BY 3.0' },
+    cherry_tomato: { a: 'JS', l: 'CC BY-SA 3.0' },
+    honeysuckle_vine: { a: 'Mokkie', l: 'CC BY-SA 3.0' },
+    dawn_bamboo: { a: 'Basile Morin', l: 'CC BY-SA 4.0' },
+    sunrise_lake_dock: { a: 'Citoxo6521', l: 'CC0' },
+    morning_window_book: { a: 'Shixart1985', l: 'CC BY 2.0' },
+    tea_and_book: { a: 'freestocks.org', l: 'CC0' },
+    alpine_meadow: { a: 'Shaswat Nimesh', l: 'CC BY-SA 4.0' },
+    coastal_path: { a: 'Dietmar Rabich', l: 'CC BY-SA 4.0' },
+    indie_bookstore: { a: 'Nick-D', l: 'CC BY-SA 4.0' },
+    park_reading_shade: { a: 'David Saddler', l: 'CC BY 4.0' },
+    golden_wheat_field: { a: 'Silke Sohler', l: 'CC BY-SA 3.0' },
+    dusk_harbor: { a: 'PattayaPatrol', l: 'CC BY-SA 4.0' },
+    sunset_balcony_read: { a: 'Shixart1985', l: 'CC BY 2.0' },
+    rainy_window_cafe: { a: 'Kevin Kandlbinder', l: 'CC BY 4.0' },
+    starry_mountain_night: { a: 'Vian', l: 'CC BY-SA 4.0' },
+    lantern_old_town: { a: 'PattayaPatrol', l: 'CC BY-SA 4.0' },
+    night_desk_lamp: { a: 'Sihyeon0621', l: 'CC BY-SA 4.0' },
+    handwritten_notebook: { a: 'Aaron Burden', l: 'CC0' }
+  };
+
+  var SANCTUARY_DECK = [
+    {
+      kind: 'audio',
+      eyebrow: isEn ? '🎧 Sanctuary Audio · 03:19' : '🎧 静室试听 · 03:19',
+      title: isEn ? 'Why do you still feel empty after a busy day?' : '《内心的修炼·序言》：忙碌一天为什么依然空虚？',
+      quote: isEn ? '“Outward striving has no finish line; inward settlement requires only pausing for one step today.”' : '“向外追逐没有止境，向内安顿只需在今天停下一步。”',
+      src: '/audio/neixin/01.mp3',
+      link: '/audiobook/',
+      linkText: isEn ? '9 Audiobooks →' : '听书馆全集 →'
+    },
+    {
+      kind: 'soul',
+      eyebrow: isEn ? '🔮 Soul 36 Inquiries' : '🔮 灵魂 36 问 · 抽一问',
+      title: isEn ? 'Stripped of all external titles, what remains genuinely yours?' : '如果剥离所有社会角色与外在评价，你还剩下什么？',
+      quote: isEn ? 'A quiet self-inquiry helps untangle anxiety when scrolling can no longer soothe you.' : '刷完风景若心头仍有微澜，可以来灵魂之觅抽一道内省题慢慢想。',
+      href: 'https://api.worldcorner.xyz/community/?tab=soul',
+      btnText: isEn ? 'Explore Soul 36 →' : '去灵魂之觅答一题 →'
+    },
+    {
+      kind: 'audio',
+      eyebrow: isEn ? '🌿 Sanctuary Audio · Highlights' : '🌿 静室试听 ·《幸福的内在》',
+      title: isEn ? 'The Inner Architecture of Happiness' : '真正的幸福不是条件堆叠，而是内在秩序自洽',
+      quote: isEn ? '“True happiness is internal self-consistency built day by day.”' : '“在历史夹缝与意义蒸发感里，向内做好自己的微小秩序基建。”',
+      src: '/audio/happiness.mp3',
+      link: INNER_URL,
+      linkText: isEn ? 'Open Sanctuary →' : '进入静室 →'
+    },
+    {
+      kind: 'soul',
+      eyebrow: isEn ? '🌾 Essay · Into the Fields' : '🌾 静室长文 ·《走向田间》',
+      title: isEn ? 'Pivot away from hollow exhaustion to real nourishment' : '从虚耗的争夺中转向，把注意力喂养给真实生活',
+      quote: isEn ? 'Notes on systems thinking, energy recovery, and staying lucid in an algorithmic age.' : '里面收着九部书、系统思维长文、踩坑实战复盘和一位懂原著的 AI 书友。',
+      href: INNER_URL,
+      btnText: isEn ? 'Walk into Sanctuary →' : '走进静室看看 →'
+    },
+    {
+      kind: 'audio',
+      eyebrow: isEn ? '🌱 Sanctuary Audio · Prologue' : '🌱 静室试听 ·《走向田间》',
+      title: isEn ? 'Feed warmth back into ordinary days' : '把时间与深情留给真实的土地、书页与身边人',
+      quote: isEn ? '“Feed your warmth to real soil instead of chasing noise.”' : '“从虚耗的争夺中转向，把时间与深情喂养给真实的土地。”',
+      src: '/audio/xiangjian.mp3',
+      link: '/audiobook/',
+      linkText: isEn ? 'Audiobook Hall →' : '进入听书馆 →'
+    },
+    {
+      kind: 'soul',
+      eyebrow: isEn ? '🔮 Soul Inquiry · Night Mirror' : '🔮 灵魂 36 问 · 查账一念',
+      title: isEn ? 'Are you confusing exhaustion with genuine rest?' : '你是在“真正休息”，还是靠刷手机麻醉疲惫？',
+      quote: isEn ? 'Pause before the next swipe: distinguish active recovery from passive drain.' : '停下来辨一辨假性休息与真实回血，今晚也许能睡得更安稳一些。',
+      href: INNER_URL,
+      btnText: isEn ? 'Read & Chat in Sanctuary →' : '去静室聊一聊 →'
+    }
+  ];
+
+  var PUB_PROMPTS = isEn ? [
+    'Light & shadow by your window right now',
+    'A quiet corner in a park, street, or library',
+    'The page you paused on today — snap the open book',
+    'Evening sky on your walk home tonight'
+  ] : [
+    '此刻窗外斜照进来的那一束光',
+    '今天刚好停留过的一处树荫、街角或湖边',
+    '正在读的那一页书，和手边的茶或咖啡',
+    '下班路上抬头看到的天色与云'
+  ];
 
   var posts = [];
+  var orderedPosts = [];
   var filterType = 'all';
+  var sortMode = 'discover';
   var topicFilter = '';
+  var visibleCount = PAGE_BATCH;
+  var sessionSeed = Math.floor(Math.random() * 99991) + 1;
+  var visitCount = 1;
+  var lastCols = 0;
   var user = null;
   var authMode = 'login';
   var pendingPublish = false;
+  var pendingSubmitAfterAuth = false;
   var pubType = 'scenery';
-  var pubImgs = [];
+  var pubItems = [];
   var uploadingCount = 0;
+  var pubPromptIdx = Math.floor(Math.random() * PUB_PROMPTS.length);
   var activeDetailId = null;
+  var miniAudio = null;
+  var miniAudioSrc = '';
+
   var likedSet = new Set();
   try {
     likedSet = new Set(JSON.parse(localStorage.getItem('cc_liked') || '[]'));
   } catch (e) {}
+
+  try {
+    visitCount = (parseInt(localStorage.getItem('wc_visits_v1') || '0', 10) || 0) + 1;
+    localStorage.setItem('wc_visits_v1', String(visitCount));
+  } catch (e) {}
+
+  function loadSeenMap() {
+    var now = Date.now();
+    var ttl = 7 * 86400000;
+    try {
+      var raw = JSON.parse(localStorage.getItem('wc_seen_v1') || '{}');
+      var out = {};
+      Object.keys(raw || {}).forEach(function(k) {
+        if (raw[k] && (now - raw[k]) < ttl) out[k] = raw[k];
+      });
+      return out;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  var seenMap = loadSeenMap();
+  var seenSnapshot = Object.assign({}, seenMap);
+
+  function saveSeenMap() {
+    try {
+      localStorage.setItem('wc_seen_v1', JSON.stringify(seenMap));
+    } catch (e) {}
+  }
+
+  function wcMarkSeen(id) {
+    if (!id) return;
+    seenMap[id] = Date.now();
+    saveSeenMap();
+  }
+
+  function wcRecordDisplayedImpressions() {
+    var slice = orderedPosts.slice(0, Math.min(visibleCount, 18));
+    if (!slice.length) return;
+    var now = Date.now();
+    slice.forEach(function(p) { seenMap[p.id] = now; });
+    saveSeenMap();
+  }
+
+  function maybeResetSeenPool(allPosts) {
+    var imgPosts = allPosts.filter(function(p) { return p.images && p.images.length; });
+    if (imgPosts.length < 6) return;
+    var seenCount = imgPosts.filter(function(p) { return !!seenMap[p.id]; }).length;
+    if (seenCount >= Math.floor(imgPosts.length * 0.85)) {
+      var sortedIds = Object.keys(seenMap).sort(function(a, b) { return seenMap[b] - seenMap[a]; }).slice(0, 4);
+      var kept = {};
+      sortedIds.forEach(function(k) { kept[k] = seenMap[k]; });
+      seenMap = kept;
+      seenSnapshot = Object.assign({}, seenMap);
+      saveSeenMap();
+    }
+  }
+
+  window.addEventListener('pagehide', wcRecordDisplayedImpressions);
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') {
+      wcRecordDisplayedImpressions();
+      if (miniAudio && !miniAudio.paused) {
+        miniAudio.pause();
+        syncMiniAudioButtons();
+      }
+    }
+  });
 
   function esc(s) {
     return String(s || '').replace(/[&<>"]/g, function(c) {
@@ -212,10 +421,57 @@
     return API_BASE + '/' + u;
   }
 
+  function hash01(str, seed) {
+    var h = (2166136261 ^ seed) >>> 0;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619) >>> 0;
+    }
+    return (h % 10000) / 10000;
+  }
+
+  function getCurrentMood() {
+    var h = new Date().getHours();
+    if (h >= 5 && h < 10) return 'morning';
+    if (h >= 10 && h < 17) return 'day';
+    if (h >= 17 && h < 21) return 'evening';
+    return 'night';
+  }
+
+  function getPostMood(p) {
+    var t = String(p.tag || '');
+    var m = t.match(/mood:(morning|day|evening|night)/);
+    if (m) return m[1];
+    var img = (p.images && p.images[0]) || '';
+    if (/dawn|sunrise|morning|bamboo|rose|honeysuckle|tea_and/.test(img)) return 'morning';
+    if (/sunset|dusk|wheat|rainy/.test(img)) return 'evening';
+    if (/starry|lantern|night|handwritten|library/.test(img)) return 'night';
+    return 'day';
+  }
+
+  var ADJ_MOOD = {
+    morning: { day: 1, night: 1 },
+    day: { morning: 1, evening: 1 },
+    evening: { day: 1, night: 1 },
+    night: { evening: 1, morning: 1 }
+  };
+
+  function isRealUserPost(p) {
+    var ow = String(p.owner_id || '');
+    return ow && ow !== 'official-curated' && ow.indexOf('seed-') !== 0;
+  }
+
+  function getColsCount() {
+    var w = window.innerWidth || 1024;
+    if (w <= 580) return 1;
+    if (w <= 960) return 2;
+    return 3;
+  }
+
   function apiFetch(path, opts) {
     opts = opts || {};
     var headers = Object.assign({}, opts.headers || {});
-    if (!(opts.body instanceof ArrayBuffer) && !headers['Content-Type']) {
+    if (!(opts.body instanceof ArrayBuffer) && !(opts.body instanceof Blob) && !headers['Content-Type']) {
       headers['Content-Type'] = 'application/json';
     }
     var tok = '';
@@ -227,6 +483,7 @@
         if (r.status === 401 && user) {
           user = null;
           drawUser();
+          updatePubAuthNote();
         }
         return j;
       });
@@ -246,6 +503,12 @@
           '<span>' + (isEn ? 'Login / Sign up' : '登录 / 免费注册') + '</span>' +
         '</button>';
     }
+    updatePubAuthNote();
+  }
+
+  function updatePubAuthNote() {
+    var n = document.getElementById('wc-pub-auth-note');
+    if (n) n.style.display = user ? 'none' : 'block';
   }
 
   function refreshUser() {
@@ -284,6 +547,7 @@
   window.wcCloseAuth = function() {
     document.getElementById('wc-auth-modal').classList.remove('open');
     pendingPublish = false;
+    pendingSubmitAfterAuth = false;
   };
 
   window.wcSetAuthMode = function(m) {
@@ -295,6 +559,17 @@
       ? (isEn ? 'Sign up & Enter' : '免费注册并登录')
       : (isEn ? 'Login' : '登录');
   };
+
+  function uploadBlobItem(blob, tok) {
+    return fetch(API_BASE + '/api/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': blob.type || 'image/jpeg',
+        'Authorization': 'Bearer ' + tok
+      },
+      body: blob
+    }).then(function(r) { return r.json(); });
+  }
 
   window.wcAuthSubmit = function() {
     var username = document.getElementById('wc-a-user').value.trim();
@@ -318,10 +593,40 @@
       try { localStorage.setItem('cc_token', r.token); } catch (e) {}
       user = r.user;
       drawUser();
+      var shouldSubmit = pendingSubmitAfterAuth;
       var shouldPub = pendingPublish;
+      pendingSubmitAfterAuth = false;
       pendingPublish = false;
       document.getElementById('wc-auth-modal').classList.remove('open');
-      if (shouldPub) wcOpenPublish();
+
+      if (shouldSubmit) {
+        var pubMsg = document.getElementById('wc-pub-msg');
+        var blobs = pubItems.filter(function(it) { return !it.url && it.blob; });
+        if (blobs.length) {
+          if (pubMsg) pubMsg.textContent = isEn ? 'Uploading your photos…' : '登录成功，正在同步上传照片…';
+          var tok = r.token;
+          Promise.all(pubItems.map(function(it) {
+            if (it.url || !it.blob) return Promise.resolve();
+            return uploadBlobItem(it.blob, tok).then(function(uj) {
+              if (uj && uj.ok && uj.url) {
+                it.url = uj.url;
+                it.blob = null;
+              } else {
+                throw new Error((uj && uj.error) || 'upload failed');
+              }
+            });
+          })).then(function() {
+            drawPreviews();
+            wcSubmitPost();
+          }).catch(function(err) {
+            if (pubMsg) pubMsg.textContent = (err && err.message) || (isEn ? 'Upload failed, please retry' : '上传失败，请再点一次发布');
+          });
+        } else {
+          wcSubmitPost();
+        }
+      } else if (shouldPub) {
+        wcOpenPublish();
+      }
     }).catch(function() {
       msg.textContent = isEn ? 'Network error, please try again.' : '网络异常，请稍后再试';
     });
@@ -329,9 +634,12 @@
 
   function getCardTypeLabel(p) {
     if (p.owner_id === 'official-curated') {
-      return isEn ? '✦ Public Scenery' : '✦ 公共景色';
+      return p.type === 'book'
+        ? (isEn ? '📖 Reading Nook' : '📖 阅读角落')
+        : (isEn ? '✦ Public Scenery' : '✦ 公共景色');
     }
     if (p.type === 'book') return isEn ? '📖 Reading' : '📖 读书';
+    if (p.type === 'garden') return isEn ? '🌿 Garden' : '🌿 田园';
     return isEn ? '🏞️ Scenery' : '🏞️ 风景';
   }
 
@@ -343,11 +651,8 @@
     return null;
   }
 
-  function renderWall() {
-    var wall = document.getElementById('wc-wall');
-    var status = document.getElementById('wc-wall-status');
+  function computeOrderedPosts() {
     var list = posts.slice();
-
     if (filterType === 'scenery') {
       list = list.filter(function(p) { return p.type === 'scenery' || p.type === 'garden'; });
     } else if (filterType === 'book') {
@@ -366,28 +671,176 @@
       });
     }
 
-    list.sort(function(a, b) {
-      var ha = (a.images && a.images.length) ? 1 : 0;
-      var hb = (b.images && b.images.length) ? 1 : 0;
-      if (ha !== hb) return hb - ha;
-      var la = a.likes || 0, lb = b.likes || 0;
-      if (la !== lb) return lb - la;
-      return (b.create_time || 0) - (a.create_time || 0);
-    });
-
-    if (filterType === 'all' && !topicFilter) {
-      var sc = list.filter(function(p) { return p.type !== 'book'; });
-      var bk = list.filter(function(p) { return p.type === 'book'; });
-      var mixed = [];
-      for (var mi = 0; mi < Math.max(sc.length, bk.length); mi++) {
-        if (sc[mi]) mixed.push(sc[mi]);
-        if (bk[mi]) mixed.push(bk[mi]);
-      }
-      list = mixed;
+    if (sortMode === 'latest') {
+      list.sort(function(a, b) {
+        var ha = (a.images && a.images.length) ? 1 : 0;
+        var hb = (b.images && b.images.length) ? 1 : 0;
+        if (ha !== hb) return hb - ha;
+        return (b.create_time || 0) - (a.create_time || 0);
+      });
+      return list;
     }
 
-    if (!list.length) {
+    if (sortMode === 'popular') {
+      list.sort(function(a, b) {
+        var ha = (a.images && a.images.length) ? 1 : 0;
+        var hb = (b.images && b.images.length) ? 1 : 0;
+        if (ha !== hb) return hb - ha;
+        var sa = (a.likes || 0) * 2 + (a.comments || 0) * 3;
+        var sb = (b.likes || 0) * 2 + (b.comments || 0) * 3;
+        if (sa !== sb) return sb - sa;
+        return (b.create_time || 0) - (a.create_time || 0);
+      });
+      return list;
+    }
+
+    // 默认「✨ 漫游」动态排序：有图 + 48h内真人新帖保鲜 + 未看过降权重置 + 时段氛围 + 会话种子打散
+    var now = Date.now();
+    var moodNow = getCurrentMood();
+    var adj = ADJ_MOOD[moodNow] || {};
+
+    var scored = list.map(function(p) {
+      var score = 0;
+      if (p.images && p.images.length) score += 100;
+      var cTime = Number(p.create_time || 0);
+      if (isRealUserPost(p)) {
+        score += 12;
+        if (cTime > 0 && Math.abs(now - cTime) < 48 * 3600 * 1000) score += 45;
+      }
+      if (!seenSnapshot[p.id]) score += 26;
+      var pm = getPostMood(p);
+      if (pm === moodNow) score += 12;
+      else if (adj[pm]) score += 4;
+      score += hash01(p.id + ':' + sessionSeed, sessionSeed) * 14;
+      return { p: p, s: score };
+    });
+
+    scored.sort(function(a, b) { return b.s - a.s; });
+    list = scored.map(function(x) { return x.p; });
+
+    // 全部视图下，48h内新帖置顶保鲜；其余按「风景→读书→风景」交错排布，确保首屏首卡见风景
+    if (filterType === 'all' && !topicFilter && list.length > 4) {
+      var freshHead = [];
+      var rest = [];
+      list.forEach(function(p) {
+        var cTime = Number(p.create_time || 0);
+        if (isRealUserPost(p) && cTime > 0 && Math.abs(now - cTime) < 48 * 3600 * 1000) freshHead.push(p);
+        else rest.push(p);
+      });
+      var sc = rest.filter(function(p) { return p.type !== 'book'; });
+      var bk = rest.filter(function(p) { return p.type === 'book'; });
+      var mixed = [];
+      var i = 0, j = 0;
+      while (i < sc.length || j < bk.length) {
+        if (i < sc.length) mixed.push(sc[i++]);
+        if (j < bk.length) mixed.push(bk[j++]);
+      }
+      list = freshHead.concat(mixed);
+    }
+
+    return list;
+  }
+
+  function updateMoodHint() {
+    var box = document.getElementById('wc-mood-hint');
+    if (!box) return;
+    if (!posts.length) { box.style.display = 'none'; return; }
+    var m = getCurrentMood();
+    var unseen = posts.filter(function(p) { return p.images && p.images.length && !seenSnapshot[p.id]; }).length;
+    var labelsZh = {
+      morning: '🌅 早安漫游 · 优先为你挑了晨光山海与尚未看过的新图',
+      day: '☀️ 午后漫游 · 优先呈现明亮风景与阅读角落',
+      evening: '🌆 黄昏漫游 · 优先为你铺上落日余晖与晚读角落',
+      night: '🌙 夜读漫游 · 优先为你挑了静夜星河与暖光书桌'
+    };
+    var labelsEn = {
+      morning: '🌅 Morning Discover · Morning light & unseen frames first',
+      day: '☀️ Afternoon Discover · Bright landscapes & reading corners first',
+      evening: '🌆 Dusk Discover · Golden hour views & reading desks first',
+      night: '🌙 Late-Night Discover · Night skies & warm study lamps first'
+    };
+    if (sortMode === 'discover') {
+      var tail = isEn
+        ? (unseen > 0 ? unseen + ' unseen left' : 'New round cycled')
+        : (unseen > 0 ? '还有 ' + unseen + ' 张尚未逛过' : '已开启新一轮漫游');
+      box.innerHTML = '<span>' + (isEn ? labelsEn[m] : labelsZh[m]) + '</span><span>' + tail + '</span>';
+    } else if (sortMode === 'latest') {
+      box.innerHTML = '<span>' + (isEn ? '🕒 Ordered strictly by newest shares first' : '🕒 按最新发布时间倒序排列') + '</span><span>' + posts.length + (isEn ? ' shares' : ' 条分享') + '</span>';
+    } else {
+      box.innerHTML = '<span>' + (isEn ? '♥ Ordered by reader likes & comments' : '♥ 按站内书友点赞与互动热度排列') + '</span><span>' + posts.length + (isEn ? ' shares' : ' 条分享') + '</span>';
+    }
+    box.style.display = 'flex';
+  }
+
+  function buildPostCardHtml(p) {
+    var imgs = p.images || [];
+    var cover = imgs.length ? resolveImg(imgs[0]) : '';
+    var tagObj = getCardTag(p);
+    var snippet = p.quote ? ('“' + p.quote + '”') : (p.note || '');
+    var isQuote = !!p.quote;
+    var nick = p.nickname || (isEn ? 'Reader' : '书友');
+    var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
+    var badgeCls = p.owner_id === 'official-curated' ? 'official' : (p.type === 'book' ? 'book' : '');
+    var liked = likedSet.has(p.id);
+
+    return '<article class="wc-card" data-id="' + esc(p.id) + '">' +
+      (cover
+        ? '<div class="wc-card-media"><img class="wc-card-img" src="' + esc(cover) + '" alt="' + esc(tagObj ? tagObj.label : nick) + '" loading="lazy"><span class="wc-badge ' + badgeCls + '">' + esc(getCardTypeLabel(p)) + '</span></div>'
+        : '') +
+      '<div class="wc-card-body">' +
+        (!cover ? '<div style="margin-bottom:8px;font-size:11.5px;font-weight:700;color:var(--zen-amber);">' + esc(getCardTypeLabel(p)) + '</div>' : '') +
+        (tagObj ? '<div class="wc-card-tag" data-act="topic" data-topic="' + esc(tagObj.raw) + '">' + tagObj.icon + ' ' + esc(tagObj.label) + '</div>' : '') +
+        (snippet ? '<p class="wc-card-snippet ' + (isQuote ? 'is-quote' : '') + '">' + esc(snippet) + '</p>' : '') +
+        '<div class="wc-card-foot">' +
+          '<span class="wc-author">' +
+            '<span class="wc-avatar" style="background:' + avaColor + '">' + esc(nick.charAt(0)) + '</span>' +
+            '<span class="wc-author-name">' + esc(nick) + '</span>' +
+          '</span>' +
+          '<span class="wc-actions">' +
+            '<button type="button" class="wc-stat-btn ' + (liked ? 'liked' : '') + '" data-act="like" data-like-btn="' + esc(p.id) + '">♥ ' + (p.likes || 0) + '</button>' +
+            '<span class="wc-stat-btn" data-cmt-count="' + esc(p.id) + '">💬 ' + (p.comments || 0) + '</span>' +
+          '</span>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function buildSanctuaryCardHtml(item) {
+    var actionHtml = '';
+    if (item.kind === 'audio') {
+      var playing = miniAudio && !miniAudio.paused && miniAudioSrc === item.src;
+      actionHtml =
+        '<div class="wc-sc-actions">' +
+          '<button type="button" class="wc-sc-btn" data-act="sc-audio" data-audio-src="' + esc(item.src) + '">' +
+            (playing ? (isEn ? '❚❚ Pause' : '❚❚ 暂停试听') : (isEn ? '▶ Listen' : '▶ 听一段')) +
+          '</button>' +
+          '<a href="' + esc(item.link) + '" class="wc-sc-sublink" data-act="sc-link">' + esc(item.linkText) + '</a>' +
+        '</div>';
+    } else {
+      var isExt = item.href.indexOf('http') === 0;
+      actionHtml =
+        '<div class="wc-sc-actions">' +
+          '<a href="' + esc(item.href) + '"' + (isExt ? ' target="_blank" rel="noopener"' : '') + ' class="wc-sc-btn" data-act="sc-link">' + esc(item.btnText) + '</a>' +
+        '</div>';
+    }
+    return '<aside class="wc-sanctuary-card">' +
+      '<span class="wc-sc-eyebrow">' + esc(item.eyebrow) + '</span>' +
+      '<h3 class="wc-sc-title">' + esc(item.title) + '</h3>' +
+      '<blockquote class="wc-sc-quote">' + esc(item.quote) + '</blockquote>' +
+      actionHtml +
+    '</aside>';
+  }
+
+  function renderWall(animateFade) {
+    var wall = document.getElementById('wc-wall');
+    var status = document.getElementById('wc-wall-status');
+    var moreBox = document.getElementById('wc-wall-more');
+    orderedPosts = computeOrderedPosts();
+    updateMoodHint();
+
+    if (!orderedPosts.length) {
       wall.innerHTML = '';
+      if (moreBox) moreBox.style.display = 'none';
       status.className = 'wc-empty';
       status.style.display = 'block';
       status.textContent = isEn ? 'No shares under this filter yet — be the first to share a photo!' : '这一栏暂时空着，来做第一个晒出照片的人吧 📷';
@@ -395,51 +848,142 @@
     }
 
     status.style.display = 'none';
-    wall.innerHTML = list.map(function(p) {
-      var imgs = p.images || [];
-      var cover = imgs.length ? resolveImg(imgs[0]) : '';
-      var tagObj = getCardTag(p);
-      var snippet = p.quote ? ('“' + p.quote + '”') : (p.note || '');
-      var isQuote = !!p.quote;
-      var nick = p.nickname || (isEn ? 'Reader' : '书友');
-      var avaColor = AVA[nick.charCodeAt(0) % AVA.length];
-      var badgeCls = p.owner_id === 'official-curated' ? 'official' : (p.type === 'book' ? 'book' : '');
-      var liked = likedSet.has(p.id);
+    var slice = orderedPosts.slice(0, visibleCount);
+    var cardsHtmlList = slice.map(function(p) { return buildPostCardHtml(p); });
 
-      return '<article class="wc-card" onclick="wcOpenDetail(\'' + esc(p.id) + '\')">' +
-        (cover
-          ? '<div class="wc-card-media"><img src="' + esc(cover) + '" alt="' + esc(tagObj ? tagObj.label : nick) + '" loading="lazy"><span class="wc-badge ' + badgeCls + '">' + esc(getCardTypeLabel(p)) + '</span></div>'
-          : '') +
-        '<div class="wc-card-body">' +
-          (!cover ? '<div style="margin-bottom:8px;font-size:11.5px;font-weight:700;color:var(--zen-amber);">' + esc(getCardTypeLabel(p)) + '</div>' : '') +
-          (tagObj ? '<div class="wc-card-tag" onclick="event.stopPropagation();wcFilterByTopic(\'' + esc(tagObj.raw).replace(/'/g, "\\'") + '\')">' + tagObj.icon + ' ' + esc(tagObj.label) + '</div>' : '') +
-          (snippet ? '<p class="wc-card-snippet ' + (isQuote ? 'is-quote' : '') + '">' + esc(snippet) + '</p>' : '') +
-          '<div class="wc-card-foot">' +
-            '<span class="wc-author">' +
-              '<span class="wc-avatar" style="background:' + avaColor + '">' + esc(nick.charAt(0)) + '</span>' +
-              '<span class="wc-author-name">' + esc(nick) + '</span>' +
-            '</span>' +
-            '<span class="wc-actions">' +
-              '<button type="button" class="wc-stat-btn ' + (liked ? 'liked' : '') + '" onclick="event.stopPropagation();wcLike(\'' + esc(p.id) + '\')">♥ ' + (p.likes || 0) + '</button>' +
-              '<span class="wc-stat-btn">💬 ' + (p.comments || 0) + '</span>' +
-            '</span>' +
-          '</div>' +
-        '</div>' +
-      '</article>';
+    if (filterType === 'all' && !topicFilter && slice.length >= 4) {
+      var sItem = SANCTUARY_DECK[(sessionSeed + visitCount) % SANCTUARY_DECK.length];
+      cardsHtmlList.splice(4, 0, buildSanctuaryCardHtml(sItem));
+    }
+
+    var nCols = getColsCount();
+    lastCols = nCols;
+    var cols = [];
+    for (var ci = 0; ci < nCols; ci++) cols.push([]);
+    for (var k = 0; k < cardsHtmlList.length; k++) {
+      cols[k % nCols].push(cardsHtmlList[k]);
+    }
+
+    wall.innerHTML = cols.map(function(colCards) {
+      return '<div class="wc-col">' + colCards.join('') + '</div>';
     }).join('');
+
+    wall.querySelectorAll('.wc-card-img').forEach(function(img) {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', function() { img.classList.add('loaded'); });
+        img.addEventListener('error', function() { img.classList.add('loaded'); });
+      }
+    });
+
+    if (animateFade) {
+      wall.classList.remove('wc-wall-fade');
+      void wall.offsetWidth;
+      wall.classList.add('wc-wall-fade');
+    }
+
+    var remaining = Math.max(0, orderedPosts.length - slice.length);
+    if (moreBox) {
+      if (remaining > 0) {
+        moreBox.innerHTML =
+          '<button type="button" class="wc-more-btn" onclick="wcLoadMore()">' +
+            (isEn ? 'Explore more · ' + remaining + ' left ↓' : '继续漫游 · 还有 ' + remaining + ' 张 ↓') +
+          '</button>' +
+          '<button type="button" class="wc-shuffle-btn" onclick="wcShuffleWall()">' +
+            '<span class="wc-shuffle-icon">↻</span> ' + (isEn ? 'Fresh batch' : '换一组新的') +
+          '</button>';
+        moreBox.style.display = 'flex';
+      } else if (orderedPosts.length > PAGE_BATCH) {
+        moreBox.innerHTML =
+          '<button type="button" class="wc-shuffle-btn" onclick="wcShuffleWall()">' +
+            '<span class="wc-shuffle-icon">↻</span> ' + (isEn ? 'Seen them all — shuffle order' : '这一轮看完了，换个顺序重逛') +
+          '</button>';
+        moreBox.style.display = 'flex';
+      } else {
+        moreBox.style.display = 'none';
+      }
+    }
   }
 
+  function syncMiniAudioButtons() {
+    document.querySelectorAll('[data-act="sc-audio"]').forEach(function(btn) {
+      var s = btn.getAttribute('data-audio-src');
+      var active = miniAudio && !miniAudio.paused && miniAudioSrc === s;
+      btn.textContent = active ? (isEn ? '❚❚ Pause' : '❚❚ 暂停试听') : (isEn ? '▶ Listen' : '▶ 听一段');
+    });
+  }
+
+  function wcToggleMiniAudio(src) {
+    if (!src) return;
+    if (!miniAudio) {
+      miniAudio = new Audio();
+      miniAudio.addEventListener('ended', syncMiniAudioButtons);
+      miniAudio.addEventListener('pause', syncMiniAudioButtons);
+      miniAudio.addEventListener('play', syncMiniAudioButtons);
+    }
+    if (miniAudioSrc === src && !miniAudio.paused) {
+      miniAudio.pause();
+    } else {
+      if (miniAudioSrc !== src) {
+        miniAudio.src = src;
+        miniAudioSrc = src;
+      }
+      miniAudio.play().catch(function() {});
+    }
+    syncMiniAudioButtons();
+  }
+
+  // 事件委托处理卡片点击/点赞/话题/静室迷你音频，彻底规避属性转义风险
+  var wallEl = document.getElementById('wc-wall');
+  if (wallEl) {
+    wallEl.addEventListener('click', function(e) {
+      var linkEl = e.target.closest('[data-act="sc-link"]');
+      if (linkEl) return;
+      var audioBtn = e.target.closest('[data-act="sc-audio"]');
+      if (audioBtn) {
+        e.preventDefault();
+        wcToggleMiniAudio(audioBtn.getAttribute('data-audio-src'));
+        return;
+      }
+      var likeBtn = e.target.closest('[data-act="like"]');
+      if (likeBtn) {
+        e.stopPropagation();
+        wcLike(likeBtn.getAttribute('data-like-btn'));
+        return;
+      }
+      var topicEl = e.target.closest('[data-act="topic"]');
+      if (topicEl) {
+        e.stopPropagation();
+        wcFilterByTopic(topicEl.getAttribute('data-topic'));
+        return;
+      }
+      var card = e.target.closest('.wc-card[data-id]');
+      if (card) {
+        wcOpenDetail(card.getAttribute('data-id'));
+      }
+    });
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (posts.length && getColsCount() !== lastCols) renderWall(false);
+    }, 150);
+  });
+
   var FALLBACK_POSTS = [
-    { id: 'fb-1', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Erhai Eco-corridor' : '洱海生态廊道', quote: isEn ? 'Look at distant clouds and water, and let your mind come home from the screen.' : '看一眼远处的云和水面，把心从屏幕里收回来。', images: ['/images/plaza/erhai_lake.jpg'], likes: 0, comments: 0, create_time: 5, offline: true },
-    { id: 'fb-2', type: 'book', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Old library long table' : '老图书馆长桌', quote: isEn ? 'One lamp, one long table, quiet strangers around you.' : '一盏台灯、一张长桌，和周围互不打扰的陌生人。', images: ['/images/plaza/library_room.jpg'], likes: 0, comments: 0, create_time: 4, offline: true },
-    { id: 'fb-3', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Yuanyang terraces at dawn' : '元阳晨雾梯田', quote: isEn ? 'The earth never rushes; season by season it fills the fields with sky.' : '大地不争抢时间，一季一季把水田盛满天光。', images: ['/images/plaza/yunnan_terraces.jpg'], likes: 0, comments: 0, create_time: 3, offline: true },
-    { id: 'fb-4', type: 'book', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Coffee and a book' : '一杯咖啡一本书', quote: isEn ? 'Read a few pages, and the day slows down.' : '翻几页书，一天就慢下来了。', images: ['/images/plaza/reading_coffee.jpg'], likes: 0, comments: 0, create_time: 2, offline: true },
-    { id: 'fb-5', type: 'scenery', owner_id: 'official-curated', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Sunset on the rocks' : '海边日落礁石', quote: isEn ? 'The waves repeat the same rhythm, and somehow that calms you.' : '海浪一直重复相同的节奏，反而让人更容易静下来。', images: ['/images/plaza/ocean_sunset.jpg'], likes: 0, comments: 0, create_time: 1, offline: true }
+    { id: 'fb-1', type: 'scenery', owner_id: 'official-curated', tag: 'mind,mood:day', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Erhai Eco-corridor' : '洱海生态廊道', quote: isEn ? 'Look at distant clouds and water, and let your mind come home from the screen.' : '看一眼远处的云和水面，把心从屏幕里收回来。', images: ['/images/plaza/erhai_lake.jpg'], likes: 0, comments: 0, create_time: 5, offline: true },
+    { id: 'fb-2', type: 'book', owner_id: 'official-curated', tag: 'thought,mood:night', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Old library long table' : '老图书馆长桌', quote: isEn ? 'One lamp, one long table, quiet strangers around you.' : '一盏台灯、一张长桌，和周围互不打扰的陌生人。', images: ['/images/plaza/library_room.jpg'], likes: 0, comments: 0, create_time: 4, offline: true },
+    { id: 'fb-3', type: 'scenery', owner_id: 'official-curated', tag: 'mind,mood:morning', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Yuanyang terraces at dawn' : '元阳晨雾梯田', quote: isEn ? 'The earth never rushes; season by season it fills the fields with sky.' : '大地不争抢时间，一季一季把水田盛满天光。', images: ['/images/plaza/yunnan_terraces.jpg'], likes: 0, comments: 0, create_time: 3, offline: true },
+    { id: 'fb-4', type: 'book', owner_id: 'official-curated', tag: 'mind,mood:day', nickname: isEn ? 'World Corner · Reading Nook' : '世界一隅 · 阅读角落', spot_name: isEn ? 'Coffee and a book' : '一杯咖啡一本书', quote: isEn ? 'Read a few pages, and the day slows down.' : '翻几页书，一天就慢下来了。', images: ['/images/plaza/reading_coffee.jpg'], likes: 0, comments: 0, create_time: 2, offline: true },
+    { id: 'fb-5', type: 'scenery', owner_id: 'official-curated', tag: 'mind,mood:evening', nickname: isEn ? 'World Corner · Public Scenery' : '世界一隅 · 公共景色', spot_name: isEn ? 'Sunset on the rocks' : '海边日落礁石', quote: isEn ? 'The waves repeat the same rhythm, and somehow that calms you.' : '海浪一直重复相同的节奏，反而让人更容易静下来。', images: ['/images/plaza/ocean_sunset.jpg'], likes: 0, comments: 0, create_time: 1, offline: true }
   ];
 
   function showOfflineWall() {
     posts = FALLBACK_POSTS.slice();
-    renderWall();
+    renderWall(false);
     var status = document.getElementById('wc-wall-status');
     status.className = 'wc-empty';
     status.style.display = 'block';
@@ -464,21 +1008,67 @@
       .then(function(j) {
         posts = j.posts || [];
         if (!posts.length) { showOfflineWall(); return; }
-        renderWall();
+        maybeResetSeenPool(posts);
+        renderWall(false);
+        try {
+          var pid = new URLSearchParams(location.search).get('post');
+          if (pid && !activeDetailId) {
+            var exists = posts.some(function(x) { return x.id === pid; });
+            if (exists) wcOpenDetail(pid);
+          }
+        } catch (e) {}
       })
       .catch(function() { showOfflineWall(); });
   }
 
   window.wcSetFilter = function(f) {
     filterType = f;
+    visibleCount = PAGE_BATCH;
     document.querySelectorAll('#wc-filters .wc-pill').forEach(function(el) {
       el.classList.toggle('on', el.getAttribute('data-f') === f);
     });
-    renderWall();
+    renderWall(true);
+  };
+
+  window.wcSetSort = function(s) {
+    sortMode = s || 'discover';
+    visibleCount = PAGE_BATCH;
+    document.querySelectorAll('#wc-sorts .wc-sort-pill').forEach(function(el) {
+      el.classList.toggle('on', el.getAttribute('data-s') === sortMode);
+    });
+    renderWall(true);
+  };
+
+  window.wcShuffleWall = function() {
+    wcRecordDisplayedImpressions();
+    seenSnapshot = Object.assign({}, seenMap);
+    maybeResetSeenPool(posts);
+    sessionSeed++;
+    if (sortMode !== 'discover') {
+      sortMode = 'discover';
+      document.querySelectorAll('#wc-sorts .wc-sort-pill').forEach(function(el) {
+        el.classList.toggle('on', el.getAttribute('data-s') === 'discover');
+      });
+    }
+    visibleCount = PAGE_BATCH;
+    var btn = document.getElementById('wc-shuffle-btn');
+    if (btn) {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      setTimeout(function() { btn.classList.remove('spinning'); }, 400);
+    }
+    renderWall(true);
+  };
+
+  window.wcLoadMore = function() {
+    visibleCount += PAGE_BATCH;
+    renderWall(false);
   };
 
   window.wcFilterByTopic = function(t) {
     topicFilter = t || '';
+    visibleCount = PAGE_BATCH;
     var bar = document.getElementById('wc-topic-bar');
     var txt = document.getElementById('wc-topic-text');
     if (topicFilter) {
@@ -487,27 +1077,47 @@
     } else {
       bar.style.display = 'none';
     }
-    renderWall();
+    renderWall(true);
   };
 
   window.wcClearTopic = function() {
     wcFilterByTopic('');
   };
 
+  function syncLikeButtonsDom(id, likesVal, isLiked) {
+    document.querySelectorAll('[data-like-btn]').forEach(function(btn) {
+      if (btn.getAttribute('data-like-btn') === id) {
+        btn.classList.toggle('liked', isLiked);
+        var isDetail = btn.hasAttribute('data-detail-like');
+        btn.textContent = isDetail
+          ? ('♥ ' + (isEn ? 'Like' : '赞') + ' (' + likesVal + ')')
+          : ('♥ ' + likesVal);
+      }
+    });
+  }
+
   window.wcLike = function(id) {
     if (likedSet.has(id)) return;
     likedSet.add(id);
     try { localStorage.setItem('cc_liked', JSON.stringify(Array.from(likedSet))); } catch (e) {}
-    posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { likes: (p.likes || 0) + 1 }) : p; });
-    renderWall();
-    if (activeDetailId === id) renderDetailBody(id);
-    if (/^fb-/.test(id)) { return; }
+    var targetPost = null;
+    posts = posts.map(function(p) {
+      if (p.id !== id) return p;
+      targetPost = Object.assign({}, p, { likes: (p.likes || 0) + 1 });
+      return targetPost;
+    });
+    if (targetPost) syncLikeButtonsDom(id, targetPost.likes, true);
+    if (/^fb-/.test(id)) return;
     function rollback() {
       likedSet.delete(id);
       try { localStorage.setItem('cc_liked', JSON.stringify(Array.from(likedSet))); } catch (e) {}
-      posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { likes: Math.max(0, (p.likes || 0) - 1) }) : p; });
-      renderWall();
-      if (activeDetailId === id) renderDetailBody(id);
+      var reverted = null;
+      posts = posts.map(function(p) {
+        if (p.id !== id) return p;
+        reverted = Object.assign({}, p, { likes: Math.max(0, (p.likes || 0) - 1) });
+        return reverted;
+      });
+      if (reverted) syncLikeButtonsDom(id, reverted.likes, false);
     }
     fetch(API_BASE + '/api/like', {
       method: 'POST',
@@ -516,25 +1126,86 @@
     }).then(function(r) { if (!r.ok) rollback(); }).catch(rollback);
   };
 
+  function updateDetailNav() {
+    var prevBtn = document.getElementById('wc-d-prev');
+    var nextBtn = document.getElementById('wc-d-next');
+    var ctr = document.getElementById('wc-d-counter');
+    var idx = orderedPosts.findIndex(function(x) { return x.id === activeDetailId; });
+    if (idx === -1 || orderedPosts.length <= 1) {
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      if (ctr) ctr.textContent = '';
+      return;
+    }
+    if (prevBtn) { prevBtn.style.display = 'inline-block'; prevBtn.disabled = (idx <= 0); }
+    if (nextBtn) { nextBtn.style.display = 'inline-block'; nextBtn.disabled = (idx >= orderedPosts.length - 1); }
+    if (ctr) ctr.textContent = (idx + 1) + ' / ' + orderedPosts.length;
+  }
+
   window.wcOpenDetail = function(id) {
     activeDetailId = id;
+    wcMarkSeen(id);
     renderDetailBody(id);
-    document.getElementById('wc-detail-modal').classList.add('open');
+    updateDetailNav();
+    var modal = document.getElementById('wc-detail-modal');
+    modal.classList.add('open');
+    var box = document.getElementById('wc-detail-box');
+    if (box) box.scrollTop = 0;
+    try {
+      var u = new URL(location.href);
+      u.searchParams.set('post', id);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) {}
     loadDetailComments(id);
+  };
+
+  window.wcStepDetail = function(delta) {
+    if (!activeDetailId || !orderedPosts.length) return;
+    var idx = orderedPosts.findIndex(function(x) { return x.id === activeDetailId; });
+    var nextIdx = idx + delta;
+    if (nextIdx < 0 || nextIdx >= orderedPosts.length) return;
+    wcOpenDetail(orderedPosts[nextIdx].id);
   };
 
   window.wcCloseDetail = function() {
     activeDetailId = null;
     document.getElementById('wc-detail-modal').classList.remove('open');
+    try {
+      var u = new URL(location.href);
+      if (u.searchParams.has('post')) {
+        u.searchParams.delete('post');
+        history.replaceState(null, '', u.pathname + (u.search ? u.search : '') + u.hash);
+      }
+    } catch (e) {}
+  };
+
+  window.wcSharePost = function(id, btnEl) {
+    var shareUrl = location.origin + location.pathname + '?post=' + encodeURIComponent(id);
+    var orig = btnEl.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(shareUrl).then(function() {
+        btnEl.textContent = isEn ? '✓ Link copied' : '✓ 已复制链接';
+        setTimeout(function() { btnEl.textContent = orig; }, 2000);
+      }).catch(function() {
+        btnEl.textContent = shareUrl;
+      });
+    } else {
+      btnEl.textContent = shareUrl;
+    }
   };
 
   function creditFor(p) {
     var img = (p.images && p.images[0]) || '';
-    var base = isEn ? 'Editor pick. Image from public-licence sources; copyright stays with the original author. ' : '编辑精选。图片来自公共授权素材，版权归原作者所有。';
-    if (/yunnan_terraces/.test(img)) {
-      return isEn ? 'Editor pick. Photo: chensiyuan, Wikimedia Commons, CC BY-SA.' : '编辑精选。摄影：chensiyuan，来源 Wikimedia Commons，CC BY-SA 授权。';
+    var m = img.match(/\/curated\/([^\/.?#]+)\.jpg/i);
+    if (m && CURATED_CREDITS[m[1]]) {
+      var info = CURATED_CREDITS[m[1]];
+      return isEn
+        ? ('Editor pick · Photo: ' + info.a + ' · Wikimedia Commons · ' + info.l + '.')
+        : ('编辑精选 · 摄影：' + info.a + ' · Wikimedia Commons · ' + info.l + ' 授权。');
     }
-    return base + (isEn ? 'Contact us to credit or remove.' : '如需署名或撤下请联系我们。');
+    return isEn
+      ? 'Editor pick. Image from public-licence sources; copyright stays with the original author. Contact us to credit or remove.'
+      : '编辑精选。图片来自公共授权素材，版权归原作者所有，如需署名或撤下请联系我们。';
   }
 
   function renderDetailBody(id) {
@@ -551,28 +1222,49 @@
     var imgsHtml = (p.images && p.images.length)
       ? '<div class="wc-detail-imgs">' + p.images.map(function(u) {
           var full = resolveImg(u);
-          return '<img src="' + esc(full) + '" onclick="wcOpenLightbox(\'' + esc(full).replace(/'/g, "\\'") + '\')" alt="">';
+          return '<img src="' + esc(full) + '" data-lightbox-src="' + esc(full) + '" alt="">';
         }).join('') + '</div>'
       : '';
     var liked = likedSet.has(p.id);
 
-    document.getElementById('wc-d-body').innerHTML =
+    var dBody = document.getElementById('wc-d-body');
+    dBody.innerHTML =
       imgsHtml +
-      (tagObj ? '<div style="margin-bottom:10px;"><span class="wc-card-tag" style="cursor:pointer" onclick="wcFilterByTopic(\'' + esc(tagObj.raw).replace(/'/g, "\\'") + '\');wcCloseDetail()">' + tagObj.icon + ' ' + esc(tagObj.label) + '</span></div>' : '') +
+      (tagObj ? '<div style="margin-bottom:10px;"><span class="wc-card-tag" style="cursor:pointer" data-detail-topic="' + esc(tagObj.raw) + '">' + tagObj.icon + ' ' + esc(tagObj.label) + '</span></div>' : '') +
       (p.quote ? '<div class="wc-detail-quote">“' + esc(p.quote) + '”</div>' : '') +
       (p.note ? '<div class="wc-detail-note">' + esc(p.note) + '</div>' : '') +
       (p.tr_note ? '<div class="wc-detail-tr">' + esc(p.tr_note) + '</div>' : '') +
       (p.owner_id === 'official-curated' ? '<div style="margin:10px 0;font-size:12px;color:var(--zen-ink-muted)">' + creditFor(p) + '</div>' : '') +
       '<div class="wc-detail-bar">' +
-        '<button type="button" class="wc-mini-btn ' + (liked ? 'liked' : '') + '" onclick="wcLike(\'' + esc(p.id) + '\')">♥ ' + (isEn ? 'Like' : '赞') + ' (' + (p.likes || 0) + ')</button>' +
+        '<button type="button" class="wc-mini-btn ' + (liked ? 'liked' : '') + '" data-detail-like="1" data-like-btn="' + esc(p.id) + '" onclick="wcLike(\'' + esc(p.id) + '\')">♥ ' + (isEn ? 'Like' : '赞') + ' (' + (p.likes || 0) + ')</button>' +
         '<button type="button" class="wc-mini-btn" onclick="wcTranslatePost(\'' + esc(p.id) + '\')">' + (p.tr_note ? (isEn ? '↺ Hide Translation' : '↺ 收起译文') : (isEn ? '🌐 Translate' : '🌐 翻译')) + '</button>' +
+        '<button type="button" class="wc-mini-btn" onclick="wcSharePost(\'' + esc(p.id) + '\', this)">🔗 ' + (isEn ? 'Share link' : '分享这张') + '</button>' +
       '</div>' +
       '<div class="wc-cmts-wrap" id="wc-cmts-box"><div style="font-size:13px;color:var(--zen-ink-muted)">' + (isEn ? 'Loading comments…' : '正在加载评论…') + '</div></div>';
   }
 
+  var detailBodyEl = document.getElementById('wc-d-body');
+  if (detailBodyEl) {
+    detailBodyEl.addEventListener('click', function(e) {
+      var imgEl = e.target.closest('img[data-lightbox-src]');
+      if (imgEl) {
+        wcOpenLightbox(imgEl.getAttribute('data-lightbox-src'));
+        return;
+      }
+      var tagEl = e.target.closest('[data-detail-topic]');
+      if (tagEl) {
+        wcFilterByTopic(tagEl.getAttribute('data-detail-topic'));
+        wcCloseDetail();
+      }
+    });
+  }
+
   function loadDetailComments(id) {
     fetch(API_BASE + '/api/comments?postId=' + encodeURIComponent(id))
-      .then(function(r) { return r.json(); })
+      .then(function(r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.json();
+      })
       .then(function(j) {
         var box = document.getElementById('wc-cmts-box');
         if (!box || activeDetailId !== id) return;
@@ -598,8 +1290,23 @@
             '<input id="wc-cmt-input" class="wc-input wc-cmt-text" placeholder="' + (isEn ? 'Say something gentle or share a book line…' : '留下一句书摘或心情…') + '" onkeydown="if(event.key===\'Enter\')wcSendCmt(\'' + esc(id) + '\')">' +
             '<button type="button" class="wc-primary-btn" onclick="wcSendCmt(\'' + esc(id) + '\')">' + (isEn ? 'Send' : '发送') + '</button>' +
           '</div>';
+      })
+      .catch(function() {
+        var box = document.getElementById('wc-cmts-box');
+        if (!box || activeDetailId !== id) return;
+        box.innerHTML =
+          '<div style="font-size:13px;color:var(--zen-amber);padding:8px 0;">' +
+            (isEn ? 'Could not load comments. ' : '评论暂时没加载出来。') +
+            '<button type="button" class="wc-mini-btn" onclick="wcRetryComments(\'' + esc(id) + '\')">' + (isEn ? 'Retry' : '重试') + '</button>' +
+          '</div>';
       });
   }
+
+  window.wcRetryComments = function(id) {
+    var box = document.getElementById('wc-cmts-box');
+    if (box) box.innerHTML = '<div style="font-size:13px;color:var(--zen-ink-muted)">' + (isEn ? 'Loading comments…' : '正在加载评论…') + '</div>';
+    loadDetailComments(id);
+  };
 
   window.wcSendCmt = function(id) {
     var inp = document.getElementById('wc-cmt-input');
@@ -613,7 +1320,7 @@
         try { localStorage.setItem('cc_guest_nick', nEl.value.trim()); } catch (e) {}
       }
     }
-    if (/^fb-/.test(id)) { return; }
+    if (/^fb-/.test(id)) return;
     inp.disabled = true;
     function failCmt() {
       var el = document.getElementById('wc-cmt-input');
@@ -628,8 +1335,15 @@
       body: JSON.stringify({ postId: id, text: text, nickname: nickname })
     }).then(function(j) {
       if (!j || !j.ok) { failCmt(); return; }
-      posts = posts.map(function(p) { return p.id === id ? Object.assign({}, p, { comments: (p.comments || 0) + 1 }) : p; });
-      renderWall();
+      var newCount = 0;
+      posts = posts.map(function(p) {
+        if (p.id !== id) return p;
+        newCount = (p.comments || 0) + 1;
+        return Object.assign({}, p, { comments: newCount });
+      });
+      document.querySelectorAll('[data-cmt-count]').forEach(function(el) {
+        if (el.getAttribute('data-cmt-count') === id) el.textContent = '💬 ' + newCount;
+      });
       loadDetailComments(id);
     }).catch(failCmt);
   };
@@ -692,16 +1406,37 @@
     document.getElementById('wc-lightbox').classList.remove('open');
   };
 
-  /* ---- 极简发布弹窗 ---- */
-  window.wcOpenPublish = function() {
-    if (!user) {
-      pendingPublish = true;
-      wcOpenAuth('reg', isEn
-        ? 'Sign up free in 10 seconds (no invite code) to share your photos!'
-        : '10 秒免费注册即可晒图分享（无需邀请码），注册完会自动回到这里。');
-      return;
+  // 全局快捷键：Esc 逐层关闭弹窗；← / → 在详情里翻页
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (document.getElementById('wc-lightbox').classList.contains('open')) { wcCloseLightbox(); return; }
+      if (document.getElementById('wc-auth-modal').classList.contains('open')) { wcCloseAuth(); return; }
+      if (document.getElementById('wc-pub-modal').classList.contains('open')) { wcClosePublish(); return; }
+      if (document.getElementById('wc-detail-modal').classList.contains('open')) { wcCloseDetail(); return; }
     }
+    if (activeDetailId && document.getElementById('wc-detail-modal').classList.contains('open')) {
+      var tag = (document.activeElement && document.activeElement.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') wcStepDetail(-1);
+      else if (e.key === 'ArrowRight') wcStepDetail(1);
+    }
+  });
+
+  /* ---- 极简发布弹窗（先填后登 + 前端 Canvas 压缩） ---- */
+  function drawPubPrompt() {
+    var el = document.getElementById('wc-pub-prompt-text');
+    if (el) el.textContent = (isEn ? '💡 Prompt: ' : '💡 今日灵感：') + PUB_PROMPTS[pubPromptIdx % PUB_PROMPTS.length];
+  }
+
+  window.wcNextPubPrompt = function() {
+    pubPromptIdx = (pubPromptIdx + 1) % PUB_PROMPTS.length;
+    drawPubPrompt();
+  };
+
+  window.wcOpenPublish = function() {
     wcSetPubType(pubType);
+    drawPubPrompt();
+    updatePubAuthNote();
     document.getElementById('wc-pub-msg').textContent = '';
     document.getElementById('wc-pub-modal').classList.add('open');
   };
@@ -728,49 +1463,92 @@
 
   function drawPreviews() {
     var box = document.getElementById('wc-pub-previews');
-    box.innerHTML = pubImgs.map(function(u, idx) {
-      return '<div class="wc-prev-item"><img src="' + esc(resolveImg(u)) + '" alt=""><button type="button" class="wc-prev-del" onclick="wcRemoveImg(' + idx + ')">×</button></div>';
+    box.innerHTML = pubItems.map(function(it, idx) {
+      return '<div class="wc-prev-item"><img src="' + esc(it.previewUrl) + '" alt=""><button type="button" class="wc-prev-del" onclick="wcRemoveImg(' + idx + ')">×</button></div>';
     }).join('');
   }
 
   window.wcRemoveImg = function(idx) {
-    pubImgs.splice(idx, 1);
+    pubItems.splice(idx, 1);
     drawPreviews();
   };
 
+  function compressImageFile(file) {
+    return new Promise(function(resolve) {
+      if (file.size <= 260 * 1024 && file.type === 'image/jpeg') {
+        resolve(file);
+        return;
+      }
+      var objUrl = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function() {
+        try {
+          var maxSide = 1600;
+          var w = img.naturalWidth || img.width;
+          var h = img.naturalHeight || img.height;
+          if (w > maxSide || h > maxSide) {
+            if (w >= h) { h = Math.round(h * maxSide / w); w = maxSide; }
+            else { w = Math.round(w * maxSide / h); h = maxSide; }
+          }
+          var canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          canvas.toBlob(function(blob) {
+            URL.revokeObjectURL(objUrl);
+            resolve(blob || file);
+          }, 'image/jpeg', 0.82);
+        } catch (e) {
+          URL.revokeObjectURL(objUrl);
+          resolve(file);
+        }
+      };
+      img.onerror = function() {
+        URL.revokeObjectURL(objUrl);
+        resolve(file);
+      };
+      img.src = objUrl;
+    });
+  }
+
   window.wcHandleFiles = function(input) {
-    var files = Array.from(input.files || []).slice(0, 3 - pubImgs.length);
+    var files = Array.from(input.files || []).slice(0, 3 - pubItems.length);
     if (!files.length) return;
     var msg = document.getElementById('wc-pub-msg');
     var tok = '';
     try { tok = localStorage.getItem('cc_token') || ''; } catch (e) {}
 
     files.forEach(function(file) {
-      if (file.size > 8 * 1024 * 1024) {
-        msg.textContent = isEn ? 'Each image must be ≤ 8MB.' : '单张图片不能超过 8MB';
+      if (file.size > 16 * 1024 * 1024) {
+        msg.textContent = isEn ? 'Original image must be ≤ 16MB.' : '单张原图不能超过 16MB';
         return;
       }
       uploadingCount++;
-      msg.textContent = isEn ? 'Uploading photo…' : '正在上传照片…';
-      fetch(API_BASE + '/api/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': file.type || 'image/jpeg',
-          'Authorization': 'Bearer ' + tok
-        },
-        body: file
-      }).then(function(r) { return r.json(); }).then(function(j) {
-        uploadingCount--;
-        if (j.ok && j.url) {
-          pubImgs.push(j.url);
+      msg.textContent = isEn ? 'Optimizing photo…' : '正在轻量压缩处理照片…';
+      compressImageFile(file).then(function(blob) {
+        if (!user || !tok) {
+          uploadingCount--;
+          var previewUrl = URL.createObjectURL(blob);
+          pubItems.push({ blob: blob, previewUrl: previewUrl });
           drawPreviews();
           if (uploadingCount === 0) msg.textContent = '';
-        } else {
-          msg.textContent = j.error || (isEn ? 'Upload failed' : '上传失败');
+          return;
         }
-      }).catch(function() {
-        uploadingCount--;
-        msg.textContent = isEn ? 'Upload failed' : '上传失败';
+        msg.textContent = isEn ? 'Uploading photo…' : '正在上传照片…';
+        uploadBlobItem(blob, tok).then(function(j) {
+          uploadingCount--;
+          if (j && j.ok && j.url) {
+            pubItems.push({ url: j.url, previewUrl: resolveImg(j.url) });
+            drawPreviews();
+            if (uploadingCount === 0) msg.textContent = '';
+          } else {
+            msg.textContent = (j && j.error) || (isEn ? 'Upload failed' : '上传失败');
+          }
+        }).catch(function() {
+          uploadingCount--;
+          msg.textContent = isEn ? 'Upload failed' : '上传失败';
+        });
       });
     });
     input.value = '';
@@ -779,7 +1557,7 @@
   window.wcSubmitPost = function() {
     var msg = document.getElementById('wc-pub-msg');
     if (uploadingCount > 0) {
-      msg.textContent = isEn ? 'Still uploading photos, please wait…' : '照片还在上传中，请稍等几秒…';
+      msg.textContent = isEn ? 'Still optimizing/uploading photos, please wait…' : '照片还在处理中，请稍等几秒…';
       return;
     }
     var topic = document.getElementById('wc-pub-topic').value.trim();
@@ -793,8 +1571,16 @@
         : (isEn ? 'Please enter a place name.' : '请先写上地点或风景名字');
       return;
     }
-    if (!pubImgs.length && !feeling && !quote) {
+    if (!pubItems.length && !feeling && !quote) {
       msg.textContent = isEn ? 'Please upload a photo or write one line.' : '请至少传一张照片，或写下一句话感受';
+      return;
+    }
+
+    if (!user) {
+      pendingSubmitAfterAuth = true;
+      wcOpenAuth('reg', isEn
+        ? 'Your photos & draft are saved! Sign up in 10 seconds to publish immediately.'
+        : '照片与文字已为你保留！10 秒免费注册或登录后，将自动提交上墙。');
       return;
     }
 
@@ -802,26 +1588,44 @@
     btn.disabled = true;
     msg.textContent = isEn ? 'Publishing…' : '正在发布…';
 
+    var nowTs = Date.now();
     var payload = {
       type: pubType,
       bookTitle: pubType === 'book' ? topic : '',
       spotName: pubType === 'scenery' ? topic : spot,
       quote: quote,
       note: feeling,
-      images: pubImgs.slice(),
-      createTime: Date.now()
+      tag: 'mood:' + getCurrentMood(),
+      images: pubItems.map(function(it) { return it.url; }).filter(Boolean),
+      createTime: nowTs
     };
 
     apiFetch('/api/posts', { method: 'POST', body: JSON.stringify(payload) }).then(function(j) {
       btn.disabled = false;
       if (j.error) { msg.textContent = j.error; return; }
-      pubImgs = [];
+      posts.unshift({
+        id: j.id,
+        type: payload.type,
+        owner_id: user.username || 'me',
+        nickname: user.nickname || '书友',
+        book_title: payload.bookTitle,
+        spot_name: payload.spotName,
+        quote: payload.quote,
+        note: payload.note,
+        tag: payload.tag,
+        images: payload.images,
+        likes: 0,
+        comments: 0,
+        create_time: nowTs
+      });
+      pubItems = [];
       drawPreviews();
       document.getElementById('wc-pub-topic').value = '';
       document.getElementById('wc-pub-feeling').value = '';
       document.getElementById('wc-pub-spot').value = '';
       document.getElementById('wc-pub-quote').value = '';
       wcClosePublish();
+      renderWall(true);
       loadPosts();
     }).catch(function() {
       btn.disabled = false;
