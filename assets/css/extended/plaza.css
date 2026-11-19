@@ -193,6 +193,11 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.wc-sort-cycle {
+  display: none;
 }
 
 .wc-shuffle-btn:hover {
@@ -230,6 +235,66 @@
   font-size: 12.5px;
   color: var(--zen-ink-muted);
   margin: 0 2px 14px;
+}
+
+.wc-return-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 12px;
+  margin: 0 0 12px;
+  border-radius: 10px;
+  background: var(--zen-bg-card);
+  border: 1px solid var(--zen-border);
+  font-size: 12.5px;
+  color: var(--zen-ink-body);
+}
+
+.wc-return-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 1;
+}
+
+.wc-return-link {
+  color: var(--zen-pine);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.wc-return-link:hover {
+  text-decoration: underline;
+}
+
+.wc-return-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.wc-return-pill {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--zen-pine-light);
+  color: var(--zen-pine);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wc-return-close {
+  border: none;
+  background: transparent;
+  color: var(--zen-ink-muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
 }
 
 .wc-pill {
@@ -272,6 +337,8 @@
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 4px 14px rgba(217, 130, 43, 0.28);
   transition: transform 0.15s ease, filter 0.15s ease;
 }
@@ -642,6 +709,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .wc-close-x:hover {
@@ -694,6 +762,31 @@
   line-height: 1.65;
   color: var(--zen-pine);
   margin-bottom: 12px;
+}
+
+.wc-detail-source {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 9px 13px;
+  border-radius: 10px;
+  background: var(--zen-pine-light);
+  border: 1px solid var(--zen-border);
+  font-size: 12.5px;
+  color: var(--zen-ink-body);
+  margin-bottom: 12px;
+}
+
+.wc-detail-source a {
+  color: var(--zen-pine);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wc-detail-source a:hover {
+  text-decoration: underline;
 }
 
 .wc-detail-bar {
@@ -1099,21 +1192,30 @@
 }
 
 /* ---- 8. 详情弹窗左右浏览 & 晒图引子栏 ---- */
-.wc-detail-head-right {
+.wc-detail-nav-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed var(--zen-border);
 }
 
 .wc-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 30px;
-  padding: 0 10px;
+  padding: 0 12px;
   border-radius: 999px;
   border: 1px solid var(--zen-border);
   background: var(--zen-bg-subtle);
   color: var(--zen-ink-body);
   font-size: 12.5px;
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
   cursor: pointer;
   transition: all 0.16s ease;
 }
@@ -1202,6 +1304,10 @@
     gap: 6px;
   }
 
+  .wc-hide-sm {
+    display: none;
+  }
+
   .wc-user-pill,
   .wc-inner-link {
     padding: 5px 10px;
@@ -1225,30 +1331,48 @@
   .wc-toolbar-right {
     width: 100%;
     justify-content: space-between;
-    gap: 5px;
+    gap: 6px;
     flex-wrap: nowrap;
   }
 
   .wc-sort-pills {
-    padding: 2px;
-    gap: 1px;
+    display: none;
   }
 
-  .wc-sort-pill {
-    padding: 4px 7px;
-    font-size: 11.5px;
+  .wc-sort-cycle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--zen-border);
+    background: var(--zen-bg-subtle);
+    color: var(--zen-pine);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: pointer;
   }
 
   .wc-shuffle-btn {
-    padding: 5px 9px;
-    font-size: 11.5px;
-    gap: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .wc-share-btn {
-    padding: 5px 11px;
+    padding: 5px 12px;
     font-size: 12px;
-    gap: 4px;
+    gap: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .wc-modal-box {
+    padding: 16px;
   }
 
   .wc-mood-hint {

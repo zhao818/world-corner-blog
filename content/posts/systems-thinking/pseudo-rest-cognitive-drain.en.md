@@ -24,42 +24,43 @@ The answer hides in two directions few people look at directly: **you are restin
 
 We habitually equate "rest" with "not working." That is cognitive residue left by the industrial age. Workers on an assembly line genuinely could recover by simply "shutting down" — their bodies were single-purpose energy-consumption machines, and stopping meant recharging.
 
-The energy metabolism of knowledge workers doesn't work that way. Your brain, while "resting" — scrolling feeds, bingeing shows, gaming — keeps running at considerable wattage. The dopamine system keeps responding to fresh pushes; the prefrontal cortex keeps judging "is this video worth another ten seconds"; every swipe is a micro cognitive decision. You think you've shut down the machine. In fact you're **idling** — burning only 15–20% less energy than full-load work, with zero output.
+The energy metabolism of knowledge workers doesn't work that way. While "resting" — scrolling feeds, bingeing shows, gaming — your prefrontal cortex and reward circuits stay busy at high frequency. Fresh pushes keep forcing attention switches, and your brain keeps evaluating whether the next clip deserves ten more seconds. You think you've shut down the machine, when in fact you are **idling at high RPM** — burning mental bandwidth through constant micro-switching without real restoration.
 
 This is the first truth about why modern rest makes people more tired: **you never turned off the engine. You just shifted into neutral.**
 
 **The environment loop — your "resting environment" is shaping you in reverse**
 
-The second truth is stealthier, and deadlier.
+The second truth is stealthier, and harder to notice.
 
-Your phone, your bedroom, your digital space — these so-called "resting environments" are, in essence, attention-hunting grounds meticulously engineered by algorithms. Every push notification, every red dot, every vibration activates your stress circuitry. You think you're relaxing, but your nervous system has remained in a state of "light combat readiness." Neuroscience has confirmed: **merely having a device ringing with notifications nearby is enough to raise your cortisol levels — even if you never touch it.**
+Your phone, your bedroom, your digital space — these so-called "resting environments" easily turn into arenas built to compete for your attention. Push notifications, red badges, and vibrations repeatedly fracture continuity of focus. You think you're relaxing, while a layer of background cognitive bandwidth stays on alert. In their 2017 *"Brain Drain"* experiments published in the *Journal of the Association for Consumer Research*, psychologist Adrian Ward and colleagues found that **simply having your own smartphone within sight or easy reach — even silenced and face-down — measurably reduces available working memory and cognitive capacity, even when you never touch it.**
 
-This explains why you feel more tired after "lying flat with your phone" than after work: your body is lying flat, but your nervous system is still standing in the trench, rifle in hand, watching the enemy lines.
+This explains why you feel more tired after "lying flat with your phone" than after work: your body is lying flat, while your nervous system keeps staying on standby.
 
-And once this "pseudo-rest" becomes the standard weekend procedure, the brain builds a despairing neural loop: **rest = information overload + cognitive idling + dopamine emptiness.** So the more you rest the tireder you get; the tireder you get, the less you want to do anything genuinely effective; and the less you want to do, the more you need cheap informational pleasure to fill the void — a negative feedback loop spiraling ever downward.
+And once this "pseudo-rest" becomes the standard weekend procedure, the brain builds a discouraging loop: **rest = information overload + cognitive idling + restless emptiness.** So the more you rest the tireder you get; the tireder you get, the less you want to engage with anything demanding; and the less you engage, the more you reach for cheap stimulation to fill the void.
 
 **This is not a willpower failure. This is your environment working a shift job for the algorithm.**
 
 ## III. The Way Out: A Four-Dimensional Action Guide to "Real Rest"
 
-Since pseudo-rest is a multi-dimensional problem, breaking it requires multi-dimensional coordination. Below are field-tested strategies:
+Since pseudo-rest happens across multiple dimensions, recovery needs to address them together. Note an important boundary first: this checklist is not medical advice. If you are severely sleep-deprived, physically ill, or dealing with prolonged clinical burnout, catching up on real sleep and seeking medical care always comes first. What follows works best for people who **get adequate hours of sleep yet still wake up mentally drained by screen overload**, drawn from sustained personal practice:
 
-**Energy dimension → restart charging at the mitochondrial level**
+**Energy dimension → realign daily rhythm rather than numbing senses**
 
-Real rest concerns cellular-level energy metabolism, not sensory amusement. Concretely:
+Real rest supports circadian alignment and bodily recovery, not passive sensory distraction:
 
-- **15 minutes of screen-free morning light**: after waking, touch no screen; stand by a window or on a balcony and let natural light hit your retina. This switches off melatonin and resets the circadian rhythm — far more effective than one extra hour of sleep.
-- **The 4-7-8 breath** (whenever fatigue hits): inhale 4 seconds, hold 7, exhale 8. Three rounds. This physiologically dampens sympathetic arousal — far more effective than five more minutes of short videos.
-- **The midday power break**: not a nap — 5 minutes of high-density movement (push-ups, squats, jumping jacks). It boosts mitochondrial activity and extends your afternoon cognitive endurance by 40–60 minutes.
+- **15 minutes of screen-free morning light**: after waking, leave your phone untouched; step to a window or balcony to take in natural daylight and distant scenery. Early daylight helps anchor circadian rhythm, though it does not substitute for sufficient sleep.
+- **The 4-7-8 breath** (whenever restlessness hits): inhale 4 seconds, hold 7, exhale 8, for three slow rounds. Treating the long exhale as a physical brake pedal interrupts the reflex to unlock your phone.
+- **Midday reset matched to how tired you actually are**: if a morning of desk work leaves you foggy, 5 minutes of moderate movement (a brisk walk, stretching, or bodyweight squats) pulls blood flow and attention back from the screen to your body. Yet if you genuinely missed sleep the night before, a quiet 15–20 minute nap helps far more than forcing exercise.
 
 **Environment dimension → digital minimization**
 
-- **The "empty container" method**: during rest hours, put the phone in another room, or into a timed locking box. Physical removal, not willpower.
-- **Design "theme rest days"**: each weekend, pick one day as a "low-information day" — no short videos, no news, no social feeds. Replace them with a paper book, a long walk, a meal cooked with your own hands. Within a week or two you will feel a long-lost sense of *the brain getting clean*.
+- **The "empty container" method**: during rest hours, put the phone in another room or inside a drawer out of reach. Rely on physical distance rather than willpower.
+- **Design "theme rest days"**: each weekend, pick one day as a "low-information day" — no short videos, no news feeds, no social alerts. Replace them with a paper book, a long walk, or cooking a meal by hand. Within a week or two you notice what it feels like when your mind finally feels uncluttered again.
+- **A concrete contrast from practice**: after spending an afternoon debugging complex system failures or sorting tough project bottlenecks, collapsing onto bed to scroll for an hour consistently left my head heavier and my sleep shallower; leaving the phone behind for a 40-minute walk under trees or beside water — with zero audio playing — and reading a few paper pages afterward made the same one-hour break actually restore clarity.
 
 **Observation dimension → rebuild the mental model of "rest"**
 
-- **Replace "rest duration" with a "repair score"**: after each activity, score how repaired you feel (0–10). You'll be surprised to find two hours of short videos scores a 1, while one full long run scores an 8. That's not a feeling — that's data.
+- **Replace "rest duration" with a personal "repair score"**: after an activity, note briefly how restored you feel (0–10). Keeping a quick log for a few days quickly shows that two hours of short videos rarely score above 1 or 2, while a phone-free walk or run routinely lands near 8. This is a personal compass rather than a lab instrument, yet it clearly separates genuine recovery from passive feed-consumption.
 - **Distinguish "passive recovery" from "active recovery"**: passive recovery (scrolling, lying on the sofa) is merely shutdown; active recovery (walking, meditation, deep conversation with a person, making something by hand) is system optimization. Guarantee at least three sessions of active recovery per week.
 
 **Tool dimension → use AI to help you rest**
