@@ -1,0 +1,59 @@
+{{ define "main" }}
+<style>
+.main:has(.wc-stats) { max-width:calc(72rem + var(--gap, 24px) * 2); }
+.wc-stats { --surface:var(--entry,#fffefa); --line:var(--border,#dce3da); --muted:var(--secondary,#556961); --bar:#4b866e; max-width:72rem; margin:0 auto; }
+.wc-stats [hidden] { display:none !important; }
+.wc-stats h1 { margin:0; font-size:clamp(1.8rem,5vw,2.8rem); }
+.wc-stats h2 { margin:0 0 .7rem; font-size:1.05rem; }
+.wc-stats p { margin:.4rem 0; }
+.wc-stats .stats-meta { color:var(--muted); font-size:.86rem; }
+.stats-box,.stats-card { border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:clamp(.75rem,2vw,1rem); min-width:0; }
+.wc-stats form { display:grid; gap:.5rem; max-width:25rem; margin-top:1.25rem; }
+.wc-stats input { min-height:44px; width:100%; padding:.5rem .7rem; border:1px solid var(--muted); border-radius:8px; background:var(--surface); color:var(--primary); font:inherit; }
+.wc-stats button { cursor:pointer; border:1px solid var(--line); border-radius:8px; padding:.45rem .8rem; min-height:44px; font:inherit; }
+.wc-stats button[aria-pressed="true"],.wc-stats button[type="submit"] { background:#295841; color:#fff; }
+.wc-stats :focus-visible { outline:2px solid #b27c3a; outline-offset:2px; }
+.wc-stats .stats-status { min-height:1.5em; margin:.65rem 0; }
+.stats-actions,.stats-range { display:flex; justify-content:space-between; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.stats-range { color:var(--muted); margin:.8rem 0; font-size:.84rem; }
+.stats-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.7rem; margin:0 0 .8rem; }
+.stats-card dt { font-size:.87rem; color:var(--muted); }
+.stats-card dd { margin:0; font-size:1.65rem; font-weight:650; font-variant-numeric:tabular-nums; }
+.stats-plot { display:grid; grid-template-columns:repeat(var(--days),minmax(0,1fr)); gap:clamp(2px,.6vw,6px); align-items:end; height:7rem; margin-top:1.3rem; border-bottom:1px solid var(--line); }
+.stats-slot { position:relative; height:100%; display:flex; justify-content:center; align-items:flex-end; }
+.stats-bar { position:relative; width:min(100%,35px); height:max(2px,var(--height)); background:var(--bar); border-radius:3px 3px 0 0; }
+.stats-bar span { position:absolute; bottom:100%; left:50%; transform:translateX(-50%); font-size:.7rem; white-space:nowrap; }
+.stats-dot { width:4px; height:4px; margin-bottom:.35rem; border-radius:50%; background:var(--muted); opacity:.55; }
+.stats-dates { display:flex; justify-content:space-between; margin:.2rem 0 .5rem; font-size:.76rem; color:var(--muted); }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:.8rem; }
+.wc-stats table { width:100%; border-collapse:collapse; font-size:.83rem; font-variant-numeric:tabular-nums; }
+.wc-stats th,.wc-stats td { padding:.35rem .25rem; text-align:left; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+.wc-stats th { white-space:nowrap; }
+.wc-stats td:last-child,.wc-stats th:last-child { text-align:right; }
+@media(max-width:680px) {
+  .stats-cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .stats-grid { grid-template-columns:1fr; }
+  .stats-plot:has(.stats-slot:nth-child(28)) .stats-bar span { display:none; }
+}
+</style>
+<div class="wc-stats">
+  <h1>访问统计</h1>
+  <form id="stats-auth">
+    <label for="stats-token">查看口令</label>
+    <input id="stats-token" type="password" autocomplete="off" required>
+    <button type="submit">查看统计</button>
+  </form>
+  <p class="stats-status" id="stats-status" role="status"></p>
+  <section id="stats-dashboard" aria-label="统计看板" hidden>
+    <div class="stats-actions">
+      <div role="group" aria-label="统计时段">
+        <button type="button" data-days="7" aria-pressed="true">近 7 天</button>
+        <button type="button" data-days="28" aria-pressed="false">近 28 天</button>
+      </div>
+      <button type="button" id="stats-lock">锁定看板</button>
+    </div>
+    <div id="stats-results"></div>
+  </section>
+</div>
+<script src="{{ "js/stats-dashboard.js" | relURL }}" defer></script>
+{{ end }}
