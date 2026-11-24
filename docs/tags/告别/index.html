@@ -204,7 +204,69 @@ document.addEventListener('click', function (e) {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
-</a>
+</a><script>
+(function () {
+  try {
+    if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    var EP = 'https://api.worldcorner.xyz/community/api/pv';
+    var sid = sessionStorage.getItem('wc_sid');
+    if (!sid) {
+      sid = (Math.random().toString(36).slice(2) + Date.now().toString(36)).slice(0, 24);
+      sessionStorage.setItem('wc_sid', sid);
+    }
+    var p = new URLSearchParams(location.search);
+    var src = p.get('from') || p.get('utm_source') || p.get('src') || '';
+    var camp = p.get('utm_campaign') || p.get('ep') || p.get('camp') || '';
+    if (src) sessionStorage.setItem('wc_src', src); else src = sessionStorage.getItem('wc_src') || '';
+    if (camp) sessionStorage.setItem('wc_camp', camp); else camp = sessionStorage.getItem('wc_camp') || '';
+    var refHost = '';
+    if (document.referrer) {
+      try {
+        var rh = new URL(document.referrer).hostname.toLowerCase();
+        if (rh && !/(^|\.)worldcorner\.xyz$/.test(rh)) refHost = rh;
+      } catch (_) {}
+    }
+    var device = window.innerWidth <= 768 ? 'mobile' : 'desktop';
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2) === 'en' ? 'en' : 'zh';
+    var fired = {};
+    function send(ev) {
+      try {
+        var body = JSON.stringify({
+          path: location.pathname || '/',
+          src: src,
+          campaign: camp,
+          ref_host: refHost,
+          lang: lang,
+          device: device,
+          event: ev,
+          sid: sid
+        });
+        if (navigator.sendBeacon && navigator.sendBeacon(EP, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
+        fetch(EP, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true }).catch(function () {});
+      } catch (_) {}
+    }
+    send('pv');
+    document.addEventListener('play', function (e) {
+      if (e.target && e.target.tagName === 'AUDIO' && !fired.audio) {
+        fired.audio = 1;
+        send('audio_play');
+      }
+    }, true);
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!a || !a.href || fired.inner) return;
+      try {
+        var u = new URL(a.href, location.origin);
+        if (u.pathname.indexOf('/inner/') !== -1) {
+          fired.inner = 1;
+          send('enter_inner');
+        }
+      } catch (_) {}
+    }, true);
+  } catch (_) {}
+})();
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')

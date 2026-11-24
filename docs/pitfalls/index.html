@@ -173,7 +173,7 @@ document.addEventListener('click', function (e) {
     <span><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13" rx="8" ry="5"></ellipse><path d="M4 13c0 2.8 3.6 5 8 5s8-2.2 8-5"></path><path d="M9 15h0"></path><path d="M15 10.2L20 3.4"></path></svg></span>
  <strong>16</strong> 条踩坑</span>
     <span><span class="inline-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="17" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="8" y1="3" x2="8" y2="7"></line><line x1="16" y1="3" x2="16" y2="7"></line></svg></span>
- 更新于 2026-11-19</span>
+ 更新于 2026-11-24</span>
   </div>
 </header>
 
@@ -513,7 +513,69 @@ callback 函数把 AI 结 …</p>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
         <path d="M12 6H0l6-6z" />
     </svg>
-</a>
+</a><script>
+(function () {
+  try {
+    if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    var EP = 'https://api.worldcorner.xyz/community/api/pv';
+    var sid = sessionStorage.getItem('wc_sid');
+    if (!sid) {
+      sid = (Math.random().toString(36).slice(2) + Date.now().toString(36)).slice(0, 24);
+      sessionStorage.setItem('wc_sid', sid);
+    }
+    var p = new URLSearchParams(location.search);
+    var src = p.get('from') || p.get('utm_source') || p.get('src') || '';
+    var camp = p.get('utm_campaign') || p.get('ep') || p.get('camp') || '';
+    if (src) sessionStorage.setItem('wc_src', src); else src = sessionStorage.getItem('wc_src') || '';
+    if (camp) sessionStorage.setItem('wc_camp', camp); else camp = sessionStorage.getItem('wc_camp') || '';
+    var refHost = '';
+    if (document.referrer) {
+      try {
+        var rh = new URL(document.referrer).hostname.toLowerCase();
+        if (rh && !/(^|\.)worldcorner\.xyz$/.test(rh)) refHost = rh;
+      } catch (_) {}
+    }
+    var device = window.innerWidth <= 768 ? 'mobile' : 'desktop';
+    var lang = (document.documentElement.getAttribute('lang') || 'zh').slice(0, 2) === 'en' ? 'en' : 'zh';
+    var fired = {};
+    function send(ev) {
+      try {
+        var body = JSON.stringify({
+          path: location.pathname || '/',
+          src: src,
+          campaign: camp,
+          ref_host: refHost,
+          lang: lang,
+          device: device,
+          event: ev,
+          sid: sid
+        });
+        if (navigator.sendBeacon && navigator.sendBeacon(EP, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
+        fetch(EP, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true }).catch(function () {});
+      } catch (_) {}
+    }
+    send('pv');
+    document.addEventListener('play', function (e) {
+      if (e.target && e.target.tagName === 'AUDIO' && !fired.audio) {
+        fired.audio = 1;
+        send('audio_play');
+      }
+    }, true);
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!a || !a.href || fired.inner) return;
+      try {
+        var u = new URL(a.href, location.origin);
+        if (u.pathname.indexOf('/inner/') !== -1) {
+          fired.inner = 1;
+          send('enter_inner');
+        }
+      } catch (_) {}
+    }, true);
+  } catch (_) {}
+})();
+</script>
+
 
 <script>
     let menu = document.getElementById('menu')
