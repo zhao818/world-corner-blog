@@ -3,7 +3,7 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>访问统计 | 世界一隅</title>
 <meta name="keywords" content="">
 <meta name="description" content="访问统计 - 世界一隅">
@@ -231,6 +231,7 @@ document.addEventListener('click', function (e) {
 (function () {
   try {
     if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    if (/^\/(?:en\/)?stats(?:\/|$)/i.test(location.pathname || '')) return;
     var EP = 'https://api.worldcorner.xyz/community/api/pv';
     var sid = sessionStorage.getItem('wc_sid');
     if (!sid) {

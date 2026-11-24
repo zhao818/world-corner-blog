@@ -345,6 +345,7 @@ AI 咨询给的是即时的情绪舒缓，算法食谱给的是即时的营养�
 (function () {
   try {
     if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    if (/^\/(?:en\/)?stats(?:\/|$)/i.test(location.pathname || '')) return;
     var EP = 'https://api.worldcorner.xyz/community/api/pv';
     var sid = sessionStorage.getItem('wc_sid');
     if (!sid) {

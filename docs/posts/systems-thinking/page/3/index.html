@@ -526,6 +526,7 @@ Linux 内核的 OOM Killer 算法有一个反直觉的规则：它优先杀死�
 (function () {
   try {
     if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    if (/^\/(?:en\/)?stats(?:\/|$)/i.test(location.pathname || '')) return;
     var EP = 'https://api.worldcorner.xyz/community/api/pv';
     var sid = sessionStorage.getItem('wc_sid');
     if (!sid) {

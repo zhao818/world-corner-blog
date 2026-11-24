@@ -371,6 +371,7 @@ shutil.copy(src, dst) 三行代码。零依赖。零配置。零心理负担。
 (function () {
   try {
     if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    if (/^\/(?:en\/)?stats(?:\/|$)/i.test(location.pathname || '')) return;
     var EP = 'https://api.worldcorner.xyz/community/api/pv';
     var sid = sessionStorage.getItem('wc_sid');
     if (!sid) {

@@ -408,6 +408,7 @@ $$v_{90} = \frac{13600}{90} = 151.1 ; \text{米/天}$$ $$v_{120} = \frac{13600}{
 (function () {
   try {
     if (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/i.test(location.hostname)) return;
+    if (/^\/(?:en\/)?stats(?:\/|$)/i.test(location.pathname || '')) return;
     var EP = 'https://api.worldcorner.xyz/community/api/pv';
     var sid = sessionStorage.getItem('wc_sid');
     if (!sid) {

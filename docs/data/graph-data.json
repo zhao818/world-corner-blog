@@ -4106,7 +4106,7 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -4118,7 +4118,7 @@
     },
     {
       "source": "/en/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "type": "link",
       "weight": 2.0
     },
@@ -4298,12 +4298,6 @@
     },
     {
       "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
-      "type": "link",
-      "weight": 2.0
-    },
-    {
-      "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "target": "/posts/era-observation/2026-09-02-trust-ethics/",
       "type": "link",
       "weight": 2.0
@@ -4311,6 +4305,12 @@
     {
       "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "type": "link",
+      "weight": 2.0
+    },
+    {
+      "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
@@ -4418,6 +4418,12 @@
     },
     {
       "source": "/posts/era-observation/2026-09-02-trust-ethics/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "type": "link",
+      "weight": 2.0
+    },
+    {
+      "source": "/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
       "type": "link",
       "weight": 2.0
@@ -4425,12 +4431,6 @@
     {
       "source": "/posts/era-observation/2026-09-02-trust-ethics/",
       "target": "/posts/era-observation/2026-09-02-trust-origin/",
-      "type": "link",
-      "weight": 2.0
-    },
-    {
-      "source": "/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
@@ -4466,29 +4466,29 @@
     }
   ],
   "backlinks": {
-    "/posts/era-observation/2026-09-03-trust-ethics-addendum/": [
+    "/posts/era-observation/2026-08-31-trust-crisis-group-side/": [
       {
         "sourceUrl": "/en/posts/era-observation/2026-09-02-trust-ethics/",
         "sourceTitle": "Ethics Is Not Moral Preaching; It Is Trust's Water Supply: Trust · On Ethics",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…le inside the vacuum period act?\n 👉 Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →…",
+        "excerpt": "…oiding, riding\n- The group mirror: [Trust Crisis · Group-Side Observation](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
         "type": "link"
       },
       {
-        "sourceUrl": "/posts/era-observation/2026-09-07-pseudo-demand/",
-        "sourceTitle": "伪需求：被替你量产好的“想要”",
+        "sourceUrl": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+        "sourceTitle": "Ethics Is Always Late, and Society Keeps Rebuilding It: Trust · On Ethics, Addendum",
         "sourceSection": "posts",
-        "sourceDate": "2026-09-07",
-        "excerpt": "…”换成“你应该”，灌装工艺一模一样，判别器还是同一把。\n\n那一层我们专门拆过：伦理篇补遗《伦理总在迟到，社会总在重造它》。…",
+        "sourceDate": "2026-09-03",
+        "excerpt": "…gh the vacuum.\n- The group mirror: [Trust Crisis · Group-Side Observation](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
         "type": "link"
       },
       {
-        "sourceUrl": "/en/posts/era-observation/2026-09-07-pseudo-demand/",
-        "sourceTitle": "Pseudo-Demand: The “Want” That Was Mass-Produced for You",
+        "sourceUrl": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
+        "sourceTitle": "伦理总在迟到，社会总在重造它：信任·伦理篇补遗",
         "sourceSection": "posts",
-        "sourceDate": "2026-09-07",
-        "excerpt": "…We dissected that layer separately in \"Ethics Always Arrives Late, and Society Keeps Rebuilding It\"…",
+        "sourceDate": "2026-09-03",
+        "excerpt": "…xinqian/)——六坑五势，空窗期里个体怎么走。\n- 群体侧镜像：[《信任危机·群体侧观察》](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
         "type": "link"
       },
       {
@@ -4496,7 +4496,7 @@
         "sourceTitle": "伦理不是道德说教,是信任的水源:信任·伦理篇",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…人为什么会为“善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
+        "excerpt": "…——空窗期里人怎么走:六坑五势,辨利弊、避坑、借势\n- 群体侧镜像: [《信任危机·群体侧观察》](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
         "type": "link"
       }
     ],
@@ -4550,29 +4550,29 @@
         "type": "link"
       }
     ],
-    "/posts/era-observation/2026-08-31-trust-crisis-group-side/": [
+    "/posts/era-observation/2026-09-03-trust-ethics-addendum/": [
       {
         "sourceUrl": "/en/posts/era-observation/2026-09-02-trust-ethics/",
         "sourceTitle": "Ethics Is Not Moral Preaching; It Is Trust's Water Supply: Trust · On Ethics",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…oiding, riding\n- The group mirror: [Trust Crisis · Group-Side Observation](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
+        "excerpt": "…👉 [Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →](/posts/era-observation/2026-09-03-trust-ethics-addendum/…",
         "type": "link"
       },
       {
-        "sourceUrl": "/en/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-        "sourceTitle": "Ethics Is Always Late, and Society Keeps Rebuilding It: Trust · On Ethics, Addendum",
+        "sourceUrl": "/posts/era-observation/2026-09-07-pseudo-demand/",
+        "sourceTitle": "伪需求：被替你量产好的“想要”",
         "sourceSection": "posts",
-        "sourceDate": "2026-09-03",
-        "excerpt": "…gh the vacuum.\n- The group mirror: [Trust Crisis · Group-Side Observation](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
+        "sourceDate": "2026-09-07",
+        "excerpt": "…”换成“你应该”，灌装工艺一模一样，判别器还是同一把。\n\n那一层我们专门拆过：伦理篇补遗《伦理总在迟到，社会总在重造它》。…",
         "type": "link"
       },
       {
-        "sourceUrl": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-        "sourceTitle": "伦理总在迟到，社会总在重造它：信任·伦理篇补遗",
+        "sourceUrl": "/en/posts/era-observation/2026-09-07-pseudo-demand/",
+        "sourceTitle": "Pseudo-Demand: The “Want” That Was Mass-Produced for You",
         "sourceSection": "posts",
-        "sourceDate": "2026-09-03",
-        "excerpt": "…xinqian/)——六坑五势，空窗期里个体怎么走。\n- 群体侧镜像：[《信任危机·群体侧观察》](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
+        "sourceDate": "2026-09-07",
+        "excerpt": "…We dissected that layer separately in \"Ethics Always Arrives Late, and Society Keeps Rebuilding It\"…",
         "type": "link"
       },
       {
@@ -4580,7 +4580,7 @@
         "sourceTitle": "伦理不是道德说教,是信任的水源:信任·伦理篇",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…——空窗期里人怎么走:六坑五势,辨利弊、避坑、借势\n- 群体侧镜像: [《信任危机·群体侧观察》](/posts/era-observation/2026-08-31-trust-crisis-group-side/…",
+        "excerpt": "…人为什么会为“善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
         "type": "link"
       }
     ],
