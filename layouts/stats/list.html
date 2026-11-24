@@ -1,0 +1,96 @@
+{{ define "main" }}
+<style>
+  .stats-wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; }
+  .stats-wrap h1 { font-size: 24px; margin-bottom: 6px; }
+  .stats-wrap .sub { color: #6B6558; font-size: 14px; margin-bottom: 20px; }
+  .stats-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stats-card { background: #fff; border: 1px solid #ECE7DC; border-radius: 14px; padding: 16px; }
+  .stats-card b { display: block; font-size: 26px; color: #2F5D50; }
+  .stats-card span { font-size: 13px; color: #6B6558; }
+  .stats-sec { background: #fff; border: 1px solid #ECE7DC; border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+  .stats-sec h2 { font-size: 16px; margin-bottom: 12px; }
+  .stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .stats-table td, .stats-table th { padding: 6px 4px; border-bottom: 1px solid #F0EBDF; text-align: left; }
+  .stats-table td:last-child, .stats-table th:last-child { text-align: right; }
+  .stats-bar-row { display: flex; align-items: flex-end; gap: 4px; height: 90px; margin-top: 8px; }
+  .stats-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; min-width: 0; }
+  .stats-bar { width: 100%; max-width: 26px; background: #2F5D50; border-radius: 4px 4px 0 0; }
+  .stats-bar-col small { font-size: 10px; color: #9E9789; white-space: nowrap; }
+  .stats-token { display: flex; gap: 8px; margin-bottom: 20px; }
+  .stats-token input { flex: 1; padding: 10px 12px; border: 1px solid #E7E1D3; border-radius: 10px; font-size: 14px; }
+  .stats-token button { padding: 10px 18px; border: none; border-radius: 10px; background: #2F5D50; color: #fff; font-size: 14px; cursor: pointer; }
+  .stats-note { font-size: 13px; color: #9E9789; line-height: 1.6; }
+  .stats-err { background: #FDF0E6; border: 1px solid #F0D9C0; color: #8A5A2B; border-radius: 12px; padding: 14px; font-size: 14px; line-height: 1.6; }
+</style>
+
+<div class="stats-wrap">
+  <h1>访问统计</h1>
+  <p class="sub">只给站长看。数据来自站内第一方统计，不用 Cookie。</p>
+
+  <div class="stats-token">
+    <input id="stats-token" type="password" placeholder="输入查看口令（只存在你自己的浏览器里）" autocomplete="off">
+    <button id="stats-load">查看</button>
+  </div>
+  <div id="stats-out"></div>
+  <p class="stats-note">口令对应 Worker 里的 STATS_TOKEN。接口：GET /community/api/pv/stats?days=30。</p>
+</div>
+
+<script>
+(function () {
+  var API = 'https://api.worldcorner.xyz/community/api/pv/stats';
+  var out = document.getElementById('stats-out');
+  var input = document.getElementById('stats-token');
+  input.value = localStorage.getItem('wc_stats_token') || '';
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function rows(list, cols) {
+    if (!list || !list.length) return '<p class="stats-note">暂无数据。</p>';
+    return '<table class="stats-table"><tbody>' + list.map(function (r) {
+      return '<tr>' + cols.map(function (c) { return '<td>' + esc(r[c]) + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</tbody></table>';
+  }
+  function render(d) {
+    var maxDay = 0;
+    (d.by_day || []).forEach(function (x) { if (x.pv > maxDay) maxDay = x.pv; });
+    var bars = (d.by_day || []).slice(-14).map(function (x) {
+      var h = maxDay ? Math.max(4, Math.round(x.pv / maxDay * 64)) : 4;
+      return '<div class="stats-bar-col"><div class="stats-bar" style="height:' + h + 'px" title="' + esc(x.day) + '：' + x.pv + '"></div><small>' + esc(String(x.day).slice(5)) + '</small></div>';
+    }).join('');
+    out.innerHTML =
+      '<div class="stats-cards">' +
+      '<div class="stats-card"><b>' + (d.total_pv || 0) + '</b><span>总访问（' + (d.days || 30) + ' 天）</span></div>' +
+      '<div class="stats-card"><b>' + (d.today_pv || 0) + '</b><span>今天访问</span></div>' +
+      '<div class="stats-card"><b>' + (d.unique_visitors || 0) + '</b><span>去重访客</span></div>' +
+      '<div class="stats-card"><b>' + (d.audio_plays || 0) + '</b><span>音频播放</span></div>' +
+      '<div class="stats-card"><b>' + (d.enter_inner || 0) + '</b><span>进入静室</span></div>' +
+      '</div>' +
+      '<div class="stats-sec"><h2>最近 14 天</h2><div class="stats-bar-row">' + (bars || '<p class="stats-note">暂无数据。</p>') + '</div></div>' +
+      '<div class="stats-sec"><h2>来源</h2>' + rows(d.by_src, ['src', 'pv', 'uv']) + '</div>' +
+      '<div class="stats-sec"><h2>热门页面</h2>' + rows(d.by_page, ['path', 'pv', 'uv']) + '</div>' +
+      '<div class="stats-sec"><h2>设备 / 语言</h2>' + rows((d.by_device || []).concat(d.by_lang || []), ['device', 'pv']) + '</div>';
+  }
+  function load() {
+    var token = input.value.trim();
+    if (!token) { out.innerHTML = '<div class="stats-err">先输入查看口令。</div>'; return; }
+    localStorage.setItem('wc_stats_token', token);
+    out.innerHTML = '<p class="stats-note">正在拉取数据…</p>';
+    fetch(API + '?days=30', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) {
+        if (r.status === 401) throw new Error('口令不对，请检查 STATS_TOKEN。');
+        if (r.status === 404) throw new Error('统计接口还没上线：先把 Worker 里 /community/api/pv/stats 加上再部署。');
+        if (!r.ok) throw new Error('接口返回 ' + r.status + '，稍后再试。');
+        return r.json();
+      })
+      .then(render)
+      .catch(function (e) { out.innerHTML = '<div class="stats-err">' + esc(e.message) + '</div>'; });
+  }
+  document.getElementById('stats-load').addEventListener('click', load);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') load(); });
+  if (input.value) load();
+})();
+</script>
+{{ end }}
