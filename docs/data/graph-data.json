@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-11-08",
   "stats": {
-    "articlesCount": 77,
+    "articlesCount": 78,
     "tagsCount": 163,
-    "nodesCount": 240,
+    "nodesCount": 241,
     "linksCount": 281,
     "backlinksArticlesCount": 4
   },
@@ -1483,6 +1483,21 @@
       "tags": [],
       "date": "",
       "description": "把 Windows 电脑里的文件拖到桌面纸飞机图标，就能发送到自己绑定的安卓手机。",
+      "val": 6,
+      "incomingCount": 0,
+      "outgoingCount": 0
+    },
+    {
+      "id": "/downloads/apps/",
+      "title": "安卓应用下载",
+      "url": "/downloads/apps/",
+      "type": "article",
+      "lang": "zh",
+      "section": "downloads",
+      "sectionKey": "downloads",
+      "tags": [],
+      "date": "",
+      "description": "在安卓手机上点选应用，下载后打开 APK 即可安装。",
       "val": 6,
       "incomingCount": 0,
       "outgoingCount": 0
@@ -4313,7 +4328,7 @@
     },
     {
       "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
+      "target": "/posts/era-observation/2026-09-02-trust-ethics/",
       "type": "link",
       "weight": 2.0
     },
@@ -4325,7 +4340,7 @@
     },
     {
       "source": "/posts/era-observation/2026-09-03-trust-ethics-addendum/",
-      "target": "/posts/era-observation/2026-09-02-trust-ethics/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
@@ -4439,13 +4454,13 @@
     },
     {
       "source": "/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-09-02-trust-origin/",
+      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
       "type": "link",
       "weight": 2.0
     },
     {
       "source": "/posts/era-observation/2026-09-02-trust-ethics/",
-      "target": "/posts/era-observation/2026-08-31-trust-crisis-group-side/",
+      "target": "/posts/era-observation/2026-09-02-trust-origin/",
       "type": "link",
       "weight": 2.0
     },
@@ -4487,7 +4502,7 @@
         "sourceTitle": "Ethics Is Not Moral Preaching; It Is Trust's Water Supply: Trust · On Ethics",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…le inside the vacuum period act?\n 👉 Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →…",
+        "excerpt": "…👉 [Read the system's final chapter: On Ethics · Addendum — Ethics Is Always Late, and Society Keeps Rebuilding It →](/posts/era-observation/2026-09-03-trust-ethics-addendum/…",
         "type": "link"
       },
       {
@@ -4511,7 +4526,7 @@
         "sourceTitle": "伦理不是道德说教,是信任的水源:信任·伦理篇",
         "sourceSection": "posts",
         "sourceDate": "2026-09-02",
-        "excerpt": "…人为什么会为“善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
+        "excerpt": "…善”激烈争吵？处于真空期里的普通人该怎么行动？  \n 👉 阅读体系终章：《伦理篇·补遗——伦理总在迟到，社会总在重造它》→…",
         "type": "link"
       }
     ],
@@ -7842,6 +7857,24 @@
           "消费主义",
           "马尔库塞"
         ]
+      }
+    ],
+    "/downloads/android-drop/": [
+      {
+        "url": "/downloads/apps/",
+        "title": "安卓应用下载",
+        "section": "downloads",
+        "date": "",
+        "tags": []
+      }
+    ],
+    "/downloads/apps/": [
+      {
+        "url": "/downloads/android-drop/",
+        "title": "安卓拖拽传文件",
+        "section": "downloads",
+        "date": "",
+        "tags": []
       }
     ]
   }
